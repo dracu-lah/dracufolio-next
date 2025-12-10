@@ -131,5 +131,9 @@ sudo usermod -aG docker $USER
 # 10. Power Management
 echo "Enabling TLP..."
 sudo systemctl enable --now tlp.service
+sudo systemctl enable ly.service
+sudo systemctl set-default graphical.target
+/usr/lib/xdg-desktop-portal
+chsh -s /bin/zsh
 
 echo "Setup complete! Please reboot or log out and back in for all changes (especially Docker group permissions) to take effect."
