@@ -7,11 +7,11 @@ echo "Starting Sway Arch Setup..."
 # 1. AUR Helper (yay)
 if ! command -v yay &>/dev/null; then
   echo "Installing yay..."
-  sudo pacman -S --needed --noconfirm git base-devel
+  sudo pacman -S --needed git base-devel
   # Clone to a temporary directory to keep the repo clean
   git clone https://aur.archlinux.org/yay.git /tmp/yay
   cd /tmp/yay
-  makepkg -si --noconfirm
+  makepkg -si
   cd -
   rm -rf /tmp/yay
 else
@@ -20,20 +20,21 @@ fi
 
 # 2. Install Sway & Essential Packages
 echo "Installing Sway and essential packages..."
-sudo pacman -S --needed --noconfirm \
+sudo pacman -S --needed \
   sway swaylock swaybg swayidle \
   bluez blueman dunst alacritty brightnessctl cliphist fd fzf grim \
   ly mpv nemo nemo-fileroller nwg-look pipewire pipewire-alsa \
-  pipewire-audio pipewire-jack pipewire-pulse playerctl ripgrep slurp \
+  pipewire-audio pipewire-jack pipewire-pulse pavucontrol playerctl ripgrep slurp \
   tmux tlp ttf-font-awesome ttf-jetbrains-mono-nerd waybar \
   wf-recorder wireplumber wl-clipboard wofi \
   stow zsh foot pamixer gnome-terminal lazygit \
-  xdg-desktop-portal-wlr xdg-desktop-portal imv polkit-gnome wlsunset wlr-randr
+  xdg-desktop-portal-wlr xdg-desktop-portal imv polkit-gnome wlsunset wlr-randr \
+  kdenlive fastfetch btop telegram-desktop
 
 # 3. Install AUR Packages
 echo "Installing AUR packages..."
-yay -S --needed --noconfirm \
-  waylogout-git neovim-git wifi-qr zen-browser-bin nodejs-lts-jod \
+yay -S --needed \
+  waylogout-git neovim-git wifi-qr zen-browser-bin nodejs-lts-jod npm \
   wl-color-picker dragon-drop \
   nemo-preview material-black-colors-theme mint-y-icons
 
@@ -55,7 +56,6 @@ stow .
 
 # 5. Zimfw
 echo "Installing Zimfw..."
-# Using zsh to run the install script as per README
 if [ ! -f "${ZIM_HOME:-${HOME}/.zim}/zimfw.zsh" ]; then
   curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
 else
@@ -73,7 +73,6 @@ rm -rf "$HOME/.config/nvim/.git"
 
 # 7. PNPM Setup
 echo "Installing PNPM..."
-# Check if pnpm is already installed to avoid unnecessary re-install
 if ! command -v pnpm &>/dev/null; then
   curl -fsSL https://get.pnpm.io/install.sh | sh -
 else
@@ -82,40 +81,30 @@ fi
 
 # 8. Git Setup
 echo "Configuring Git..."
-read -p "Enter Git user.email: " git_email
-read -p "Enter Git user.name: " git_name
+# Default values from README provided as hints
+read -p "Enter Git user.email [nevilnicks4321@gmail.com]: " git_email
+git_email=${git_email:-nevilnicks4321@gmail.com}
 
-if [ -n "$git_email" ] && [ -n "$git_name" ]; then
-  git config --global user.email "$git_email"
-  git config --global user.name "$git_name"
-else
-  echo "Git credentials skipped."
-fi
+read -p "Enter Git user.name [dracu-lah]: " git_name
+git_name=${git_name:-dracu-lah}
+
+git config --global user.email "$git_email"
+git config --global user.name "$git_name"
 
 if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
-  if [ -n "$git_email" ]; then
-    read -p "Generate SSH key for $git_email? (y/N): " generate_ssh
-  else
-    read -p "Generate SSH key? (y/N): " generate_ssh
-  fi
+  read -p "Generate SSH key for $git_email? (y/N): " generate_ssh
 
   if [[ "$generate_ssh" =~ ^[Yy]$ ]]; then
     echo "Generating SSH key..."
-    # Use provided email or a default/empty comment if none provided
-    ssh_comment="${git_email:-generated-by-setup-script}"
-    # -N "" creates a key with no passphrase
-    ssh-keygen -t ed25519 -C "$ssh_comment" -f "$HOME/.ssh/id_ed25519" -N ""
+    ssh-keygen -t ed25519 -C "$git_email" -f "$HOME/.ssh/id_ed25519" -N ""
 
-    echo "Attempting to copy public key to clipboard..."
     if command -v wl-copy &>/dev/null; then
       cat "$HOME/.ssh/id_ed25519.pub" | wl-copy
-      echo "Public key copied to clipboard."
+      echo "Public key copied to clipboard (wl-copy)."
     else
-      echo "wl-copy not found. Here is your public key:"
+      echo "Here is your public key:"
       cat "$HOME/.ssh/id_ed25519.pub"
     fi
-  else
-    echo "SSH key generation skipped."
   fi
 else
   echo "SSH key already exists."
@@ -123,17 +112,21 @@ fi
 
 # 9. Docker Setup
 echo "Setting up Docker..."
-sudo pacman -S --needed --noconfirm docker docker-compose
+sudo pacman -S --needed docker docker-compose
 sudo systemctl start docker.service
 sudo systemctl enable docker.service
 sudo usermod -aG docker $USER
 
-# 10. Power Management
-echo "Enabling TLP..."
+# 10. Final System Config
+echo "Enabling TLP and Display Manager..."
 sudo systemctl enable --now tlp.service
 sudo systemctl enable ly.service
 sudo systemctl set-default graphical.target
-/usr/lib/xdg-desktop-portal
-chsh -s /bin/zsh
 
-echo "Setup complete! Please reboot or log out and back in for all changes (especially Docker group permissions) to take effect."
+# Change shell to ZSH
+if [ "$SHELL" != "/bin/zsh" ]; then
+  echo "Changing default shell to zsh..."
+  chsh -s /bin/zsh
+fi
+
+echo "Setup complete! Please reboot for group permissions and shell changes to take effect."
