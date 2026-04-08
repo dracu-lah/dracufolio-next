@@ -183,7 +183,7 @@ const ImageModal = ({
 };
 
 // Main Projects Component
-const Projects = ({ projects }: Projects) => {
+const Projects = ({ projects }: { projects: Projects }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
