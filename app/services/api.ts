@@ -1,43 +1,36 @@
-import {
-  databases,
-  storage,
-  Query,
-  bucket,
-  collection,
-  databaseId,
-} from "@/services/appwrite";
+import socialsData from "@/appwrite/data/socials.json";
+import aboutData from "@/appwrite/data/about.json";
+import projectsData from "@/appwrite/data/projects.json";
 
 export async function GetGithubURLAPI() {
-  const res = await databases.listDocuments(databaseId, collection.socials);
-  return res.documents[0]?.github_url ?? null;
+  return socialsData.github_url;
 }
 
 export async function GetResumeAPI() {
-  const res = await storage.listFiles(bucket.resume);
-  const file = res.files[0];
-  return file ? storage.getFileView(bucket.resume, file.$id) : null;
+  return "/appwrite/resume/Nevil-2-Years-Frontend-Resume.pdf";
 }
 
 export async function GetHeroImageAPI() {
-  const res = await storage.listFiles(bucket.heroImage);
-  const file = res.files[0];
-  return file ? storage.getFileView(bucket.heroImage, file.$id) : null;
+  return "/appwrite/hero-image/hero_image.jpg";
 }
 
 export async function GetAboutDescriptionAPI() {
-  const res = await databases.listDocuments(databaseId, collection.about);
-  return res.documents[0]?.about_description ?? null;
+  return aboutData.about_description;
 }
 
 export async function GetSkillsAPI() {
-  const res = await storage.listFiles(bucket.skills);
-  return res.files.map((file) => storage.getFileView(bucket.skills, file.$id));
+  return [
+    "/appwrite/skills/git.png",
+    "/appwrite/skills/html5.png",
+    "/appwrite/skills/react.png",
+    "/appwrite/skills/tailwindcss.png",
+    "/appwrite/skills/linux.png",
+    "/appwrite/skills/zustand.png",
+    "/appwrite/skills/neovim.png",
+    "/appwrite/skills/typescript.png",
+  ];
 }
 
 export async function GetProjectsAPI() {
-  const res = await databases.listDocuments(databaseId, collection.projects, [
-    Query.equal("isPublished", true),
-    Query.orderAsc("sort_order"),
-  ]);
-  return res.documents;
+  return projectsData.filter((p) => p.isPublished).sort((a, b) => a.sort_order - b.sort_order);
 }
