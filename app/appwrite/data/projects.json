@@ -76,17 +76,17 @@
     "project_link": "https://nosecrets-frontend.vercel.app/",
     "github_link": null
   },
-  {
-    "$id": "695e31740002b90bc657",
-    "project_title": "Sindhuja Regency",
-    "project_meta_description": "A minimalist landing page for a premium 10-story apartment complex, emphasizing modern living and easy user navigation.",
-    "project_skills": ["ReactJS", "TailwindCSS", "Framer Motion"],
-    "img_url": "/appwrite/projects/sindhuja-regency.png",
-    "isPublished": true,
-    "sort_order": 8,
-    "project_link": "https://sindhuja-old.netlify.app/",
-    "github_link": null
-  },
+  // {
+  //   "$id": "695e31740002b90bc657",
+  //   "project_title": "Sindhuja Regency",
+  //   "project_meta_description": "A minimalist landing page for a premium 10-story apartment complex, emphasizing modern living and easy user navigation.",
+  //   "project_skills": ["ReactJS", "TailwindCSS", "Framer Motion"],
+  //   "img_url": "/appwrite/projects/sindhuja-regency.png",
+  //   "isPublished": true,
+  //   "sort_order": 8,
+  //   "project_link": "https://sindhuja-old.netlify.app/",
+  //   "github_link": null
+  // },
   {
     "$id": "69116d7d0017b18ed2c2",
     "project_title": "Oroex Marketing Website",
