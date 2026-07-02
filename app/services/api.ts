@@ -11,7 +11,7 @@ export async function GetResumeAPI() {
 }
 
 export async function GetHeroImageAPI() {
-  return "/appwrite/hero-image/hero_image.jpg";
+  return "/appwrite/hero-image/hero_image_v2.jpg";
 }
 
 export async function GetAboutDescriptionAPI() {
