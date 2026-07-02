@@ -1,36 +1,60 @@
-import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import Contact from "./components/ContactForm";
-import { Linkedin } from "lucide-react";
+import Reveal from "@/components/common/Reveal";
+import { Linkedin, Mail } from "lucide-react";
 
 const ContactSection = () => {
   return (
-    <section
-      id="contact"
-      className="flex  flex-col lg:flex-row md:gap-x-10 lg:justify-around justify-center items-center min-h-screen"
-    >
-      <div className="text-center text-primary">
-        <h1 className="text-5xl py-10  lg:text-6xl font-bold">CONTACT ME</h1>
-        <p className="px-2">I have got just what you need. Let&apos;s talk</p>
-        <div className="flex flex-col justify-center items-center pt-4">
-          <div className="flex flex-col gap-y-2 justify-center items-center">
-            <p className="flex gap-x-2">
-              <EnvelopeIcon className="w-5" />
-              nevilkrishna@gmail.com
+    <section id="contact" className="mx-auto max-w-6xl px-6 py-16 md:py-24 lg:py-32">
+      <div className="grid items-start gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+        <div className="flex flex-col items-start gap-6">
+          <Reveal>
+            <p className="font-mono text-sm uppercase tracking-[0.3em] text-muted-foreground">
+              Get in touch
             </p>
-
-            <p className="flex gap-x-2">
-              <Linkedin className="w-5" />
-              <a
-                href="https://linkedin.com/in/nevil-krishna-k-77170222a"
-                target="_blank"
-              >
-                LinkedIn
-              </a>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <h2 className="font-display text-4xl font-bold tracking-tight md:text-5xl">
+              Contact Me
+            </h2>
+          </Reveal>
+          <Reveal delay={0.16}>
+            <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
+              Have a role, a project, or a bug that refuses to die? Send a
+              message and I&apos;ll reply within a day.
             </p>
-          </div>
+          </Reveal>
+          <Reveal delay={0.24} className="w-full">
+            <ul className="w-full max-w-md divide-y divide-border border border-border">
+              <li>
+                <a
+                  href="mailto:nevilkrishna@gmail.com"
+                  className="flex items-center gap-4 px-5 py-4 text-base transition-colors duration-300 hover:bg-card md:text-lg"
+                >
+                  <Mail className="size-6 text-muted-foreground" aria-hidden />
+                  nevilkrishna@gmail.com
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://linkedin.com/in/nevil-krishna-k-77170222a"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 px-5 py-4 text-base transition-colors duration-300 hover:bg-card md:text-lg"
+                >
+                  <Linkedin
+                    className="size-6 text-muted-foreground"
+                    aria-hidden
+                  />
+                  LinkedIn
+                </a>
+              </li>
+            </ul>
+          </Reveal>
         </div>
+        <Reveal delay={0.15} className="w-full">
+          <Contact />
+        </Reveal>
       </div>
-      <Contact />
     </section>
   );
 };

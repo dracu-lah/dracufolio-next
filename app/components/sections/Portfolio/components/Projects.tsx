@@ -1,233 +1,139 @@
 "use client";
 import Image from "next/image";
-import { Globe, X, Github, Maximize2 } from "lucide-react";
-import { useRef, useState, useEffect } from "react";
+import Link from "next/link";
+import { Globe, Github } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { type Projects } from "@/types/appwrite";
+import { type Project } from "@/types/portfolio";
 
 // Project Card Component
 const ProjectCard = ({
   project,
-  onImageClick,
+  index,
 }: {
-  project: Projects[0];
-  onImageClick: (imageUrl: string) => void;
+  project: Project;
+  index: number;
 }) => {
-  const [isImageHovered, setIsImageHovered] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   return (
-    <div className="bg-card border-2 dark:border-secondary/20 border-secondary/60 snap-center overflow-hidden  flex flex-col min-w-80   ">
-      <div
-        className="relative"
-        onMouseEnter={() => setIsImageHovered(true)}
-        onMouseLeave={() => setIsImageHovered(false)}
-      >
-        <div className="aspect-video">
+    <motion.article
+      initial={reduceMotion ? false : { opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{
+        duration: 0.6,
+        delay: (index % 2) * 0.08,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      className="group relative flex min-w-80 snap-center flex-col overflow-hidden border border-border bg-card transition-colors duration-300 hover:border-muted-foreground"
+    >
+      {/* Whole card opens the project page */}
+      <Link
+        href={`/projects/${project.slug}`}
+        aria-label={`Open ${project.title} details`}
+        className="absolute inset-0 z-10"
+      />
+
+      <div className="flex items-center justify-between border-b border-border px-5 py-3 font-mono text-[13px] uppercase tracking-[0.25em] text-muted-foreground">
+        <span>{String(index + 1).padStart(2, "0")}</span>
+        {project.year && <span>{project.year}</span>}
+      </div>
+
+      <div className="relative">
+        <div className="relative aspect-video">
           <Image
             draggable="false"
             fill
-            src={project.img_url}
-            className="cursor-pointer w-full h-full  lg:hover:opacity-80 duration-300 object-cover"
-            alt={project.project_title}
-            onClick={() => onImageClick(project.img_url)}
+            sizes="(min-width: 1024px) 50vw, 90vw"
+            src={project.images[0]}
+            className="h-full w-full object-cover duration-300 lg:group-hover:opacity-90"
+            alt={`Screenshot of ${project.title}`}
           />
         </div>
 
-        {/* Maximize icon on hover */}
-        <div
-          className={`absolute inset-0 flex items-center justify-center bg-black/40 transition-opacity duration-300 ${
-            isImageHovered ? "opacity-0 lg:opacity-100" : "opacity-0"
-          }`}
-          onClick={() => onImageClick(project.img_url)}
-        >
-          <Maximize2 size={40} className="text-white drop-shadow-lg" />
+        {/* Quick links sit above the stretched link */}
+        <div className="absolute top-3 right-3 z-20 flex gap-2">
+          {project.liveUrl && (
+            <Button
+              asChild
+              size="sm"
+              className="bg-background/85 backdrop-blur-sm"
+            >
+              <a
+                target="_blank"
+                href={project.liveUrl}
+                rel="noopener noreferrer"
+                aria-label="Visit project website"
+              >
+                <span className="font-medium">Live</span>
+                <Globe size={18} />
+              </a>
+            </Button>
+          )}
+          {project.githubUrl && (
+            <Button
+              asChild
+              size="sm"
+              className="bg-background/85 backdrop-blur-sm"
+            >
+              <a
+                target="_blank"
+                href={project.githubUrl}
+                rel="noopener noreferrer"
+                aria-label="View GitHub repository"
+              >
+                <span className="font-medium">Code</span>
+                <Github size={18} />
+              </a>
+            </Button>
+          )}
         </div>
-
-        {/* Links container */}
-        <ProjectLinks project={project} />
       </div>
-      <ProjectContent project={project} />
-    </div>
-  );
-};
 
-// Project Links Component
-const ProjectLinks = ({ project }: { project: Projects[0] }) => {
-  return (
-    <div className="absolute top-2 right-2 flex gap-2">
-      {project.project_link && (
-        <Button asChild>
-          <a
-            target="_blank"
-            href={project.project_link}
-            rel="noopener noreferrer"
-            aria-label="Visit project website"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <span className="font-medium">Link</span>
-            <Globe size={20} />
-          </a>
-        </Button>
-      )}
-      {project.github_link && (
-        <Button asChild>
-          <a
-            target="_blank"
-            href={project.github_link}
-            rel="noopener noreferrer"
-            aria-label="View GitHub repository"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <span className="font-medium">Code</span>
-            <Github size={20} className="" />
-          </a>
-        </Button>
-      )}
-    </div>
-  );
-};
-
-// Project Content Component
-const ProjectContent = ({ project }: { project: Projects[0] }) => {
-  type WordTrimmer = (
-    text: string,
-    maxWords?: number,
-    ellipsis?: string,
-  ) => string;
-
-  const trimTo100Words: WordTrimmer = (
-    text,
-    maxWords = 100,
-    ellipsis = "...",
-  ) => {
-    // 💡 Fix: Use a new variable (words) instead of reassigning 't' (text)
-    const words = (text || "").trim().split(/\s+/);
-
-    return words.length <= maxWords
-      ? words.join(" ")
-      : words.slice(0, maxWords).join(" ") + ellipsis;
-  };
-  return (
-    <div className="flex-1 flex flex-col">
-      <div className="px-6 py-4 flex-1">
-        <div className="font-bold text-xl text-left mb-2">
-          {project.project_title}
+      <div className="flex flex-1 flex-col">
+        <div className="flex-1 border-t border-border px-6 py-5">
+          <h3 className="font-display mb-3 text-left text-xl font-bold tracking-tight transition-colors duration-300 group-hover:text-phosphor md:text-2xl">
+            {project.title}
+          </h3>
+          <p className="line-clamp-3 text-left text-base leading-relaxed text-muted-foreground">
+            {project.description}
+          </p>
         </div>
-        <p className="opacity-60 line-clamp-3 whitespace-break-spaces  text-justify text-sm md:text-base">
-          {trimTo100Words(project.project_meta_description)}
-        </p>
+        <div className="flex flex-wrap gap-2 overflow-hidden px-6 pb-6">
+          {project.skills.map((skill: string) => (
+            <span
+              key={skill}
+              className="inline-block border border-border px-2.5 py-1 font-mono text-sm tracking-wide text-muted-foreground"
+            >
+              {skill}
+            </span>
+          ))}
+        </div>
       </div>
-      <div className="px-4 pb-4 overflow-hidden">
-        {project.project_skills.map((skill: string, index: number) => (
-          <span
-            key={index}
-            className="font-bold bg-secondary rounded-full px-3 py-1 text-xs m-1 inline-block"
-          >
-            #{skill}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-// Image Modal Component
-const ImageModal = ({
-  imageUrl,
-  onClose,
-}: {
-  imageUrl: string;
-  onClose: () => void;
-}) => {
-  // Handle escape key press
-  useEffect(() => {
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        onClose();
-      }
-    };
-
-    // Add event listener when modal is mounted
-    document.addEventListener("keydown", handleEscape);
-
-    // Remove event listener when modal is unmounted
-    return () => {
-      document.removeEventListener("keydown", handleEscape);
-    };
-  }, [onClose]);
-
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in duration-300"
-      onClick={onClose}
-    >
-      <div className="relative max-w-5xl max-h-[90vh] w-full animate-in zoom-in-95 duration-300 ease-out">
-        <Button
-          onClick={onClose}
-          className="absolute -top-12 right-0 bg-white/10 hover:bg-white/20 text-white transition-all duration-200 hover:scale-110"
-          aria-label="Close modal"
-        >
-          <X size={24} />
-        </Button>
-        <Image
-          src={imageUrl}
-          alt="Project preview"
-          width={1920}
-          height={1080}
-          className="w-full h-auto  object-contain rounded-lg shadow-2xl"
-          onClick={(e) => e.stopPropagation()}
-        />
-      </div>
-    </div>
+    </motion.article>
   );
 };
 
 // Main Projects Component
-const Projects = ({ projects }: { projects: Projects }) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
-  const openModal = (imageUrl: string) => {
-    setSelectedImage(imageUrl);
-  };
-
-  const closeModal = () => {
-    setSelectedImage(null);
-  };
-
+const Projects = ({ projects }: { projects: Project[] }) => {
   return (
     <>
       {/* Mobile: Horizontal Scroll */}
       <div className="relative lg:hidden">
-        <div
-          ref={scrollRef}
-          className="gap-4 max-w-[90vw] snap-x snap-mandatory overflow-x-scroll overflow-y-hidden flex scrollbar-visible"
-        >
-          {projects.map((project: Projects[0]) => (
-            <ProjectCard
-              key={project.$id}
-              project={project}
-              onImageClick={openModal}
-            />
+        <div className="scrollbar-visible flex max-w-[90vw] snap-x snap-mandatory gap-4 overflow-x-scroll overflow-y-hidden pb-4">
+          {projects.map((project, index) => (
+            <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
       </div>
 
-      {/* Desktop: Bento Grid */}
-      <div className="hidden lg:grid lg:grid-cols-2 xl:grid-cols-3 gap-6 max-w-7xl mx-auto">
-        {projects.map((project: Projects[0]) => (
-          <ProjectCard
-            key={project.$id}
-            project={project}
-            onImageClick={openModal}
-          />
+      {/* Desktop: two-column grid for larger imagery */}
+      <div className="hidden gap-8 lg:grid lg:grid-cols-2">
+        {projects.map((project, index) => (
+          <ProjectCard key={project.id} project={project} index={index} />
         ))}
       </div>
-
-      {/* Image Modal */}
-      {selectedImage && (
-        <ImageModal imageUrl={selectedImage} onClose={closeModal} />
-      )}
     </>
   );
 };

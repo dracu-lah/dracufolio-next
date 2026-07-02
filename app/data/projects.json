@@ -1,0 +1,443 @@
+[
+  {
+    "id": "6a4f9c2e00187ab3d4f1",
+    "slug": "seatinfo",
+    "title": "SeatInfo",
+    "description": "Know your seat before you sit. SeatInfo unifies to-scale seat maps, live availability, AI seat picks, and real traveler reviews behind one flight-number search.",
+    "tagline": "Know your seat before you sit: to-scale aircraft seat maps, live availability, and AI seat picks behind one flight-number search.",
+    "longDescription": [
+      "SeatInfo is a flight seat-intelligence platform that shows travelers exactly where they will sit before they fly. Search by flight number or by route and get the whole cabin drawn to scale, seat by seat, with seat ratings, window views, and onboard amenities for aircraft like the Emirates 777-300ER, Qatar A350-900, and Cathay Pacific A350-1000. After SeatGuru shut down in October 2025, SeatInfo positions itself as its natural replacement.",
+      "The product runs on a freemium model. The free tier includes every to-scale seat map, flight and route search, basic AI seat recommendations, and community reviews with photos. Pro adds live seat-availability alerts, aircraft-swap alerts, and upgrade-space tracking. Accounts support Google sign-in with synced favorites and trips.",
+      "The site is internationalized with a language switcher, ships a blog and structured-data FAQ, and cross-promotes FlightPoints as its sibling product."
+    ],
+    "features": [
+      "To-scale, seat-by-seat cabin maps for major aircraft",
+      "Search by flight number or route with cabin-class filters",
+      "AI seat recommendations plus community reviews and photos",
+      "Pro alerts for live availability, aircraft swaps, and upgrade space",
+      "Google or email sign-in with synced favorites",
+      "Multi-language UI, blog, and FAQ"
+    ],
+    "skills": ["NextJS", "TailwindCSS", "Cloudflare"],
+    "images": ["/appwrite/projects/seatinfo.png"],
+    "liveUrl": "https://seatinfo.com",
+    "githubUrl": null,
+    "year": "2026",
+    "published": true,
+    "order": 0
+  },
+  {
+    "id": "699930e30006a6140d93",
+    "slug": "miles-or-cash",
+    "title": "Miles Or Cash",
+    "description": "Compare real flight prices with award redemptions and see the exact value of your miles before you book.",
+    "tagline": "A real-time flight value calculator that tells you whether cash or miles is the better deal before you book.",
+    "longDescription": [
+      "MilesOrCash compares real cash flight prices against award-miles redemptions and shows the exact cash value of a redemption before booking. A typical result: London Heathrow to New York JFK at 742 GBP cash versus 42k Virgin Points plus 198 GBP in taxes, a 324 GBP saving, with the right transfer partner identified automatically.",
+      "The engine uses real-time market data and historical redemption values across hundreds of routes. It supports over 50 airline loyalty and bank programs, including Emirates Skywards, United MileagePlus, Delta SkyMiles, and Flying Blue, and compares multiple programs at once against live cash prices. It is a comparison engine by design: bookings happen on the airline's own site, and recent searches stay on the user's device.",
+      "The product also ships a Telegram bot, a ChatGPT app, and a travel blog on award-travel strategy, and cross-links FlightPoints for advanced strategies."
+    ],
+    "features": [
+      "Real-time cash versus award comparison with exact savings",
+      "Support for 50+ airline loyalty and bank points programs",
+      "Automatic multi-program comparison with transfer-partner suggestions",
+      "Cabin-class selection from Economy through First",
+      "Telegram bot and ChatGPT app integrations",
+      "Locally stored search history, no bookings handled on-site"
+    ],
+    "skills": ["NextJS", "TailwindCSS", "Cloudflare"],
+    "images": ["/appwrite/projects/miles-or-cash.png"],
+    "liveUrl": "https://milesorcash.com",
+    "githubUrl": null,
+    "year": "2026",
+    "published": true,
+    "order": 1
+  },
+  {
+    "id": "693a430b002238a01567",
+    "slug": "flightpoints",
+    "title": "Flightpoints",
+    "description": "Find the lowest points price for any route. Track saver awards, compare miles across airlines, and get alerts when award seats become available.",
+    "tagline": "An award flight search engine that compares premium seat availability across 25+ airline loyalty programs in real time.",
+    "longDescription": [
+      "Flightpoints aggregates award-seat availability across 28+ airline loyalty programs, including United MileagePlus, Air Canada Aeroplan, and Emirates Skywards, so one search finds the lowest points price for a route instead of checking each airline by hand. Results are live and filterable by cabin class, route, or region, and multi-city itineraries are supported.",
+      "Beyond search, it monitors routes around the clock with unlimited alerts by email or SMS when award seats open up, helping users get significantly better value from their miles.",
+      "The product extends past the website: iOS and Android apps, a Chrome extension that overlays Google Flights, a ChatGPT plugin, and a Telegram bot, plus award charts, points calculators, and airline comparison guides."
+    ],
+    "features": [
+      "One search across 28+ loyalty programs",
+      "Live results with cabin, route, and region filters",
+      "Unlimited 24/7 award-seat alerts via email or SMS",
+      "Multi-city itinerary search",
+      "iOS/Android apps, Chrome extension, ChatGPT plugin, Telegram bot",
+      "Award charts, calculators, and airline guides"
+    ],
+    "skills": ["NextJS", "Mixpanel", "ShadcnUI"],
+    "images": ["/appwrite/projects/flightpoints.png"],
+    "liveUrl": "https://www.flightpoints.com/",
+    "githubUrl": null,
+    "year": "2026",
+    "published": true,
+    "order": 2
+  },
+  {
+    "id": "68ded97a003738100445",
+    "slug": "parazyakampany",
+    "title": "Parazyakampany",
+    "description": "Animated and responsive promotional website made for Parazya Kampany, a full-service creative agency.",
+    "tagline": "An animated promotional website for Parazya Kampany, a full-service advertising and creative agency.",
+    "longDescription": [
+      "Parazyakampany.com is the marketing site for Parazya Kampany, an advertising and creative agency working under the tagline 'Where Creativity Meets Dawn'. The site presents six core service areas: branding, digital advertising, social media marketing, campaign planning, print advertising, and content marketing.",
+      "Built with Next.js, Tailwind CSS, and Framer Motion, the site pairs an animated, responsive layout with clear positioning sections on customized solutions, a people-centric partnership approach, and ROI-driven strategy, plus full contact details and social links."
+    ],
+    "features": [
+      "Six service-area sections from branding to content marketing",
+      "Scroll and hover animations built with Framer Motion",
+      "Fully responsive layout",
+      "Agency positioning and contact sections"
+    ],
+    "skills": ["NextJS", "TailwindCSS", "Framer Motion"],
+    "images": ["/appwrite/projects/parazyakampany.png"],
+    "liveUrl": "https://www.parazyakampany.com/",
+    "githubUrl": null,
+    "year": "2024",
+    "published": true,
+    "order": 3
+  },
+  {
+    "id": "68569f390004aa238746",
+    "slug": "resume-builder",
+    "title": "Resume Builder",
+    "description": "Free, developer-friendly resume builder with live preview, JSON import/export, and AI-powered resume upload.",
+    "tagline": "A free, developer-focused resume builder with live preview, JSON import/export, and AI-powered resume upload.",
+    "longDescription": [
+      "Resume Builder (resumebuilder.js.org) is a free web app for building resumes with a live-editing interface. Fill in structured sections for personal information, experience, skills, education, and projects, and watch the resume render in real time. It can also ingest an existing PDF resume and convert it to an editable format, with optional AI assistance through a Gemini API key.",
+      "Resume data exports and re-imports as JSON, so a resume is a file you own, not an account you rent. Finished resumes download as PDF. Everything stays local: data lives in the browser's localStorage and never touches a server, which also means the whole app can be self-hosted as static files.",
+      "The project earned a js.org subdomain through a merged PR to the js-org registry, a small badge of honor for open-source JavaScript projects."
+    ],
+    "features": [
+      "Live-editing form with real-time resume preview",
+      "PDF resume upload with optional AI conversion via Gemini",
+      "JSON import and export of resume data",
+      "One-click PDF download",
+      "Light and dark themes with sample data loading",
+      "Fully client-side, data stays in localStorage"
+    ],
+    "skills": ["ReactJS", "GeminiAPI", "React To Print"],
+    "images": ["/appwrite/projects/resume-builder.png"],
+    "liveUrl": "https://resumebuilder.js.org/",
+    "githubUrl": "https://github.com/dracu-lah/resumebuilder",
+    "year": "2025",
+    "published": true,
+    "order": 4
+  },
+  {
+    "id": "68e8c31300153e6201db",
+    "slug": "email-sender",
+    "title": "Email Sender",
+    "description": "Send personalized bulk job-outreach emails to HRs and recruiters from your own Gmail. No third-party email service involved.",
+    "tagline": "A small open-source Next.js app for sending personalized bulk job-outreach emails from your own Gmail account.",
+    "longDescription": [
+      "EmailxSender helps job seekers send personalized outreach or bulk recruiter emails directly from their own Gmail account using a Gmail App Password. No third-party email service, no shady middleman. Log in with your Gmail address and app password, compose the email, attach a PDF resume, add recipients, and send. Each recipient gets an individual delivery instead of being dumped into a BCC list.",
+      "It is privacy-focused by construction: credentials live only in the browser's localStorage and are used solely to talk to Gmail's SMTP. The app auto-saves drafts, keeps a per-account send history so you can see who you already contacted, and ships dark and light themes. MIT licensed and open to contributions."
+    ],
+    "features": [
+      "Bulk sending with individual per-recipient delivery, no BCC lists",
+      "Gmail App Password auth, credentials stored only in localStorage",
+      "Auto-saved drafts for subject, body, recipients, and resume",
+      "Per-Gmail send history",
+      "PDF resume attachment",
+      "Dark and light themes"
+    ],
+    "skills": ["NextJS", "ShadcnUI", "Gmail SMTP"],
+    "images": ["/appwrite/projects/email-sender.png"],
+    "liveUrl": "https://emailxsender.vercel.app/",
+    "githubUrl": "https://github.com/dracu-lah/emailsender-next",
+    "year": "2025",
+    "published": true,
+    "order": 5
+  },
+  {
+    "id": "68ea0e15001093ee0469",
+    "slug": "image-cropper",
+    "title": "Image Cropper",
+    "description": "ShadcnUI registry compatible image cropper component with drag and drop, configurable aspect ratios, and file-size limits.",
+    "tagline": "A ShadcnUI-registry React component for uploading and cropping images with drag-and-drop and configurable aspect ratios.",
+    "longDescription": [
+      "Image Cropper is a reusable React image-crop component distributed through a custom ShadcnUI registry. Developers install the full source code into their project with a single CLI command (pnpm, npm, yarn, or bun all work) instead of adding another black-box dependency, which means the component is theirs to modify.",
+      "The component handles image selection via drag-and-drop or file browsing, then presents an interactive cropping interface built on react-easy-crop. It is configured through props: aspectRatio for 16:9, 1:1 and friends, fileLimitMB for upload constraints, and an onCropComplete callback that returns the cropped result."
+    ],
+    "features": [
+      "Installable via a custom ShadcnUI registry, full source ownership",
+      "Drag-and-drop or file-browse image selection",
+      "Configurable aspect ratios",
+      "File-size limits via a single prop",
+      "onCropComplete callback for the cropped output",
+      "Works with pnpm, npm, yarn, and bun"
+    ],
+    "skills": ["ReactJS", "TailwindCSS", "React Easy Crop"],
+    "images": ["/appwrite/projects/image-cropper.png"],
+    "liveUrl": "https://imagexcropper.netlify.app/",
+    "githubUrl": "https://github.com/dracu-lah/image-cropper-react/",
+    "year": "2025",
+    "published": true,
+    "order": 6
+  },
+  {
+    "id": "68dd5cae003b83512ee8",
+    "slug": "no-secrets",
+    "title": "No Secrets",
+    "description": "Animated landing page for NoSecrets, an Indian zero-sugar electrolyte hydration brand.",
+    "tagline": "An animated landing page for NoSecrets, an Indian zero-sugar electrolyte brand. Hydration, honestly.",
+    "longDescription": [
+      "The NoSecrets site is a product landing page for an Indian electrolyte-drink brand selling powdered sachets that pair water with six essential electrolytes. It presents three flavors with INR pricing, Orange Refresh, Berry Boost, and Lime Zest, under the taglines 'Hydration, Honestly' and 'No secrets, no clutter, just what your body actually needs.'",
+      "The page leans on a zero-sugar, doctor-approved, vegan, keto-friendly formulation and a made-for-India positioning, with benefit sections covering energy, mental clarity, skin, digestion, sleep, and recovery, plus customer testimonials from across Indian cities. Built with Next.js, Tailwind CSS, and Framer Motion."
+    ],
+    "features": [
+      "Product cards with flavors, INR pricing, and sold-out states",
+      "Benefit-driven sections built around six electrolytes and zero sugar",
+      "Customer testimonial section",
+      "Brand-story content on transparency and clean ingredients",
+      "Animated Next.js and Framer Motion landing page"
+    ],
+    "skills": ["NextJS", "TailwindCSS", "Framer Motion"],
+    "images": ["/appwrite/projects/no-secrets.png"],
+    "liveUrl": "https://nosecrets-frontend.vercel.app/",
+    "githubUrl": null,
+    "year": "2025",
+    "published": true,
+    "order": 7
+  },
+  {
+    "id": "695e31740002b90bc657",
+    "slug": "sindhuja-regency",
+    "title": "Sindhuja Regency",
+    "description": "A minimalist landing page for a premium 10-story apartment complex, emphasizing modern living and easy user navigation.",
+    "tagline": null,
+    "longDescription": [],
+    "features": [],
+    "skills": ["ReactJS", "TailwindCSS", "Framer Motion"],
+    "images": ["/appwrite/projects/sindhuja-regency.png"],
+    "liveUrl": "https://sindhuja-old.netlify.app/",
+    "githubUrl": null,
+    "year": null,
+    "published": false,
+    "order": 8
+  },
+  {
+    "id": "69116d7d0017b18ed2c2",
+    "slug": "oroex-marketing-website",
+    "title": "Oroex Marketing Website",
+    "description": "Modern animated marketing site for Oroex, built with Next.js, TypeScript, and Framer Motion.",
+    "tagline": "A modern animated marketing website for Oroex.",
+    "longDescription": [
+      "A marketing website for Oroex with an animated, responsive layout. Built with React, TypeScript, and Tailwind CSS, using Framer Motion for scroll reveals and interaction states."
+    ],
+    "features": [
+      "Animated landing sections with Framer Motion",
+      "Responsive TypeScript codebase",
+      "Marketing-focused page structure"
+    ],
+    "skills": ["ReactJS", "TailwindCSS", "FramerMotion", "Typescript"],
+    "images": ["/appwrite/projects/oroex.png"],
+    "liveUrl": null,
+    "githubUrl": null,
+    "year": null,
+    "published": true,
+    "order": 9
+  },
+  {
+    "id": "68eb31bc000deead8aa4",
+    "slug": "donut-website",
+    "title": "Donut Website",
+    "description": "Animated donut-shop website recreating a Glaze Co design concept with React and Framer Motion.",
+    "tagline": "An animated donut-shop website recreating a Glaze Co design concept with React and Framer Motion.",
+    "longDescription": [
+      "Donut Website is an animated storefront site inspired by a Glaze Co donut-shop design concept from Behance. It takes a designer's static concept and turns it into a living build, a useful exercise in translating motion design into production code.",
+      "It features scroll-driven animations, interactive transitions and hover effects, and a responsive layout for all devices. Built with React and Framer Motion, styled with Tailwind CSS, and bundled with Vite."
+    ],
+    "features": [
+      "Scroll-driven animations",
+      "Interactive transitions and hover effects",
+      "Responsive layout for all devices",
+      "Faithful implementation of a Behance design concept",
+      "React, Framer Motion, Tailwind CSS, and Vite"
+    ],
+    "skills": ["ReactJS", "TailwindCSS", "Framer Motion"],
+    "images": ["/appwrite/projects/donut-website.png"],
+    "liveUrl": "https://buydonuts.netlify.app/",
+    "githubUrl": "https://github.com/dracu-lah/donut-react",
+    "year": "2025",
+    "published": true,
+    "order": 10
+  },
+  {
+    "id": "649d6745dd606556a617",
+    "slug": "trello-clone",
+    "title": "Trello Clone",
+    "description": "Trello-style kanban board with animated drag and drop and search filters, backed by Appwrite.",
+    "tagline": "A Trello 2.0-style kanban board built with Next.js, with drag-and-drop and search.",
+    "longDescription": [
+      "A kanban-style task board modeled on Trello 2.0: boards, columns, and cards with animated drag-and-drop and a search bar that filters todos in place.",
+      "The frontend is Next.js with Tailwind CSS and HeadlessUI, and todos are fetched dynamically from an Appwrite backend. Built in 2023 as a deep-dive into drag-and-drop interactions and optimistic UI updates."
+    ],
+    "features": [
+      "Kanban board layout modeled on Trello",
+      "Animated drag-and-drop for cards",
+      "Search bar with live filtering",
+      "Appwrite-backed dynamic data",
+      "Next.js with optimized images"
+    ],
+    "skills": ["NextJS", "TailwindCSS", "HeadlessUI"],
+    "images": ["/appwrite/projects/trello-clone.png"],
+    "liveUrl": "https://trelloxtwo.vercel.app/",
+    "githubUrl": "https://github.com/dracu-lah/trello-appwrite-next",
+    "year": "2023",
+    "published": true,
+    "order": 11
+  },
+  {
+    "id": "66ceeb590024c8530280",
+    "slug": "notes-app",
+    "title": "Notes App",
+    "description": "Animated sticky-notes web app with draggable cards that persist locally in the browser.",
+    "tagline": "An animated sticky-notes app with draggable cards that persist locally in the browser.",
+    "longDescription": [
+      "A sticky-notes app where every note is a draggable card. Type into a card to create or edit a note, drag it anywhere within the container, and watch the save indicator flip between saving, saved, and needs-content states.",
+      "Notes persist in the browser's localStorage, so they survive reloads without any backend. Built with React, Tailwind CSS, and Framer Motion for the stack-based animations and drag physics."
+    ],
+    "features": [
+      "Create and edit notes in draggable cards",
+      "Drag constraints within the parent container",
+      "localStorage persistence across reloads",
+      "Visual save-status feedback",
+      "Framer Motion animations"
+    ],
+    "skills": ["ReactJS", "TailwindCSS", "Framer Motion"],
+    "images": ["/appwrite/projects/notes-app.png"],
+    "liveUrl": "https://dracu-notes.netlify.app/",
+    "githubUrl": "https://github.com/dracu-lah/notes-react",
+    "year": "2024",
+    "published": true,
+    "order": 12
+  },
+  {
+    "id": "648b9730061e85689f35",
+    "slug": "drum-kit",
+    "title": "Drum Kit",
+    "description": "A browser drum kit you play with your keyboard. Seven keys, instant percussion.",
+    "tagline": "A browser drum kit you play with your keyboard. Seven keys, instant percussion.",
+    "longDescription": [
+      "Drum Kit turns the keyboard into a percussion instrument: press a, s, d, f, j, k, or l and the matching drum fires instantly. The interface is deliberately minimal so nothing gets between you and the noise.",
+      "Built in 2022 with plain HTML, CSS, and JavaScript as an exercise in DOM events and audio playback. No framework, no build step, just the web platform."
+    ],
+    "features": [
+      "Seven keyboard-mapped drum sounds",
+      "Instant audio playback on keypress",
+      "Minimalist single-page interface",
+      "Pure HTML, CSS, and JavaScript"
+    ],
+    "skills": ["HTML", "CSS", "JS"],
+    "images": ["/appwrite/projects/drum-kit.png"],
+    "liveUrl": "https://dracu-drum-kit.netlify.app/",
+    "githubUrl": "https://github.com/dracu-lah/drum-kit",
+    "year": "2022",
+    "published": true,
+    "order": 13
+  },
+  {
+    "id": "648b97d53585e792fe9a",
+    "slug": "simon-game",
+    "title": "Simon Game",
+    "description": "The classic Simon Says memory game as a web app. Repeat the growing sequence of colors and sounds for as long as you can.",
+    "tagline": "The classic Simon memory game in the browser. Press a key and repeat the growing sequence.",
+    "longDescription": [
+      "A web implementation of the classic 1978 Simon electronic memory game. Press any key to start, then repeat an increasingly long sequence of color flashes and sounds until your memory gives out.",
+      "Hosted on GitHub Pages and built in 2022 with HTML, CSS, and jQuery. A zero-dependency static site that still holds up."
+    ],
+    "features": [
+      "Classic Simon sequence-memory gameplay",
+      "Keyboard-triggered game start",
+      "Color and sound sequences that grow each round",
+      "Zero-dependency static site on GitHub Pages"
+    ],
+    "skills": ["HTML", "CSS", "JQuery"],
+    "images": ["/appwrite/projects/simon-game.png"],
+    "liveUrl": "https://dracu-lah.github.io/Simon-Game/",
+    "githubUrl": "https://github.com/dracu-lah/Simon-Game",
+    "year": "2022",
+    "published": true,
+    "order": 14
+  },
+  {
+    "id": "648c1cc9c2f15d66810b",
+    "slug": "result-management-system",
+    "title": "Result Management System",
+    "description": "Full-stack student result tracking: grades, class schedules, and performance insights on a MENN stack.",
+    "tagline": "A full-stack MENN system (MongoDB, Express, Node, Next.js) for managing and viewing student results.",
+    "longDescription": [
+      "A full-stack student result-tracking system: view grades, class schedules, and performance insights in one place. The frontend is a Next.js app deployed on Vercel; a separate Express and Node backend persists everything in MongoDB.",
+      "Built in 2023 as a complete MENN-stack project, covering the full path from schema design and REST endpoints to the React data layer and deployment."
+    ],
+    "features": [
+      "Student grade and result viewing",
+      "Class schedule display",
+      "Next.js frontend deployed on Vercel",
+      "Separate Express, Node, and MongoDB backend"
+    ],
+    "skills": ["NextJS", "ExpressJS", "MongoDB"],
+    "images": ["/appwrite/projects/result-management.png"],
+    "liveUrl": "https://result-management-next.vercel.app/",
+    "githubUrl": "https://github.com/dracu-lah/result-management-next",
+    "year": "2023",
+    "published": true,
+    "order": 15
+  },
+  {
+    "id": "648c15eec2bb707738ba",
+    "slug": "netflix-clone",
+    "title": "Netflix Clone",
+    "description": "A Netflix-style streaming UI powered by the TMDB API, with genre rows, a featured banner, and My List.",
+    "tagline": "A Netflix-style streaming UI powered by the TMDB API, with genre rows, a featured banner, and My List.",
+    "longDescription": [
+      "A recreation of the Netflix India browsing experience: a featured spotlight banner with Play and My List actions, a user avatar, and horizontal poster rows for Originals, Trending Now, Top Rated, and genres from Action to Documentaries.",
+      "All imagery and metadata come from The Movie Database (TMDB) API, so the catalog mixes Indian and international titles like Stranger Things, Squid Game, and The Shawshank Redemption. Built with Next.js and Tailwind CSS and deployed on Vercel."
+    ],
+    "features": [
+      "TMDB API integration for posters and metadata",
+      "Featured hero banner with Play and My List actions",
+      "Category rows for Originals, Trending, Top Rated, and five genres",
+      "Poster-grid browsing matching the Netflix visual style"
+    ],
+    "skills": ["NextJS", "TailwindCSS", "TMDB API"],
+    "images": ["/appwrite/projects/netflix-clone.png"],
+    "liveUrl": "https://netflixclone-next.vercel.app/",
+    "githubUrl": "https://github.com/dracu-lah/netflixclone-next",
+    "year": "2023",
+    "published": true,
+    "order": 16
+  },
+  {
+    "id": "648b950a0b374b8d3b2g",
+    "slug": "covid19-status-tracker",
+    "title": "Covid19 Status Tracker",
+    "description": "A React dashboard that tracked live COVID-19 case metrics with React Query and Bootstrap.",
+    "tagline": "A React app that tracked live COVID-19 case metrics. Now retired, since its data API has shut down.",
+    "longDescription": [
+      "A React dashboard that displayed live COVID-19 case metrics, fetched with React Query and rendered in a responsive Bootstrap UI.",
+      "Built in 2022 during the pandemic's data-refresh era. The upstream API has since shut down, so the tracker is retired, but the code remains on GitHub as a snapshot of the project."
+    ],
+    "features": [
+      "COVID-19 case status dashboard",
+      "Live data fetching with React Query",
+      "Bootstrap-based responsive UI"
+    ],
+    "skills": ["ReactJS", "Bootstrap", "React Query"],
+    "images": ["/appwrite/projects/covid19-tracker.png"],
+    "liveUrl": null,
+    "githubUrl": "https://github.com/dracu-lah/covid19-status-tracker",
+    "year": "2022",
+    "published": true,
+    "order": 17
+  }
+]

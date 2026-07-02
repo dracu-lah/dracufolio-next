@@ -1,38 +1,65 @@
 import RightButtons from "./components/common/RightButtons";
 import Navbar from "./components/common/Navbar/Navbar";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {
+  Martian_Mono,
+  IBM_Plex_Mono,
+  Instrument_Sans,
+} from "next/font/google";
 import "./globals.css";
 import ResumeDownloadButton from "./components/common/Navbar/ResumeDownloadButton";
 import { Analytics } from "@vercel/analytics/next";
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+
+const martianMono = Martian_Mono({
+  variable: "--font-martian-mono",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+});
+
+const instrumentSans = Instrument_Sans({
+  variable: "--font-instrument-sans",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Nevil Krishna K | Frontend Engineer & React Developer",
+  metadataBase: new URL("https://nevil.dev"),
+  title: {
+    default: "Nevil Krishna K | Frontend Engineer & React Developer",
+    template: "%s | Nevil Krishna",
+  },
   icons: {
     icon: "/favicon.ico",
   },
   description:
-    "Portfolio of Nevil Krishna K, a frontend engineer specializing in React.js, high-performance UIs, and open-source projects.",
+    "Nevil Krishna is a frontend engineer from Thrissur, Kerala with 3 years of React and Next.js experience, building fast, accessible, high-performance web apps and open-source tools.",
   keywords: [
     "Nevil Krishna K",
+    "Nevil Krishna",
     "React Developer",
     "Frontend Engineer",
-    "Next.js",
+    "Next.js Developer",
+    "Kerala",
+    "Thrissur",
     "Portfolio",
   ],
+  authors: [{ name: "Nevil Krishna K", url: "https://nevil.dev" }],
+  creator: "Nevil Krishna K",
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Nevil Krishna K | React Developer",
+    title: "Nevil Krishna K | Frontend Engineer & React Developer",
     description:
-      "Frontend engineer portfolio specializing in React.js and performance optimization.",
+      "Frontend engineer from Kerala with 3 years of React and Next.js experience. High-performance web apps, open-source tools, and 17 shipped projects.",
     url: "https://nevil.dev",
     siteName: "Nevil Krishna Portfolio",
     images: [
@@ -48,11 +75,32 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nevil Krishna K | React Developer",
+    title: "Nevil Krishna K | Frontend Engineer & React Developer",
     description:
-      "Frontend engineer portfolio specializing in React.js and performance optimization.",
+      "Frontend engineer from Kerala with 3 years of React and Next.js experience. High-performance web apps, open-source tools, and 17 shipped projects.",
+    creator: "@nevilkrishnak",
     images: ["https://nevil.dev/og-image.png"],
   },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Nevil Krishna K",
+  url: "https://nevil.dev",
+  jobTitle: "Frontend Engineer",
+  email: "mailto:nevilkrishna@gmail.com",
+  sameAs: [
+    "https://github.com/dracu-lah",
+    "https://www.linkedin.com/in/nevil-krishna-k-77170222a/",
+  ],
+  knowsAbout: [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Tailwind CSS",
+    "Frontend Engineering",
+  ],
 };
 
 export default function RootLayout({
@@ -63,13 +111,16 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`text-primary bg-background ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`bg-background text-foreground ${martianMono.variable} ${plexMono.variable} ${instrumentSans.variable} font-sans antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <Navbar>
           <ResumeDownloadButton />
         </Navbar>
         {children}
-        {/* <GithubButton /> */}
         <RightButtons />
         <Analytics />
       </body>

@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://nevil.dev</loc><lastmod>2025-10-15T18:40:47.826Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://nevil.dev/projects/covid19-status-tracker</loc><lastmod>2026-07-02T19:29:15.310Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://nevil.dev/projects/donut-website</loc><lastmod>2026-07-02T19:29:15.310Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://nevil.dev/projects/drum-kit</loc><lastmod>2026-07-02T19:29:15.310Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://nevil.dev/projects/email-sender</loc><lastmod>2026-07-02T19:29:15.310Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://nevil.dev/projects/flightpoints</loc><lastmod>2026-07-02T19:29:15.310Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://nevil.dev/projects/image-cropper</loc><lastmod>2026-07-02T19:29:15.310Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://nevil.dev/projects/miles-or-cash</loc><lastmod>2026-07-02T19:29:15.310Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://nevil.dev/projects/netflix-clone</loc><lastmod>2026-07-02T19:29:15.310Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://nevil.dev/projects/no-secrets</loc><lastmod>2026-07-02T19:29:15.310Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://nevil.dev/projects/notes-app</loc><lastmod>2026-07-02T19:29:15.310Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://nevil.dev/projects/oroex-marketing-website</loc><lastmod>2026-07-02T19:29:15.310Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://nevil.dev/projects/parazyakampany</loc><lastmod>2026-07-02T19:29:15.310Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://nevil.dev/projects/result-management-system</loc><lastmod>2026-07-02T19:29:15.310Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://nevil.dev/projects/resume-builder</loc><lastmod>2026-07-02T19:29:15.310Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://nevil.dev/projects/seatinfo</loc><lastmod>2026-07-02T19:29:15.310Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://nevil.dev/projects/simon-game</loc><lastmod>2026-07-02T19:29:15.310Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://nevil.dev/projects/trello-clone</loc><lastmod>2026-07-02T19:29:15.310Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://nevil.dev</loc><lastmod>2026-07-02T19:29:15.310Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 </urlset>

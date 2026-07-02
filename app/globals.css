@@ -7,118 +7,70 @@ html {
 
 @custom-variant dark (&:is(.dark *));
 
-:root {
-  --background: oklch(0.9821 0 0);
-  --foreground: oklch(0.2435 0 0);
-  --card: oklch(0.9911 0 0);
-  --card-foreground: oklch(0.2435 0 0);
-  --popover: oklch(0.9911 0 0);
-  --popover-foreground: oklch(0.2435 0 0);
-  --primary: oklch(0.4341 0.0392 41.9938);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.92 0.0651 74.3695);
-  --secondary-foreground: oklch(0.3499 0.0685 40.8288);
-  --muted: oklch(0.9521 0 0);
-  --muted-foreground: oklch(0.5032 0 0);
-  --accent: oklch(0.931 0 0);
-  --accent-foreground: oklch(0.2435 0 0);
-  --destructive: oklch(0.6271 0.1936 33.339);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.8822 0 0);
-  --input: oklch(0.8822 0 0);
-  --ring: oklch(0.4341 0.0392 41.9938);
-  --chart-1: oklch(0.4341 0.0392 41.9938);
-  --chart-2: oklch(0.92 0.0651 74.3695);
-  --chart-3: oklch(0.931 0 0);
-  --chart-4: oklch(0.9367 0.0523 75.5009);
-  --chart-5: oklch(0.4338 0.0437 41.6746);
-  --sidebar: oklch(0.9881 0 0);
-  --sidebar-foreground: oklch(0.2645 0 0);
-  --sidebar-primary: oklch(0.325 0 0);
-  --sidebar-primary-foreground: oklch(0.9881 0 0);
-  --sidebar-accent: oklch(0.9761 0 0);
-  --sidebar-accent-foreground: oklch(0.325 0 0);
-  --sidebar-border: oklch(0.9401 0 0);
-  --sidebar-ring: oklch(0.7731 0 0);
-  --font-sans:
-    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-mono:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
-  --radius: 0.5rem;
-  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-  --shadow-sm:
-    0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
-  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
-  --shadow-md:
-    0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.1);
-  --shadow-lg:
-    0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 4px 6px -1px hsl(0 0% 0% / 0.1);
-  --shadow-xl:
-    0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 8px 10px -1px hsl(0 0% 0% / 0.1);
-  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+/*
+ * dracufolio — engineer's terminal theme
+ * Foreground: PANTONE 11-4201 Cloud Dancer (Color of the Year 2026)
+ * on a warm near-black, with a single phosphor-green accent.
+ */
+:root,
+.dark {
+  /* Pantone 11-4201 Cloud Dancer (~#F0EDE5) */
+  --cloud-dancer: oklch(0.9451 0.0058 95.2);
+  /* phosphor green — status/prompt accents only */
+  --phosphor: oklch(0.83 0.175 150);
+
+  --background: oklch(0.145 0.0035 95);
+  --foreground: var(--cloud-dancer);
+  --card: oklch(0.172 0.004 95);
+  --card-foreground: var(--cloud-dancer);
+  --popover: oklch(0.172 0.004 95);
+  --popover-foreground: var(--cloud-dancer);
+  --primary: var(--cloud-dancer);
+  --primary-foreground: oklch(0.145 0.0035 95);
+  --secondary: oklch(0.225 0.005 95);
+  --secondary-foreground: var(--cloud-dancer);
+  --muted: oklch(0.19 0.004 95);
+  --muted-foreground: oklch(0.68 0.008 95);
+  --accent: oklch(0.225 0.005 95);
+  --accent-foreground: var(--cloud-dancer);
+  --destructive: oklch(0.62 0.19 25);
+  --destructive-foreground: oklch(0.97 0.01 25);
+  --border: oklch(0.28 0.006 95);
+  --input: oklch(0.32 0.006 95);
+  --ring: var(--cloud-dancer);
+  --chart-1: var(--cloud-dancer);
+  --chart-2: var(--phosphor);
+  --chart-3: oklch(0.68 0.008 95);
+  --chart-4: oklch(0.42 0.008 95);
+  --chart-5: oklch(0.28 0.006 95);
+  --sidebar: oklch(0.172 0.004 95);
+  --sidebar-foreground: var(--cloud-dancer);
+  --sidebar-primary: var(--cloud-dancer);
+  --sidebar-primary-foreground: oklch(0.145 0.0035 95);
+  --sidebar-accent: oklch(0.225 0.005 95);
+  --sidebar-accent-foreground: var(--cloud-dancer);
+  --sidebar-border: oklch(0.28 0.006 95);
+  --sidebar-ring: var(--cloud-dancer);
+
+  --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo,
+    Consolas, monospace;
+  --font-display: var(--font-martian-mono), var(--font-plex-mono),
+    ui-monospace, monospace;
+  --font-sans: var(--font-instrument-sans), ui-sans-serif, system-ui,
+    sans-serif;
+  --font-serif: ui-serif, Georgia, serif;
+
+  --radius: 0rem;
+  --shadow-2xs: 0 0 0 0 transparent;
+  --shadow-xs: 0 0 0 0 transparent;
+  --shadow-sm: 0 0 0 0 transparent;
+  --shadow: 0 0 0 0 transparent;
+  --shadow-md: 0 8px 30px hsl(0 0% 0% / 0.35);
+  --shadow-lg: 0 12px 40px hsl(0 0% 0% / 0.45);
+  --shadow-xl: 0 16px 50px hsl(0 0% 0% / 0.5);
+  --shadow-2xl: 0 24px 70px hsl(0 0% 0% / 0.6);
   --tracking-normal: 0em;
   --spacing: 0.25rem;
-}
-
-.dark {
-  --background: oklch(0.1776 0 0);
-  --foreground: oklch(0.9491 0 0);
-  --card: oklch(0.2134 0 0);
-  --card-foreground: oklch(0.9491 0 0);
-  --popover: oklch(0.2134 0 0);
-  --popover-foreground: oklch(0.9491 0 0);
-  --primary: oklch(0.9247 0.0524 66.1732);
-  --primary-foreground: oklch(0.2029 0.024 200.1962);
-  --secondary: oklch(0.3163 0.019 63.6992);
-  --secondary-foreground: oklch(0.9247 0.0524 66.1732);
-  --muted: oklch(0.252 0 0);
-  --muted-foreground: oklch(0.7699 0 0);
-  --accent: oklch(0.285 0 0);
-  --accent-foreground: oklch(0.9491 0 0);
-  --destructive: oklch(0.6271 0.1936 33.339);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.2351 0.0115 91.7467);
-  --input: oklch(0.4017 0 0);
-  --ring: oklch(0.9247 0.0524 66.1732);
-  --chart-1: oklch(0.9247 0.0524 66.1732);
-  --chart-2: oklch(0.3163 0.019 63.6992);
-  --chart-3: oklch(0.285 0 0);
-  --chart-4: oklch(0.3481 0.0219 67.0001);
-  --chart-5: oklch(0.9245 0.0533 67.0855);
-  --sidebar: oklch(0.2103 0.0059 285.8852);
-  --sidebar-foreground: oklch(0.9674 0.0013 286.3752);
-  --sidebar-primary: oklch(0.4882 0.2172 264.3763);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.2739 0.0055 286.0326);
-  --sidebar-accent-foreground: oklch(0.9674 0.0013 286.3752);
-  --sidebar-border: oklch(0.2739 0.0055 286.0326);
-  --sidebar-ring: oklch(0.8711 0.0055 286.286);
-  --font-sans:
-    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-mono:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
-  --radius: 0.5rem;
-  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-  --shadow-sm:
-    0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
-  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
-  --shadow-md:
-    0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.1);
-  --shadow-lg:
-    0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 4px 6px -1px hsl(0 0% 0% / 0.1);
-  --shadow-xl:
-    0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 8px 10px -1px hsl(0 0% 0% / 0.1);
-  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
 }
 
 @theme inline {
@@ -141,6 +93,8 @@ html {
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-phosphor: var(--phosphor);
+  --color-cloud: var(--cloud-dancer);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -158,11 +112,12 @@ html {
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
+  --font-display: var(--font-display);
 
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-xl: var(--radius);
 
   --shadow-2xs: var(--shadow-2xs);
   --shadow-xs: var(--shadow-xs);
@@ -179,7 +134,11 @@ html {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+  ::selection {
+    background: var(--cloud-dancer);
+    color: var(--background);
   }
 }
 
@@ -188,35 +147,68 @@ body a {
 }
 
 body b {
-  @apply font-semibold text-primary;
+  @apply font-semibold text-foreground;
 }
 
-body b {
-  @apply cursor-pointer;
+/* blinking block cursor, e.g. after the hero name */
+.cursor-block::after {
+  content: "▊";
+  margin-left: 0.08em;
+  color: var(--phosphor);
+  animation: cursor-blink 1.1s steps(2, start) infinite;
 }
-/* Custom scrollbar styles for webkit browsers (Chrome, Safari, Edge) */
-.scrollbar-visible::-webkit-scrollbar {
-  height: 10px;
+@keyframes cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* faint blueprint grid used behind the hero */
+.hairline-grid {
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(
+    ellipse 90% 80% at 50% 20%,
+    black 0%,
+    transparent 70%
+  );
+  opacity: 0.35;
+}
+
+/* page scrollbar */
+::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border: 2px solid var(--background);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
+
+/* horizontal project rail on mobile */
+.scrollbar-visible::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
 }
 .scrollbar-visible::-webkit-scrollbar-track {
   background: var(--muted);
-  border-radius: 10px;
 }
 .scrollbar-visible::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 10px;
-  transition: background 0.3s;
+  background: var(--border);
 }
 .scrollbar-visible::-webkit-scrollbar-thumb:hover {
-  background: var(--ring);
+  background: var(--muted-foreground);
 }
-/* For Firefox */
 .scrollbar-visible {
   scrollbar-width: thin;
-  scrollbar-color: var(--primary) var(--muted);
-}
-/* Force scrollbar to always be visible on Mac */
-.scrollbar-visible {
+  scrollbar-color: var(--border) var(--muted);
   -webkit-overflow-scrolling: touch;
 }
