@@ -37,40 +37,68 @@ const ContactForm = () => {
   }, [status]);
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="pt-10 flex flex-col gap-y-6 text-sm md:text-xl w-full md:max-w-[40rem] px-4 mb-14 md:mb-0"
-      autoComplete="off"
-    >
-      {status === "success" && (
-        <span className="text-sm text-center text-green-800 p-2 bg-green-300">
-          Message sent successfully.
-        </span>
-      )}
-      {status === "error" && (
-        <span className="text-sm text-center text-red-800 p-2 bg-red-300">
-          Something went wrong.
-        </span>
-      )}
-
-      <InputField name="user_name" placeholder="Enter Name" />
-      <InputField
-        name="user_phno"
-        placeholder="Enter Phone Number"
-        type="tel"
-      />
-      <InputField name="user_email" placeholder="Enter Email" type="email" />
-      <TextareaField name="user_message" placeholder="Type your Query ..." />
-
-      <button
-        type="submit"
-        disabled={status === "loading"}
-        className={`border-2 outline-none border-secondary p-2 rounded-lg text-primary cursor-pointer transition-colors duration-300 
-          ${status == "loading" ? "bg-white/5 cursor-not-allowed" : "hover:bg-secondary focus:bg-secondary active:bg-secondary"}`}
+    <div className="w-full border border-border bg-card">
+      <p className="border-b border-border px-5 py-3 font-mono text-[13px] uppercase tracking-[0.25em] text-muted-foreground">
+        Send a message
+      </p>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex w-full flex-col gap-y-5 p-5 md:p-6"
+        autoComplete="off"
       >
-        {status === "loading" ? "Sending..." : "Send Message"}
-      </button>
-    </form>
+        {status === "success" && (
+          <p
+            role="status"
+            className="border border-phosphor/40 p-3 text-center text-sm tracking-wide text-phosphor"
+          >
+            Message sent successfully.
+          </p>
+        )}
+        {status === "error" && (
+          <p
+            role="status"
+            className="border border-destructive/50 p-3 text-center text-sm tracking-wide text-destructive"
+          >
+            Something went wrong. Please try again.
+          </p>
+        )}
+
+        <InputField
+          name="user_name"
+          label="name"
+          placeholder="Sharma ji ka beta"
+        />
+        <InputField
+          name="user_phno"
+          label="phone"
+          placeholder="+91 ..."
+          type="tel"
+        />
+        <InputField
+          name="user_email"
+          label="email"
+          placeholder="you@domain.dev"
+          type="email"
+        />
+        <TextareaField
+          name="user_message"
+          label="message"
+          placeholder="The role, the project, or the bug ..."
+        />
+
+        <button
+          type="submit"
+          disabled={status === "loading"}
+          className={`cursor-pointer border border-input p-3.5 font-mono text-sm font-medium uppercase tracking-[0.25em] transition-colors duration-300 ${
+            status == "loading"
+              ? "cursor-not-allowed opacity-50"
+              : "hover:bg-foreground hover:text-background focus:bg-foreground focus:text-background"
+          }`}
+        >
+          {status === "loading" ? "Sending..." : "Send message"}
+        </button>
+      </form>
+    </div>
   );
 };
 

@@ -1,13 +1,16 @@
-import socialsData from "@/appwrite/data/socials.json";
-import aboutData from "@/appwrite/data/about.json";
-import projectsData from "@/appwrite/data/projects.json";
+import socialsData from "@/data/socials.json";
+import aboutData from "@/data/about.json";
+import projectsData from "@/data/projects.json";
+import { type Project } from "@/types/portfolio";
+
+const projects = projectsData as Project[];
 
 export async function GetGithubURLAPI() {
   return socialsData.github_url;
 }
 
 export async function GetResumeAPI() {
-  return "/appwrite/resume/Nevil-2-Years-Frontend-Resume.pdf";
+  return "/appwrite/resume/Nevil-Krishna-Frontend-Resume.pdf";
 }
 
 export async function GetHeroImageAPI() {
@@ -31,6 +34,12 @@ export async function GetSkillsAPI() {
   ];
 }
 
-export async function GetProjectsAPI() {
-  return projectsData.filter((p) => p.isPublished).sort((a, b) => a.sort_order - b.sort_order);
+export async function GetProjectsAPI(): Promise<Project[]> {
+  return projects.filter((p) => p.published).sort((a, b) => a.order - b.order);
+}
+
+export async function GetProjectBySlugAPI(
+  slug: string,
+): Promise<Project | undefined> {
+  return projects.find((p) => p.published && p.slug === slug);
 }
