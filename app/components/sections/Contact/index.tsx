@@ -13,7 +13,7 @@ const ContactSection = () => {
             </p>
           </Reveal>
           <Reveal delay={0.08}>
-            <h2 className="font-display text-4xl font-bold tracking-tight md:text-5xl">
+            <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
               Contact Me
             </h2>
           </Reveal>

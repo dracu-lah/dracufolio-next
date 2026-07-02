@@ -44,7 +44,7 @@ const HeroSection = async () => {
             </p>
           </Reveal>
 
-          <Reveal delay={0.16}>
+          <Reveal delay={0.16} className="w-full">
             <div className="flex w-full max-w-xl flex-col gap-3 sm:flex-row sm:flex-wrap md:gap-4">
               <a href="#portfolio" className="w-full sm:w-auto">
                 <Button size="lg" variant="solid" className="w-full sm:w-auto">
