@@ -19,7 +19,7 @@
       "Multi-language UI, blog, and FAQ"
     ],
     "skills": ["NextJS", "TailwindCSS", "Cloudflare"],
-    "images": ["/appwrite/projects/seatinfo.png"],
+    "images": ["/appwrite/projects/seatinfo.webp"],
     "liveUrl": "https://seatinfo.com",
     "githubUrl": null,
     "year": "2026",
@@ -201,7 +201,7 @@
       "Animated Next.js and Framer Motion landing page"
     ],
     "skills": ["NextJS", "TailwindCSS", "Framer Motion"],
-    "images": ["/appwrite/projects/no-secrets.png"],
+    "images": ["/appwrite/projects/no-secrets.webp"],
     "liveUrl": "https://nosecrets-frontend.vercel.app/",
     "githubUrl": null,
     "year": "2025",
@@ -239,7 +239,7 @@
       "Marketing-focused page structure"
     ],
     "skills": ["ReactJS", "TailwindCSS", "FramerMotion", "Typescript"],
-    "images": ["/appwrite/projects/oroex.png"],
+    "images": ["/appwrite/projects/oroex.webp"],
     "liveUrl": null,
     "githubUrl": null,
     "year": null,
@@ -264,7 +264,7 @@
       "React, Framer Motion, Tailwind CSS, and Vite"
     ],
     "skills": ["ReactJS", "TailwindCSS", "Framer Motion"],
-    "images": ["/appwrite/projects/donut-website.png"],
+    "images": ["/appwrite/projects/donut-website.webp"],
     "liveUrl": "https://buydonuts.netlify.app/",
     "githubUrl": "https://github.com/dracu-lah/donut-react",
     "year": "2025",
@@ -289,7 +289,7 @@
       "Next.js with optimized images"
     ],
     "skills": ["NextJS", "TailwindCSS", "HeadlessUI"],
-    "images": ["/appwrite/projects/trello-clone.png"],
+    "images": ["/appwrite/projects/trello-clone.webp"],
     "liveUrl": "https://trelloxtwo.vercel.app/",
     "githubUrl": "https://github.com/dracu-lah/trello-appwrite-next",
     "year": "2023",
@@ -410,7 +410,7 @@
       "Poster-grid browsing matching the Netflix visual style"
     ],
     "skills": ["NextJS", "TailwindCSS", "TMDB API"],
-    "images": ["/appwrite/projects/netflix-clone.png"],
+    "images": ["/appwrite/projects/netflix-clone.webp"],
     "liveUrl": "https://netflixclone-next.vercel.app/",
     "githubUrl": "https://github.com/dracu-lah/netflixclone-next",
     "year": "2023",
