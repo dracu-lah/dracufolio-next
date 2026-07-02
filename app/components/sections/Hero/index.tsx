@@ -1,7 +1,7 @@
 import HeroImage from "./components/HeroImage";
 import Reveal from "@/components/common/Reveal";
 import { Button } from "@/components/ui/button";
-import { GetProjectsAPI, GetResumeAPI } from "@/services/api";
+import { GetProjectsAPI } from "@/services/api";
 
 const HeroSection = async () => {
   let projectCount = 0;
@@ -10,7 +10,6 @@ const HeroSection = async () => {
   } catch (error) {
     console.error("Failed to load projects:", error);
   }
-  const resumeLink = await GetResumeAPI();
 
   const stats = [
     { value: `${projectCount || 18}+`, label: "projects" },
@@ -50,16 +49,6 @@ const HeroSection = async () => {
               <a href="#portfolio" className="w-full sm:w-auto">
                 <Button size="lg" variant="solid" className="w-full sm:w-auto">
                   view projects
-                </Button>
-              </a>
-              <a
-                href={resumeLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto"
-              >
-                <Button size="lg" className="w-full sm:w-auto">
-                  resume
                 </Button>
               </a>
               <a href="#contact" className="w-full sm:w-auto">
