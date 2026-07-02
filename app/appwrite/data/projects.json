@@ -1,5 +1,16 @@
 [
   {
+    "$id": "6a4f9c2e00187ab3d4f1",
+    "project_title": "SeatInfo",
+    "project_meta_description": "Know your seat before you sit. SeatInfo unifies to-scale seat maps, live availability, AI seat picks, and real traveler reviews behind one flight-number search.",
+    "project_skills": ["NextJS", "TailwindCSS", "Cloudflare"],
+    "img_url": "/appwrite/projects/seatinfo.png",
+    "isPublished": true,
+    "sort_order": 0,
+    "project_link": "https://seatinfo.com",
+    "github_link": null
+  },
+  {
     "$id": "699930e30006a6140d93",
     "project_title": "Miles Or Cash",
     "project_meta_description": "Compare real flight prices with award redemptions and see the exact value of your miles before you book.",
@@ -76,17 +87,17 @@
     "project_link": "https://nosecrets-frontend.vercel.app/",
     "github_link": null
   },
-  // {
-  //   "$id": "695e31740002b90bc657",
-  //   "project_title": "Sindhuja Regency",
-  //   "project_meta_description": "A minimalist landing page for a premium 10-story apartment complex, emphasizing modern living and easy user navigation.",
-  //   "project_skills": ["ReactJS", "TailwindCSS", "Framer Motion"],
-  //   "img_url": "/appwrite/projects/sindhuja-regency.png",
-  //   "isPublished": true,
-  //   "sort_order": 8,
-  //   "project_link": "https://sindhuja-old.netlify.app/",
-  //   "github_link": null
-  // },
+  {
+    "$id": "695e31740002b90bc657",
+    "project_title": "Sindhuja Regency",
+    "project_meta_description": "A minimalist landing page for a premium 10-story apartment complex, emphasizing modern living and easy user navigation.",
+    "project_skills": ["ReactJS", "TailwindCSS", "Framer Motion"],
+    "img_url": "/appwrite/projects/sindhuja-regency.png",
+    "isPublished": false,
+    "sort_order": 8,
+    "project_link": "https://sindhuja-old.netlify.app/",
+    "github_link": null
+  },
   {
     "$id": "69116d7d0017b18ed2c2",
     "project_title": "Oroex Marketing Website",
