@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import Reveal from "@/components/common/Reveal";
 
 const contentLink =
@@ -6,9 +8,9 @@ const contentLink =
 const items = [
   <>
     Built{" "}
-    <a className={contentLink} href="/projects/resume-builder">
+    <Link className={contentLink} href="/projects/resume-builder">
       Resume Builder
-    </a>
+    </Link>
     , a free developer resume builder, and got{" "}
     <a
       className={contentLink}
@@ -22,16 +24,16 @@ const items = [
   </>,
   <>
     Shipped{" "}
-    <a className={contentLink} href="/projects/email-sender">
+    <Link className={contentLink} href="/projects/email-sender">
       Email Sender
-    </a>
+    </Link>
     , a Next.js app for personalized job outreach from your own Gmail
   </>,
   <>
     Made{" "}
-    <a className={contentLink} href="/projects/image-cropper">
+    <Link className={contentLink} href="/projects/image-cropper">
       Image Cropper
-    </a>
+    </Link>
     , a shadcn/ui registry component for uploading and cropping images
   </>,
   <>
