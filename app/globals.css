@@ -8,7 +8,7 @@ html {
 @custom-variant dark (&:is(.dark *));
 
 /*
- * dracufolio — engineer's terminal theme
+ * dracufolio: engineer's terminal theme
  * Foreground: PANTONE 11-4201 Cloud Dancer (Color of the Year 2026)
  * on a warm near-black, with a single phosphor-green accent.
  */
@@ -16,7 +16,7 @@ html {
 .dark {
   /* Pantone 11-4201 Cloud Dancer (~#F0EDE5) */
   --cloud-dancer: oklch(0.9451 0.0058 95.2);
-  /* phosphor green — status/prompt accents only */
+  /* phosphor green, status and prompt accents only */
   --phosphor: oklch(0.83 0.175 150);
 
   --background: oklch(0.145 0.0035 95);
