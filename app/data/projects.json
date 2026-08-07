@@ -1,5 +1,41 @@
 [
   {
+    "id": "38df7b4803b2a64f18aa",
+    "slug": "tmplayer",
+    "title": "TMPlayer",
+    "description": "An open-source Android TV player that signs into your own Telegram account by QR code and streams films straight from your chats, with no download step first.",
+    "tagline": "Your Telegram films, on the TV, without downloading them first. Built and tested on a 1 GB TV stick.",
+    "longDescription": [
+      "Films sit in Telegram channels, but watching one on a television normally means downloading several gigabytes to a phone, copying the file across, and finding somewhere to keep it. TMPlayer removes that whole detour: scan a QR code with the phone that holds your Telegram account, pick a film, and playback starts in a few seconds.",
+      "The interesting part is the streaming layer. A custom Media3 DataSource maps ExoPlayer's reads onto TDLib's offset-based partial downloads, so seeking to the ninety-minute mark re-aims the download at that byte instead of grinding through everything before it. The window arithmetic lives in one pure, unit-tested class, because that is where a streaming player either works or does not.",
+      "Everything is shaped by the hardware it targets, a Mi TV Stick with 1 GB of RAM and under 5 GB of usable storage. One film is cached at a time and the previous one is cleared with the viewer's consent, thumbnails are decoded without an image library, and the app ships one APK per ABI. Film posters, cast and synopses come from TMDB, and every part of that degrades gracefully: if the metadata service is unreachable the panel says so plainly and the film still plays."
+    ],
+    "features": [
+      "QR code sign-in to your own Telegram account, with two-step verification",
+      "Instant playback and real seeking, both while the file is still downloading",
+      "MKV, MP4, AVI and TS with embedded subtitles and switchable audio tracks",
+      "Software decoding for DTS, TrueHD and E-AC3 when the stick lacks the silicon",
+      "Continue watching, with the position saved often enough to survive a power cut",
+      "Film posters, cast and synopses from TMDB, with graceful fallbacks throughout"
+    ],
+    "skills": [
+      "Kotlin",
+      "Jetpack Compose",
+      "Android TV",
+      "TDLib",
+      "Media3 ExoPlayer",
+      "TMDB API"
+    ],
+    "images": [
+      "/appwrite/projects/tmplayer.webp"
+    ],
+    "liveUrl": "https://tmp.nevil.dev",
+    "githubUrl": "https://github.com/dracu-lah/TMPlayer",
+    "year": "2026",
+    "published": true,
+    "order": 0
+  },
+  {
     "id": "6a4f9c2e00187ab3d4f1",
     "slug": "seatinfo",
     "title": "SeatInfo",
@@ -18,13 +54,19 @@
       "Google or email sign-in with synced favorites",
       "Multi-language UI, blog, and FAQ"
     ],
-    "skills": ["NextJS", "TailwindCSS", "Cloudflare"],
-    "images": ["/appwrite/projects/seatinfo.webp"],
+    "skills": [
+      "NextJS",
+      "TailwindCSS",
+      "Cloudflare"
+    ],
+    "images": [
+      "/appwrite/projects/seatinfo.webp"
+    ],
     "liveUrl": "https://seatinfo.com",
     "githubUrl": null,
     "year": "2026",
     "published": true,
-    "order": 0
+    "order": 1
   },
   {
     "id": "699930e30006a6140d93",
@@ -45,13 +87,19 @@
       "Telegram bot and ChatGPT app integrations",
       "Locally stored search history, no bookings handled on-site"
     ],
-    "skills": ["NextJS", "TailwindCSS", "Cloudflare"],
-    "images": ["/appwrite/projects/miles-or-cash.png"],
+    "skills": [
+      "NextJS",
+      "TailwindCSS",
+      "Cloudflare"
+    ],
+    "images": [
+      "/appwrite/projects/miles-or-cash.png"
+    ],
     "liveUrl": "https://milesorcash.com",
     "githubUrl": null,
     "year": "2026",
     "published": true,
-    "order": 1
+    "order": 2
   },
   {
     "id": "693a430b002238a01567",
@@ -72,13 +120,19 @@
       "iOS/Android apps, Chrome extension, ChatGPT plugin, Telegram bot",
       "Award charts, calculators, and airline guides"
     ],
-    "skills": ["NextJS", "Mixpanel", "ShadcnUI"],
-    "images": ["/appwrite/projects/flightpoints.png"],
+    "skills": [
+      "NextJS",
+      "Mixpanel",
+      "ShadcnUI"
+    ],
+    "images": [
+      "/appwrite/projects/flightpoints.png"
+    ],
     "liveUrl": "https://www.flightpoints.com/",
     "githubUrl": null,
     "year": "2026",
     "published": true,
-    "order": 2
+    "order": 3
   },
   {
     "id": "68ded97a003738100445",
@@ -96,13 +150,19 @@
       "Fully responsive layout",
       "Agency positioning and contact sections"
     ],
-    "skills": ["NextJS", "TailwindCSS", "Framer Motion"],
-    "images": ["/appwrite/projects/parazyakampany.png"],
+    "skills": [
+      "NextJS",
+      "TailwindCSS",
+      "Framer Motion"
+    ],
+    "images": [
+      "/appwrite/projects/parazyakampany.png"
+    ],
     "liveUrl": "https://www.parazyakampany.com/",
     "githubUrl": null,
     "year": "2024",
     "published": true,
-    "order": 3
+    "order": 4
   },
   {
     "id": "68569f390004aa238746",
@@ -123,13 +183,19 @@
       "Light and dark themes with sample data loading",
       "Fully client-side, data stays in localStorage"
     ],
-    "skills": ["ReactJS", "GeminiAPI", "React To Print"],
-    "images": ["/appwrite/projects/resume-builder.png"],
+    "skills": [
+      "ReactJS",
+      "GeminiAPI",
+      "React To Print"
+    ],
+    "images": [
+      "/appwrite/projects/resume-builder.png"
+    ],
     "liveUrl": "https://resumebuilder.js.org/",
     "githubUrl": "https://github.com/dracu-lah/resumebuilder",
     "year": "2025",
     "published": true,
-    "order": 4
+    "order": 5
   },
   {
     "id": "68e8c31300153e6201db",
@@ -149,13 +215,19 @@
       "PDF resume attachment",
       "Dark and light themes"
     ],
-    "skills": ["NextJS", "ShadcnUI", "Gmail SMTP"],
-    "images": ["/appwrite/projects/email-sender.png"],
+    "skills": [
+      "NextJS",
+      "ShadcnUI",
+      "Gmail SMTP"
+    ],
+    "images": [
+      "/appwrite/projects/email-sender.png"
+    ],
     "liveUrl": "https://emailxsender.vercel.app/",
     "githubUrl": "https://github.com/dracu-lah/emailsender-next",
     "year": "2025",
     "published": true,
-    "order": 5
+    "order": 6
   },
   {
     "id": "68ea0e15001093ee0469",
@@ -175,13 +247,19 @@
       "onCropComplete callback for the cropped output",
       "Works with pnpm, npm, yarn, and bun"
     ],
-    "skills": ["ReactJS", "TailwindCSS", "React Easy Crop"],
-    "images": ["/appwrite/projects/image-cropper.png"],
+    "skills": [
+      "ReactJS",
+      "TailwindCSS",
+      "React Easy Crop"
+    ],
+    "images": [
+      "/appwrite/projects/image-cropper.png"
+    ],
     "liveUrl": "https://imagexcropper.netlify.app/",
     "githubUrl": "https://github.com/dracu-lah/image-cropper-react/",
     "year": "2025",
     "published": true,
-    "order": 6
+    "order": 7
   },
   {
     "id": "68dd5cae003b83512ee8",
@@ -200,13 +278,19 @@
       "Brand-story content on transparency and clean ingredients",
       "Animated Next.js and Framer Motion landing page"
     ],
-    "skills": ["NextJS", "TailwindCSS", "Framer Motion"],
-    "images": ["/appwrite/projects/no-secrets.webp"],
+    "skills": [
+      "NextJS",
+      "TailwindCSS",
+      "Framer Motion"
+    ],
+    "images": [
+      "/appwrite/projects/no-secrets.webp"
+    ],
     "liveUrl": "https://nosecrets-frontend.vercel.app/",
     "githubUrl": null,
     "year": "2025",
     "published": true,
-    "order": 7
+    "order": 8
   },
   {
     "id": "695e31740002b90bc657",
@@ -216,13 +300,19 @@
     "tagline": null,
     "longDescription": [],
     "features": [],
-    "skills": ["ReactJS", "TailwindCSS", "Framer Motion"],
-    "images": ["/appwrite/projects/sindhuja-regency.png"],
+    "skills": [
+      "ReactJS",
+      "TailwindCSS",
+      "Framer Motion"
+    ],
+    "images": [
+      "/appwrite/projects/sindhuja-regency.png"
+    ],
     "liveUrl": "https://sindhuja-old.netlify.app/",
     "githubUrl": null,
     "year": null,
     "published": false,
-    "order": 8
+    "order": 9
   },
   {
     "id": "69116d7d0017b18ed2c2",
@@ -238,13 +328,20 @@
       "Responsive TypeScript codebase",
       "Marketing-focused page structure"
     ],
-    "skills": ["ReactJS", "TailwindCSS", "FramerMotion", "Typescript"],
-    "images": ["/appwrite/projects/oroex.webp"],
+    "skills": [
+      "ReactJS",
+      "TailwindCSS",
+      "FramerMotion",
+      "Typescript"
+    ],
+    "images": [
+      "/appwrite/projects/oroex.webp"
+    ],
     "liveUrl": null,
     "githubUrl": null,
     "year": null,
     "published": true,
-    "order": 9
+    "order": 10
   },
   {
     "id": "68eb31bc000deead8aa4",
@@ -263,13 +360,19 @@
       "Faithful implementation of a Behance design concept",
       "React, Framer Motion, Tailwind CSS, and Vite"
     ],
-    "skills": ["ReactJS", "TailwindCSS", "Framer Motion"],
-    "images": ["/appwrite/projects/donut-website.webp"],
+    "skills": [
+      "ReactJS",
+      "TailwindCSS",
+      "Framer Motion"
+    ],
+    "images": [
+      "/appwrite/projects/donut-website.webp"
+    ],
     "liveUrl": "https://buydonuts.netlify.app/",
     "githubUrl": "https://github.com/dracu-lah/donut-react",
     "year": "2025",
     "published": true,
-    "order": 10
+    "order": 11
   },
   {
     "id": "649d6745dd606556a617",
@@ -288,13 +391,19 @@
       "Appwrite-backed dynamic data",
       "Next.js with optimized images"
     ],
-    "skills": ["NextJS", "TailwindCSS", "HeadlessUI"],
-    "images": ["/appwrite/projects/trello-clone.webp"],
+    "skills": [
+      "NextJS",
+      "TailwindCSS",
+      "HeadlessUI"
+    ],
+    "images": [
+      "/appwrite/projects/trello-clone.webp"
+    ],
     "liveUrl": "https://trelloxtwo.vercel.app/",
     "githubUrl": "https://github.com/dracu-lah/trello-appwrite-next",
     "year": "2023",
     "published": true,
-    "order": 11
+    "order": 12
   },
   {
     "id": "66ceeb590024c8530280",
@@ -313,13 +422,19 @@
       "Visual save-status feedback",
       "Framer Motion animations"
     ],
-    "skills": ["ReactJS", "TailwindCSS", "Framer Motion"],
-    "images": ["/appwrite/projects/notes-app.png"],
+    "skills": [
+      "ReactJS",
+      "TailwindCSS",
+      "Framer Motion"
+    ],
+    "images": [
+      "/appwrite/projects/notes-app.png"
+    ],
     "liveUrl": "https://dracu-notes.netlify.app/",
     "githubUrl": "https://github.com/dracu-lah/notes-react",
     "year": "2024",
     "published": true,
-    "order": 12
+    "order": 13
   },
   {
     "id": "648b9730061e85689f35",
@@ -337,13 +452,19 @@
       "Minimalist single-page interface",
       "Pure HTML, CSS, and JavaScript"
     ],
-    "skills": ["HTML", "CSS", "JS"],
-    "images": ["/appwrite/projects/drum-kit.png"],
+    "skills": [
+      "HTML",
+      "CSS",
+      "JS"
+    ],
+    "images": [
+      "/appwrite/projects/drum-kit.png"
+    ],
     "liveUrl": "https://dracu-drum-kit.netlify.app/",
     "githubUrl": "https://github.com/dracu-lah/drum-kit",
     "year": "2022",
     "published": true,
-    "order": 13
+    "order": 14
   },
   {
     "id": "648b97d53585e792fe9a",
@@ -361,13 +482,19 @@
       "Color and sound sequences that grow each round",
       "Zero-dependency static site on GitHub Pages"
     ],
-    "skills": ["HTML", "CSS", "JQuery"],
-    "images": ["/appwrite/projects/simon-game.png"],
+    "skills": [
+      "HTML",
+      "CSS",
+      "JQuery"
+    ],
+    "images": [
+      "/appwrite/projects/simon-game.png"
+    ],
     "liveUrl": "https://dracu-lah.github.io/Simon-Game/",
     "githubUrl": "https://github.com/dracu-lah/Simon-Game",
     "year": "2022",
     "published": true,
-    "order": 14
+    "order": 15
   },
   {
     "id": "648c1cc9c2f15d66810b",
@@ -385,13 +512,19 @@
       "Next.js frontend deployed on Vercel",
       "Separate Express, Node, and MongoDB backend"
     ],
-    "skills": ["NextJS", "ExpressJS", "MongoDB"],
-    "images": ["/appwrite/projects/result-management.png"],
+    "skills": [
+      "NextJS",
+      "ExpressJS",
+      "MongoDB"
+    ],
+    "images": [
+      "/appwrite/projects/result-management.png"
+    ],
     "liveUrl": "https://result-management-next.vercel.app/",
     "githubUrl": "https://github.com/dracu-lah/result-management-next",
     "year": "2023",
     "published": true,
-    "order": 15
+    "order": 16
   },
   {
     "id": "648c15eec2bb707738ba",
@@ -409,13 +542,19 @@
       "Category rows for Originals, Trending, Top Rated, and five genres",
       "Poster-grid browsing matching the Netflix visual style"
     ],
-    "skills": ["NextJS", "TailwindCSS", "TMDB API"],
-    "images": ["/appwrite/projects/netflix-clone.webp"],
+    "skills": [
+      "NextJS",
+      "TailwindCSS",
+      "TMDB API"
+    ],
+    "images": [
+      "/appwrite/projects/netflix-clone.webp"
+    ],
     "liveUrl": "https://netflixclone-next.vercel.app/",
     "githubUrl": "https://github.com/dracu-lah/netflixclone-next",
     "year": "2023",
     "published": true,
-    "order": 16
+    "order": 17
   },
   {
     "id": "648b950a0b374b8d3b2g",
@@ -432,12 +571,18 @@
       "Live data fetching with React Query",
       "Bootstrap-based responsive UI"
     ],
-    "skills": ["ReactJS", "Bootstrap", "React Query"],
-    "images": ["/appwrite/projects/covid19-tracker.png"],
+    "skills": [
+      "ReactJS",
+      "Bootstrap",
+      "React Query"
+    ],
+    "images": [
+      "/appwrite/projects/covid19-tracker.png"
+    ],
     "liveUrl": null,
     "githubUrl": "https://github.com/dracu-lah/covid19-status-tracker",
     "year": "2022",
     "published": true,
-    "order": 17
+    "order": 18
   }
 ]
