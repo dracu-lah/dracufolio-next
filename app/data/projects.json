@@ -3,12 +3,12 @@
     "id": "38df7b4803b2a64f18aa",
     "slug": "tmplayer",
     "title": "TMPlayer",
-    "description": "An open-source Android TV player that signs into your own Telegram account by QR code and streams films straight from your chats, with no download step first.",
-    "tagline": "Your Telegram films, on the TV, without downloading them first. Built and tested on a 1 GB TV stick.",
+    "description": "An open-source Android TV media player that signs into your own Telegram account by QR code and starts videos straight from your chats while they download.",
+    "tagline": "Your Telegram videos, on the TV. Built and tested on a 1 GB TV stick.",
     "longDescription": [
-      "Films sit in Telegram channels, but watching one on a television normally means downloading several gigabytes to a phone, copying the file across, and finding somewhere to keep it. TMPlayer removes that whole detour: scan a QR code with the phone that holds your Telegram account, pick a film, and playback starts in a few seconds.",
+      "Videos shared through your own Telegram chats can be awkward to watch on a television: download to a phone, copy the file across, then find somewhere to keep it. TMPlayer removes that detour. Scan a QR code with the phone that holds your Telegram account, open a chat, pick a video, and playback starts while the file continues downloading.",
       "The interesting part is the streaming layer. A custom Media3 DataSource maps ExoPlayer's reads onto TDLib's offset-based partial downloads, so seeking to the ninety-minute mark re-aims the download at that byte instead of grinding through everything before it. The window arithmetic lives in one pure, unit-tested class, because that is where a streaming player either works or does not.",
-      "Everything is shaped by the hardware it targets, a Mi TV Stick with 1 GB of RAM and under 5 GB of usable storage. One film is cached at a time and the previous one is cleared with the viewer's consent, thumbnails are decoded without an image library, and the app ships one APK per ABI. Film posters, cast and synopses come from TMDB, and every part of that degrades gracefully: if the metadata service is unreachable the panel says so plainly and the film still plays."
+      "Everything is shaped by the hardware it targets, a Mi TV Stick with 1 GB of RAM and under 5 GB of usable storage. One video is cached at a time, previews come directly from Telegram, and the app ships one APK per ABI. There is no catalogue or external metadata layer: the interface stays focused on chats, files, playback, subtitles, audio tracks, and reliable D-pad control."
     ],
     "features": [
       "QR code sign-in to your own Telegram account, with two-step verification",
@@ -16,7 +16,7 @@
       "MKV, MP4, AVI and TS with embedded subtitles and switchable audio tracks",
       "Software decoding for DTS, TrueHD and E-AC3 when the stick lacks the silicon",
       "Continue watching, with the position saved often enough to survive a power cut",
-      "Film posters, cast and synopses from TMDB, with graceful fallbacks throughout"
+      "Chat-first, D-pad-friendly interface using Telegram thumbnails and file information"
     ],
     "skills": [
       "Kotlin",
@@ -24,7 +24,7 @@
       "Android TV",
       "TDLib",
       "Media3 ExoPlayer",
-      "TMDB API"
+      "GPL-3.0"
     ],
     "images": [
       "/appwrite/projects/tmplayer.webp"
