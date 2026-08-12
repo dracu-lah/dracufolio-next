@@ -33,9 +33,9 @@ const HeroSection = () => (
                 Projects
               </Button>
             </Link>
-            <Link href="/contact" className="w-full sm:w-auto">
+            <a href="#contact" className="w-full sm:w-auto">
               <Button className="w-full sm:w-auto">Contact</Button>
-            </Link>
+            </a>
           </div>
         </Reveal>
       </div>

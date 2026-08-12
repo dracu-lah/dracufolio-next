@@ -1,9 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { Github } from "lucide-react";
+import socials from "@/data/socials.json";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { PropsWithChildren, useState, useEffect } from "react";
+
+const GITHUB_URL = socials.github_url;
 
 const navLinks = [
   { href: "/", label: "home" },
@@ -18,9 +22,8 @@ const Navbar = ({ children }: PropsWithChildren) => {
   const pathname = usePathname();
   // A project detail page still counts as "projects".
   const activeHref =
-    navLinks.find(
-      (link) => link.href !== "/" && pathname.startsWith(link.href),
-    )?.href ?? (pathname === "/" ? "/" : null);
+    navLinks.find((link) => link.href !== "/" && pathname.startsWith(link.href))
+      ?.href ?? (pathname === "/" ? "/" : null);
   const highlighted = hovered ?? activeHref;
 
   useEffect(() => {
@@ -111,9 +114,18 @@ const Navbar = ({ children }: PropsWithChildren) => {
       </div>
 
       <div className="flex items-center gap-x-3">
-        <Link href="/contact" className="hidden md:block">
-          <Button size="sm">Contact</Button>
-        </Link>
+        <a
+          href={GITHUB_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden md:block"
+          aria-label="GitHub profile"
+        >
+          <Button size="sm">
+            <Github className="size-4" aria-hidden />
+            GitHub
+          </Button>
+        </a>
         {children}
       </div>
     </motion.nav>

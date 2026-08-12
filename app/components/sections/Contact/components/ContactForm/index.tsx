@@ -63,18 +63,18 @@ const ContactForm = () => {
         <InputField
           name="user_name"
           label="name"
-          placeholder="Sharma ji ka beta"
+          placeholder="Your name"
         />
         <InputField
           name="user_phno"
           label="phone"
-          placeholder="+91 ..."
+          placeholder="Phone number"
           type="tel"
         />
         <InputField
           name="user_email"
           label="email"
-          placeholder="you@domain.dev"
+          placeholder="you@example.com"
           type="email"
         />
         <TextareaField

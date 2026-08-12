@@ -4,7 +4,7 @@ const pages = [
   { href: "/projects", label: "Projects" },
   { href: "/open-source", label: "Open Source" },
   { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 const Footer = () => (

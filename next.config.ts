@@ -21,6 +21,7 @@ const nextConfig: NextConfig = {
       },
       { source: "/work", destination: "/about", statusCode: 301 },
       { source: "/experience", destination: "/about", statusCode: 301 },
+      { source: "/contact", destination: "/#contact", statusCode: 301 },
       { source: "/portfolio", destination: "/projects", statusCode: 301 },
       { source: "/oss", destination: "/open-source", statusCode: 301 },
     ];
