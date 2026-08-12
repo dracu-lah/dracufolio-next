@@ -7,12 +7,12 @@ const ContactSection = ({ asPage = false }: { asPage?: boolean }) => {
   return (
     <section
       id="contact"
-      className="mx-auto max-w-6xl px-6 md:px-10 py-24 md:py-32 lg:py-40"
+      className="mx-auto max-w-7xl px-6 md:px-10 lg:px-14 py-14 md:py-20"
     >
       <div className="grid items-start gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
         <div className="flex max-w-2xl flex-col items-start gap-6">
           <Reveal>
-            <p className="font-mono text-sm uppercase tracking-[0.3em] text-muted-foreground">
+            <p className="font-mono text-base uppercase tracking-[0.22em] text-muted-foreground">
               Get in touch
             </p>
           </Reveal>

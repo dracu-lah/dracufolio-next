@@ -24,7 +24,7 @@ const ExperienceList = () => (
                 </span>
               </h3>
             </div>
-            <p className="font-mono text-sm uppercase tracking-[0.2em] text-muted-foreground">
+            <p className="font-mono text-base uppercase tracking-[0.18em] text-muted-foreground">
               {job.period}
             </p>
           </div>
@@ -42,7 +42,7 @@ const ExperienceList = () => (
               </li>
             ))}
           </ul>
-          <p className="pt-4 font-mono text-sm break-words text-muted-foreground">
+          <p className="pt-4 font-mono text-base break-words text-muted-foreground">
             {job.stack}
           </p>
         </article>

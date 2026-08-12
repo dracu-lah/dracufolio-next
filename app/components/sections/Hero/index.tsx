@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 const HeroSection = () => (
   <section
     id="hero"
-    className="mx-auto max-w-6xl px-6 pt-40 pb-24 md:px-10 md:pt-52 md:pb-32"
+    className="mx-auto max-w-7xl px-6 pt-28 pb-14 md:px-10 lg:px-14 md:pt-36 md:pb-20"
   >
     <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
       <div className="flex flex-col items-start gap-8">

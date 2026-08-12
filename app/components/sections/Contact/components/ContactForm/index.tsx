@@ -46,7 +46,7 @@ const ContactForm = () => {
         {status === "success" && (
           <p
             role="status"
-            className="rounded-lg squircle border border-border p-3 text-center text-sm tracking-wide text-foreground"
+            className="rounded-lg squircle border border-border p-3 text-center text-base tracking-wide text-foreground"
           >
             Message sent successfully.
           </p>
@@ -54,7 +54,7 @@ const ContactForm = () => {
         {status === "error" && (
           <p
             role="status"
-            className="rounded-lg squircle border border-destructive/50 p-3 text-center text-sm tracking-wide text-destructive"
+            className="rounded-lg squircle border border-destructive/50 p-3 text-center text-base tracking-wide text-destructive"
           >
             Something went wrong. Please try again.
           </p>
@@ -86,7 +86,7 @@ const ContactForm = () => {
         <button
           type="submit"
           disabled={status === "loading"}
-          className={`flex cursor-pointer items-center justify-center gap-3 rounded-lg squircle border border-input p-3.5 font-mono text-sm font-medium uppercase tracking-[0.25em] transition-colors duration-300 ${
+          className={`flex cursor-pointer items-center justify-center gap-3 rounded-lg squircle border border-input p-3.5 font-mono text-base font-medium uppercase tracking-[0.18em] transition-colors duration-300 ${
             status == "loading"
               ? "cursor-not-allowed opacity-50"
               : "hover:bg-foreground hover:text-background focus:bg-foreground focus:text-background"

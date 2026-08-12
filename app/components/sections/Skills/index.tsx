@@ -1,37 +1,32 @@
 import Link from "next/link";
-import Skills from "./components/Skills";
+// import Skills from "./components/Skills";
 import ExperienceList from "./components/ExperienceList";
 import Toolkit from "./components/Toolkit";
 import Reveal from "@/components/common/Reveal";
-import { GetSkillsAPI } from "@/services/api";
+// import { GetSkillsAPI } from "@/services/api";
 
-const SkillsSection = async () => {
-  let skills: string[] = [];
-
-  try {
-    skills = await GetSkillsAPI();
-  } catch (error) {
-    console.error("Failed to load skills:", error);
-  }
-
+const SkillsSection = () => {
   return (
-    <section id="skills" className="mx-auto max-w-6xl px-6 md:px-10 py-24 md:py-32 lg:py-40">
-      <div className="flex flex-col gap-8 md:gap-12">
-        <div className="flex max-w-2xl flex-col gap-5">
+    <section
+      id="experience"
+      className="mx-auto max-w-7xl px-6 md:px-10 lg:px-14 py-14 md:py-20"
+    >
+      <div className="grid items-start gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
+        <div className="flex flex-col gap-5 lg:sticky lg:top-28">
           <Reveal>
-            <p className="font-mono text-sm uppercase tracking-[0.3em] text-muted-foreground">
-              What I work with
+            <p className="font-mono text-base uppercase tracking-[0.22em] text-muted-foreground">
+              Where I have worked
             </p>
           </Reveal>
           <Reveal delay={0.08}>
             <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
-              Skills &amp; Experience
+              Experience
             </h2>
           </Reveal>
           <Reveal delay={0.16}>
             <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-              Three years of <b>React</b> work across product teams, from
-              design handoff to production. The full work history is on{" "}
+              Three years of <b>React</b> work across product teams, from design
+              handoff to production. The full work history is on{" "}
               <a
                 className="underline underline-offset-4 transition-colors duration-300 hover:text-foreground"
                 href="https://www.linkedin.com/in/nevil-krishna-k-77170222a/"
@@ -45,21 +40,16 @@ const SkillsSection = async () => {
           </Reveal>
         </div>
 
-        <Skills skills={skills} />
+        {/* Skills logo grid is parked, add back if needed */}
+        {/* <Skills skills={skills} /> */}
 
-        <Toolkit />
-
-        <div className="flex flex-col gap-8">
-          <Reveal>
-            <h3 className="font-mono text-sm uppercase tracking-[0.3em] text-muted-foreground">
-              Experience
-            </h3>
-          </Reveal>
+        <div className="flex flex-col gap-10 md:gap-14">
+          <Toolkit />
           <ExperienceList />
           <Reveal>
             <Link
               href="/about"
-              className="font-mono text-sm uppercase tracking-[0.2em] text-muted-foreground underline underline-offset-4 transition-colors duration-300 hover:text-foreground"
+              className="font-mono text-base uppercase tracking-[0.18em] text-muted-foreground underline underline-offset-4 transition-colors duration-300 hover:text-foreground"
             >
               Full profile
             </Link>
