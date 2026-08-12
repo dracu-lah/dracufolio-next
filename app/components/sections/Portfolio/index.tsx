@@ -24,7 +24,7 @@ const PortfolioSection = async () => {
         <div className="flex flex-col gap-5">
           <Reveal>
             <p className="font-mono text-sm uppercase tracking-[0.3em] text-muted-foreground">
-              {projects.length} projects · deployed, not just localhost
+              {projects.length} projects · most of them live
             </p>
           </Reveal>
           <Reveal delay={0.08}>

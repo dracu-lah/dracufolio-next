@@ -39,8 +39,8 @@ const HeroSection = async () => {
 
           <Reveal delay={0.08}>
             <p className="max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-              I build <b>React</b> and <b>Next.js</b> interfaces that load
-              fast and hold up in production.
+              I build <b>React</b> and <b>Next.js</b> frontends. Currently
+              on travel products at Lascade.
             </p>
           </Reveal>
 

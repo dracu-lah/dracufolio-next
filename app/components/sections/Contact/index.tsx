@@ -19,8 +19,8 @@ const ContactSection = () => {
           </Reveal>
           <Reveal delay={0.16}>
             <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-              Have a role, a project, or a bug that refuses to die? Send a
-              message and I&apos;ll reply within a day.
+              Hiring, building something, or stuck on a bug? Drop a message
+              and I&apos;ll get back to you.
             </p>
           </Reveal>
           <Reveal delay={0.24} className="w-full">
