@@ -121,7 +121,7 @@ const Navbar = ({ children }: PropsWithChildren) => {
           className="hidden md:block"
           aria-label="GitHub profile"
         >
-          <Button size="sm">
+          <Button className="h-full">
             <Github className="size-4" aria-hidden />
             GitHub
           </Button>
