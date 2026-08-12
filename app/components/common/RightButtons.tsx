@@ -1,17 +1,22 @@
 "use client";
 import { useMotionValueEvent, useScroll, motion } from "framer-motion";
 import { useState } from "react";
+import useActiveSection from "@/hooks/useActiveSection";
 
 const navItems = [
-  { id: "top", href: "/", label: "home" },
+  { id: "hero", href: "/", label: "home" },
   { id: "portfolio", href: "/#portfolio", label: "projects" },
   { id: "skills", href: "/#skills", label: "skills" },
   { id: "contact", href: "/#contact", label: "contact" },
 ];
 
+const sectionIds = navItems.map((item) => item.id);
+
 const RightButtons = () => {
   const [show, setShow] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
+  const activeId = useActiveSection(sectionIds);
+  const highlighted = hovered ?? activeId;
   const { scrollY } = useScroll();
   useMotionValueEvent(scrollY, "change", (progress) => {
     setShow(progress > 0);
@@ -30,10 +35,15 @@ const RightButtons = () => {
           <a
             key={item.label}
             href={item.href}
-            onMouseEnter={() => setHovered(item.href)}
-            className="relative px-4 py-2.5 font-mono text-[13px] uppercase tracking-[0.2em] text-muted-foreground transition-colors duration-200 hover:text-background"
+            onMouseEnter={() => setHovered(item.id)}
+            aria-current={activeId === item.id ? "true" : undefined}
+            className={`relative px-4 py-2.5 font-mono text-[13px] uppercase tracking-[0.2em] transition-colors duration-200 ${
+              highlighted === item.id
+                ? "text-background"
+                : "text-muted-foreground"
+            }`}
           >
-            {hovered === item.href && (
+            {highlighted === item.id && (
               <motion.span
                 layoutId="side-nav-hover"
                 className="absolute inset-0 -z-10 rounded-lg squircle bg-foreground"
