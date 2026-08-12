@@ -9,7 +9,7 @@ const systemInfo = [
   { key: "mem", value: "32GB" },
   { key: "disk", value: "512GB SSD" },
   { key: "stack", value: "React · Next.js · TS" },
-  { key: "uptime", value: "3+ yrs frontend" },
+  { key: "uptime", value: "3+ yrs shipping" },
   { key: "caffeine", value: "█████████░ 92%" },
 ];
 
@@ -47,7 +47,7 @@ const AboutSection = () => {
 
           <Reveal delay={0.08}>
             <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-              Frontend developer with{" "}
+              Full stack developer with{" "}
               <b>3 years in the React/Next.js ecosystem</b>, currently
               building high-traffic travel products like{" "}
               <a
@@ -88,7 +88,7 @@ const AboutSection = () => {
                     {...(external
                       ? { target: "_blank", rel: "noopener noreferrer" }
                       : {})}
-                    className="flex items-center gap-3 border border-border px-4 py-3 text-sm uppercase tracking-[0.2em] text-muted-foreground transition-colors duration-300 hover:border-foreground hover:text-foreground"
+                    className="flex items-center gap-3 rounded-lg squircle border border-border px-4 py-3 text-sm uppercase tracking-[0.2em] text-muted-foreground transition-colors duration-300 hover:border-foreground hover:text-foreground"
                   >
                     <Icon className="size-5" aria-hidden />
                     {label}
@@ -100,7 +100,7 @@ const AboutSection = () => {
         </div>
 
         <Reveal delay={0.15} className="w-full">
-          <div className="overflow-hidden rounded-lg border border-border bg-card font-mono shadow-lg">
+          <div className="overflow-hidden rounded-xl squircle border border-border bg-card font-mono shadow-lg">
             <div className="flex items-center gap-2 border-b border-border bg-secondary/60 px-4 py-3">
               <span className="size-3 rounded-full bg-[#ff5f57]" aria-hidden />
               <span className="size-3 rounded-full bg-[#febc2e]" aria-hidden />

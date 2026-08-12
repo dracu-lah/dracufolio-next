@@ -4,7 +4,7 @@ import { GetSkillsAPI } from "@/services/api";
 
 const experience = [
   {
-    role: "Web Developer",
+    role: "Full Stack Developer",
     company: "Lascade LLP",
     period: "Nov 2025 - Present",
     points: [
@@ -89,7 +89,7 @@ const SkillsSection = async () => {
         <Skills skills={skills} />
 
         <Reveal className="w-full">
-          <dl className="grid divide-y divide-border border border-border md:grid-cols-2 md:divide-y-0">
+          <dl className="grid overflow-hidden rounded-xl squircle divide-y divide-border border border-border md:grid-cols-2 md:divide-y-0">
             {toolkit.map((row, i) => (
               <div
                 key={row.label}
@@ -116,7 +116,7 @@ const SkillsSection = async () => {
           </Reveal>
           {experience.map((job, index) => (
             <Reveal key={job.company} delay={index * 0.08} className="w-full">
-              <article className="border border-border bg-card px-6 py-6 md:px-8 md:py-7">
+              <article className="rounded-xl squircle border border-border bg-card px-6 py-6 md:px-8 md:py-7">
                 <div className="flex flex-col justify-between gap-2 pb-4 md:flex-row md:items-baseline">
                   <h4 className="font-display text-xl font-bold tracking-tight md:text-2xl">
                     {job.role}{" "}

@@ -37,7 +37,7 @@ const ContactForm = () => {
   }, [status]);
 
   return (
-    <div className="w-full border border-border bg-card">
+    <div className="w-full rounded-xl squircle border border-border bg-card">
       <p className="border-b border-border px-5 py-3 font-mono text-[13px] uppercase tracking-[0.25em] text-muted-foreground">
         Send a message
       </p>

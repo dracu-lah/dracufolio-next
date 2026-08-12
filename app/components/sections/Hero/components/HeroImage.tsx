@@ -11,7 +11,7 @@ const HeroImage = async () => {
   }
 
   return (
-    <figure className="relative border border-border bg-card">
+    <figure className="relative overflow-hidden rounded-2xl squircle border border-border bg-card">
       {heroImage ? (
         <Image
           priority
@@ -21,7 +21,7 @@ const HeroImage = async () => {
           draggable="false"
           className="size-72 object-cover md:size-80 xl:size-88"
           src={heroImage}
-          alt="Portrait of Nevil Krishna K, frontend engineer"
+          alt="Portrait of Nevil Krishna K, full stack developer"
         />
       ) : (
         <div className="flex size-72 items-center justify-center text-muted-foreground md:size-80 xl:size-88">

@@ -127,7 +127,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
           </div>
         </header>
 
-        <figure className="border border-border bg-card">
+        <figure className="overflow-hidden rounded-2xl squircle border border-border bg-card">
           <Image
             priority
             width={1920}
@@ -150,7 +150,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
                 sizes="(min-width: 768px) 30rem, 100vw"
                 src={img}
                 alt={`${project.title} screenshot`}
-                className="w-full border border-border object-cover"
+                className="w-full rounded-xl squircle border border-border object-cover"
                 draggable="false"
               />
             ))}
@@ -197,7 +197,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
             )}
           </div>
 
-          <aside className="h-fit border border-border bg-card">
+          <aside className="h-fit overflow-hidden rounded-xl squircle border border-border bg-card">
             <p className="border-b border-border px-5 py-3 font-mono text-[13px] uppercase tracking-[0.25em] text-muted-foreground">
               Project info
             </p>
@@ -218,7 +218,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
                   {project.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="border border-border px-2.5 py-1 font-mono text-sm text-muted-foreground"
+                      className="rounded-md squircle border border-border px-2.5 py-1 font-mono text-sm text-muted-foreground"
                     >
                       {skill}
                     </span>
@@ -240,7 +240,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
 
         <nav
           aria-label="Project navigation"
-          className="mt-12 grid divide-y divide-border border border-border md:mt-16 md:grid-cols-2 md:divide-x md:divide-y-0"
+          className="mt-12 grid overflow-hidden rounded-xl squircle divide-y divide-border border border-border md:mt-16 md:grid-cols-2 md:divide-x md:divide-y-0"
         >
           {prev ? (
             <Link
