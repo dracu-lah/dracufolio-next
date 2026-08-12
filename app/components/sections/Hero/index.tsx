@@ -32,7 +32,7 @@ const HeroSection = async () => {
               <br />
               Krishna K
               <span className="mt-5 block text-lg font-normal tracking-[0.3em] text-muted-foreground uppercase sm:text-xl">
-                Frontend Engineer
+                Full Stack Developer
               </span>
             </h1>
           </Reveal>
@@ -60,7 +60,7 @@ const HeroSection = async () => {
           </Reveal>
 
           <Reveal delay={0.24} className="w-full">
-            <dl className="grid w-full max-w-xl grid-cols-3 divide-x divide-border border border-border bg-background/60">
+            <dl className="grid w-full max-w-xl grid-cols-3 overflow-hidden rounded-xl squircle divide-x divide-border border border-border bg-background/60">
               {stats.map((stat) => (
                 <div key={stat.label} className="px-3 py-3 md:px-6 md:py-4">
                   <dd className="font-display text-xl font-bold md:text-3xl">

@@ -52,15 +52,14 @@ html {
   --sidebar-border: oklch(0.28 0.006 95);
   --sidebar-ring: var(--cloud-dancer);
 
-  --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo,
+  /* single family everywhere: Google Sans Code */
+  --font-mono: var(--font-google-sans), ui-monospace, SFMono-Regular, Menlo,
     Consolas, monospace;
-  --font-display: var(--font-martian-mono), var(--font-plex-mono),
-    ui-monospace, monospace;
-  --font-sans: var(--font-instrument-sans), ui-sans-serif, system-ui,
-    sans-serif;
-  --font-serif: ui-serif, Georgia, serif;
+  --font-display: var(--font-google-sans), ui-monospace, monospace;
+  --font-sans: var(--font-google-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-google-sans), ui-serif, Georgia, serif;
 
-  --radius: 0rem;
+  --radius: 0.75rem;
   --shadow-2xs: 0 0 0 0 transparent;
   --shadow-xs: 0 0 0 0 transparent;
   --shadow-sm: 0 0 0 0 transparent;
@@ -114,10 +113,10 @@ html {
   --font-serif: var(--font-serif);
   --font-display: var(--font-display);
 
-  --radius-sm: var(--radius);
-  --radius-md: var(--radius);
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 3px);
   --radius-lg: var(--radius);
-  --radius-xl: var(--radius);
+  --radius-xl: calc(var(--radius) + 6px);
 
   --shadow-2xs: var(--shadow-2xs);
   --shadow-xs: var(--shadow-xs);
@@ -135,6 +134,13 @@ html {
   }
   body {
     @apply bg-background text-foreground font-sans;
+  }
+  /* one family everywhere; form controls don't inherit fonts by default */
+  button,
+  input,
+  textarea,
+  select {
+    font-family: inherit;
   }
   ::selection {
     background: var(--cloud-dancer);
@@ -211,4 +217,13 @@ body b {
   scrollbar-width: thin;
   scrollbar-color: var(--border) var(--muted);
   -webkit-overflow-scrolling: touch;
+}
+
+/* iOS-style smooth (squircle) corners, borrowed from the flightpoints surfaces.
+   Pair with a `rounded-*` class: that sets the radius, this smooths it.
+   Browsers without `corner-shape` just get the plain rounded corner. */
+@supports (corner-shape: squircle) {
+  .squircle {
+    corner-shape: squircle;
+  }
 }

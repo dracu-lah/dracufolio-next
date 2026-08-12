@@ -550,7 +550,7 @@
     "images": [
       "/appwrite/projects/netflix-clone.webp"
     ],
-    "liveUrl": "https://netflixclone-next.vercel.app/",
+    "liveUrl": null,
     "githubUrl": "https://github.com/dracu-lah/netflixclone-next",
     "year": "2023",
     "published": true,

@@ -86,7 +86,7 @@ const Navbar = ({ children }: PropsWithChildren) => {
             {hovered === link.href && (
               <motion.span
                 layoutId="nav-hover"
-                className="absolute inset-0 -z-10 bg-foreground"
+                className="absolute inset-0 -z-10 rounded-lg squircle bg-foreground"
                 transition={{ type: "spring", stiffness: 500, damping: 40 }}
               />
             )}

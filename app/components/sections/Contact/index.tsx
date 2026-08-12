@@ -24,7 +24,7 @@ const ContactSection = () => {
             </p>
           </Reveal>
           <Reveal delay={0.24} className="w-full">
-            <ul className="w-full max-w-md divide-y divide-border border border-border">
+            <ul className="w-full max-w-md overflow-hidden rounded-xl squircle divide-y divide-border border border-border">
               <li>
                 <a
                   href="mailto:nevilkrishna@gmail.com"

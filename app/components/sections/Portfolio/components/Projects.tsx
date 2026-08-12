@@ -26,7 +26,7 @@ const ProjectCard = ({
         delay: (index % 2) * 0.08,
         ease: [0.16, 1, 0.3, 1],
       }}
-      className="group relative flex min-w-80 snap-center flex-col overflow-hidden border border-border bg-card transition-colors duration-300 hover:border-muted-foreground"
+      className="group relative flex min-w-80 snap-center flex-col overflow-hidden rounded-xl squircle border border-border bg-card transition-colors duration-300 hover:border-muted-foreground"
     >
       {/* Whole card opens the project page */}
       <Link
@@ -104,7 +104,7 @@ const ProjectCard = ({
           {project.skills.map((skill: string) => (
             <span
               key={skill}
-              className="inline-block border border-border px-2.5 py-1 font-mono text-sm tracking-wide text-muted-foreground"
+              className="inline-block rounded-md squircle border border-border px-2.5 py-1 font-mono text-sm tracking-wide text-muted-foreground"
             >
               {skill}
             </span>

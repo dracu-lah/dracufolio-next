@@ -128,7 +128,7 @@ const OpenSourceSection = () => {
           {items.map((item, i) => (
             <li key={i} className="h-full">
               <Reveal delay={(i % 2) * 0.08} className="h-full">
-                <div className="flex h-full gap-3 border border-border bg-card px-5 py-4 text-base leading-relaxed text-muted-foreground md:px-6 md:py-5 md:text-lg">
+                <div className="flex h-full gap-3 rounded-xl squircle border border-border bg-card px-5 py-4 text-base leading-relaxed text-muted-foreground md:px-6 md:py-5 md:text-lg">
                   <span
                     aria-hidden
                     className="mt-2.5 size-1.5 shrink-0 bg-phosphor"
