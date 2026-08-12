@@ -1,9 +1,12 @@
+import Image from "next/image";
 import Link from "next/link";
+import { Github } from "lucide-react";
 
 import Reveal from "@/components/common/Reveal";
 
 type Item = {
   name: string;
+  logo?: string;
   href: string;
   internal?: boolean;
   description: string;
@@ -13,6 +16,7 @@ type Item = {
 const items: Item[] = [
   {
     name: "TMPlayer",
+    logo: "/logos/tmplayer.png",
     href: "/projects/tmplayer",
     internal: true,
     description:
@@ -21,6 +25,7 @@ const items: Item[] = [
   },
   {
     name: "Resume Builder",
+    logo: "/logos/resume-builder.png",
     href: "/projects/resume-builder",
     internal: true,
     description:
@@ -75,11 +80,6 @@ const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
     >
       <div className="grid items-start gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
         <div className="flex flex-col gap-5 lg:sticky lg:top-28">
-          <Reveal>
-            <p className="font-mono text-base uppercase tracking-[0.22em] text-muted-foreground">
-              Contributions
-            </p>
-          </Reveal>
           <Reveal delay={0.08}>
             <Heading className="font-display text-3xl font-bold tracking-tight md:text-4xl">
               Open Source
@@ -105,7 +105,19 @@ const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
           {items.map((item) => {
             const body = (
               <>
-                <h3 className="font-display text-xl font-bold tracking-tight md:text-2xl">
+                <h3 className="font-display flex items-center gap-3 text-xl font-bold tracking-tight md:text-2xl">
+                  {item.logo ? (
+                    <Image
+                      src={item.logo}
+                      alt=""
+                      aria-hidden
+                      width={64}
+                      height={64}
+                      className="size-6 shrink-0 rounded-md object-contain md:size-7"
+                    />
+                  ) : (
+                    <Github className="size-6 shrink-0 md:size-7" aria-hidden />
+                  )}
                   {item.name}
                 </h3>
                 <p className="pt-2 text-base leading-relaxed text-muted-foreground md:text-lg">

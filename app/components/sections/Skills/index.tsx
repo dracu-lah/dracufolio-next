@@ -13,11 +13,6 @@ const SkillsSection = () => {
     >
       <div className="grid items-start gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
         <div className="flex flex-col gap-5 lg:sticky lg:top-28">
-          <Reveal>
-            <p className="font-mono text-base uppercase tracking-[0.22em] text-muted-foreground">
-              Where I have worked
-            </p>
-          </Reveal>
           <Reveal delay={0.08}>
             <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
               Experience
