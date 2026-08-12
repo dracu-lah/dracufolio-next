@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { Loader2 } from "lucide-react";
 import { useFormContext } from "react-hook-form";
 import ContactFormProvider from "./components/FormProvider";
 import InputField from "./components/InputField";
@@ -85,13 +86,16 @@ const ContactForm = () => {
         <button
           type="submit"
           disabled={status === "loading"}
-          className={`cursor-pointer rounded-lg squircle border border-input p-3.5 font-mono text-sm font-medium uppercase tracking-[0.25em] transition-colors duration-300 ${
+          className={`flex cursor-pointer items-center justify-center gap-3 rounded-lg squircle border border-input p-3.5 font-mono text-sm font-medium uppercase tracking-[0.25em] transition-colors duration-300 ${
             status == "loading"
               ? "cursor-not-allowed opacity-50"
               : "hover:bg-foreground hover:text-background focus:bg-foreground focus:text-background"
           }`}
         >
-          {status === "loading" ? "Sending..." : "Send message"}
+          {status === "loading" && (
+            <Loader2 className="size-4 animate-spin" aria-hidden />
+          )}
+          {status === "loading" ? "Sending" : "Send message"}
         </button>
       </form>
     </div>
