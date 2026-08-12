@@ -24,6 +24,11 @@ const nextConfig: NextConfig = {
       { source: "/contact", destination: "/#contact", statusCode: 301 },
       { source: "/portfolio", destination: "/projects", statusCode: 301 },
       { source: "/oss", destination: "/open-source", statusCode: 301 },
+      {
+        source: "/appwrite/resume/Nevil-Krishna-Frontend-Resume.pdf",
+        destination: "/appwrite/resume/Nevil-3-Years-Frontend-Resume.pdf",
+        statusCode: 301,
+      },
     ];
   },
 
