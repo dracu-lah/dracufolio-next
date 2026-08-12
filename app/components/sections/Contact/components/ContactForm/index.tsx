@@ -89,7 +89,7 @@ const ContactForm = () => {
         <button
           type="submit"
           disabled={status === "loading"}
-          className={`cursor-pointer border border-input p-3.5 font-mono text-sm font-medium uppercase tracking-[0.25em] transition-colors duration-300 ${
+          className={`cursor-pointer rounded-lg squircle border border-input p-3.5 font-mono text-sm font-medium uppercase tracking-[0.25em] transition-colors duration-300 ${
             status == "loading"
               ? "cursor-not-allowed opacity-50"
               : "hover:bg-foreground hover:text-background focus:bg-foreground focus:text-background"
