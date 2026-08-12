@@ -68,7 +68,7 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
                 />
               </figure>
             )}
-            <ul className="flex flex-wrap gap-x-6 gap-y-3">
+            <ul className="flex flex-wrap justify-center gap-x-8 gap-y-3">
               {socialLinks.map(({ href, label, icon: Icon, external }) => (
                 <li key={label}>
                   <a
