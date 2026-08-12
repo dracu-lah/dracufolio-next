@@ -11,7 +11,7 @@ const HeroImage = async () => {
   }
 
   return (
-    <figure className="relative overflow-hidden rounded-2xl squircle border border-border bg-card">
+    <figure className="overflow-hidden rounded-xl squircle border border-border">
       {heroImage ? (
         <Image
           priority
@@ -28,22 +28,6 @@ const HeroImage = async () => {
           <span className="text-sm uppercase tracking-[0.3em]">no image</span>
         </div>
       )}
-      <span
-        aria-hidden
-        className="absolute -top-px -left-px size-5 border-t-2 border-l-2 border-foreground"
-      />
-      <span
-        aria-hidden
-        className="absolute -top-px -right-px size-5 border-t-2 border-r-2 border-foreground"
-      />
-      <span
-        aria-hidden
-        className="absolute -bottom-px -left-px size-5 border-b-2 border-l-2 border-foreground"
-      />
-      <span
-        aria-hidden
-        className="absolute -right-px -bottom-px size-5 border-r-2 border-b-2 border-foreground"
-      />
     </figure>
   );
 };

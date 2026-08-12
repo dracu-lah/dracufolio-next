@@ -128,17 +128,13 @@ const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
           </Reveal>
         </div>
 
-        <ul className="grid gap-4 md:grid-cols-2">
+        <ul className="max-w-3xl divide-y divide-border border-t border-b border-border">
           {items.map((item, i) => (
-            <li key={i} className="h-full">
-              <Reveal delay={(i % 2) * 0.08} className="h-full">
-                <div className="flex h-full gap-3 rounded-xl squircle border border-border bg-card px-5 py-4 text-base leading-relaxed text-muted-foreground md:px-6 md:py-5 md:text-lg">
-                  <span
-                    aria-hidden
-                    className="mt-2.5 size-1.5 shrink-0 bg-muted-foreground"
-                  />
-                  <span>{item}</span>
-                </div>
+            <li key={i}>
+              <Reveal delay={0.04}>
+                <p className="py-5 text-base leading-relaxed text-muted-foreground md:text-lg">
+                  {item}
+                </p>
               </Reveal>
             </li>
           ))}

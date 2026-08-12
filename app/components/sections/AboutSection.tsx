@@ -84,7 +84,7 @@ const AboutSection = ({ asPage = false }: { asPage?: boolean }) => {
           </Reveal>
 
           <Reveal delay={0.24}>
-            <ul className="flex flex-wrap gap-3 pt-2">
+            <ul className="flex flex-wrap gap-x-6 gap-y-3 pt-2">
               {socialLinks.map(({ href, label, icon: Icon, external }) => (
                 <li key={label}>
                   <a
@@ -92,9 +92,9 @@ const AboutSection = ({ asPage = false }: { asPage?: boolean }) => {
                     {...(external
                       ? { target: "_blank", rel: "noopener noreferrer" }
                       : {})}
-                    className="flex items-center gap-3 rounded-lg squircle border border-border px-4 py-3 text-sm uppercase tracking-[0.2em] text-muted-foreground transition-colors duration-300 hover:border-foreground hover:text-foreground"
+                    className="flex items-center gap-2 font-mono text-sm uppercase tracking-[0.2em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
                   >
-                    <Icon className="size-5" aria-hidden />
+                    <Icon className="size-4" aria-hidden />
                     {label}
                   </a>
                 </li>

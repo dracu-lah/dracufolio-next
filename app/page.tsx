@@ -1,7 +1,7 @@
 import HeroSection from "./components/sections/Hero";
 import AboutSection from "./components/sections/AboutSection";
 import OpenSourceSection from "./components/sections/OpenSource";
-// import SkillsSection from "./components/sections/Skills";
+import SkillsSection from "./components/sections/Skills";
 import PortfolioSection from "./components/sections/Portfolio";
 import ContactSection from "./components/sections/Contact";
 import TerminalRule from "./components/common/TerminalRule";
@@ -14,9 +14,8 @@ export default function Home() {
       <HeroSection />
       <TerminalRule path="projects" />
       <PortfolioSection />
-      {/* Skills and experience are parked for now, add back if needed */}
-      {/* <TerminalRule path="skills" /> */}
-      {/* <SkillsSection /> */}
+      <TerminalRule path="skills" />
+      <SkillsSection />
       <TerminalRule path="open-source" />
       <OpenSourceSection />
       <TerminalRule path="about" />
