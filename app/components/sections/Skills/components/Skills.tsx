@@ -35,7 +35,7 @@ const Skills = ({ skills }: { skills: string[] }) => {
           >
             <Image
               draggable="false"
-              className="size-16 object-contain grayscale opacity-80 transition-all duration-300 group-hover:scale-105 group-hover:opacity-100 md:size-24"
+              className="size-16 object-contain transition-transform duration-300 group-hover:scale-105 md:size-24"
               width={160}
               height={160}
               src={skill}

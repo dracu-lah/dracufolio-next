@@ -77,8 +77,8 @@ const Navbar = ({ children }: PropsWithChildren) => {
             height="8"
           ></rect>
         </motion.svg>
-        <span className="font-display text-base font-semibold tracking-[0.16em] md:text-lg">
-          Nevil Krishna
+        <span className="font-display text-lg font-bold tracking-[0.2em] md:text-2xl">
+          DVLPR
         </span>
       </motion.a>
 

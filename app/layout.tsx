@@ -1,7 +1,7 @@
-import RightButtons from "./components/common/RightButtons";
+// import RightButtons from "./components/common/RightButtons";
 import Navbar from "./components/common/Navbar/Navbar";
 import type { Metadata } from "next";
-import { Google_Sans_Code } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import ResumeDownloadButton from "./components/common/Navbar/ResumeDownloadButton";
 import { Analytics } from "@vercel/analytics/next";
@@ -15,10 +15,17 @@ import {
   websiteJsonLd,
 } from "./lib/seo";
 
-// one family for the whole site: sans, display and mono all resolve to this
-const googleSans = Google_Sans_Code({
+// One family for the whole site: sans, display and mono all resolve to this.
+// Self-hosted so there is no Google Fonts round trip and no missing metrics.
+const googleSans = localFont({
+  src: [
+    { path: "./fonts/GoogleSansCode-latin.woff2", style: "normal" },
+    { path: "./fonts/GoogleSansCode-latin-ext.woff2", style: "normal" },
+  ],
   variable: "--font-google-sans",
-  subsets: ["latin"],
+  display: "swap",
+  fallback: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+  adjustFontFallback: false,
 });
 
 const description =
@@ -91,7 +98,7 @@ export default function RootLayout({
           <ResumeDownloadButton />
         </Navbar>
         {children}
-        <RightButtons />
+        {/* <RightButtons /> */}
         <Analytics />
         <SpeedInsights />
       </body>

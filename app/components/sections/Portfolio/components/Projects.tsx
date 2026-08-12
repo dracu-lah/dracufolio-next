@@ -1,9 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { Globe, Github } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import { type Project } from "@/types/portfolio";
 
 const ProjectCard = ({
@@ -25,7 +23,7 @@ const ProjectCard = ({
         delay: (index % 2) * 0.08,
         ease: [0.16, 1, 0.3, 1],
       }}
-      className="group relative flex min-w-80 snap-center flex-col overflow-hidden rounded-xl squircle border border-border bg-card transition-colors duration-300 hover:border-muted-foreground"
+      className="group relative flex min-w-80 snap-center flex-col overflow-hidden rounded-xl squircle border border-border transition-colors duration-300 hover:border-foreground"
     >
       <Link
         href={`/projects/${project.slug}`}
@@ -33,55 +31,15 @@ const ProjectCard = ({
         className="absolute inset-0 z-10"
       />
 
-      <div className="relative">
-        <div className="relative aspect-video">
-          <Image
-            draggable="false"
-            fill
-            sizes="(min-width: 1024px) 50vw, 90vw"
-            src={project.images[0]}
-            className="h-full w-full object-cover duration-300 lg:group-hover:opacity-90"
-            alt={`Screenshot of ${project.title}`}
-          />
-        </div>
-
-        {/* Quick links sit above the stretched link */}
-        <div className="absolute top-3 right-3 z-20 flex gap-2">
-          {project.liveUrl && (
-            <Button
-              asChild
-              size="sm"
-              className="bg-background/85 backdrop-blur-sm"
-            >
-              <a
-                target="_blank"
-                href={project.liveUrl}
-                rel="noopener noreferrer"
-                aria-label="Visit project website"
-              >
-                <span className="font-medium">Live</span>
-                <Globe size={18} />
-              </a>
-            </Button>
-          )}
-          {project.githubUrl && (
-            <Button
-              asChild
-              size="sm"
-              className="bg-background/85 backdrop-blur-sm"
-            >
-              <a
-                target="_blank"
-                href={project.githubUrl}
-                rel="noopener noreferrer"
-                aria-label="View GitHub repository"
-              >
-                <span className="font-medium">Code</span>
-                <Github size={18} />
-              </a>
-            </Button>
-          )}
-        </div>
+      <div className="relative aspect-video">
+        <Image
+          draggable="false"
+          fill
+          sizes="(min-width: 1024px) 50vw, 90vw"
+          src={project.images[0]}
+          className="h-full w-full object-cover duration-300 lg:group-hover:opacity-90"
+          alt={`Screenshot of ${project.title}`}
+        />
       </div>
 
       <div className="flex flex-1 flex-col">
