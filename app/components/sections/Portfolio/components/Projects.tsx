@@ -43,7 +43,7 @@ const ProjectCard = ({
       </div>
 
       <div className="flex flex-1 flex-col">
-        <div className="flex-1 border-t border-border px-6 py-5">
+        <div className="flex-1 border-t border-border p-6">
           <h3 className="font-display mb-3 text-left text-xl font-bold tracking-tight md:text-2xl">
             {project.title}
           </h3>

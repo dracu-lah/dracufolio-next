@@ -6,27 +6,26 @@ const ExperienceList = () => (
   <div className="flex flex-col gap-6 md:gap-8">
     {experience.map((job, index) => (
       <Reveal key={job.company} delay={index * 0.08} className="w-full">
-        <article className="rounded-xl squircle border border-border bg-card px-5 py-5 md:px-8 md:py-7">
-          <div className="flex flex-col justify-between gap-3 pb-4 md:flex-row md:items-center">
-            <div className="flex items-center gap-4">
-              <Image
-                src={job.logo}
-                alt={`${job.company} logo`}
-                width={128}
-                height={128}
-                className="size-11 shrink-0 rounded-lg squircle object-cover md:size-12"
-              />
+        <article className="rounded-xl squircle border border-border bg-card p-6 md:p-8">
+          <div className="flex items-start gap-4 pb-6">
+            <Image
+              src={job.logo}
+              alt={`${job.company} logo`}
+              width={128}
+              height={128}
+              className="size-11 shrink-0 rounded-lg squircle object-cover md:size-12"
+            />
+            <div className="flex flex-col gap-1">
               <h3 className="font-display text-lg font-bold tracking-tight sm:text-xl md:text-2xl">
-                {job.role}{" "}
-                <span className="block text-muted-foreground md:inline">
-                  <span className="hidden md:inline">· </span>
-                  {job.company}
-                </span>
+                {job.role}
               </h3>
+              <p className="text-base text-muted-foreground md:text-lg">
+                {job.company}
+              </p>
+              <p className="font-mono text-base uppercase tracking-[0.18em] text-muted-foreground">
+                {job.period}
+              </p>
             </div>
-            <p className="font-mono text-base uppercase tracking-[0.18em] text-muted-foreground">
-              {job.period}
-            </p>
           </div>
           <ul className="flex flex-col gap-2.5">
             {job.points.map((point) => (
@@ -42,7 +41,7 @@ const ExperienceList = () => (
               </li>
             ))}
           </ul>
-          <p className="pt-4 font-mono text-base break-words text-muted-foreground">
+          <p className="pt-6 font-mono text-base break-words text-muted-foreground">
             {job.stack}
           </p>
         </article>
