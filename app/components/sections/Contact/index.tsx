@@ -11,11 +11,6 @@ const ContactSection = ({ asPage = false }: { asPage?: boolean }) => {
     >
       <div className="grid items-start gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
         <div className="flex max-w-2xl flex-col items-start gap-6">
-          <Reveal>
-            <p className="font-mono text-base uppercase tracking-[0.22em] text-muted-foreground">
-              Get in touch
-            </p>
-          </Reveal>
           <Reveal delay={0.08}>
             <Heading className="font-display text-3xl font-bold tracking-tight md:text-4xl">
               Contact Me

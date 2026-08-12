@@ -49,9 +49,6 @@ const ProjectsPage = async () => {
         <div className="flex flex-col gap-10 md:gap-12">
           <div className="flex flex-col items-start gap-5">
             <BackLink />
-            <p className="font-mono text-base uppercase tracking-[0.22em] text-muted-foreground">
-              {projects.length} projects
-            </p>
             <h1 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
               All Projects
             </h1>

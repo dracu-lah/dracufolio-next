@@ -11,6 +11,8 @@ export type Project = {
   liveUrl: string | null;
   githubUrl: string | null;
   year: string | null;
+  /** Small square mark, usually the live site favicon */
+  logo?: string;
   published: boolean;
   order: number;
 };

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import HeroImage from "./components/HeroImage";
 import Reveal from "@/components/common/Reveal";
+import InlineLogo from "@/components/common/InlineLogo";
 import { Button } from "@/components/ui/button";
 
 const HeroSection = () => (
@@ -22,7 +23,12 @@ const HeroSection = () => (
         <Reveal delay={0.08}>
           <p className="max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl">
             I build React and Next.js applications. Currently working on travel
-            products at Lascade, in Thrissur, Kerala.
+            products at{" "}
+            <span className="text-foreground">
+              <InlineLogo src="/logos/lascade.png" alt="" />
+              Lascade
+            </span>
+            , in Thrissur, Kerala.
           </p>
         </Reveal>
 

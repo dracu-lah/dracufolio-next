@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Github, Linkedin, Mail } from "lucide-react";
 import Reveal from "@/components/common/Reveal";
+import InlineLogo from "@/components/common/InlineLogo";
 import { GetHeroImageAPI } from "@/services/api";
 
 const profile = [
@@ -88,11 +89,6 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
         </Reveal>
 
         <div className="flex flex-col items-start gap-6">
-          <Reveal>
-            <p className="font-mono text-base uppercase tracking-[0.22em] text-muted-foreground">
-              Who I am
-            </p>
-          </Reveal>
 
           <Reveal delay={0.08}>
             <Heading className="font-display text-3xl font-bold tracking-tight md:text-4xl">
@@ -111,6 +107,7 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
+                <InlineLogo src="/logos/seatinfo.png" alt="" />
                 SeatInfo
               </a>{" "}
               and{" "}
@@ -120,9 +117,15 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
+                <InlineLogo src="/logos/flightpoints.png" alt="" />
                 Flightpoints
               </a>{" "}
-              at <b>Lascade</b>.
+              at{" "}
+              <b>
+                <InlineLogo src="/logos/lascade.png" alt="" />
+                Lascade
+              </b>
+              .
             </p>
           </Reveal>
 

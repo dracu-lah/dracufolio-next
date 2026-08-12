@@ -96,9 +96,6 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
         </nav>
 
         <header className="flex flex-col gap-4 pt-7 pb-9 md:gap-6 md:pt-10 md:pb-12">
-          <p className="font-mono text-base uppercase tracking-[0.22em] text-muted-foreground">
-            Project{project.year && ` · ${project.year}`}
-          </p>
           <h1 className="font-display text-4xl font-bold tracking-tight md:text-6xl">
             {project.title}
           </h1>
