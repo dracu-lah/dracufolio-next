@@ -2,9 +2,13 @@ import Contact from "./components/ContactForm";
 import Reveal from "@/components/common/Reveal";
 import { Linkedin, Mail } from "lucide-react";
 
-const ContactSection = () => {
+const ContactSection = ({ asPage = false }: { asPage?: boolean }) => {
+  const Heading = asPage ? "h1" : "h2";
   return (
-    <section id="contact" className="mx-auto max-w-6xl px-6 py-16 md:py-24 lg:py-32">
+    <section
+      id="contact"
+      className="mx-auto max-w-6xl px-6 py-16 md:py-24 lg:py-32"
+    >
       <div className="grid items-start gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
         <div className="flex flex-col items-start gap-6">
           <Reveal>
@@ -13,9 +17,9 @@ const ContactSection = () => {
             </p>
           </Reveal>
           <Reveal delay={0.08}>
-            <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
+            <Heading className="font-display text-3xl font-bold tracking-tight md:text-4xl">
               Contact Me
-            </h2>
+            </Heading>
           </Reveal>
           <Reveal delay={0.16}>
             <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">

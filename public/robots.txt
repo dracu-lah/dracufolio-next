@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://nevil.dev
-
-# Sitemaps
-Sitemap: https://nevil.dev/sitemap.xml

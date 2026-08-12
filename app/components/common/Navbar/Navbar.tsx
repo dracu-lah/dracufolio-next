@@ -9,6 +9,7 @@ const navLinks = [
   { id: "portfolio", href: "/#portfolio", label: "projects" },
   { id: "skills", href: "/#skills", label: "skills" },
   { id: "about", href: "/#about", label: "about" },
+  { id: "open-source", href: "/#open-source", label: "oss" },
 ];
 
 const sectionIds = navLinks.map((link) => link.id);
