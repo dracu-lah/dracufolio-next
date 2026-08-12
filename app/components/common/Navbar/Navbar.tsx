@@ -1,18 +1,23 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import useActiveSection from "@/hooks/useActiveSection";
 import { PropsWithChildren, useState, useEffect } from "react";
 
 const navLinks = [
-  { href: "/", label: "home" },
-  { href: "/#portfolio", label: "projects" },
-  { href: "/#skills", label: "skills" },
-  { href: "/#about", label: "about" },
+  { id: "hero", href: "/", label: "home" },
+  { id: "portfolio", href: "/#portfolio", label: "projects" },
+  { id: "skills", href: "/#skills", label: "skills" },
+  { id: "about", href: "/#about", label: "about" },
 ];
+
+const sectionIds = navLinks.map((link) => link.id);
 
 const Navbar = ({ children }: PropsWithChildren) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
+  const activeId = useActiveSection(sectionIds);
+  const highlighted = hovered ?? activeId;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,10 +85,15 @@ const Navbar = ({ children }: PropsWithChildren) => {
           <a
             key={link.href}
             href={link.href}
-            onMouseEnter={() => setHovered(link.href)}
-            className="relative px-4 py-2 font-mono text-sm uppercase tracking-wide text-muted-foreground transition-colors duration-200 hover:text-background"
+            onMouseEnter={() => setHovered(link.id)}
+            aria-current={activeId === link.id ? "true" : undefined}
+            className={`relative px-4 py-2 font-mono text-sm uppercase tracking-wide transition-colors duration-200 ${
+              highlighted === link.id
+                ? "text-background"
+                : "text-muted-foreground"
+            }`}
           >
-            {hovered === link.href && (
+            {highlighted === link.id && (
               <motion.span
                 layoutId="nav-hover"
                 className="absolute inset-0 -z-10 rounded-lg squircle bg-foreground"
