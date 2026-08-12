@@ -207,10 +207,10 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
           </div>
 
           <aside className="h-fit overflow-hidden rounded-xl squircle border border-border bg-card">
-            <p className="border-b border-border px-5 py-3 font-mono text-base uppercase tracking-[0.2em] text-muted-foreground">
+            <p className="border-b border-border p-6 font-mono text-base uppercase tracking-[0.2em] text-muted-foreground">
               Project info
             </p>
-            <dl className="flex flex-col gap-4 px-5 py-5">
+            <dl className="flex flex-col gap-4 p-6">
               {project.year && (
                 <div className="grid grid-cols-[4.5rem_1fr] gap-3 text-base md:grid-cols-[6rem_1fr] md:gap-4">
                   <dt className="uppercase tracking-[0.2em] text-muted-foreground">
@@ -253,7 +253,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
           {prev ? (
             <Link
               href={`/projects/${prev.slug}`}
-              className="group flex items-center justify-between gap-4 px-5 py-4 transition-colors duration-300 hover:bg-card md:px-6 md:py-5"
+              className="group flex items-center justify-between gap-4 p-6 transition-colors duration-300 hover:bg-card"
             >
               <span className="flex items-center gap-3 text-base uppercase tracking-[0.18em] text-muted-foreground">
                 <ArrowLeft size={16} aria-hidden /> prev
@@ -261,14 +261,14 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
               <span className="font-display font-bold">{prev.title}</span>
             </Link>
           ) : (
-            <span className="px-6 py-5 text-base uppercase tracking-[0.18em] text-muted-foreground/40">
+            <span className="p-6 text-base uppercase tracking-[0.18em] text-muted-foreground/40">
               start of list
             </span>
           )}
           {next ? (
             <Link
               href={`/projects/${next.slug}`}
-              className="group flex items-center justify-between gap-4 px-5 py-4 transition-colors duration-300 hover:bg-card md:px-6 md:py-5"
+              className="group flex items-center justify-between gap-4 p-6 transition-colors duration-300 hover:bg-card"
             >
               <span className="font-display font-bold">{next.title}</span>
               <span className="flex items-center gap-3 text-base uppercase tracking-[0.18em] text-muted-foreground">
@@ -276,7 +276,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
               </span>
             </Link>
           ) : (
-            <span className="px-6 py-5 text-right text-base uppercase tracking-[0.18em] text-muted-foreground/40">
+            <span className="p-6 text-right text-base uppercase tracking-[0.18em] text-muted-foreground/40">
               end of list
             </span>
           )}

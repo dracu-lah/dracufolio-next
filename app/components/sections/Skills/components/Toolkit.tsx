@@ -7,7 +7,7 @@ const Toolkit = () => (
       {toolkit.map((row, i) => (
         <div
           key={row.label}
-          className={`flex flex-col gap-2 px-5 py-5 md:px-6 ${
+          className={`flex flex-col gap-2 p-6 ${
             i % 2 === 0 ? "md:border-r md:border-border" : ""
           } ${i < 2 ? "md:border-b md:border-border" : ""}`}
         >
