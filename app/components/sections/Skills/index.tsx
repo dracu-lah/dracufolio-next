@@ -15,7 +15,7 @@ const SkillsSection = async () => {
   }
 
   return (
-    <section id="skills" className="mx-auto max-w-6xl px-6 py-16 md:py-24 lg:py-32">
+    <section id="skills" className="mx-auto max-w-6xl px-6 md:px-10 py-24 md:py-32 lg:py-40">
       <div className="flex flex-col gap-8 md:gap-12">
         <div className="flex max-w-2xl flex-col gap-5">
           <Reveal>
@@ -30,9 +30,8 @@ const SkillsSection = async () => {
           </Reveal>
           <Reveal delay={0.16}>
             <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-              Two and a half years of <b>React</b> work, mostly design
-              handoffs turned into shipped screens. The full work history lives
-              on{" "}
+              Three years of <b>React</b> work across product teams, from
+              design handoff to production. The full work history is on{" "}
               <a
                 className="underline underline-offset-4 transition-colors duration-300 hover:text-foreground"
                 href="https://www.linkedin.com/in/nevil-krishna-k-77170222a/"
@@ -59,10 +58,10 @@ const SkillsSection = async () => {
           <ExperienceList />
           <Reveal>
             <Link
-              href="/experience"
+              href="/about"
               className="font-mono text-sm uppercase tracking-[0.2em] text-muted-foreground underline underline-offset-4 transition-colors duration-300 hover:text-foreground"
             >
-              full experience and toolkit
+              Full profile
             </Link>
           </Reveal>
         </div>

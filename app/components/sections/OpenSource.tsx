@@ -98,13 +98,13 @@ const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
   return (
     <section
       id="open-source"
-      className="mx-auto max-w-6xl px-6 py-16 md:py-24 lg:py-32"
+      className="mx-auto max-w-6xl px-6 md:px-10 py-24 md:py-32 lg:py-40"
     >
       <div className="flex flex-col gap-8 md:gap-12">
         <div className="flex max-w-2xl flex-col gap-5">
           <Reveal>
             <p className="font-mono text-sm uppercase tracking-[0.3em] text-muted-foreground">
-              Public by default
+              Contributions
             </p>
           </Reveal>
           <Reveal delay={0.08}>
@@ -123,7 +123,7 @@ const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
               >
                 GitHub
               </a>{" "}
-              since 2022. The highlights:
+              since 2022. Selected work:
             </p>
           </Reveal>
         </div>
@@ -135,7 +135,7 @@ const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
                 <div className="flex h-full gap-3 rounded-xl squircle border border-border bg-card px-5 py-4 text-base leading-relaxed text-muted-foreground md:px-6 md:py-5 md:text-lg">
                   <span
                     aria-hidden
-                    className="mt-2.5 size-1.5 shrink-0 bg-phosphor"
+                    className="mt-2.5 size-1.5 shrink-0 bg-muted-foreground"
                   />
                   <span>{item}</span>
                 </div>

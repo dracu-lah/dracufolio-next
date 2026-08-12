@@ -45,16 +45,6 @@ const ProjectCard = ({
           />
         </div>
 
-        <span className="absolute top-3 left-3 z-20 rounded-md squircle border border-border bg-background/85 px-2.5 py-1 font-mono text-[13px] tracking-[0.25em] text-muted-foreground backdrop-blur-sm">
-          {String(index + 1).padStart(2, "0")}
-        </span>
-
-        {project.year && (
-          <span className="absolute bottom-3 left-3 z-20 rounded-md squircle border border-border bg-background/85 px-2.5 py-1 font-mono text-[13px] tracking-[0.25em] text-muted-foreground backdrop-blur-sm">
-            {project.year}
-          </span>
-        )}
-
         {/* Quick links sit above the stretched link */}
         <div className="absolute top-3 right-3 z-20 flex gap-2">
           {project.liveUrl && (
@@ -96,18 +86,18 @@ const ProjectCard = ({
 
       <div className="flex flex-1 flex-col">
         <div className="flex-1 border-t border-border px-6 py-5">
-          <h3 className="font-display mb-3 text-left text-xl font-bold tracking-tight transition-colors duration-300 group-hover:text-phosphor md:text-2xl">
+          <h3 className="font-display mb-3 text-left text-xl font-bold tracking-tight md:text-2xl">
             {project.title}
           </h3>
           <p className="line-clamp-3 text-left text-base leading-relaxed text-muted-foreground">
             {project.description}
           </p>
         </div>
-        <div className="flex flex-wrap gap-2 overflow-hidden px-6 pb-6">
+        <div className="flex flex-wrap gap-x-4 gap-y-2 overflow-hidden px-6 pb-6">
           {project.skills.map((skill: string) => (
             <span
               key={skill}
-              className="inline-block rounded-md squircle border border-border px-2.5 py-1 font-mono text-sm tracking-wide text-muted-foreground"
+              className="inline-block font-mono text-sm tracking-wide text-muted-foreground"
             >
               {skill}
             </span>

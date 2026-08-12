@@ -1,24 +1,27 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import useActiveSection from "@/hooks/useActiveSection";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { PropsWithChildren, useState, useEffect } from "react";
 
 const navLinks = [
-  { id: "hero", href: "/", label: "home" },
-  { id: "portfolio", href: "/#portfolio", label: "projects" },
-  { id: "skills", href: "/#skills", label: "skills" },
-  { id: "about", href: "/#about", label: "about" },
-  { id: "open-source", href: "/#open-source", label: "oss" },
+  { href: "/", label: "home" },
+  { href: "/projects", label: "projects" },
+  { href: "/about", label: "about" },
+  { href: "/open-source", label: "open source" },
 ];
-
-const sectionIds = navLinks.map((link) => link.id);
 
 const Navbar = ({ children }: PropsWithChildren) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
-  const activeId = useActiveSection(sectionIds);
-  const highlighted = hovered ?? activeId;
+  const pathname = usePathname();
+  // A project detail page still counts as "projects".
+  const activeHref =
+    navLinks.find(
+      (link) => link.href !== "/" && pathname.startsWith(link.href),
+    )?.href ?? (pathname === "/" ? "/" : null);
+  const highlighted = hovered ?? activeHref;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,6 +45,7 @@ const Navbar = ({ children }: PropsWithChildren) => {
     >
       <motion.a
         href="/"
+        aria-label="Home"
         className="flex items-center gap-x-3"
         whileHover="hover"
         initial="rest"
@@ -66,15 +70,15 @@ const Navbar = ({ children }: PropsWithChildren) => {
             d="M0 0V70.338H89.521V0H0ZM19.184 53.481L12.79 47.085L19.184 40.691L25.578 34.2971C25.578 34.2971 21.681 30.4 19.184 27.903C16.687 25.406 12.79 21.509 12.79 21.509L15.987 18.3115L19.184 15.114L28.7755 24.7055L38.367 34.2971L28.7755 43.889L19.184 53.481Z"
           ></path>
           <rect
-            className="animate-pulse fill-phosphor opacity-60"
+            className="fill-foreground opacity-40"
             x="45"
             y="44"
             width="29"
             height="8"
           ></rect>
         </motion.svg>
-        <span className="font-display text-lg font-bold tracking-[0.2em] md:text-2xl">
-          DVLPR
+        <span className="font-display text-base font-semibold tracking-[0.16em] md:text-lg">
+          Nevil Krishna
         </span>
       </motion.a>
 
@@ -83,18 +87,18 @@ const Navbar = ({ children }: PropsWithChildren) => {
         onMouseLeave={() => setHovered(null)}
       >
         {navLinks.map((link) => (
-          <a
+          <Link
             key={link.href}
             href={link.href}
-            onMouseEnter={() => setHovered(link.id)}
-            aria-current={activeId === link.id ? "true" : undefined}
+            onMouseEnter={() => setHovered(link.href)}
+            aria-current={activeHref === link.href ? "page" : undefined}
             className={`relative px-4 py-2 font-mono text-sm uppercase tracking-wide transition-colors duration-200 ${
-              highlighted === link.id
+              highlighted === link.href
                 ? "text-background"
                 : "text-muted-foreground"
             }`}
           >
-            {highlighted === link.id && (
+            {highlighted === link.href && (
               <motion.span
                 layoutId="nav-hover"
                 className="absolute inset-0 -z-10 rounded-lg squircle bg-foreground"
@@ -102,14 +106,14 @@ const Navbar = ({ children }: PropsWithChildren) => {
               />
             )}
             {link.label}
-          </a>
+          </Link>
         ))}
       </div>
 
       <div className="flex items-center gap-x-3">
-        <a href={"/#contact"} className="hidden md:block">
-          <Button size="sm">contact</Button>
-        </a>
+        <Link href="/contact" className="hidden md:block">
+          <Button size="sm">Contact</Button>
+        </Link>
         {children}
       </div>
     </motion.nav>

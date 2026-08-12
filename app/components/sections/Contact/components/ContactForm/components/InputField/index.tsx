@@ -33,7 +33,7 @@ const InputField = ({
         type={type}
         placeholder={placeholder}
         {...register(name)}
-        className="w-full rounded-lg squircle border border-input bg-background p-3.5 text-base outline-none transition-colors duration-300 placeholder:text-muted-foreground/60 focus:border-phosphor"
+        className="w-full rounded-lg squircle border border-input bg-background p-3.5 text-base outline-none transition-colors duration-300 placeholder:text-muted-foreground/60 focus:border-foreground"
       />
       {errors[name] && (
         <span className="text-sm text-destructive">

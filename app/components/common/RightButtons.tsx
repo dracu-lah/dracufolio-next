@@ -6,7 +6,8 @@ import useActiveSection from "@/hooks/useActiveSection";
 const navItems = [
   { id: "hero", href: "/", label: "home" },
   { id: "portfolio", href: "/#portfolio", label: "projects" },
-  { id: "skills", href: "/#skills", label: "skills" },
+  { id: "open-source", href: "/#open-source", label: "oss" },
+  { id: "about", href: "/#about", label: "about" },
   { id: "contact", href: "/#contact", label: "contact" },
 ];
 
