@@ -1,0 +1,6 @@
+#!/bin/sh
+# Refuse the push if any tracked file still carries an em dash.
+node scripts/check-dashes.mjs || {
+  echo "pre-push blocked. Fix the em dashes above, or push with --no-verify if you truly mean it."
+  exit 1
+}
