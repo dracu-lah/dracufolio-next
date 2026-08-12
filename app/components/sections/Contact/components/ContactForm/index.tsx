@@ -28,7 +28,6 @@ const ContactForm = () => {
     }
   };
 
-  // Auto-clear status after 3 seconds
   useEffect(() => {
     if (status === "success" || status === "error") {
       const timer = setTimeout(() => setStatus(null), 3000);
@@ -38,18 +37,15 @@ const ContactForm = () => {
 
   return (
     <div className="w-full rounded-xl squircle border border-border bg-card">
-      <p className="border-b border-border px-5 py-3 font-mono text-[13px] uppercase tracking-[0.25em] text-muted-foreground">
-        Send a message
-      </p>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex w-full flex-col gap-y-5 p-5 md:p-6"
+        className="flex w-full flex-col gap-y-5 p-6 md:p-8"
         autoComplete="off"
       >
         {status === "success" && (
           <p
             role="status"
-            className="border border-phosphor/40 p-3 text-center text-sm tracking-wide text-phosphor"
+            className="rounded-lg squircle border border-phosphor/40 p-3 text-center text-sm tracking-wide text-phosphor"
           >
             Message sent successfully.
           </p>
@@ -57,7 +53,7 @@ const ContactForm = () => {
         {status === "error" && (
           <p
             role="status"
-            className="border border-destructive/50 p-3 text-center text-sm tracking-wide text-destructive"
+            className="rounded-lg squircle border border-destructive/50 p-3 text-center text-sm tracking-wide text-destructive"
           >
             Something went wrong. Please try again.
           </p>
@@ -83,7 +79,7 @@ const ContactForm = () => {
         <TextareaField
           name="user_message"
           label="message"
-          placeholder="The role, the project, or the bug ..."
+          placeholder="What are you working on?"
         />
 
         <button

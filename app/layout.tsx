@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
   },
   description:
-    "Nevil Krishna is a full stack developer from Thrissur, Kerala with 3 years of React and Next.js experience, building fast, accessible, high-performance web apps and open-source tools.",
+    "Nevil Krishna is a full stack developer from Thrissur, Kerala with 3 years of React and Next.js experience, building fast web apps and open-source tools.",
   keywords: [
     "Nevil Krishna K",
     "Nevil Krishna",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Nevil Krishna K | Full Stack Developer & React Engineer",
     description:
-      "Full stack developer from Kerala with 3 years of React and Next.js experience. High-performance web apps, open-source tools, and 17 shipped projects.",
+      "Full stack developer from Kerala with 3 years of React and Next.js experience. Web apps, open-source tools, and shipped side projects.",
     url: "https://nevil.dev",
     siteName: "Nevil Krishna Portfolio",
     images: [
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Nevil Krishna K | Full Stack Developer & React Engineer",
     description:
-      "Full stack developer from Kerala with 3 years of React and Next.js experience. High-performance web apps, open-source tools, and 17 shipped projects.",
+      "Full stack developer from Kerala with 3 years of React and Next.js experience. Web apps, open-source tools, and shipped side projects.",
     creator: "@nevilkrishnak",
     images: ["https://nevil.dev/og-image.png"],
   },

@@ -51,7 +51,6 @@ const SkillsSection = async () => {
     skills = await GetSkillsAPI();
   } catch (error) {
     console.error("Failed to load skills:", error);
-    // skills will remain empty array if API fails
   }
 
   return (
@@ -60,7 +59,7 @@ const SkillsSection = async () => {
         <div className="flex max-w-2xl flex-col gap-5">
           <Reveal>
             <p className="font-mono text-sm uppercase tracking-[0.3em] text-muted-foreground">
-              A problem is a chance to do your best
+              What I work with
             </p>
           </Reveal>
           <Reveal delay={0.08}>
@@ -70,9 +69,9 @@ const SkillsSection = async () => {
           </Reveal>
           <Reveal delay={0.16}>
             <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-              I turn designs into accessible, production-ready interfaces with{" "}
-              <b>React</b>. This is the toolkit I reach for every day. The full
-              work history lives on{" "}
+              Two and a half years of <b>React</b> work, mostly design
+              handoffs turned into shipped screens. The full work history lives
+              on{" "}
               <a
                 className="underline underline-offset-4 transition-colors duration-300 hover:text-foreground"
                 href="https://www.linkedin.com/in/nevil-krishna-k-77170222a/"
