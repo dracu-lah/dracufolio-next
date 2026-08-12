@@ -6,7 +6,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { type Project } from "@/types/portfolio";
 
-// Project Card Component
 const ProjectCard = ({
   project,
   index,
@@ -28,17 +27,11 @@ const ProjectCard = ({
       }}
       className="group relative flex min-w-80 snap-center flex-col overflow-hidden rounded-xl squircle border border-border bg-card transition-colors duration-300 hover:border-muted-foreground"
     >
-      {/* Whole card opens the project page */}
       <Link
         href={`/projects/${project.slug}`}
         aria-label={`Open ${project.title} details`}
         className="absolute inset-0 z-10"
       />
-
-      <div className="flex items-center justify-between border-b border-border px-5 py-3 font-mono text-[13px] uppercase tracking-[0.25em] text-muted-foreground">
-        <span>{String(index + 1).padStart(2, "0")}</span>
-        {project.year && <span>{project.year}</span>}
-      </div>
 
       <div className="relative">
         <div className="relative aspect-video">
@@ -51,6 +44,16 @@ const ProjectCard = ({
             alt={`Screenshot of ${project.title}`}
           />
         </div>
+
+        <span className="absolute top-3 left-3 z-20 rounded-md squircle border border-border bg-background/85 px-2.5 py-1 font-mono text-[13px] tracking-[0.25em] text-muted-foreground backdrop-blur-sm">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+
+        {project.year && (
+          <span className="absolute bottom-3 left-3 z-20 rounded-md squircle border border-border bg-background/85 px-2.5 py-1 font-mono text-[13px] tracking-[0.25em] text-muted-foreground backdrop-blur-sm">
+            {project.year}
+          </span>
+        )}
 
         {/* Quick links sit above the stretched link */}
         <div className="absolute top-3 right-3 z-20 flex gap-2">
@@ -115,7 +118,6 @@ const ProjectCard = ({
   );
 };
 
-// Main Projects Component
 const Projects = ({ projects }: { projects: Project[] }) => {
   return (
     <>
