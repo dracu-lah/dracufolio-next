@@ -10,7 +10,8 @@ const profile = [
   { key: "Experience", value: "3+ years" },
   { key: "Focus", value: "React, Next.js, TypeScript" },
   { key: "Backend", value: "Django, Node.js, REST APIs" },
-  { key: "Infra", value: "Docker, Cloudflare Workers, AWS" },
+  { key: "Infra", value: "Cloudflare Workers, D1, R2, OpenNext, Docker" },
+  { key: "Also", value: "Kotlin and Jetpack Compose on Android" },
   { key: "Environment", value: "Fedora, Neovim" },
   { key: "Availability", value: "Open to new work" },
 ];
@@ -107,8 +108,7 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <InlineLogo src="/logos/seatinfo.png" alt="" />
-                SeatInfo
+                <InlineLogo src="/logos/seatinfo.png">SeatInfo</InlineLogo>
               </a>{" "}
               and{" "}
               <a
@@ -117,13 +117,13 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <InlineLogo src="/logos/flightpoints.png" alt="" />
-                Flightpoints
+                <InlineLogo src="/logos/flightpoints.png">
+                  Flightpoints
+                </InlineLogo>
               </a>{" "}
               at{" "}
               <b>
-                <InlineLogo src="/logos/lascade.png" alt="" />
-                Lascade
+                <InlineLogo src="/logos/lascade.png">Lascade</InlineLogo>
               </b>
               .
             </p>

@@ -25,8 +25,7 @@ const HeroSection = () => (
             I build React and Next.js applications. Currently working on travel
             products at{" "}
             <span className="text-foreground">
-              <InlineLogo src="/logos/lascade.png" alt="" />
-              Lascade
+              <InlineLogo src="/logos/lascade.png">Lascade</InlineLogo>
             </span>
             , in Thrissur, Kerala.
           </p>

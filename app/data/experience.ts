@@ -6,11 +6,14 @@ export const experience = [
     site: "https://lascade.com",
     period: "Nov 2025 - Present",
     points: [
-      "Deploys Next.js projects with OpenNext to Cloudflare Workers, improving deployment speed and caching",
+      "Builds and ships SeatInfo, a seat map product on Next.js 16 and the Cloudflare stack: Workers via OpenNext, D1 for seat map data, R2 for assets, Durable Objects and cron triggers",
+      "Owns the seat map experience end to end, from to-scale SVG rendering and zoom and pan interaction down to the seed pipeline that validates and imports every map",
+      "Localised the product with next-intl and a translation sync engine, keeping every locale file in step with one source of truth",
+      "Set up the SEO baseline across the catalog pages, plus Mixpanel event tagging so every outbound link reports the surface it came from",
       "Integrated the Resend SDK with Django to automate transactional email workflows",
-      "Optimized SEO and load times with React Server Components for high-traffic travel apps",
     ],
-    stack: "Next.js · Tailwind · Zustand · Docker · Django · Cloudflare Workers",
+    stack:
+      "Next.js · TypeScript · Tailwind · Zustand · TanStack Query · Cloudflare Workers, D1, R2 · OpenNext · next-intl · Auth.js · Django · Docker",
   },
   {
     role: "Frontend Developer",
@@ -29,17 +32,23 @@ export const experience = [
 ];
 
 export const toolkit = [
-  { label: "Languages", value: "JavaScript, TypeScript, HTML, CSS" },
   {
-    label: "Frameworks",
-    value: "React, Next.js, Tailwind CSS, Shadcn UI, Redux, Zustand",
+    label: "Languages",
+    value: "TypeScript, JavaScript, Kotlin, Python, HTML, CSS",
   },
   {
-    label: "Tools",
-    value: "Git, Docker, AWS, GCP, Cloudflare Workers, Vercel, Figma, Neovim",
+    label: "Frameworks",
+    value:
+      "React, Next.js, React Native, Tailwind CSS, shadcn/ui, Zustand, TanStack Query, React Hook Form, Zod, Jetpack Compose",
+  },
+  {
+    label: "Platform",
+    value:
+      "Cloudflare Workers, D1, R2, Durable Objects, OpenNext, Wrangler, Docker, AWS, GCP, Vercel",
   },
   {
     label: "Practices",
-    value: "Component-driven UI, RESTful APIs, Responsive design, Agile, CI/CD",
+    value:
+      "Component-driven UI, React Server Components, REST APIs, i18n with next-intl, product analytics, SEO, CI/CD, Agile",
   },
 ];
