@@ -10,7 +10,7 @@ export async function GetGithubURLAPI() {
 }
 
 export async function GetResumeAPI() {
-  return "/appwrite/resume/Nevil-Krishna-Frontend-Resume.pdf";
+  return "/appwrite/resume/Nevil-3-Years-Frontend-Resume.pdf";
 }
 
 export async function GetHeroImageAPI() {

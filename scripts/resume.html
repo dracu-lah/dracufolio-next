@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Nevil Krishna Resume</title>
+<style>
+  /* Geometry copied from the Google Docs original: 19.4pt left margin, 11pt Calibri,
+     13.4pt leading. Carlito stands in for Calibri and is metric compatible. */
+  /* Exact A4 in mm, so viewers do not scale to fit and add a margin of their own.
+     0.5in on all four sides: inside every desktop printer's unprintable edge. */
+  @page { size: 210mm 297mm; margin: 0.5in; }
+  * { box-sizing: border-box; }
+  body { font-family: Calibri, Carlito, sans-serif; font-size: 11pt; color: #000; margin: 0; line-height: 13.4pt; }
+  a { color: #1155cc; text-decoration: underline; }
+  .head { position: relative; display: flex; align-items: flex-start; justify-content: space-between; }
+  .head .side { font-size: 10pt; line-height: 12.2pt; }
+  .head .right { text-align: right; }
+  .name { position: absolute; left: 0; right: 0; text-align: center; top: 2.5pt; font-family: "Times New Roman", Liberation Serif, serif; font-size: 18pt; line-height: 18pt;
+          font-variant: small-caps; letter-spacing: .3pt; }
+  h2 { font-family: "Times New Roman", Liberation Serif, serif; font-variant: small-caps; font-size: 11pt; font-weight: normal;
+       line-height: 11pt; letter-spacing: .3pt; margin: 11pt 0 0; padding-bottom: 3pt; border-bottom: 1pt solid #000; }
+  h2 + p, h2 + .skills, h2 + ul, h2 + .job { margin-top: 10pt; }
+  p { margin: 0; }
+  ul { margin: 7pt 0 0; padding-left: 21pt; }
+  li { margin: 0; }
+  .skills { margin-top: 10pt; display: grid; grid-template-columns: 150pt 1fr; }
+  .job { display: flex; justify-content: space-between; font-weight: bold; margin-top: 14pt; }
+  .job .co { flex: 1; text-align: center; }
+  .stack { margin-top: 4pt; }
+  .proj { margin-bottom: 4pt; }
+  .proj:last-child { margin-bottom: 0; }
+  .proj .stack { display: block; margin-top: 2.5pt; }
+</style>
+</head>
+<body>
+
+<div class="head">
+  <div class="side">Thrissur, Kerala<br><a href="https://www.linkedin.com/in/nevil-krishna-k-77170222a/">LinkedIn</a> | <a href="https://github.com/dracu-lah">Github</a> | <a href="http://nevil.dev">nevil.dev</a></div>
+  <div class="name">Nevil Krishna</div>
+  <div class="side right">(+91) 9207932070<br><a href="mailto:nevilkrishna@gmail.com">nevilkrishna@gmail.com</a></div>
+</div>
+
+<h2>Summary</h2>
+<p>Results-driven Software Developer with <b>3 years</b> of experience delivering high-performance, scalable web applications.
+Proficient in the <b>React/Next.js</b> ecosystem and modern full-stack practices. Proven ability to enhance performance,
+streamline development processes, and mentor peers. Thrives on solving complex problems and driving product quality.</p>
+
+<div class="skills">
+  <b>Languages:</b><span><b>TypeScript</b>, JavaScript, Kotlin, Python, HTML, CSS</span>
+  <b>Frameworks &amp; Libraries:</b><span><b>React</b>, <b>Next.js</b>, React Native, <b>Tailwind CSS</b>, shadcn/ui, Zustand, TanStack Query</span>
+  <b>Platform &amp; Tools:</b><span><b>Cloudflare Workers</b>, D1, R2, Durable Objects, OpenNext, Docker, AWS, Vercel</span>
+  <b>AI Tooling:</b><span><b>Claude Code</b>, Codex, Cursor, Gemini CLI, Antigravity, for refactors and review</span>
+  <b>Practices:</b><span>React Server Components, REST APIs, performance, accessibility, i18n, SEO, CI/CD</span>
+</div>
+
+<h2>Employment</h2>
+
+<div class="job"><span>Full Stack Developer</span><span class="co">Lascade LLP</span><span>Nov 2025 - Present</span></div>
+<ul>
+  <li>Build and run <b>SeatInfo</b> on Next.js 16, deployed to <b>Cloudflare Workers</b> with OpenNext, D1 and R2.</li>
+  <li>Own the seat map end to end, from the <b>to-scale SVG rendering</b> and zoom to the seeding pipeline.</li>
+  <li>Took the product multilingual with next-intl and a sync tool I wrote, and set up <b>SEO</b> and analytics.</li>
+</ul>
+<p class="stack"><b>Tech Stack</b>: Next.js, TypeScript, Tailwind CSS, Zustand, TanStack Query, Cloudflare Workers, D1, R2, Auth.js, Django</p>
+
+<div class="job"><span>Frontend Developer</span><span class="co">Udyata Information Systems Pvt. Ltd</span><span>Jun 2023 - Aug 2025</span></div>
+<ul>
+  <li>Built a shared library of <b>20+ React components</b> that took roughly <b>30% off</b> the team’s build time.</li>
+  <li>Sped up first load with <b>code splitting</b>, <b>lazy loading</b> and memoization, and cut network calls by <b>20%</b>.</li>
+  <li>Handled state in <b>Zustand</b> and <b>Redux</b> for B2B and healthcare apps, with responsive accessible UIs.</li>
+</ul>
+<p class="stack"><b>Tech Stack</b>: React, React Native, Flutter, Next.js, Tailwind CSS, Redux/Zustand, GitHub Actions, Docker</p>
+
+<h2>Projects</h2>
+<ul>
+  <li class="proj"><a href="https://seatinfo.com"><b>SeatInfo</b></a> <b>(2026):</b> Type in a flight number and see the cabin to scale, with live availability and <b>AI seat picks</b>.<br>
+    <span class="stack"><b>Tech Stack:</b> Next.js, TypeScript, Tailwind CSS, Cloudflare</span></li>
+
+  <li class="proj"><a href="https://tmplayer.org"><b>TMPlayer</b></a> <b>(2026):</b> Telegram video player for Android TV. <b>Plays before the download finishes</b>. <b>209 tests</b>.<br>
+    <span class="stack"><b>Tech Stack:</b> Kotlin, Jetpack Compose, Media3 ExoPlayer, TDLib</span></li>
+
+  <li class="proj"><a href="https://milesorcash.com"><b>Miles Or Cash</b></a> <b>(2026):</b> Puts the cash price beside the award redemption, so you see <b>what your miles are worth</b>.<br>
+    <span class="stack"><b>Tech Stack:</b> Next.js, Tailwind CSS, Cloudflare</span></li>
+
+  <li class="proj"><a href="https://github.com/dracu-lah/langsync-cli"><b>Langsync CLI</b></a> <b>(2026):</b> Keeps every locale file in step with one source of truth, now across all our products.<br>
+    <span class="stack"><b>Tech Stack:</b> Python, CLI</span></li>
+
+  <li class="proj"><a href="https://www.flightpoints.com/"><b>Flight Points</b></a> <b>(2025):</b> Search award flights across airlines, compare points prices, get alerts when a seat opens.<br>
+    <span class="stack"><b>Tech Stack:</b> Next.js, Mixpanel, shadcn/ui</span></li>
+
+  <li class="proj"><a href="https://resumebuilder.js.org/"><b>Resume Builder</b></a> <b>(2025):</b> Resume builder for developers. The resume is <b>JSON</b> you import and export.<br>
+    <span class="stack"><b>Tech Stack:</b> React, shadcn/ui, Gemini API</span></li>
+
+  <li class="proj"><a href="https://tuktuko.com/"><b>TukTuko</b></a> <b>(2024-2025):</b> Admin panel and self-hosted <b>OpenStreetMap</b> services (Nominatim, OSRM).<br>
+    <span class="stack"><b>Tech Stack:</b> React, shadcn/ui, Docker</span></li>
+
+  <li class="proj"><a href="https://www.parazyakampany.com/"><b>Parazyakampany</b></a> <b>(2024):</b> Promotional site for a creative agency, animated section by section as you scroll.<br>
+    <span class="stack"><b>Tech Stack:</b> Next.js, Tailwind CSS, Framer Motion</span></li>
+</ul>
+
+<h2>Achievements &amp; Leadership</h2>
+<ul>
+  <li>Kept client projects shipping through festival and election season peaks with <b>no reported downtime</b>.</li>
+  <li>Mentored juniors on React patterns, wiring up backends, and running servers.</li>
+</ul>
+
+</body>
+</html>
