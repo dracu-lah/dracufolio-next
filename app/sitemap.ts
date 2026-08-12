@@ -17,7 +17,6 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       changeFrequency: "monthly",
       priority: 0.7,
     },
-    { url: `${SITE_URL}/contact`, changeFrequency: "yearly", priority: 0.6 },
     ] as const
   ).map((route) => ({ ...route, lastModified }));
 
