@@ -31,7 +31,7 @@ const OpenSourcePage = () => (
         ]),
       ]}
     />
-    <main className="mx-auto max-w-6xl px-6 pt-28 md:pt-32">
+    <main className="mx-auto max-w-6xl px-6 md:px-10 pt-28 md:pt-32">
       <BackLink />
     </main>
     <OpenSourceSection asPage />

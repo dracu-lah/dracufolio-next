@@ -14,7 +14,7 @@ const ExperienceList = () => (
                 alt={`${job.company} logo`}
                 width={128}
                 height={128}
-                className="size-11 shrink-0 rounded-lg squircle object-cover md:size-12"
+                className="size-11 shrink-0 rounded-lg squircle object-cover grayscale md:size-12"
               />
               <h3 className="font-display text-lg font-bold tracking-tight sm:text-xl md:text-2xl">
                 {job.role}{" "}
@@ -36,7 +36,7 @@ const ExperienceList = () => (
               >
                 <span
                   aria-hidden
-                  className="mt-2.5 size-1.5 shrink-0 bg-phosphor"
+                  className="mt-2.5 size-1.5 shrink-0 bg-muted-foreground"
                 />
                 {point}
               </li>

@@ -196,7 +196,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
                     >
                       <span
                         aria-hidden
-                        className="mt-2.5 size-1.5 shrink-0 bg-phosphor"
+                        className="mt-2.5 size-1.5 shrink-0 bg-muted-foreground"
                       />
                       {feature}
                     </li>
@@ -239,7 +239,6 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
                   status
                 </dt>
                 <dd>
-                  <span className="text-phosphor">●</span>{" "}
                   {project.liveUrl ? "deployed" : "archived"}
                 </dd>
               </div>

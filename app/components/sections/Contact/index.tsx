@@ -7,7 +7,7 @@ const ContactSection = ({ asPage = false }: { asPage?: boolean }) => {
   return (
     <section
       id="contact"
-      className="mx-auto max-w-6xl px-6 py-16 md:py-24 lg:py-32"
+      className="mx-auto max-w-6xl px-6 md:px-10 py-24 md:py-32 lg:py-40"
     >
       <div className="grid items-start gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
         <div className="flex flex-col items-start gap-6">
@@ -23,8 +23,8 @@ const ContactSection = ({ asPage = false }: { asPage?: boolean }) => {
           </Reveal>
           <Reveal delay={0.16}>
             <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-              Hiring, building something, or stuck on a bug? Drop a message
-              and I&apos;ll get back to you.
+              Available for full time roles and freelance work. Send a
+              message and I will reply within a couple of days.
             </p>
           </Reveal>
           <Reveal delay={0.24} className="w-full">

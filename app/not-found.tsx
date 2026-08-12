@@ -17,17 +17,16 @@ const NotFound = () => (
         This page does not exist.
       </h1>
       <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-        The link is wrong or the page has moved. The projects are still where
-        you left them.
+        The link is wrong or the page has moved.
       </p>
       <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
         <Link href="/" className="w-full sm:w-auto">
           <Button variant="solid" className="w-full sm:w-auto">
-            home
+            Home
           </Button>
         </Link>
         <Link href="/projects" className="w-full sm:w-auto">
-          <Button className="w-full sm:w-auto">projects</Button>
+          <Button className="w-full sm:w-auto">Projects</Button>
         </Link>
       </div>
     </main>

@@ -46,7 +46,7 @@ const ContactForm = () => {
         {status === "success" && (
           <p
             role="status"
-            className="rounded-lg squircle border border-phosphor/40 p-3 text-center text-sm tracking-wide text-phosphor"
+            className="rounded-lg squircle border border-border p-3 text-center text-sm tracking-wide text-foreground"
           >
             Message sent successfully.
           </p>

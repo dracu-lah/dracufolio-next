@@ -12,9 +12,9 @@ const HeroSection = async () => {
   }
 
   const stats = [
-    { value: `${projectCount || 18}+`, label: "projects" },
-    { value: "3+", label: "yrs react" },
-    { value: "FOSS", label: "community" },
+    { value: `${projectCount || 18}+`, label: "projects shipped" },
+    { value: "3+", label: "years experience" },
+    { value: "2", label: "companies" },
   ];
 
   return (
@@ -22,8 +22,6 @@ const HeroSection = async () => {
       id="hero"
       className="relative flex min-h-screen items-center overflow-hidden"
     >
-      <div aria-hidden className="hairline-grid absolute inset-0" />
-
       <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 px-6 pt-28 pb-14 md:pt-32 md:pb-16 lg:grid-cols-[1.15fr_0.85fr]">
         <div className="flex flex-col items-start gap-7">
           <Reveal>
@@ -39,8 +37,8 @@ const HeroSection = async () => {
 
           <Reveal delay={0.08}>
             <p className="max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-              I build <b>React</b> and <b>Next.js</b> frontends. Currently
-              on travel products at Lascade.
+              I build <b>React</b> and <b>Next.js</b> applications. Currently
+              working on travel products at <b>Lascade</b>.
             </p>
           </Reveal>
 
@@ -48,12 +46,12 @@ const HeroSection = async () => {
             <div className="flex w-full max-w-xl flex-col gap-3 sm:flex-row sm:flex-wrap md:gap-4">
               <a href="#portfolio" className="w-full sm:w-auto">
                 <Button size="lg" variant="solid" className="w-full sm:w-auto">
-                  view projects
+                  View projects
                 </Button>
               </a>
               <a href="#contact" className="w-full sm:w-auto">
                 <Button size="lg" className="w-full sm:w-auto">
-                  contact
+                  Contact
                 </Button>
               </a>
             </div>

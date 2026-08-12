@@ -45,12 +45,12 @@ const ProjectsPage = async () => {
           ]),
         ]}
       />
-      <main className="mx-auto max-w-6xl px-6 pt-28 pb-20 md:pt-32 md:pb-24">
+      <main className="mx-auto max-w-6xl px-6 md:px-10 pt-28 pb-20 md:pt-32 md:pb-24">
         <div className="flex flex-col gap-10 md:gap-12">
           <div className="flex flex-col items-start gap-5">
             <BackLink />
             <p className="font-mono text-sm uppercase tracking-[0.3em] text-muted-foreground">
-              {projects.length} projects · most of them live
+              {projects.length} projects
             </p>
             <h1 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
               All Projects

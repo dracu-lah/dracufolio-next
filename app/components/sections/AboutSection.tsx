@@ -1,16 +1,15 @@
 import { Github, Linkedin, Mail } from "lucide-react";
 import Reveal from "@/components/common/Reveal";
 
-const systemInfo = [
-  { key: "os", value: "Fedora + SwayWM" },
-  { key: "host", value: "Dell Latitude 7430" },
-  { key: "locale", value: "Thrissur, Kerala (IST)" },
-  { key: "editor", value: "Neovim (btw)" },
-  { key: "mem", value: "32GB" },
-  { key: "disk", value: "512GB SSD" },
-  { key: "stack", value: "React · Next.js · TS" },
-  { key: "uptime", value: "3+ yrs shipping" },
-  { key: "caffeine", value: "█████████░ 92%" },
+const profile = [
+  { key: "Role", value: "Full Stack Developer" },
+  { key: "Location", value: "Thrissur, Kerala (IST)" },
+  { key: "Experience", value: "3+ years" },
+  { key: "Focus", value: "React, Next.js, TypeScript" },
+  { key: "Backend", value: "Django, Node.js, REST APIs" },
+  { key: "Infra", value: "Docker, Cloudflare Workers, AWS" },
+  { key: "Environment", value: "Fedora, Neovim" },
+  { key: "Availability", value: "Open to new work" },
 ];
 
 const socialLinks = [
@@ -39,13 +38,13 @@ const AboutSection = ({ asPage = false }: { asPage?: boolean }) => {
   return (
     <section
       id="about"
-      className="mx-auto max-w-6xl px-6 py-16 md:py-24 lg:py-32"
+      className="mx-auto max-w-6xl px-6 md:px-10 py-24 md:py-32 lg:py-40"
     >
       <div className="grid items-start gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
         <div className="flex flex-col items-start gap-6">
           <Reveal>
             <Heading className="font-display text-3xl font-bold tracking-tight md:text-4xl">
-              Hey, I&apos;m Nevil.
+              About
             </Heading>
           </Reveal>
 
@@ -77,9 +76,10 @@ const AboutSection = ({ asPage = false }: { asPage?: boolean }) => {
 
           <Reveal delay={0.16}>
             <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-              Outside work you&apos;ll find me at <b>FOSS meetups</b> or deep
-              in my dotfiles. I dual boot Fedora and Arch, so when I say it
-              works on my machine, I mean <b>both of them</b>.
+              I work mostly on performance, accessibility and the parts of a
+              product that decide whether it feels finished. Outside of client
+              work I maintain open source tools and take part in the local{" "}
+              <b>FOSS community</b>.
             </p>
           </Reveal>
 
@@ -104,35 +104,19 @@ const AboutSection = ({ asPage = false }: { asPage?: boolean }) => {
         </div>
 
         <Reveal delay={0.15} className="w-full">
-          <div className="overflow-hidden rounded-xl squircle border border-border bg-card font-mono shadow-lg">
-            <div className="flex items-center gap-2 border-b border-border bg-secondary/60 px-4 py-3">
-              <span className="size-3 rounded-full bg-[#ff5f57]" aria-hidden />
-              <span className="size-3 rounded-full bg-[#febc2e]" aria-hidden />
-              <span className="size-3 rounded-full bg-[#28c840]" aria-hidden />
-              <p className="flex-1 text-center text-sm text-muted-foreground">
-                nevil@bread: ~
-              </p>
-            </div>
-            <div className="px-5 py-5 md:px-6">
-              <p className="pb-4 text-base md:text-lg">
-                <span className="text-phosphor">nevil@bread</span>
-                <span className="text-muted-foreground">:~$</span> fastfetch
-              </p>
-              <dl className="space-y-3">
-                {systemInfo.map((row) => (
-                  <div
-                    key={row.key}
-                    className="grid grid-cols-[7rem_1fr] gap-4 text-base md:text-lg"
-                  >
-                    <dt className="uppercase tracking-[0.15em] text-muted-foreground">
-                      {row.key}
-                    </dt>
-                    <dd>{row.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </div>
+          <dl className="w-full divide-y divide-border border-t border-b border-border">
+            {profile.map((row) => (
+              <div
+                key={row.key}
+                className="grid grid-cols-[8rem_1fr] gap-6 py-4 text-base md:grid-cols-[10rem_1fr] md:py-5 md:text-lg"
+              >
+                <dt className="font-mono text-sm uppercase tracking-[0.2em] text-muted-foreground">
+                  {row.key}
+                </dt>
+                <dd>{row.value}</dd>
+              </div>
+            ))}
+          </dl>
         </Reveal>
       </div>
     </section>
