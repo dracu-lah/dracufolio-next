@@ -93,9 +93,13 @@ const items = [
   </>,
 ];
 
-const OpenSourceSection = () => {
+const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
+  const Heading = asPage ? "h1" : "h2";
   return (
-    <section id="open-source" className="mx-auto max-w-6xl px-6 py-16 md:py-24 lg:py-32">
+    <section
+      id="open-source"
+      className="mx-auto max-w-6xl px-6 py-16 md:py-24 lg:py-32"
+    >
       <div className="flex flex-col gap-8 md:gap-12">
         <div className="flex max-w-2xl flex-col gap-5">
           <Reveal>
@@ -104,9 +108,9 @@ const OpenSourceSection = () => {
             </p>
           </Reveal>
           <Reveal delay={0.08}>
-            <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
+            <Heading className="font-display text-3xl font-bold tracking-tight md:text-4xl">
               Open Source
-            </h2>
+            </Heading>
           </Reveal>
           <Reveal delay={0.16}>
             <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">

@@ -6,6 +6,8 @@ import { ArrowLeft, ArrowRight, Github, Globe } from "lucide-react";
 import { GetProjectsAPI, GetProjectBySlugAPI } from "@/services/api";
 import { Button } from "@/components/ui/button";
 import Footer from "@/components/common/Footer";
+import JsonLd from "@/components/common/JsonLd";
+import { AUTHOR, SITE_URL, absolute, breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
 export const revalidate = 86400;
 
@@ -23,23 +25,24 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const project = await GetProjectBySlugAPI(slug);
-  if (!project) return {};
+
+  if (!project) {
+    return {
+      title: "Project not found",
+      robots: { index: false, follow: false },
+    };
+  }
 
   const description = project.tagline ?? project.description;
-  return {
+
+  return pageMetadata({
     title: project.title,
     description,
-    alternates: { canonical: `/projects/${project.slug}` },
-    openGraph: {
-      title: `${project.title} | Nevil Krishna`,
-      description,
-      url: `https://nevil.dev/projects/${project.slug}`,
-      images: project.images[0]
-        ? [{ url: `https://nevil.dev${project.images[0]}` }]
-        : undefined,
-      type: "website",
-    },
-  };
+    path: `/projects/${project.slug}`,
+    type: "article",
+    // The real screenshot beats a generated card whenever there is one.
+    image: project.images[0],
+  });
 }
 
 const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
@@ -57,23 +60,29 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
     "@type": "CreativeWork",
     name: project.title,
     description: project.tagline ?? project.description,
-    url: project.liveUrl ?? `https://nevil.dev/projects/${project.slug}`,
-    image: project.images[0]
-      ? `https://nevil.dev${project.images[0]}`
-      : undefined,
+    url: `${SITE_URL}/projects/${project.slug}`,
+    sameAs: [project.liveUrl, project.githubUrl].filter(Boolean),
+    image: project.images[0] ? absolute(project.images[0]) : undefined,
+    keywords: project.skills.join(", "),
     author: {
       "@type": "Person",
-      name: "Nevil Krishna K",
-      url: "https://nevil.dev",
+      name: AUTHOR,
+      url: SITE_URL,
     },
     ...(project.year ? { dateCreated: project.year } : {}),
   };
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      <JsonLd
+        data={[
+          jsonLd,
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Projects", path: "/projects" },
+            { name: project.title, path: `/projects/${project.slug}` },
+          ]),
+        ]}
       />
       <main className="mx-auto max-w-5xl px-6 pt-24 pb-16 md:pt-32 md:pb-20">
         <nav aria-label="Breadcrumb">

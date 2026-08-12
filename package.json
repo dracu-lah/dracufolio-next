@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "postbuild": "next-sitemap",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "check:dashes": "node scripts/check-dashes.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -16,12 +16,12 @@
     "@radix-ui/react-dialog": "^1.1.18",
     "@radix-ui/react-slot": "^1.3.0",
     "@vercel/analytics": "^1.6.1",
+    "@vercel/speed-insights": "^2.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.42.2",
     "lucide-react": "^0.525.0",
     "next": "15.5.19",
-    "next-sitemap": "^4.2.3",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-hook-form": "^7.80.0",
