@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Skills from "./components/Skills";
 import Reveal from "@/components/common/Reveal";
 import { GetSkillsAPI } from "@/services/api";
@@ -6,6 +7,8 @@ const experience = [
   {
     role: "Full Stack Developer",
     company: "Lascade LLP",
+    logo: "/logos/lascade.png",
+    site: "https://lascade.com",
     period: "Nov 2025 - Present",
     points: [
       "Deploys Next.js projects with OpenNext to Cloudflare Workers, improving deployment speed and caching",
@@ -17,6 +20,8 @@ const experience = [
   {
     role: "Frontend Developer",
     company: "Udyata Information Systems",
+    logo: "/logos/udyata.png",
+    site: "https://udyata.com",
     period: "Jun 2023 - Aug 2025",
     points: [
       "Built and maintained 20+ reusable React components, improving development efficiency by 30%",
@@ -116,13 +121,22 @@ const SkillsSection = async () => {
           {experience.map((job, index) => (
             <Reveal key={job.company} delay={index * 0.08} className="w-full">
               <article className="rounded-xl squircle border border-border bg-card px-6 py-6 md:px-8 md:py-7">
-                <div className="flex flex-col justify-between gap-2 pb-4 md:flex-row md:items-baseline">
-                  <h4 className="font-display text-xl font-bold tracking-tight md:text-2xl">
-                    {job.role}{" "}
-                    <span className="text-muted-foreground">
-                      · {job.company}
-                    </span>
-                  </h4>
+                <div className="flex flex-col justify-between gap-3 pb-4 md:flex-row md:items-center">
+                  <div className="flex items-center gap-4">
+                    <Image
+                      src={job.logo}
+                      alt={`${job.company} logo`}
+                      width={128}
+                      height={128}
+                      className="size-11 shrink-0 rounded-lg squircle border border-border bg-background object-contain p-1.5 md:size-12"
+                    />
+                    <h4 className="font-display text-xl font-bold tracking-tight md:text-2xl">
+                      {job.role}{" "}
+                      <span className="text-muted-foreground">
+                        · {job.company}
+                      </span>
+                    </h4>
+                  </div>
                   <p className="font-mono text-sm uppercase tracking-[0.2em] text-muted-foreground">
                     {job.period}
                   </p>
