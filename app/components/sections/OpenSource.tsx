@@ -2,95 +2,68 @@ import Link from "next/link";
 
 import Reveal from "@/components/common/Reveal";
 
-const contentLink =
-  "underline underline-offset-4 transition-colors duration-300 hover:text-foreground";
+type Item = {
+  name: string;
+  href: string;
+  internal?: boolean;
+  description: string;
+  meta: string;
+};
 
-const items = [
-  <>
-    Built{" "}
-    <Link className={contentLink} href="/projects/resume-builder">
-      Resume Builder
-    </Link>
-    , a free developer resume builder, and got{" "}
-    <a
-      className={contentLink}
-      href="https://resumebuilder.js.org/"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      resumebuilder.js.org
-    </a>{" "}
-    accepted into js.org
-  </>,
-  <>
-    Shipped{" "}
-    <Link className={contentLink} href="/projects/email-sender">
-      Email Sender
-    </Link>
-    , a Next.js app for personalized job outreach from your own Gmail
-  </>,
-  <>
-    Made{" "}
-    <Link className={contentLink} href="/projects/image-cropper">
-      Image Cropper
-    </Link>
-    , a shadcn/ui registry component for uploading and cropping images
-  </>,
-  <>
-    Built{" "}
-    <a
-      className={contentLink}
-      href="https://github.com/dracu-lah/langsync-cli"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      LangSync
-    </a>
-    , a parallel i18n sync engine that keeps translation files in step with one
-    source of truth
-  </>,
-  <>
-    Open-sourced my desktop setup:{" "}
-    <a
-      className={contentLink}
-      href="https://github.com/dracu-lah/swaydots"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      swaydots
-    </a>{" "}
-    for Sway and{" "}
-    <a
-      className={contentLink}
-      href="https://github.com/dracu-lah/hyprdots"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      hyprdots
-    </a>{" "}
-    for Hyprland
-  </>,
-  <>
-    Merged PRs to{" "}
-    <a
-      className={contentLink}
-      href="https://github.com/firstcontributions/first-contributions"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      first-contributions
-    </a>{" "}
-    and{" "}
-    <a
-      className={contentLink}
-      href="https://github.com/fossmeet/place"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      FOSSMeet
-    </a>{" "}
-    community projects
-  </>,
+const items: Item[] = [
+  {
+    name: "TMPlayer",
+    href: "/projects/tmplayer",
+    internal: true,
+    description:
+      "Android TV media player that signs into your own Telegram account by QR code and streams videos from your chats while they download.",
+    meta: "Kotlin · Jetpack Compose · TDLib · GPL-3.0",
+  },
+  {
+    name: "Resume Builder",
+    href: "/projects/resume-builder",
+    internal: true,
+    description:
+      "Free developer resume builder with live editing and PDF import. Accepted into js.org as resumebuilder.js.org.",
+    meta: "React · js.org",
+  },
+  {
+    name: "LangSync",
+    href: "https://github.com/dracu-lah/langsync-cli",
+    description:
+      "Parallel i18n sync engine that keeps translation files in step with one source of truth.",
+    meta: "CLI · Node.js",
+  },
+  {
+    name: "Image Cropper",
+    href: "/projects/image-cropper",
+    internal: true,
+    description:
+      "shadcn/ui registry component for uploading and cropping images.",
+    meta: "React · shadcn/ui",
+  },
+  {
+    name: "Email Sender",
+    href: "/projects/email-sender",
+    internal: true,
+    description:
+      "Next.js app for personalised job outreach from your own Gmail account.",
+    meta: "Next.js · Gmail API",
+  },
+  {
+    name: "swaydots and hyprdots",
+    href: "https://github.com/dracu-lah/swaydots",
+    description:
+      "My desktop setup published in full: Sway and Hyprland configs, scripts and theming.",
+    meta: "Shell · Sway · Hyprland",
+  },
+  {
+    name: "Community contributions",
+    href: "https://github.com/firstcontributions/first-contributions",
+    description:
+      "Merged pull requests to first-contributions and the FOSSMeet community projects.",
+    meta: "first-contributions · FOSSMeet",
+  },
 ];
 
 const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
@@ -98,12 +71,12 @@ const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
   return (
     <section
       id="open-source"
-      className="mx-auto max-w-6xl px-6 md:px-10 py-24 md:py-32 lg:py-40"
+      className="mx-auto max-w-7xl px-6 py-14 md:px-10 md:py-20 lg:px-14"
     >
-      <div className="flex flex-col gap-8 md:gap-12">
-        <div className="flex max-w-2xl flex-col gap-5">
+      <div className="grid items-start gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
+        <div className="flex flex-col gap-5 lg:sticky lg:top-28">
           <Reveal>
-            <p className="font-mono text-sm uppercase tracking-[0.3em] text-muted-foreground">
+            <p className="font-mono text-base uppercase tracking-[0.22em] text-muted-foreground">
               Contributions
             </p>
           </Reveal>
@@ -116,28 +89,58 @@ const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
             <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
               163 public repos on{" "}
               <a
-                className={contentLink}
+                className="underline underline-offset-4 transition-colors duration-300 hover:text-foreground"
                 href="https://github.com/dracu-lah"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 GitHub
               </a>{" "}
-              since 2022. Selected work:
+              since 2022. Selected work below.
             </p>
           </Reveal>
         </div>
 
-        <ul className="max-w-3xl divide-y divide-border border-t border-b border-border">
-          {items.map((item, i) => (
-            <li key={i}>
-              <Reveal delay={0.04}>
-                <p className="py-5 text-base leading-relaxed text-muted-foreground md:text-lg">
-                  {item}
+        <ul className="divide-y divide-border border-t border-b border-border">
+          {items.map((item) => {
+            const body = (
+              <>
+                <h3 className="font-display text-xl font-bold tracking-tight md:text-2xl">
+                  {item.name}
+                </h3>
+                <p className="pt-2 text-base leading-relaxed text-muted-foreground md:text-lg">
+                  {item.description}
                 </p>
-              </Reveal>
-            </li>
-          ))}
+                <p className="pt-3 font-mono text-base text-muted-foreground">
+                  {item.meta}
+                </p>
+              </>
+            );
+
+            return (
+              <li key={item.name}>
+                <Reveal>
+                  {item.internal ? (
+                    <Link
+                      href={item.href}
+                      className="block py-6 transition-opacity duration-300 hover:opacity-75"
+                    >
+                      {body}
+                    </Link>
+                  ) : (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block py-6 transition-opacity duration-300 hover:opacity-75"
+                    >
+                      {body}
+                    </a>
+                  )}
+                </Reveal>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>

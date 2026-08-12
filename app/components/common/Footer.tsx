@@ -11,7 +11,7 @@ const Footer = () => (
   <footer className="border-t border-border">
     <nav
       aria-label="Site"
-      className="mx-auto flex max-w-6xl flex-wrap gap-x-6 gap-y-3 px-6 pt-8 text-sm text-muted-foreground"
+      className="mx-auto flex max-w-7xl flex-wrap gap-x-6 gap-y-3 px-6 pt-10 text-base text-muted-foreground"
     >
       {pages.map((page) => (
         <Link
@@ -23,7 +23,7 @@ const Footer = () => (
         </Link>
       ))}
     </nav>
-    <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-muted-foreground md:flex-row">
+    <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-10 text-base text-muted-foreground md:flex-row">
       <p>© {new Date().getFullYear()} Nevil Krishna</p>
       <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2" aria-label="Elsewhere">
         <a

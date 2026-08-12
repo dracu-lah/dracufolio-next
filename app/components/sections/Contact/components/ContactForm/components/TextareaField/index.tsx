@@ -23,7 +23,7 @@ const TextareaField = ({
       {label && (
         <label
           htmlFor={name}
-          className="font-mono text-[13px] uppercase tracking-[0.25em] text-muted-foreground"
+          className="font-mono text-base uppercase tracking-[0.2em] text-muted-foreground"
         >
           {label}
         </label>
@@ -36,7 +36,7 @@ const TextareaField = ({
         className="w-full rounded-lg squircle border border-input bg-background p-3.5 text-base outline-none transition-colors duration-300 placeholder:text-muted-foreground/60 focus:border-foreground"
       />
       {errors[name] && (
-        <span className="text-sm text-destructive">
+        <span className="text-base text-destructive">
           {errors[name]?.message as string}
         </span>
       )}

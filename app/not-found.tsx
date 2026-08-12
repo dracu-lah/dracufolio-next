@@ -10,7 +10,7 @@ const NotFound = () => (
   <>
     <meta name="robots" content="noindex, nofollow" />
     <main className="mx-auto flex min-h-[70vh] max-w-3xl flex-col items-start justify-center gap-6 px-6 pt-28 pb-16">
-      <p className="font-mono text-sm uppercase tracking-[0.3em] text-muted-foreground">
+      <p className="font-mono text-base uppercase tracking-[0.22em] text-muted-foreground">
         404
       </p>
       <h1 className="font-display text-3xl font-bold tracking-tight md:text-5xl">

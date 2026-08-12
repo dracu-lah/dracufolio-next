@@ -2,7 +2,7 @@ import Skeleton from "@/components/common/Skeleton";
 import ProjectCardSkeleton from "@/components/common/ProjectCardSkeleton";
 
 const Loading = () => (
-  <main className="mx-auto max-w-6xl px-6 md:px-10 pt-28 pb-20 md:pt-32 md:pb-24">
+  <main className="mx-auto max-w-7xl px-6 md:px-10 lg:px-14 pt-28 pb-20 md:pt-32 md:pb-24">
     <div className="flex flex-col gap-10 md:gap-12">
       <div className="flex flex-col gap-5">
         <Skeleton className="h-4 w-40" />

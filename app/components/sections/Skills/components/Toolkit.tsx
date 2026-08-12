@@ -11,7 +11,7 @@ const Toolkit = () => (
             i % 2 === 0 ? "md:border-r md:border-border" : ""
           } ${i < 2 ? "md:border-b md:border-border" : ""}`}
         >
-          <dt className="font-mono text-sm uppercase tracking-[0.25em] text-muted-foreground">
+          <dt className="font-mono text-base uppercase tracking-[0.2em] text-muted-foreground">
             {row.label}
           </dt>
           <dd className="text-base leading-relaxed md:text-lg">{row.value}</dd>

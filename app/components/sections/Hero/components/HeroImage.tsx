@@ -25,7 +25,7 @@ const HeroImage = async () => {
         />
       ) : (
         <div className="flex size-72 items-center justify-center text-muted-foreground md:size-80 xl:size-88">
-          <span className="text-sm uppercase tracking-[0.3em]">no image</span>
+          <span className="text-base uppercase tracking-[0.22em]">no image</span>
         </div>
       )}
     </figure>

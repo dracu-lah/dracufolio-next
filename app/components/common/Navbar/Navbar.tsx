@@ -92,7 +92,7 @@ const Navbar = ({ children }: PropsWithChildren) => {
             href={link.href}
             onMouseEnter={() => setHovered(link.href)}
             aria-current={activeHref === link.href ? "page" : undefined}
-            className={`relative px-4 py-2 font-mono text-sm uppercase tracking-wide transition-colors duration-200 ${
+            className={`relative px-4 py-2 font-mono text-base uppercase tracking-wide transition-colors duration-200 ${
               highlighted === link.href
                 ? "text-background"
                 : "text-muted-foreground"

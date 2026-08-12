@@ -55,7 +55,7 @@ const ProjectCard = ({
           {project.skills.map((skill: string) => (
             <span
               key={skill}
-              className="inline-block font-mono text-sm tracking-wide text-muted-foreground"
+              className="inline-block font-mono text-base tracking-wide text-muted-foreground"
             >
               {skill}
             </span>

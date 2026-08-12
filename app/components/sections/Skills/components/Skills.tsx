@@ -41,7 +41,7 @@ const Skills = ({ skills }: { skills: string[] }) => {
               src={skill}
               alt={`${name} logo`}
             />
-            <span className="font-mono text-sm uppercase tracking-[0.25em] text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
+            <span className="font-mono text-base uppercase tracking-[0.2em] text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
               {name}
             </span>
           </motion.li>

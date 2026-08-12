@@ -88,7 +88,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
         <nav aria-label="Breadcrumb">
           <Link
             href="/projects"
-            className="inline-flex items-center gap-3 font-mono text-sm uppercase tracking-[0.25em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
+            className="inline-flex items-center gap-3 font-mono text-base uppercase tracking-[0.2em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
           >
             <ArrowLeft size={16} aria-hidden />
             Back to projects
@@ -96,7 +96,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
         </nav>
 
         <header className="flex flex-col gap-4 pt-7 pb-9 md:gap-6 md:pt-10 md:pb-12">
-          <p className="font-mono text-sm uppercase tracking-[0.3em] text-muted-foreground">
+          <p className="font-mono text-base uppercase tracking-[0.22em] text-muted-foreground">
             Project{project.year && ` · ${project.year}`}
           </p>
           <h1 className="font-display text-4xl font-bold tracking-tight md:text-6xl">
@@ -168,7 +168,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
 
         <div className="grid gap-10 pt-10 md:pt-14 lg:grid-cols-[1.2fr_0.8fr] lg:gap-12">
           <div className="flex flex-col gap-6">
-            <h2 className="font-mono text-sm uppercase tracking-[0.3em] text-muted-foreground">
+            <h2 className="font-mono text-base uppercase tracking-[0.22em] text-muted-foreground">
               About this project
             </h2>
             {(project.longDescription.length
@@ -185,7 +185,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
 
             {project.features.length > 0 && (
               <>
-                <h2 className="pt-4 font-mono text-sm uppercase tracking-[0.3em] text-muted-foreground">
+                <h2 className="pt-4 font-mono text-base uppercase tracking-[0.22em] text-muted-foreground">
                   Features
                 </h2>
                 <ul className="flex flex-col gap-3">
@@ -207,7 +207,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
           </div>
 
           <aside className="h-fit overflow-hidden rounded-xl squircle border border-border bg-card">
-            <p className="border-b border-border px-5 py-3 font-mono text-[13px] uppercase tracking-[0.25em] text-muted-foreground">
+            <p className="border-b border-border px-5 py-3 font-mono text-base uppercase tracking-[0.2em] text-muted-foreground">
               Project info
             </p>
             <dl className="flex flex-col gap-4 px-5 py-5">
@@ -227,7 +227,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
                   {project.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="rounded-md squircle border border-border px-2.5 py-1 font-mono text-sm text-muted-foreground"
+                      className="rounded-md squircle border border-border px-2.5 py-1 font-mono text-base text-muted-foreground"
                     >
                       {skill}
                     </span>
@@ -255,13 +255,13 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
               href={`/projects/${prev.slug}`}
               className="group flex items-center justify-between gap-4 px-5 py-4 transition-colors duration-300 hover:bg-card md:px-6 md:py-5"
             >
-              <span className="flex items-center gap-3 text-sm uppercase tracking-[0.2em] text-muted-foreground">
+              <span className="flex items-center gap-3 text-base uppercase tracking-[0.18em] text-muted-foreground">
                 <ArrowLeft size={16} aria-hidden /> prev
               </span>
               <span className="font-display font-bold">{prev.title}</span>
             </Link>
           ) : (
-            <span className="px-6 py-5 text-sm uppercase tracking-[0.2em] text-muted-foreground/40">
+            <span className="px-6 py-5 text-base uppercase tracking-[0.18em] text-muted-foreground/40">
               start of list
             </span>
           )}
@@ -271,12 +271,12 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
               className="group flex items-center justify-between gap-4 px-5 py-4 transition-colors duration-300 hover:bg-card md:px-6 md:py-5"
             >
               <span className="font-display font-bold">{next.title}</span>
-              <span className="flex items-center gap-3 text-sm uppercase tracking-[0.2em] text-muted-foreground">
+              <span className="flex items-center gap-3 text-base uppercase tracking-[0.18em] text-muted-foreground">
                 next <ArrowRight size={16} aria-hidden />
               </span>
             </Link>
           ) : (
-            <span className="px-6 py-5 text-right text-sm uppercase tracking-[0.2em] text-muted-foreground/40">
+            <span className="px-6 py-5 text-right text-base uppercase tracking-[0.18em] text-muted-foreground/40">
               end of list
             </span>
           )}

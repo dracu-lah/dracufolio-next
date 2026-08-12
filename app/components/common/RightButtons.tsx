@@ -38,7 +38,7 @@ const RightButtons = () => {
             href={item.href}
             onMouseEnter={() => setHovered(item.id)}
             aria-current={activeId === item.id ? "true" : undefined}
-            className={`relative px-4 py-2.5 font-mono text-[13px] uppercase tracking-[0.2em] transition-colors duration-200 ${
+            className={`relative px-4 py-2.5 font-mono text-base uppercase tracking-[0.18em] transition-colors duration-200 ${
               highlighted === item.id
                 ? "text-background"
                 : "text-muted-foreground"
