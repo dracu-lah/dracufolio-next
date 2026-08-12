@@ -20,8 +20,8 @@ const items: Item[] = [
     href: "/projects/tmplayer",
     internal: true,
     description:
-      "Android TV media player that signs into your own Telegram account by QR code and streams videos from your chats while they download.",
-    meta: "Kotlin · Jetpack Compose · TDLib · GPL-3.0",
+      "Telegram video player for Android TV and phone. Signs in with a QR code and streams from your own chats while the file is still downloading.",
+    meta: "Kotlin · Jetpack Compose · TDLib · Media3 · GPL-3.0",
   },
   {
     name: "Resume Builder",

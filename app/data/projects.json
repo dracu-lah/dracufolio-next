@@ -3,27 +3,31 @@
     "id": "38df7b4803b2a64f18aa",
     "slug": "tmplayer",
     "title": "TMPlayer",
-    "description": "An open-source Android TV media player that signs into your own Telegram account by QR code and starts videos straight from your chats while they download.",
-    "tagline": "Your Telegram videos, on the TV. Built and tested on a 1 GB TV stick.",
+    "description": "An open-source Telegram video player for Android TV and phone. Sign in with a QR code, pick a chat, and playback starts while the file is still downloading.",
+    "tagline": "Your Telegram videos, on the TV and in your hand. Start watching before the download finishes.",
     "longDescription": [
-      "Videos shared through your own Telegram chats can be awkward to watch on a television: download to a phone, copy the file across, then find somewhere to keep it. TMPlayer removes that detour. Scan a QR code with the phone that holds your Telegram account, open a chat, pick a video, and playback starts while the file continues downloading.",
-      "The interesting part is the streaming layer. A custom Media3 DataSource maps ExoPlayer's reads onto TDLib's offset-based partial downloads, so seeking to the ninety-minute mark re-aims the download at that byte instead of grinding through everything before it. The window arithmetic lives in one pure, unit-tested class, because that is where a streaming player either works or does not.",
-      "Everything is shaped by the hardware it targets, a Mi TV Stick with 1 GB of RAM and under 5 GB of usable storage. One video is cached at a time, previews come directly from Telegram, and the app ships one APK per ABI. There is no catalogue or external metadata layer: the interface stays focused on chats, files, playback, subtitles, audio tracks, and reliable D-pad control."
+      "Videos shared through your own Telegram chats are awkward to watch on a television: download to a phone, copy the file across, then find somewhere to keep it. TMPlayer removes that detour. Scan a QR code with the phone that holds your Telegram account, open a chat, pick a video, and playback starts while the file continues downloading. On a phone the same app signs in by number and redraws itself as a Material 3 phone app rather than a TV grid.",
+      "The interesting part is the streaming layer. A custom Media3 DataSource maps ExoPlayer's reads onto TDLib's offset-based partial downloads, so seeking to the ninety-minute mark re-aims the download at that byte instead of grinding through everything before it. The window arithmetic lives in one pure class covered by a suite of 209 tests, because that is where a streaming player either works or does not.",
+      "Everything is shaped by the hardware it targets, a TV stick with a gigabyte of RAM and under 5 GB of usable storage. One video is cached at a time, previews come straight from Telegram, and a single universal APK covers every architecture. There is no catalogue and no server: the app talks to Telegram with your own credentials, and nothing else.",
+      "It ships with its own site at tmplayer.org, covering features, install steps, an FAQ, privacy and lawful use, so a stranger can decide whether to sideload it before downloading anything."
     ],
     "features": [
-      "QR code sign-in to your own Telegram account, with two-step verification",
+      "QR code sign-in on a TV, phone number sign-in on a phone, both with two-step verification",
       "Instant playback and real seeking, both while the file is still downloading",
-      "MKV, MP4, AVI and TS with embedded subtitles and switchable audio tracks",
-      "Software decoding for DTS, TrueHD and E-AC3 when the stick lacks the silicon",
-      "Continue watching, with the position saved often enough to survive a power cut",
-      "Chat-first, D-pad-friendly interface using Telegram thumbnails and file information"
+      "MKV, MP4, AVI and TS with embedded PGS and VobSub subtitles and switchable audio tracks",
+      "Software decoding for DTS, TrueHD and E-AC3 when the device lacks the silicon",
+      "Episode filenames parsed locally, with previous, next and autoplay across a series",
+      "One video cached at a time, with continue watching positions that survive a power cut",
+      "The same APK draws a D-pad TV interface or a Material 3 phone app"
     ],
     "skills": [
       "Kotlin",
       "Jetpack Compose",
       "Android TV",
+      "Material 3",
       "TDLib",
       "Media3 ExoPlayer",
+      "Gradle",
       "GPL-3.0"
     ],
     "images": [

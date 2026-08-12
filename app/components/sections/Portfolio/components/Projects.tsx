@@ -44,17 +44,7 @@ const ProjectCard = ({
 
       <div className="flex flex-1 flex-col">
         <div className="flex-1 border-t border-border p-6">
-          <h3 className="font-display mb-3 flex items-center gap-3 text-left text-xl font-bold tracking-tight md:text-2xl">
-            {project.logo && (
-              <Image
-                src={project.logo}
-                alt=""
-                aria-hidden
-                width={64}
-                height={64}
-                className="size-6 shrink-0 rounded-md object-contain md:size-7"
-              />
-            )}
+          <h3 className="font-display mb-3 text-left text-xl font-bold tracking-tight md:text-2xl">
             {project.title}
           </h3>
           <p className="line-clamp-3 text-left text-base leading-relaxed text-muted-foreground">
