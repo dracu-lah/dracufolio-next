@@ -64,7 +64,7 @@ const Locations = ({ currentSlug }: { currentSlug?: string }) => (
                         }`}
                       >
                         <MapPin
-                          weight="duotone"
+                         
                           className="size-4 shrink-0"
                           aria-hidden
                         />

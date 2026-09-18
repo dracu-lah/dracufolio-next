@@ -47,7 +47,7 @@ const WhatsAppFab = () => {
           className="flex items-center gap-2.5 rounded-lg squircle border border-foreground bg-foreground px-4 py-3 font-mono text-sm uppercase tracking-[0.16em] text-background transition-colors duration-300 hover:bg-background hover:text-foreground"
         >
           <Icon3D float>
-            <WhatsappLogo weight="duotone" className="size-5" aria-hidden />
+            <WhatsappLogo className="size-5" aria-hidden />
           </Icon3D>
           WhatsApp
         </a>

@@ -61,6 +61,9 @@ importers:
       geist:
         specifier: ^1.7.2
         version: 1.7.2(next@16.3.0(@babel/core@7.29.7)(@types/node@20.19.43)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))
+      iconsax-reactjs:
+        specifier: 0.0.8
+        version: 0.0.8(react@19.2.8)
       lucide-react:
         specifier: ^0.525.0
         version: 0.525.0(react@19.2.8)
@@ -1862,6 +1865,11 @@ packages:
 
   hermes-parser@0.25.1:
     resolution: {integrity: sha512-6pEjquH3rqaI6cYAXYPcz9MS4rY6R4ngRgrgfDshRptUZIc3lw0MCIJIGDj9++mfySOuPTHB4nrSW99BCvOPIA==}
+
+  iconsax-reactjs@0.0.8:
+    resolution: {integrity: sha512-cb+uTMxbkSFNbu8ZclX7BWQVfOWQt8+m/PsDjnsm/H+mcYrnfTYMjHxiof1FB43k7UAgt1ds+0oFeMVKdqyslw==}
+    peerDependencies:
+      react: '*'
 
   ignore@5.3.2:
     resolution: {integrity: sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==}
@@ -4703,6 +4711,10 @@ snapshots:
   hermes-parser@0.25.1:
     dependencies:
       hermes-estree: 0.25.1
+
+  iconsax-reactjs@0.0.8(react@19.2.8):
+    dependencies:
+      react: 19.2.8
 
   ignore@5.3.2: {}
 

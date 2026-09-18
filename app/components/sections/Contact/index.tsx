@@ -110,7 +110,7 @@ const ContactSection = ({ asPage = false }: { asPage?: boolean }) => {
                     className="group flex items-center gap-4 py-4 text-base transition-colors duration-300 hover:text-foreground md:text-lg"
                   >
                     <Icon3D className="text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
-                      <Glyph weight="duotone" className="size-6" aria-hidden />
+                      <Glyph className="size-6" aria-hidden />
                     </Icon3D>
                     <span className="flex flex-1 flex-wrap items-baseline gap-x-3">
                       <span className="font-mono text-sm uppercase tracking-[0.18em] text-muted-foreground">

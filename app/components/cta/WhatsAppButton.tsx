@@ -29,7 +29,7 @@ const WhatsAppButton = ({
       className={className || "w-full sm:w-auto"}
     >
       <Button variant="solid" size={size} className="w-full sm:w-auto">
-        <WhatsappLogo weight="duotone" className="size-5" aria-hidden />
+        <WhatsappLogo className="size-5" aria-hidden />
         WhatsApp
       </Button>
     </a>
