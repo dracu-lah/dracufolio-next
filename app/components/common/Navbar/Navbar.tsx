@@ -1,17 +1,20 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Github } from "lucide-react";
-import socials from "@/data/socials.json";
-import { motion } from "framer-motion";
+import { GithubLogo, WhatsappLogo } from "@/components/common/icons";
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+} from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { PropsWithChildren, useState, useEffect } from "react";
-
-const GITHUB_URL = socials.github_url;
+import { PropsWithChildren, useState } from "react";
+import { GITHUB_URL, WHATSAPP_URL } from "@/data/contact";
 
 const navLinks = [
-  { href: "/", label: "home" },
+  { href: "/hire", label: "hire" },
   { href: "/projects", label: "projects" },
+  { href: "/blog", label: "blog" },
   { href: "/about", label: "about" },
   { href: "/open-source", label: "open source" },
 ];
@@ -20,20 +23,24 @@ const Navbar = ({ children }: PropsWithChildren) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
   const pathname = usePathname();
-  // A project detail page still counts as "projects".
+
+  // A project detail page still counts as "projects", a location page as "hire".
   const activeHref =
-    navLinks.find((link) => link.href !== "/" && pathname.startsWith(link.href))
-      ?.href ?? (pathname === "/" ? "/" : null);
+    navLinks.find((link) => pathname.startsWith(link.href))?.href ??
+    (pathname === "/" ? "/" : null);
   const highlighted = hovered ?? activeHref;
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  /**
+   * Scroll state comes from useScroll rather than a window scroll listener.
+   * The old listener called setState on every frame of every scroll, which
+   * re-rendered the whole navbar sixty times a second to change one border
+   * colour. This fires once per crossing of the threshold.
+   */
+  const { scrollY } = useScroll();
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const scrolled = latest > 8;
+    setIsScrolled((was) => (was === scrolled ? was : scrolled));
+  });
 
   return (
     <motion.nav
@@ -86,7 +93,7 @@ const Navbar = ({ children }: PropsWithChildren) => {
       </motion.a>
 
       <div
-        className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center md:flex"
+        className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center lg:flex"
         onMouseLeave={() => setHovered(null)}
       >
         {navLinks.map((link) => (
@@ -95,7 +102,7 @@ const Navbar = ({ children }: PropsWithChildren) => {
             href={link.href}
             onMouseEnter={() => setHovered(link.href)}
             aria-current={activeHref === link.href ? "page" : undefined}
-            className={`relative px-4 py-2 font-mono text-base uppercase tracking-wide transition-colors duration-200 ${
+            className={`relative px-3 py-2 font-mono text-base uppercase tracking-wide transition-colors duration-200 ${
               highlighted === link.href
                 ? "text-background"
                 : "text-muted-foreground"
@@ -113,7 +120,21 @@ const Navbar = ({ children }: PropsWithChildren) => {
         ))}
       </div>
 
-      <div className="flex items-center gap-x-3">
+      <div className="flex items-center gap-x-2 md:gap-x-3">
+        {/* Below md the GitHub button is hidden, so WhatsApp takes its slot:
+            the floating button steps aside near the contact form, and the
+            navbar is the one thing on screen at every scroll position. */}
+        <a
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="md:hidden"
+          aria-label="Message Nevil on WhatsApp"
+        >
+          <Button size="icon">
+            <WhatsappLogo weight="duotone" className="size-5" aria-hidden />
+          </Button>
+        </a>
         <a
           href={GITHUB_URL}
           target="_blank"
@@ -122,7 +143,7 @@ const Navbar = ({ children }: PropsWithChildren) => {
           aria-label="GitHub profile"
         >
           <Button className="h-full">
-            <Github className="size-4" aria-hidden />
+            <GithubLogo weight="duotone" className="size-4" aria-hidden />
             GitHub
           </Button>
         </a>

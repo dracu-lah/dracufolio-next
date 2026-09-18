@@ -1,14 +1,15 @@
 import { ogImage, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/og";
 
-export const alt = "Nevil Krishna K, full stack developer";
+export const alt = "Nevil Krishna K, full stack developer in Thrissur, Kerala";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 
 const Image = () =>
   ogImage({
-    eyebrow: "Portfolio",
+    eyebrow: "Full stack developer, Thrissur, Kerala",
     title: "Nevil Krishna K",
-    description: "Full stack developer building React and Next.js products from Thrissur, Kerala.",
+    description:
+      "React, Next.js and TypeScript on the web, Kotlin on Android. Freelance, remote and full time.",
   });
 
 export default Image;

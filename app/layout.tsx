@@ -1,58 +1,45 @@
-// import RightButtons from "./components/common/RightButtons";
+import type { Metadata, Viewport } from "next";
 import Navbar from "./components/common/Navbar/Navbar";
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
 import ResumeDownloadButton from "./components/common/Navbar/ResumeDownloadButton";
+import WhatsAppFab from "./components/cta/WhatsAppFab";
+import ConsoleSignature from "./components/eggs/ConsoleSignature";
+import KeyboardShortcuts from "./components/eggs/KeyboardShortcuts";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import JsonLd from "./components/common/JsonLd";
+import { fontVariables } from "./lib/fonts";
+import { AUTHOR, SITE_NAME, SITE_URL, TITLE_TEMPLATE } from "./lib/seo";
+import { metaKeywords } from "./data/keywords";
 import {
-  AUTHOR,
-  SITE_NAME,
-  SITE_URL,
-  personJsonLd,
-  websiteJsonLd,
-} from "./lib/seo";
+  COUNTRY_CODE,
+  GEO,
+  LOCALITY,
+  PHONE_E164,
+  REGION,
+  REGION_CODE,
+} from "./data/contact";
+import "./globals.css";
 
-// One family for the whole site: sans, display and mono all resolve to this.
-// Self-hosted so there is no Google Fonts round trip and no missing metrics.
-const googleSans = localFont({
-  src: [
-    { path: "./fonts/GoogleSansCode-latin.woff2", style: "normal" },
-    { path: "./fonts/GoogleSansCode-latin-ext.woff2", style: "normal" },
-  ],
-  variable: "--font-google-sans",
-  display: "swap",
-  fallback: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
-  adjustFontFallback: false,
-});
+const title = `${AUTHOR} | Full Stack Developer in Thrissur, Kerala`;
 
 const description =
-  "Nevil Krishna is a full stack developer from Thrissur, Kerala with 3 years of React and Next.js experience, building fast web apps and open-source tools.";
+  "Nevil Krishna K is a full stack developer in Thrissur, Kerala with 3 years of React, Next.js and TypeScript experience, plus Kotlin and React Native on mobile. Available for jobs, freelance projects and remote contracts across India. WhatsApp +91 92079 32070.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Nevil Krishna K | Full Stack Developer & React Engineer",
-    template: "%s | Nevil Krishna",
+    default: title,
+    template: TITLE_TEMPLATE,
   },
   icons: {
     icon: "/favicon.ico",
   },
   description,
-  keywords: [
-    "Nevil Krishna K",
-    "Nevil Krishna",
-    "React Developer",
-    "Full Stack Developer",
-    "Next.js Developer",
-    "Kerala",
-    "Thrissur",
-    "Portfolio",
-  ],
+  keywords: metaKeywords,
   authors: [{ name: AUTHOR, url: SITE_URL }],
   creator: AUTHOR,
+  publisher: AUTHOR,
+  applicationName: SITE_NAME,
+  category: "technology",
   robots: {
     index: true,
     follow: true,
@@ -66,21 +53,45 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/",
+    types: {
+      "application/rss+xml": `${SITE_URL}/feed.xml`,
+    },
   },
   openGraph: {
-    title: "Nevil Krishna K | Full Stack Developer & React Engineer",
+    title,
     description,
     url: SITE_URL,
     siteName: SITE_NAME,
     locale: "en_US",
+    alternateLocale: ["ml_IN"],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nevil Krishna K | Full Stack Developer & React Engineer",
+    title,
     description,
     creator: "@nevilkrishnak",
   },
+  /**
+   * Geo meta tags. Google stopped using them years ago, but Bing and several
+   * regional crawlers still read them, and ChatGPT search runs on Bing's
+   * index. Cheap to ship, occasionally read, never harmful.
+   */
+  other: {
+    "geo.region": REGION_CODE,
+    "geo.placename": LOCALITY,
+    "geo.position": `${GEO.latitude};${GEO.longitude}`,
+    ICBM: `${GEO.latitude}, ${GEO.longitude}`,
+    "business:contact_data:locality": LOCALITY,
+    "business:contact_data:region": REGION,
+    "business:contact_data:country_name": COUNTRY_CODE,
+    "business:contact_data:phone_number": PHONE_E164,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#000000",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({
@@ -91,14 +102,15 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`bg-background text-foreground ${googleSans.variable} font-sans antialiased`}
+        className={`bg-background text-foreground ${fontVariables} font-sans antialiased`}
       >
-        <JsonLd data={[personJsonLd, websiteJsonLd]} />
         <Navbar>
           <ResumeDownloadButton />
         </Navbar>
         {children}
-        {/* <RightButtons /> */}
+        <WhatsAppFab />
+        <KeyboardShortcuts />
+        <ConsoleSignature />
         <Analytics />
         <SpeedInsights />
       </body>
