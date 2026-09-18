@@ -47,12 +47,39 @@ html {
   --sidebar-border: oklch(0.26 0 0);
   --sidebar-ring: oklch(1 0 0);
 
-  /* single family everywhere: Google Sans Code */
-  --font-mono: var(--font-google-sans), ui-monospace, SFMono-Regular, Menlo,
-    Consolas, monospace;
-  --font-display: var(--font-google-sans), ui-monospace, monospace;
-  --font-sans: var(--font-google-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-google-sans), ui-serif, Georgia, serif;
+  /*
+   * Four faces, one job each (see CLAUDE.md).
+   *   display    Bricolage Grotesque  headings only
+   *   sans/body  Geist Sans           prose only
+   *   mono       Google Sans Code     UI, labels, buttons, code, dates
+   *   malayalam  Anek Malayalam       Malayalam glyphs, from any role
+   *
+   * Every stack ends with the Malayalam face before the system fallbacks, so a
+   * Malayalam code point in a heading, a paragraph or a button falls through to
+   * Anek instead of a tofu box. Because the browser only fetches a face it
+   * needs a glyph from, that file stays unrequested on English-only pages, and
+   * the same trick keeps the latin-ext files off the wire until an accented
+   * character shows up.
+   */
+  --font-display: var(--font-bricolage), var(--font-bricolage-ext),
+    var(--font-malayalam), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-geist-sans), var(--font-malayalam), ui-sans-serif,
+    system-ui, sans-serif;
+  --font-mono: var(--font-google-sans), var(--font-google-sans-ext),
+    var(--font-malayalam), ui-monospace, SFMono-Regular, Menlo, Consolas,
+    monospace;
+  --font-malayalam-stack: var(--font-malayalam), var(--font-geist-sans),
+    ui-sans-serif, sans-serif;
+  /* No serif anywhere on this site. The token exists so nothing inherits one. */
+  --font-serif: var(--font-sans);
+
+  /*
+   * The one non-neutral value on the site. CLAUDE.md calls text-phosphor a
+   * highlight rather than a theme, so it is spent on exactly one element: the
+   * blinking caret after the hero role. The OG card uses the same green for
+   * its rule. Anything else that wants attention uses weight or a border.
+   */
+  --phosphor: oklch(0.83 0.11 157);
 
   --radius: 0.75rem;
   /* flat surfaces: nothing casts a shadow */
@@ -101,11 +128,28 @@ html {
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-phosphor: var(--phosphor);
 
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
   --font-display: var(--font-display);
+  --font-malayalam: var(--font-malayalam-stack);
+
+  /*
+   * One type scale: 12, 14, 16, 18, 20, 24, 32, 40, 56, 72. Tailwind's own
+   * ramp skips 32 and 40 and lands on 30, 36, 48 and 60, so the four display
+   * steps are redefined here rather than reached for with arbitrary values at
+   * the call site. Nothing in between these numbers is allowed.
+   */
+  --text-3xl: 2rem;
+  --text-3xl--line-height: 1.15;
+  --text-4xl: 2.5rem;
+  --text-4xl--line-height: 1.1;
+  --text-5xl: 3.5rem;
+  --text-5xl--line-height: 1.05;
+  --text-6xl: 4.5rem;
+  --text-6xl--line-height: 1.02;
 
   --radius-sm: calc(var(--radius) - 6px);
   --radius-md: calc(var(--radius) - 3px);
@@ -129,12 +173,21 @@ html {
   body {
     @apply bg-background text-foreground font-sans;
   }
-  /* one family everywhere; form controls don't inherit fonts by default */
+  /* form controls don't inherit fonts by default */
   button,
   input,
   textarea,
   select {
     font-family: inherit;
+  }
+  /*
+   * Malayalam conjuncts and chillu letters stack taller than latin, so a line
+   * height tuned for latin clips them. Anything tagged as Malayalam gets the
+   * extra room without having to remember a class at every call site.
+   */
+  [lang="ml"] {
+    font-family: var(--font-malayalam-stack);
+    line-height: 1.6;
   }
   ::selection {
     background: var(--foreground);
@@ -184,6 +237,27 @@ body b {
   scrollbar-width: thin;
   scrollbar-color: var(--border) var(--muted);
   -webkit-overflow-scrolling: touch;
+}
+
+/*
+ * Pointer-lit hairline for a card. The element is a one pixel frame: the radial
+ * gradient paints the whole box, then the mask subtracts the content box so
+ * only the frame survives. No fill change, no shadow, nothing to repaint.
+ */
+.border-spotlight {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
 }
 
 /* iOS-style smooth (squircle) corners, borrowed from the flightpoints surfaces.
