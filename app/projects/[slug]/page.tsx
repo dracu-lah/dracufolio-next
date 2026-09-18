@@ -2,12 +2,20 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Github, Globe } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  GithubLogo,
+  Globe,
+} from "@/components/common/icons";
 import { GetProjectsAPI, GetProjectBySlugAPI } from "@/services/api";
 import { Button } from "@/components/ui/button";
 import Footer from "@/components/common/Footer";
 import JsonLd from "@/components/common/JsonLd";
-import { AUTHOR, SITE_URL, absolute, breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
+import CtaBlock from "@/components/cta/CtaBlock";
+import QrPanel from "@/components/common/QrPanel";
+import { ID, pageGraph, ref } from "@/lib/schema";
+import { absolute, pageMetadata } from "@/lib/seo";
 
 export const revalidate = 86400;
 
@@ -55,34 +63,40 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
   const prev = projects[currentIndex - 1] ?? null;
   const next = projects[currentIndex + 1] ?? null;
 
-  const jsonLd = {
-    "@context": "https://schema.org",
+  const path = `/projects/${project.slug}`;
+  const creativeWork = {
     "@type": "CreativeWork",
+    "@id": `${absolute(path)}#work`,
     name: project.title,
     description: project.tagline ?? project.description,
-    url: `${SITE_URL}/projects/${project.slug}`,
+    url: absolute(path),
     sameAs: [project.liveUrl, project.githubUrl].filter(Boolean),
     image: project.images[0] ? absolute(project.images[0]) : undefined,
     keywords: project.skills.join(", "),
-    author: {
-      "@type": "Person",
-      name: AUTHOR,
-      url: SITE_URL,
-    },
+    // Points at the site-wide Person rather than repeating it, so every
+    // project resolves to the same entity in the knowledge graph.
+    author: ref(ID.person),
+    creator: ref(ID.person),
     ...(project.year ? { dateCreated: project.year } : {}),
   };
 
   return (
     <>
       <JsonLd
-        data={[
-          jsonLd,
-          breadcrumbJsonLd([
-            { name: "Home", path: "/" },
-            { name: "Projects", path: "/projects" },
-            { name: project.title, path: `/projects/${project.slug}` },
-          ]),
-        ]}
+        data={pageGraph(
+          {
+            path,
+            name: project.title,
+            description: project.tagline ?? project.description,
+            primaryImage: project.images[0],
+            breadcrumb: [
+              { name: "Home", path: "/" },
+              { name: "Projects", path: "/projects" },
+              { name: project.title, path },
+            ],
+          },
+          [creativeWork],
+        )}
       />
       <main className="mx-auto max-w-5xl px-6 pt-24 pb-16 md:pt-32 md:pb-20">
         <nav aria-label="Breadcrumb">
@@ -90,7 +104,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
             href="/projects"
             className="inline-flex items-center gap-3 font-mono text-base uppercase tracking-[0.2em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
           >
-            <ArrowLeft size={16} aria-hidden />
+            <ArrowLeft weight="duotone" size={16} aria-hidden />
             Back to projects
           </Link>
         </nav>
@@ -115,7 +129,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  visit live <Globe size={18} />
+                  visit live <Globe weight="duotone" size={18} />
                 </a>
               </Button>
             )}
@@ -126,7 +140,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  view source <Github size={18} />
+                  view source <GithubLogo weight="duotone" size={18} />
                 </a>
               </Button>
             )}
@@ -240,6 +254,16 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
                 </dd>
               </div>
             </dl>
+            {project.liveUrl && (
+              <div className="border-t border-border p-6 pt-6">
+                <QrPanel
+                  url={project.liveUrl}
+                  label="Open on your phone"
+                  hint={`Scan to open ${project.title} on a phone instead of typing the URL.`}
+                  className="border-0 bg-transparent p-0"
+                />
+              </div>
+            )}
           </aside>
         </div>
 
@@ -253,7 +277,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
               className="group flex items-center justify-between gap-4 p-6 transition-colors duration-300 hover:bg-card"
             >
               <span className="flex items-center gap-3 text-base uppercase tracking-[0.18em] text-muted-foreground">
-                <ArrowLeft size={16} aria-hidden /> prev
+                <ArrowLeft weight="duotone" size={16} aria-hidden /> prev
               </span>
               <span className="font-display font-bold">{prev.title}</span>
             </Link>
@@ -269,7 +293,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
             >
               <span className="font-display font-bold">{next.title}</span>
               <span className="flex items-center gap-3 text-base uppercase tracking-[0.18em] text-muted-foreground">
-                next <ArrowRight size={16} aria-hidden />
+                next <ArrowRight weight="duotone" size={16} aria-hidden />
               </span>
             </Link>
           ) : (
@@ -279,6 +303,10 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
           )}
         </nav>
       </main>
+      <CtaBlock
+        heading="Want something like this?"
+        message={`Hi Nevil, I saw ${project.title} on your site and wanted to talk about a project.`}
+      />
       <Footer />
     </>
   );

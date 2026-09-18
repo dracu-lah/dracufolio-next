@@ -21,7 +21,7 @@ const HeroImage = async () => {
           draggable="false"
           className="size-72 object-cover md:size-80 xl:size-88"
           src={heroImage}
-          alt="Portrait of Nevil Krishna K, full stack developer"
+          alt="Nevil Krishna K, full stack developer in Thrissur, Kerala"
         />
       ) : (
         <div className="flex size-72 items-center justify-center text-muted-foreground md:size-80 xl:size-88">

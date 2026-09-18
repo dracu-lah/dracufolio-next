@@ -1,12 +1,38 @@
 import Image from "next/image";
-import { Github, Linkedin, Mail } from "lucide-react";
+import {
+  EnvelopeSimple,
+  GithubLogo,
+  LinkedinLogo,
+  WhatsappLogo,
+  XLogo,
+} from "@/components/common/icons";
 import Reveal from "@/components/common/Reveal";
 import InlineLogo from "@/components/common/InlineLogo";
 import { GetHeroImageAPI } from "@/services/api";
+import Icon3D from "@/components/motion/Icon3D";
+import {
+  EMAIL_MAILTO,
+  GITHUB_URL,
+  LANGUAGES,
+  LINKEDIN_URL,
+  WHATSAPP_URL,
+  X_URL,
+} from "@/data/contact";
+import { roleShortlist } from "@/data/keywords";
 
 const profile = [
   { key: "Role", value: "Full Stack Developer" },
+  {
+    key: "Roles",
+    value: roleShortlist.join(", "),
+  },
   { key: "Location", value: "Thrissur, Kerala (IST)" },
+  {
+    key: "Serves",
+    value:
+      "Thrissur district in person, Kerala within a day, all of India remotely",
+  },
+  { key: "Languages", value: LANGUAGES.join(", ") },
   { key: "Experience", value: "3+ years" },
   { key: "Focus", value: "React, Next.js, TypeScript" },
   { key: "Backend", value: "Django, Node.js, REST APIs" },
@@ -17,24 +43,11 @@ const profile = [
 ];
 
 const socialLinks = [
-  {
-    href: "mailto:nevilkrishna@gmail.com",
-    label: "email",
-    icon: Mail,
-    external: false,
-  },
-  {
-    href: "https://github.com/dracu-lah",
-    label: "github",
-    icon: Github,
-    external: true,
-  },
-  {
-    href: "https://www.linkedin.com/in/nevil-krishna-k-77170222a/",
-    label: "linkedin",
-    icon: Linkedin,
-    external: true,
-  },
+  { href: WHATSAPP_URL, label: "whatsapp", icon: WhatsappLogo, external: true },
+  { href: EMAIL_MAILTO, label: "email", icon: EnvelopeSimple, external: false },
+  { href: GITHUB_URL, label: "github", icon: GithubLogo, external: true },
+  { href: LINKEDIN_URL, label: "linkedin", icon: LinkedinLogo, external: true },
+  { href: X_URL, label: "x", icon: XLogo, external: true },
 ];
 
 const contentLink =
@@ -66,7 +79,7 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
                   draggable="false"
                   className="aspect-[4/5] w-full object-cover"
                   src={portrait}
-                  alt="Portrait of Nevil Krishna K, full stack developer"
+                  alt="Nevil Krishna K, full stack developer in Thrissur, Kerala"
                 />
               </figure>
             )}
@@ -80,7 +93,9 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
                       : {})}
                     className="flex items-center gap-2 font-mono text-base uppercase tracking-[0.18em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
                   >
-                    <Icon className="size-4" aria-hidden />
+                    <Icon3D>
+                      <Icon weight="duotone" className="size-4" aria-hidden />
+                    </Icon3D>
                     {label}
                   </a>
                 </li>
