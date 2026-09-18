@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Loader2 } from "lucide-react";
+import { CircleNotch } from "@/components/common/icons";
 import { useFormContext } from "react-hook-form";
 import ContactFormProvider from "./components/FormProvider";
 import InputField from "./components/InputField";
@@ -93,7 +93,7 @@ const ContactForm = () => {
           }`}
         >
           {status === "loading" && (
-            <Loader2 className="size-4 animate-spin" aria-hidden />
+            <CircleNotch weight="duotone" className="size-4 animate-spin" aria-hidden />
           )}
           {status === "loading" ? "Sending" : "Send message"}
         </button>

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Github } from "lucide-react";
+import { GithubLogo } from "@/components/common/icons";
 
 import Reveal from "@/components/common/Reveal";
 
@@ -116,7 +116,7 @@ const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
                       className="size-6 shrink-0 rounded-md object-contain md:size-7"
                     />
                   ) : (
-                    <Github className="size-6 shrink-0 md:size-7" aria-hidden />
+                    <GithubLogo weight="duotone" className="size-6 shrink-0 md:size-7" aria-hidden />
                   )}
                   {item.name}
                 </h3>
