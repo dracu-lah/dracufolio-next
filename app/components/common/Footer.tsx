@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Badge from "@/components/common/Badge";
+import Icon3D from "@/components/motion/Icon3D";
 import {
   EnvelopeSimple,
   GithubLogo,
@@ -143,9 +144,11 @@ const Footer = () => {
               {...(href.startsWith("mailto:")
                 ? {}
                 : { target: "_blank", rel: "noopener noreferrer" })}
-              className="icon-chip squircle flex size-11 items-center justify-center rounded-xl text-muted-foreground transition-colors duration-200 hover:text-accent"
+              className="text-muted-foreground transition-colors duration-200 hover:text-accent"
             >
-              <Glyph className="size-5" />
+              <Icon3D chip size="sm">
+                <Glyph className="size-5" />
+              </Icon3D>
             </a>
           ))}
         </div>

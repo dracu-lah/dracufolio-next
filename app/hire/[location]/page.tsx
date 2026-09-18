@@ -236,7 +236,7 @@ const LocationPage = async ({ params }: { params: Promise<Params> }) => {
                   <li key={near.slug}>
                     <Link
                       href={`/hire/${near.slug}`}
-                      className="flex items-center gap-2 rounded-lg squircle border border-border px-3 py-2 font-mono text-sm text-muted-foreground transition-colors duration-300 hover:border-foreground hover:text-accent"
+                      className="flex items-center gap-2 rounded-lg border border-border px-3 py-2 font-mono text-sm text-muted-foreground transition-colors duration-300 hover:border-foreground hover:text-accent"
                     >
                       <MapPin
                        

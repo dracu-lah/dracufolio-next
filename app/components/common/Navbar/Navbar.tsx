@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { SquircleButton } from "@/components/ui/squircle";
 import {
   CloseX,
   GithubLogo,
@@ -124,7 +125,7 @@ const Navbar = ({ children }: PropsWithChildren) => {
               {highlighted === link.href && (
                 <motion.span
                   layoutId="nav-hover"
-                  className="absolute inset-0 -z-10 rounded-lg squircle border border-accent-edge bg-accent-tint"
+                  className="absolute inset-0 -z-10 rounded-lg border border-accent-edge bg-accent-tint"
                   transition={{ type: "spring", stiffness: 500, damping: 40 }}
                 />
               )}
@@ -165,13 +166,15 @@ const Navbar = ({ children }: PropsWithChildren) => {
             </Button>
           </a>
 
-          <button
+          <SquircleButton
             type="button"
             onClick={() => setMenuOpen((open) => !open)}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
-            className="flex h-11 cursor-pointer items-center gap-2 rounded-lg squircle border border-border px-3.5 font-mono text-sm tracking-[0.14em] uppercase transition-colors duration-200 hover:border-accent-edge hover:bg-accent-tint lg:hidden"
+            borderWidth={1}
+            fillClassName="bg-background transition-colors"
+            className="flex h-11 cursor-pointer items-center gap-2 bg-border px-3.5 font-mono text-sm tracking-[0.14em] uppercase transition-colors duration-200 hover:bg-accent-edge [&>[data-fill]]:hover:bg-accent-tint lg:hidden"
           >
             {menuOpen ? (
               <CloseX className="size-5" />
@@ -179,7 +182,7 @@ const Navbar = ({ children }: PropsWithChildren) => {
               <HamburgerMenu className="size-5" />
             )}
             {menuOpen ? "Close" : "Menu"}
-          </button>
+          </SquircleButton>
         </div>
       </div>
 
@@ -203,7 +206,7 @@ const Navbar = ({ children }: PropsWithChildren) => {
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
                   aria-current={activeHref === link.href ? "page" : undefined}
-                  className={`rounded-lg squircle px-3 py-3 font-mono text-base tracking-wide uppercase transition-colors duration-200 ${
+                  className={`rounded-lg px-3 py-3 font-mono text-base tracking-wide uppercase transition-colors duration-200 ${
                     activeHref === link.href
                       ? "bg-accent-tint text-accent"
                       : "text-muted-foreground"

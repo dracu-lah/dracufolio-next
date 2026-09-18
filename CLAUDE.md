@@ -11,8 +11,20 @@ content in `app/data/*.json`, served through the thin wrappers in `app/services/
 - **No AI vibes.** No "not just X, but Y", no rule-of-three filler, no motivational eyebrow
   text, no adjective stacks ("fast, accessible, production-ready"). Write the plain sentence
   a person would say. Same for code comments: explain the why, never restate the line.
-- **Flat surfaces.** Borders and `bg-card`, `rounded-xl squircle` for cards and
-  `rounded-lg squircle` for controls. No gradients on surfaces, no drop shadows for depth.
+- **Flat surfaces, squircle corners.** Borders and `bg-card`, no gradients on surfaces,
+  no drop shadows for depth. The corner is a clip-path from
+  `app/components/ui/squircle.tsx` (`Squircle`, `SquircleButton`, `SquircleLink`,
+  `useSquircle`), never the old `corner-shape` class: `corner-shape` is Chromium only, so
+  the same class drew two different shapes depending on the browser. Sizes come from the
+  `SQUIRCLE` map (`sm`, `control`, `card`, `panel`), which is already compensated, because
+  a squircle at the same radius as an arc reads squarer.
+  **A bordered surface is drawn in border mode.** A clip cuts a CSS border off at the
+  corner, so the element carries the edge colour as its background, `borderWidth={1}` adds
+  the inset fill layer, and `fillClassName` is the real surface. Hover moves both: the
+  element for the edge, `[&>[data-fill]]:hover:` for the fill. An input is framed the same
+  way, with the field itself borderless inside the frame. Anything at `rounded-full`
+  (badges, location chips, avatars) stays a plain radius, since a circle has no corner to
+  smooth.
 - **Three faces, one job each.** Display and body are both **Geist Sans**, separated by
   weight and size rather than by a second family: `font-display` at 700 and tight tracking
   for headings, the hero name, project and post titles, and `font-sans` at 400 for

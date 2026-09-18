@@ -1,6 +1,7 @@
 import Badge from "@/components/common/Badge";
 import QrPanel from "@/components/common/QrPanel";
 import Icon3D from "@/components/motion/Icon3D";
+import { Squircle } from "@/components/ui/squircle";
 import WhatsAppButton from "./WhatsAppButton";
 import { Button } from "@/components/ui/button";
 import {
@@ -66,7 +67,11 @@ const CtaBlock = ({
     <section
       className={`mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-16 lg:px-14 lg:py-20 ${className}`}
     >
-      <div className="grid overflow-hidden rounded-xl squircle border border-border bg-card lg:grid-cols-[1.15fr_0.85fr]">
+      <Squircle
+        borderWidth={1}
+        fillClassName="bg-card"
+        className="grid overflow-hidden bg-border lg:grid-cols-[1.15fr_0.85fr]"
+      >
         <div className="flex flex-col gap-5 p-6 md:p-10">
           <div className="flex flex-wrap items-center gap-2">
             {AVAILABILITY.open && (
@@ -137,7 +142,7 @@ const CtaBlock = ({
             hint="Opens WhatsApp on your phone with the first message written."
           />
         </div>
-      </div>
+      </Squircle>
     </section>
   );
 };

@@ -1,4 +1,5 @@
 import Reveal from "@/components/common/Reveal";
+import { Squircle } from "@/components/ui/squircle";
 import Icon3D from "@/components/motion/Icon3D";
 import SpotlightCard from "@/components/motion/SpotlightCard";
 import {
@@ -46,7 +47,11 @@ const Services = ({
           </Heading>
         </Reveal>
 
-        <div className="grid overflow-hidden rounded-xl squircle border border-border md:grid-cols-2">
+        <Squircle
+          borderWidth={1}
+          fillClassName="bg-background"
+          className="grid overflow-hidden bg-border md:grid-cols-2"
+        >
           {services.map((service, i) => {
             const Glyph = GLYPHS[service.icon];
             const isLeftColumn = i % 2 === 0;
@@ -76,7 +81,7 @@ const Services = ({
               </Reveal>
             );
           })}
-        </div>
+        </Squircle>
       </div>
     </section>
   );

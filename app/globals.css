@@ -366,26 +366,37 @@ body b {
  * diagonal body gradient (light from the top left), a specular sheen over the
  * top half, and a one pixel top highlight for the lit edge.
  */
+/*
+ * The glossy icon chip, drawn in the same border mode the cards use: the chip
+ * element carries the edge colour, `.icon-chip-fill` is inset by one pixel and
+ * carries the glass. Painting the edge as a background instead of a border is
+ * what lets the clip-path smooth both the outside and the inside of the rim.
+ */
 .icon-chip {
   position: relative;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 14px;
-  border: 1px solid color-mix(in oklch, var(--foreground) 16%, transparent);
+  background: color-mix(in oklch, var(--foreground) 18%, transparent);
+  overflow: hidden;
+}
+
+.icon-chip-fill {
   background:
     linear-gradient(
       152deg,
       color-mix(in oklch, var(--foreground) 20%, transparent) 0%,
       color-mix(in oklch, var(--foreground) 7%, transparent) 46%,
-      color-mix(in oklch, var(--foreground) 2%, transparent) 100%
-    );
+      color-mix(in oklch, var(--background) 92%, transparent) 100%
+    ),
+    var(--background);
   /* The only shadow on the site, and it is inside the chip: a lit top edge and
      a dark bottom edge is what tells the eye this is a solid, not a rectangle. */
   box-shadow:
     inset 0 1px 0 color-mix(in oklch, var(--foreground) 30%, transparent),
     inset 0 -1px 0 color-mix(in oklch, var(--background) 60%, transparent);
-  overflow: hidden;
 }
 
 /* Bigger chips need a bigger radius or the corners read as a different shape. */
@@ -399,22 +410,26 @@ body b {
  * colour keeps meaning one thing.
  */
 .icon-chip-accent {
-  border-color: var(--accent-edge);
+  background: var(--accent-edge);
+  color: var(--accent);
+}
+
+.icon-chip-accent .icon-chip-fill {
   background:
     linear-gradient(
       152deg,
       color-mix(in oklch, var(--accent) 30%, transparent) 0%,
       color-mix(in oklch, var(--accent) 12%, transparent) 46%,
-      color-mix(in oklch, var(--accent) 4%, transparent) 100%
-    );
+      color-mix(in oklch, var(--background) 92%, transparent) 100%
+    ),
+    var(--background);
   box-shadow:
     inset 0 1px 0 color-mix(in oklch, var(--accent) 45%, transparent),
     inset 0 -1px 0 color-mix(in oklch, var(--background) 60%, transparent);
-  color: var(--accent);
 }
 
 /* The curved top highlight. A real object catches light on the edge facing it. */
-.icon-chip::before {
+.icon-chip-fill::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -448,6 +463,7 @@ body b {
 }
 
 
+
 /*
  * Pointer-lit hairline for a card. The element is a one pixel frame: the radial
  * gradient paints the whole box, then the mask subtracts the content box so
@@ -469,11 +485,12 @@ body b {
   mask-composite: exclude;
 }
 
-/* iOS-style smooth (squircle) corners, borrowed from the flightpoints surfaces.
-   Pair with a `rounded-*` class: that sets the radius, this smooths it.
-   Browsers without `corner-shape` just get the plain rounded corner. */
-@supports (corner-shape: squircle) {
-  .squircle {
-    corner-shape: squircle;
-  }
-}
+/*
+ * The squircle is a component now, not a class.
+ *
+ * This file used to carry `@supports (corner-shape: squircle) { .squircle { ... } }`,
+ * which is cheaper but only Chromium implements it: the same class drew a
+ * squircle in one browser and a plain arc in every other one. The corner is
+ * drawn as a clip-path instead, in `app/components/ui/squircle.tsx`, so it is
+ * the same geometry everywhere and a border can follow the same curve.
+ */

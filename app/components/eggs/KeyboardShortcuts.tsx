@@ -124,7 +124,7 @@ const KeyboardShortcuts = () => {
             role="dialog"
             aria-modal="true"
             aria-label="Keyboard shortcuts"
-            className="relative w-full max-w-md overflow-hidden rounded-xl squircle border border-border bg-card"
+            className="relative w-full max-w-md overflow-hidden rounded-xl border border-border bg-card"
             initial={reduceMotion ? false : { y: 8 }}
             animate={{ y: 0 }}
             exit={{ y: 8 }}
@@ -152,7 +152,7 @@ const KeyboardShortcuts = () => {
                   <span className="text-sm text-muted-foreground">
                     {jump.label}
                   </span>
-                  <kbd className="rounded-md squircle border border-border px-2 py-0.5 font-mono text-sm text-foreground">
+                  <kbd className="rounded-md border border-border px-2 py-0.5 font-mono text-sm text-foreground">
                     {jump.keys}
                   </kbd>
                 </li>

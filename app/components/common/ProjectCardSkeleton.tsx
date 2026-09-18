@@ -1,7 +1,7 @@
 import Skeleton from "./Skeleton";
 
 const ProjectCardSkeleton = () => (
-  <div className="flex flex-col overflow-hidden rounded-xl squircle border border-border bg-card">
+  <div className="flex flex-col overflow-hidden rounded-xl border border-border bg-card">
     <Skeleton className="aspect-video w-full rounded-none" />
     <div className="flex flex-col gap-3 border-t border-border p-6">
       <Skeleton className="h-6 w-1/2" />

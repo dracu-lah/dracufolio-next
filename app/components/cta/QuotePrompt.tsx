@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import Badge from "@/components/common/Badge";
 import Icon3D from "@/components/motion/Icon3D";
+import { SquircleLink } from "@/components/ui/squircle";
 import { CallTimer, Phone, WhatsappLogo } from "@/components/common/icons";
 import {
   AVAILABILITY,
@@ -105,24 +106,26 @@ const QuotePrompt = ({ message }: { message?: string }) => {
           </DialogDescription>
 
           <div className="flex flex-col gap-3 sm:flex-row">
-            <a
+            <SquircleLink
               href={href}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setOpen(false)}
-              className="flex h-12 flex-1 items-center justify-center gap-2.5 rounded-lg squircle border border-accent bg-accent font-mono text-sm tracking-[0.14em] text-accent-foreground uppercase transition-colors duration-200 hover:bg-accent-muted"
+              className="flex h-12 flex-1 items-center justify-center gap-2.5 bg-accent font-mono text-sm tracking-[0.14em] text-accent-foreground uppercase transition-colors duration-200 hover:bg-accent-muted"
             >
               <WhatsappLogo className="size-5" />
               WhatsApp
-            </a>
-            <a
+            </SquircleLink>
+            <SquircleLink
               href={PHONE_TEL}
               onClick={() => setOpen(false)}
-              className="flex h-12 flex-1 items-center justify-center gap-2.5 rounded-lg squircle border border-border font-mono text-sm tracking-[0.14em] uppercase transition-colors duration-200 hover:border-accent-edge hover:bg-accent-tint"
+              borderWidth={1}
+              fillClassName="bg-background transition-colors"
+              className="group flex h-12 flex-1 items-center justify-center gap-2.5 bg-border font-mono text-sm tracking-[0.14em] uppercase transition-colors duration-200 hover:bg-accent-edge [&>[data-fill]]:hover:bg-accent-tint"
             >
               <Phone className="size-5" />
               {PHONE_DISPLAY}
-            </a>
+            </SquircleLink>
           </div>
 
           <p className="font-mono text-xs tracking-[0.14em] text-muted-foreground uppercase">

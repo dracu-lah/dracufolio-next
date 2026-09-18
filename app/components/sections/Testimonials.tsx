@@ -1,4 +1,5 @@
 import Reveal from "@/components/common/Reveal";
+import { Squircle } from "@/components/ui/squircle";
 import { testimonials } from "@/data/testimonials";
 
 /**
@@ -24,7 +25,12 @@ const Testimonials = () => {
           {testimonials.map((person, i) => (
             <li key={person.name}>
               <Reveal delay={i * 0.06} className="h-full">
-                <figure className="flex h-full flex-col gap-5 rounded-xl squircle border border-border bg-card p-6">
+                <Squircle
+                  as="figure"
+                  borderWidth={1}
+                  fillClassName="bg-card"
+                  className="flex h-full flex-col gap-5 bg-border p-6"
+                >
                   <blockquote className="text-base leading-relaxed text-muted-foreground md:text-lg">
                     {person.quote}
                   </blockquote>
@@ -47,7 +53,7 @@ const Testimonials = () => {
                       {person.role}, {person.company}
                     </span>
                   </figcaption>
-                </figure>
+                </Squircle>
               </Reveal>
             </li>
           ))}

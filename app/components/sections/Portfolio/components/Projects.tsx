@@ -5,6 +5,7 @@ import type { CSSProperties } from "react";
 import { motion } from "framer-motion";
 import { type Project } from "@/types/portfolio";
 import { useSpotlight } from "@/hooks/useSpotlight";
+import { SQUIRCLE, useSquircle } from "@/components/ui/squircle";
 import Badge from "@/components/common/Badge";
 import { ArrowRight } from "@/components/common/icons";
 
@@ -16,6 +17,17 @@ const ProjectCard = ({
   index: number;
 }) => {
   const spotlight = useSpotlight(240);
+  // Border mode: a clip-path cuts a CSS border off at the corner, so the card
+  // paints the hairline as its own background and the fill layer is the card.
+  const {
+    attach: clipRef,
+    style: clipStyle,
+    fill: clipFill,
+  } = useSquircle<HTMLElement>({
+    cornerRadius: SQUIRCLE.card,
+    borderWidth: 1,
+    fillClassName: "bg-card",
+  });
 
   return (
     /*
@@ -25,9 +37,16 @@ const ProjectCard = ({
      */
     <article
       {...(spotlight?.handlers ?? {})}
-      style={{ "--rise-delay": `${Math.min(index, 5) * 60}ms` } as CSSProperties}
-      className="rise-in group relative flex h-full flex-col overflow-hidden rounded-xl squircle border border-border bg-card transition-colors duration-300 hover:border-accent-edge"
+      ref={clipRef}
+      style={
+        {
+          "--rise-delay": `${Math.min(index, 5) * 60}ms`,
+          ...clipStyle,
+        } as CSSProperties
+      }
+      className="rise-in group relative isolate flex h-full flex-col bg-border transition-colors duration-300 hover:bg-accent-edge"
     >
+      {clipFill}
       {spotlight && (
         <motion.span
           aria-hidden
