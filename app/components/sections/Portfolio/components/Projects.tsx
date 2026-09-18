@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { type Project } from "@/types/portfolio";
+import { useSpotlight } from "@/hooks/useSpotlight";
 
 const ProjectCard = ({
   project,
@@ -12,9 +13,11 @@ const ProjectCard = ({
   index: number;
 }) => {
   const reduceMotion = useReducedMotion();
+  const spotlight = useSpotlight(240);
 
   return (
     <motion.article
+      {...(spotlight?.handlers ?? {})}
       initial={reduceMotion ? false : { opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
@@ -25,6 +28,13 @@ const ProjectCard = ({
       }}
       className="group relative flex min-w-80 snap-center flex-col overflow-hidden rounded-xl squircle border border-border transition-colors duration-300 hover:border-foreground"
     >
+      {spotlight && (
+        <motion.span
+          aria-hidden
+          className="border-spotlight z-20"
+          style={spotlight.style}
+        />
+      )}
       <Link
         href={`/projects/${project.slug}`}
         aria-label={`Open ${project.title} details`}
