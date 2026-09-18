@@ -239,7 +239,7 @@ const LocationPage = async ({ params }: { params: Promise<Params> }) => {
                       className="flex items-center gap-2 rounded-lg squircle border border-border px-3 py-2 font-mono text-sm text-muted-foreground transition-colors duration-300 hover:border-foreground hover:text-foreground"
                     >
                       <MapPin
-                        weight="duotone"
+                       
                         className="size-4 shrink-0"
                         aria-hidden
                       />

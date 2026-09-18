@@ -132,7 +132,7 @@ const Navbar = ({ children }: PropsWithChildren) => {
           aria-label="Message Nevil on WhatsApp"
         >
           <Button size="icon">
-            <WhatsappLogo weight="duotone" className="size-5" aria-hidden />
+            <WhatsappLogo className="size-5" aria-hidden />
           </Button>
         </a>
         <a
@@ -143,7 +143,7 @@ const Navbar = ({ children }: PropsWithChildren) => {
           aria-label="GitHub profile"
         >
           <Button className="h-full">
-            <GithubLogo weight="duotone" className="size-4" aria-hidden />
+            <GithubLogo className="size-4" aria-hidden />
             GitHub
           </Button>
         </a>

@@ -37,7 +37,7 @@ const Faq = ({
               <summary className="flex cursor-pointer list-none items-start justify-between gap-6 py-5 text-lg font-medium marker:content-none md:text-xl">
                 <dt>{faq.q}</dt>
                 <CaretDown
-                  weight="duotone"
+                 
                   aria-hidden
                   className="mt-1 size-5 shrink-0 text-muted-foreground transition-transform duration-300 group-open:rotate-180"
                 />

@@ -10,7 +10,7 @@ export type Service = {
   /** Icon name from @phosphor-icons/react, duotone weight. */
   icon:
     | "Browsers"
-    | "MagnifyingGlass"
+    | "Ranking"
     | "DeviceMobile"
     | "SquaresFour"
     | "CloudArrowUp"
@@ -32,7 +32,7 @@ export const services: Service[] = [
   {
     slug: "websites-that-rank",
     title: "Websites that rank",
-    icon: "MagnifyingGlass",
+    icon: "Ranking",
     blurb:
       "Next.js sites built for search from the first commit: server rendered pages, schema, sitemaps, and a Lighthouse score you can show a client.",
     serviceType: "Website design and SEO",

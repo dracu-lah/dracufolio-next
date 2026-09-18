@@ -93,7 +93,7 @@ const ContactForm = () => {
           }`}
         >
           {status === "loading" && (
-            <CircleNotch weight="duotone" className="size-4 animate-spin" aria-hidden />
+            <CircleNotch className="size-4 animate-spin" aria-hidden />
           )}
           {status === "loading" ? "Sending" : "Send message"}
         </button>

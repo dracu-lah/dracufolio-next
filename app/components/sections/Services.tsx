@@ -6,7 +6,7 @@ import {
   CloudArrowUp,
   DeviceMobile,
   Gauge,
-  MagnifyingGlass,
+  Ranking,
   SquaresFour,
 } from "@/components/common/icons";
 import { services } from "@/data/services";
@@ -18,7 +18,7 @@ import { services } from "@/data/services";
  */
 const GLYPHS = {
   Browsers,
-  MagnifyingGlass,
+  Ranking,
   DeviceMobile,
   SquaresFour,
   CloudArrowUp,
@@ -61,7 +61,7 @@ const Services = ({
                 >
                   <div className="flex h-full flex-col gap-4 p-6 md:p-8">
                     <Icon3D className="text-foreground">
-                      <Glyph weight="duotone" className="size-8" aria-hidden />
+                      <Glyph className="size-8" aria-hidden />
                     </Icon3D>
                     <h3 className="font-display text-xl font-bold tracking-tight">
                       {service.title}

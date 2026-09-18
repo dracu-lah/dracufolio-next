@@ -27,10 +27,17 @@ content in `app/data/*.json`, served through the thin wrappers in `app/services/
 - **One type scale.** 12, 14, 16, 18, 20, 24, 32, 40, 56, 72 px, which is what
   `text-xs` through `text-6xl` now resolve to (`--text-3xl` to `--text-6xl` are redefined
   in `globals.css`). Nothing in between, no arbitrary `text-[27px]`.
-- **One icon family.** `@phosphor-icons/react`, duotone weight, imported from
-  `app/components/common/icons.ts` (which re-exports `/dist/ssr` so server components
-  work). Never hand-roll an SVG icon path, never add a second family, never import
-  `lucide-react` again.
+- **Icons come from `app/components/common/icons.tsx`, never from a vendor directly.**
+  That module is the site's icon vocabulary: call sites import the name of the job
+  (`MapPin`, `CaretDown`) and every export takes the same `{ className, size }` props,
+  because some call sites hold a mixed list and render it through one component variable.
+  Nothing outside that file passes a vendor prop like `weight` or `variant`.
+  UI icons are **Iconsax** at the `Bulk` variant (a solid shape over a lighter second
+  layer, which is depth without a gradient or a shadow). Brand marks are **Phosphor** at
+  duotone, because Iconsax has no GitHub, LinkedIn or X, and its WhatsApp glyph is a
+  stylised chat bubble rather than the mark people recognise on a button. That is the only
+  sanctioned second family: a logo is dictated by the brand, not the icon set.
+  Never hand-roll an SVG icon path. Never import `lucide-react` again.
 - **Malayalam carries `lang="ml"`.** Every Malayalam string lives in `app/data/ml.ts`
   with an English gloss, and every element rendering one sets `lang="ml"` so the
   Malayalam face and the taller line height apply.
