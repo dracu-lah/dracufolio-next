@@ -229,9 +229,9 @@ if (focused === "INPUT" || focused === "TEXTAREA") {
   notes.push("no form field found to test shortcut suppression");
 }
 
-/* 5. The floating WhatsApp button gets out of the way of the contact form. */
+/* 5. The docked mobile action bar gets out of the way of the contact form. */
 await goto("/");
-const fabSelector = "[data-whatsapp-fab]";
+const fabSelector = "[data-mobile-action-bar]";
 const fabVisibleTop = await evaluate(
   `(() => { const box = document.querySelector('${fabSelector}');
      return box ? getComputedStyle(box).opacity : null; })()`,
@@ -251,7 +251,7 @@ if (duplicateLabels > 1)
   fails.push(
     `${duplicateLabels} links share the accessible name "Message Nevil on WhatsApp"`,
   );
-else notes.push("the floating button's accessible name is unique on the page");
+else notes.push("the docked bar's accessible name is unique on the page");
 
 if (fabVisibleTop === null) fails.push("floating WhatsApp button not found");
 else if (Number(fabOverContact) >= Number(fabVisibleTop))

@@ -9,11 +9,14 @@ import { PHONE_DISPLAY } from "./contact";
 
 export type Faq = { q: string; a: string };
 
+/**
+ * Order matters here. The first three answer what a person actually came to
+ * ask (can I hire you, are you available, do you do mobile). The question
+ * phrased the way somebody types it into a search box sits fourth: it keeps
+ * every bit of its value in the FAQ schema without being the first thing a
+ * human reads.
+ */
 export const homeFaqs: Faq[] = [
-  {
-    q: "Who is the best full stack developer in Thrissur?",
-    a: "Nobody can honestly claim that title, so here is what you can check instead. I have three years of production work, I build with React, Next.js and TypeScript, I have shipped a seat map product on Cloudflare Workers and an Android TV app, and every project on this site links to something live you can open. Compare that against anyone else you are talking to.",
-  },
   {
     q: "Do you take freelance work?",
     a: "Yes, alongside my job at Lascade. I take web apps, websites, dashboards and mobile apps, usually for businesses in Kerala or remote clients elsewhere in India. Message me on WhatsApp with what you need and I will tell you within a day whether I am the right person for it.",
@@ -21,6 +24,10 @@ export const homeFaqs: Faq[] = [
   {
     q: "Are you open to full time jobs?",
     a: "Yes, for React, Next.js, full stack or frontend roles, in Kochi, Bangalore or remote. My resume is on this site as a one page PDF and my LinkedIn is up to date. I reply to recruiters the same day.",
+  },
+  {
+    q: "Who is the best full stack developer in Thrissur?",
+    a: "Nobody can honestly claim that title, so here is what you can check instead. I have three years of production work, I build with React, Next.js and TypeScript, I have shipped a seat map product on Cloudflare Workers and an Android TV app, and every project on this site links to something live you can open. Compare that against anyone else you are talking to.",
   },
   {
     q: "Do you build mobile apps?",

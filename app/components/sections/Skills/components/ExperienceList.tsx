@@ -1,12 +1,14 @@
 import Image from "next/image";
+import Badge from "@/components/common/Badge";
 import Reveal from "@/components/common/Reveal";
+import { CalendarIcon } from "@/components/common/icons";
 import { experience } from "@/data/experience";
 
 const ExperienceList = () => (
   <div className="flex flex-col gap-6 md:gap-8">
     {experience.map((job, index) => (
       <Reveal key={job.company} delay={index * 0.08} className="w-full">
-        <article className="rounded-xl squircle border border-border bg-card p-6 md:p-8">
+        <article className="rounded-xl squircle border border-border bg-card p-6 transition-colors duration-300 hover:border-accent-edge md:p-8">
           <div className="flex items-start gap-4 pb-6">
             <Image
               src={job.logo}
@@ -22,28 +24,33 @@ const ExperienceList = () => (
               <p className="text-base text-muted-foreground md:text-lg">
                 {job.company}
               </p>
-              <p className="font-mono text-base uppercase tracking-[0.18em] text-muted-foreground">
+              <Badge icon={CalendarIcon} className="mt-1 self-start">
                 {job.period}
-              </p>
+              </Badge>
             </div>
           </div>
           <ul className="flex flex-col gap-2.5">
             {job.points.map((point) => (
               <li
                 key={point}
-                className="flex gap-3 text-base leading-relaxed text-muted-foreground md:text-lg"
+                className="flex gap-3 text-base leading-relaxed text-muted-foreground"
               >
                 <span
                   aria-hidden
-                  className="mt-2.5 size-1.5 shrink-0 bg-muted-foreground"
+                  className="mt-2.5 size-1.5 shrink-0 rounded-full bg-accent"
                 />
                 {point}
               </li>
             ))}
           </ul>
-          <p className="pt-6 font-mono text-base break-words text-muted-foreground">
-            {job.stack}
-          </p>
+          {/* The stack was one mono sentence full of middle dots, which reads
+              as a run-on. Badges let the eye pick out the one thing it came
+              looking for. */}
+          <div className="flex flex-wrap gap-1.5 pt-6">
+            {job.stack.map((tool) => (
+              <Badge key={tool}>{tool}</Badge>
+            ))}
+          </div>
         </article>
       </Reveal>
     ))}

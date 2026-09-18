@@ -1,7 +1,7 @@
 import Skeleton from "@/components/common/Skeleton";
 
 const Loading = () => (
-  <main className="mx-auto max-w-5xl px-6 pt-24 pb-16 md:pt-32 md:pb-20">
+  <main className="mx-auto max-w-5xl px-6 pt-24 pb-16 md:pt-28 md:pb-20">
     <div className="flex flex-col gap-5">
       <Skeleton className="h-4 w-40" />
       <Skeleton className="h-12 w-3/4 md:h-16" />

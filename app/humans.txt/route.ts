@@ -25,7 +25,7 @@ export const GET = async () =>
   Language: English, Malayalam
   Standards: HTML5, CSS, ECMAScript
   Components: Next.js, React, Tailwind CSS, Motion, Phosphor Icons
-  Typefaces: Bricolage Grotesque, Geist Sans, Google Sans Code, Anek Malayalam
+  Typefaces: Geist Sans, Geist Mono, Anek Malayalam
   Software: Neovim, Fedora, Sway, Git
   Source: ${SITE_URL}/source
 

@@ -13,16 +13,15 @@ content in `app/data/*.json`, served through the thin wrappers in `app/services/
   a person would say. Same for code comments: explain the why, never restate the line.
 - **Flat surfaces.** Borders and `bg-card`, `rounded-xl squircle` for cards and
   `rounded-lg squircle` for controls. No gradients on surfaces, no drop shadows for depth.
-- **Four faces, one job each.** The old "one font" rule is gone, replaced by a system.
-  Display is **Bricolage Grotesque** (`font-display`): headings, the hero name, project
-  and post titles, nothing smaller than a heading. Body is **Geist Sans** (`font-sans`,
-  the body default): paragraphs, FAQ answers, prose, never a heading. Mono and UI is
-  **Google Sans Code** (`font-mono`): nav, buttons, labels, dates, code, the terminal
-  caret, never a paragraph. Malayalam is **Anek Malayalam**, which every stack ends with,
-  so a Malayalam code point falls through from any role. All four are self-hosted through
-  `app/lib/fonts.ts`; do not add a fifth.
+- **Three faces, one job each.** Display and body are both **Geist Sans**, separated by
+  weight and size rather than by a second family: `font-display` at 700 and tight tracking
+  for headings, the hero name, project and post titles, and `font-sans` at 400 for
+  paragraphs and prose. UI is **Geist Mono** (`font-mono`): nav, buttons, labels, dates,
+  code, the caret, never a paragraph. Malayalam is **Anek Malayalam**, which every stack
+  ends with, so a Malayalam code point falls through from any role. Geist ships through
+  the `geist` package and Anek is self-hosted in `app/lib/fonts.ts`; do not add a fourth.
   Emphasis inside a heading is weight or italic of the same face. No serif anywhere, no
-  Inter, no Fraunces, no Instrument Serif, no gradient text, no letter-spaced all-caps
+  Bricolage, no Fraunces, no Instrument Serif, no gradient text, no letter-spaced all-caps
   headlines.
 - **One type scale.** 12, 14, 16, 18, 20, 24, 32, 40, 56, 72 px, which is what
   `text-xs` through `text-6xl` now resolve to (`--text-3xl` to `--text-6xl` are redefined
@@ -41,10 +40,30 @@ content in `app/data/*.json`, served through the thin wrappers in `app/services/
 - **Malayalam carries `lang="ml"`.** Every Malayalam string lives in `app/data/ml.ts`
   with an English gloss, and every element rendering one sets `lang="ml"` so the
   Malayalam face and the taller line height apply.
-- **Terminal accents stay subtle.** `text-phosphor` is defined in `globals.css` and is
-  spent on exactly one element sitewide: the caret after the hero role. Everything else
-  earns attention through weight, size or a border.
+- **One accent, one meaning.** The palette is a warm near-black with a single signal
+  green, `--accent`, plus `--accent-tint` (12 percent fill), `--accent-edge` (34 percent
+  border) and `--accent-muted` (the hover fill). The accent means "act on this or this is
+  live": the primary button, a link on hover, the focus ring, the availability dot, the
+  active nav pill, an accent icon chip. It is never decoration and never a second hue.
+  Text stays neutral so contrast holds, and `--accent-foreground` is the dark label that
+  sits on a filled accent surface, because white on this green fails at body size.
+  `--phosphor` is now an alias of `--accent`, kept so the hero caret and the OG card keep
+  compiling.
+- **Badges are a component, not a class.** Anything that looks like a label (a stack
+  entry, a tag, a date, a status, a place) goes through `app/components/common/Badge.tsx`:
+  one height, one full corner, mono type, `neutral`, `accent` or `ghost`. A `dot` is for
+  real state only, never decoration. Bare text separated by gaps is not a badge.
+- **Icon chips carry standalone icons.** An icon that stands on its own, rather than
+  sitting inside a button or a line of text, goes in a chip: `<Icon3D chip size="sm | md |
+  lg" tone="neutral | accent">`. Neutral describes, accent acts. The chip gradient in
+  `globals.css` is the one sanctioned gradient on the site, and it is scoped to the chip.
 - **Mobile first.** Every new page and card is checked at 390px before it lands.
+- **The primary action is docked, never floating.** WhatsApp is the solid button in the
+  header from `md` up, and below `md` it is the docked bar in
+  `app/components/cta/MobileActionBar.tsx`, which steps aside while the contact form is on
+  screen. No floating bubble in a corner, and never two WhatsApp CTAs on screen at once.
+  The timed quote prompt is desktop only: Google's intrusive interstitial rule is about
+  mobile pages that cover the content, and a phone already has the docked bar.
 - **Motion must be motivated.** Every animation has a one-line reason or it does not
   ship. Pointer and scroll values go through motion values (`useMotionValue`,
   `useScroll`, `useMotionValueEvent`), never `useState` and never a raw
@@ -97,12 +116,24 @@ Both run against a `pnpm start` server, not the dev server.
 
 ## Design references
 
-Study these for patterns and craft, never to copy assets: [21st.dev](https://21st.dev/),
-[Kokonut UI](https://kokonutui.com/), [React Bits](https://reactbits.dev/),
-[Bklit UI](https://bklit.com/), [Magic UI](https://magicui.design/),
-[Design Spells](https://designspells.com/), [Mobbin](https://mobbin.com/),
-[Dribbble](https://dribbble.com/), [Navbar Gallery](https://www.navbar.gallery/).
-Anything borrowed still has to pass the golden rules above.
+Study these for patterns and craft, never to copy assets:
+
+- [21st.dev](https://21st.dev/), community registry of shadcn-style React/Tailwind components.
+- [Kokonut UI](https://kokonutui.com/), open-source Tailwind + shadcn/ui + Motion components.
+- [React Bits](https://reactbits.dev/), animated, interactive React components (text effects,
+  backgrounds, motion patterns).
+- [Bklit UI](https://bklit.com/), composable shadcn-based charts and data visualizations.
+- [Magic UI](https://magicui.design/), animated components and landing-page blocks
+  (React, Tailwind, Framer Motion).
+- [Design Spells](https://designspells.com/), catalog of micro-interactions and delightful
+  design details.
+- [Mobbin](https://mobbin.com/), searchable library of real mobile and web app screens and flows.
+- [Dribbble](https://dribbble.com/), general visual design inspiration and exploration.
+- [Navbar Gallery](https://www.navbar.gallery/), curated navigation and navbar design examples.
+
+Take the idea, never the file. Anything borrowed arrives changed: different proportion,
+different motion, different content shape, and it still has to pass the golden rules above.
+A component that could be recognised as a specific registry demo has not been adapted enough.
 
 ## Commands
 
@@ -118,3 +149,13 @@ pnpm check:dashes   # em dash guard, same check the pre-push hook runs
 
 Screenshots live in `public/appwrite/projects/`. Compress before committing: WebP files are
 left alone, PNG and JPEG go through `magick <file> -strip -quality 82`.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

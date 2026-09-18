@@ -1,0 +1,54 @@
+import { PostHeader, PostFooter } from "@/components/blog/PostChrome";
+import { postMetadata } from "@/lib/blog";
+
+export const slug = "translation-sync-without-breaking-icu";
+export const metadata = postMetadata(slug);
+
+<PostHeader slug={slug} />
+
+A localised product has one English file that people edit and a directory of other files that drift away from it. Somebody adds a key, five locales do not have it. Somebody rewords a sentence, five locales still say the old thing and nobody notices, because nobody on the team reads Portuguese.
+
+[LangSync](https://github.com/dracu-lah/langsync-cli) is the CLI I wrote for that, out of the localisation work on a product running next-intl. It is Python, MIT licensed, and it does one thing: make every target locale agree with one source file.
+
+```bash
+langsync                        # sync everything that drifted
+langsync --locales es-ES,fr-FR  # only these
+langsync --rewrite              # redo translations that already exist
+langsync --prune                # delete keys the source no longer has
+```
+
+## The problem is ICU, not translation
+
+Machine translation of a sentence is a solved-enough problem. Machine translation of an ICU message is not, because an ICU message is code:
+
+```
+{count, plural, one {# seat left} other {# seats left}}
+```
+
+Hand that to any translation API as a string and you get back a sentence with `plural` translated, the `one` and `other` keywords translated, the argument renamed, and the braces rearranged. The file still parses as JSON, so nothing fails at build time. It fails at runtime, in a locale you do not read, on the one page that uses a plural.
+
+So LangSync parses the message into a tree first, pulls out only the human-readable fragments, sends those, and rebuilds the message around the arguments and keywords, which never move. Every rebuilt message is validated before it is written. If it does not parse, it does not land.
+
+That validation pass also repairs what earlier tools broke: a target string that is already malformed ICU gets detected and healed instead of copied forward forever.
+
+## Batching is where the cost goes
+
+The naive loop is one request per key per locale. A thousand keys and six locales is six thousand requests, and it is slow, expensive and rate limited.
+
+LangSync batches the fragments instead. The saving is not marginal: the API overhead drops by up to 98 percent compared with one call per string, which is the difference between a sync you run in CI and a sync you avoid running. Locales run concurrently on a thread pool, with the parallelism and batch size in config, and rate limits are handled with exponential backoff rather than a crash halfway through writing a file.
+
+## Knowing what changed
+
+The part that makes it safe to run repeatedly is `.langsync-state.json`, a snapshot of what the source looked like the last time. With it, a sync can tell the three cases apart: a key that is new, a key whose English text was edited since last time, and a key that is gone.
+
+Without that snapshot you have two bad options: retranslate everything on every run, or trust that a target file which has a value for a key is up to date. The first is expensive, the second is how you end up shipping last quarter's wording.
+
+Configuration lives in `langsync.json`: the source file, the target directory, how many locales to run at once, batch size, and a whitelist of terms that must never be translated. Product names go in that list, and so does every piece of jargon your marketing team has opinions about.
+
+## Where this sits next to a TMS
+
+It is not a translation management system and it does not want to be. There is no review workflow, no translator seats, no glossary UI. It is the thing that keeps files in step between the moments when a human actually reviews them, which for a small team is most of the time.
+
+If you run next-intl, or any ICU based setup, the [repo](https://github.com/dracu-lah/langsync-cli) has the config reference.
+
+<PostFooter slug={slug} />

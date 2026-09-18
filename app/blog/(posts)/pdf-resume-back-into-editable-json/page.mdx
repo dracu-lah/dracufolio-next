@@ -1,0 +1,45 @@
+import { PostHeader, PostFooter } from "@/components/blog/PostChrome";
+import { postMetadata } from "@/lib/blog";
+
+export const slug = "pdf-resume-back-into-editable-json";
+export const metadata = postMetadata(slug);
+
+<PostHeader slug={slug} />
+
+A resume lives as a PDF, which is the one format you cannot edit. So every time a line changes, you either still have the original document or you retype the whole thing. I wrote [Resume Builder](/projects/resume-builder) because I had lost the original twice.
+
+It is free, the [source is on GitHub](https://github.com/dracu-lah/resumebuilder) under MIT, and it runs at [resumebuilder.js.org](https://resumebuilder.js.org).
+
+## The data model is the product
+
+The builder keeps one JSON object. The editor writes to it, the preview reads from it, the PDF is printed from the preview, and the export button hands you the object itself.
+
+That means the file you download is also the file you upload next year, and that a resume can be diffed, kept in a repo, or passed to somebody else's renderer. A resume builder that can only produce a PDF has made the same mistake as the PDF it is replacing.
+
+## Reading a PDF back in
+
+The upload path is the part people ask about. A PDF has no structure to recover: it stores glyphs with coordinates, not "this is the job title". Parsing it with rules means writing a heuristic for every resume template that exists, and being wrong about all of them.
+
+So the PDF goes through a language model, which is genuinely good at this one job: given a page of text, produce the JSON shape the editor expects. The result is a draft, not an import. It lands in the editor for you to correct, because the failure mode of an automatic import is a resume with a wrong date that you send to fifty people.
+
+The API key for that is yours and optional. With no key the builder still does everything except read a PDF.
+
+## Nothing leaves the browser
+
+State is in `localStorage`. There is no account, no database, no server that has seen your phone number. This is not a privacy stance so much as an admission: I did not want to run a service, and a resume builder that stores resumes has to answer for them later.
+
+The trade is real and worth saying out loud. Clear your site data and the resume is gone, which is why export exists and why the app nags you toward it.
+
+## Live preview without the reflow
+
+The preview renders at the printed size while you type. Cheap to say, annoying to build: text that changes length repaginates, and a preview that jumps under the cursor every keystroke is worse than a preview button.
+
+What fixed it was making the preview a pure function of the JSON and letting React re-render it, rather than mutating a DOM that also holds the caret. The editor owns the caret, the preview owns the layout, and they never touch each other's state.
+
+## Why it is on js.org
+
+js.org gives open source JavaScript projects a subdomain if the project is real and documented. Applying is a pull request against their repo, and being accepted means the tool has a name people can type rather than a string of hosting-provider characters. It costs nothing and it is the cheapest credibility a side project can buy.
+
+If you use it, the [repo](https://github.com/dracu-lah/resumebuilder) takes issues, and the JSON schema is the thing I am most interested in getting right.
+
+<PostFooter slug={slug} />

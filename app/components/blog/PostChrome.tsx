@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import Badge from "@/components/common/Badge";
 import JsonLd from "@/components/common/JsonLd";
 import CtaBlock from "@/components/cta/CtaBlock";
 import QrPanel from "@/components/common/QrPanel";
-import { ArrowLeft } from "@/components/common/icons";
+import { ArrowLeft, TagIcon } from "@/components/common/icons";
 import { blogPostingNode, formatPostDate } from "@/lib/blog";
 import { pageGraph } from "@/lib/schema";
 import { SITE_URL } from "@/lib/seo";
@@ -43,7 +44,7 @@ export const PostHeader = ({ slug }: { slug: string }) => {
       <nav aria-label="Breadcrumb" className="not-prose">
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 font-mono text-sm uppercase tracking-[0.18em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
+          className="inline-flex items-center gap-2 font-mono text-sm uppercase tracking-[0.18em] text-muted-foreground transition-colors duration-300 hover:text-accent"
         >
           <ArrowLeft className="size-4" />
           Blog
@@ -94,13 +95,10 @@ export const PostFooter = ({ slug }: { slug: string }) => {
 
   return (
     <div className="not-prose flex flex-col gap-10 pt-14">
-      <ul className="flex flex-wrap gap-2">
+      <ul className="flex flex-wrap gap-1.5">
         {post.tags.map((tag) => (
-          <li
-            key={tag}
-            className="rounded-md squircle border border-border px-2.5 py-1 font-mono text-sm text-muted-foreground"
-          >
-            {tag}
+          <li key={tag}>
+            <Badge icon={TagIcon}>{tag}</Badge>
           </li>
         ))}
       </ul>
@@ -121,7 +119,7 @@ export const PostFooter = ({ slug }: { slug: string }) => {
               <li key={other.slug}>
                 <Link
                   href={`/blog/${other.slug}`}
-                  className="flex flex-col gap-1 py-4 transition-opacity duration-300 hover:opacity-75"
+                  className="flex flex-col gap-1 py-4 transition-colors duration-300 hover:text-accent"
                 >
                   <span className="font-display text-xl font-bold tracking-tight">
                     {other.title}

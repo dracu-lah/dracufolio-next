@@ -18,9 +18,16 @@ import { GetProjectsAPI } from "@/services/api";
 import { pageGraph, faqNode } from "@/lib/schema";
 import { AUTHOR, pageMetadata } from "@/lib/seo";
 import { homeFaqs } from "@/data/faq";
+import Badge from "@/components/common/Badge";
 import { ml } from "@/data/ml";
 import { locationKeywords, primaryPhrases, roleShortlist } from "@/data/keywords";
-import { HOURS, PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL } from "@/data/contact";
+import {
+  AVAILABILITY,
+  HOURS,
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  WHATSAPP_URL,
+} from "@/data/contact";
 
 export const revalidate = 86400;
 
@@ -56,7 +63,7 @@ const HirePage = async () => {
         )}
       />
 
-      <main className="mx-auto max-w-7xl px-6 pt-28 md:px-10 md:pt-32 lg:px-14">
+      <main className="mx-auto max-w-7xl px-6 pt-24 md:px-10 md:pt-28 lg:px-14">
         <div className="grid items-start gap-10 lg:grid-cols-[1.3fr_0.7fr] lg:gap-16">
           <div className="flex flex-col items-start gap-6">
             <BackLink />
@@ -74,18 +81,20 @@ const HirePage = async () => {
               <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
                 I am Nevil Krishna K. I build websites, web apps, dashboards and
                 mobile apps, and I have spent three years shipping them to real
-                users. You brief the person who writes the code. No agency
-                layer, no account manager, no price list you have to reverse
-                engineer.
+                users. You brief the person who writes the code.
               </p>
             </Reveal>
             <Reveal delay={0.14}>
-              <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
-                Hired as a{" "}
-                {roleShortlist.join(", ").toLowerCase()}. Available for
-                freelance projects, contract work and full time roles, in
-                Thrissur, anywhere in Kerala, and remote across India.
-              </p>
+              <div className="flex flex-wrap items-center gap-2">
+                {AVAILABILITY.open && (
+                  <Badge tone="accent" dot size="md">
+                    {AVAILABILITY.label}
+                  </Badge>
+                )}
+                <Badge size="md">Freelance</Badge>
+                <Badge size="md">Contract</Badge>
+                <Badge size="md">Full time</Badge>
+              </div>
             </Reveal>
             <Reveal delay={0.18} className="w-full">
               <div className="flex w-full max-w-xl flex-col gap-3 sm:flex-row md:gap-4">
@@ -99,6 +108,12 @@ const HirePage = async () => {
                   </Button>
                 </Link>
               </div>
+            </Reveal>
+            <Reveal delay={0.24}>
+              <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
+                Hired as a {roleShortlist.join(", ").toLowerCase()}. Available
+                in Thrissur, anywhere in Kerala, and remote across India.
+              </p>
             </Reveal>
             <Reveal delay={0.22}>
               <p className="font-mono text-sm text-muted-foreground">
@@ -124,8 +139,8 @@ const HirePage = async () => {
       <Services heading="What I build" />
       <HowItWorks />
 
-      <section className="mx-auto max-w-7xl px-6 py-14 md:px-10 md:py-20 lg:px-14">
-        <div className="flex flex-col gap-8 md:gap-12">
+      <section className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-16 lg:px-14 lg:py-20">
+        <div className="flex flex-col gap-7 md:gap-10">
           <Reveal className="flex flex-col gap-4">
             <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
               Work you can open

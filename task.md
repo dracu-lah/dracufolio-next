@@ -816,3 +816,221 @@ in it, that is a blog post waiting to be written properly.
 
 `public/75a8f5544719e8d9f23a01eb8ccfca56.txt`. The key is the file name and the file
 contents, which is what Bing checks. `docs/seo/02` has the ping command.
+
+---
+
+## 12. Round 2: design pass for click rate (18 Sep 2026)
+
+Status: PLANNED, waiting for "start". Brief came in as a run of messages, collected here
+in full so nothing gets dropped.
+
+### 12.0 The brief, verbatim in substance
+
+1. Some icons still do not read as 3D glossy like the others. Fix them, and add icons
+   everywhere one is needed. Big icons or cards where they earn the space.
+2. The current font looks AI generated. Move to standard faces that people like.
+3. Every "Scan to chat" QR opens a modal with an enlarged code on click.
+4. Badges do not look like badges.
+5. Add framer animations, minimal but satisfying.
+6. FAQ accordion has no open and close animation.
+7. Add more blog posts from the public GitHub projects, with images and links out.
+8. The contact closing block ("Have a project or a role in mind?") is bland. Design it.
+9. WhatsApp somewhere else instead of the floating button at the bottom right.
+10. "How it works" is congested.
+11. Add a popup modal after a few seconds offering a talk or a quote.
+12. Update the colors so a visitor is attracted immediately and wants to hire or talk.
+13. Review header, footer and every element with Chromium, flow by flow, and record the
+    design decision behind each change.
+14. Keep spacing and symmetry consistent sitewide. Every element should earn its place.
+15. UX first, then beautiful UI.
+
+### 12.1 What the Chromium audit found
+
+Captured at 1440 and 390 on /, /hire, /projects, /blog, /about with local headless
+Chromium against the dev server on 3111.
+
+| Where | What is wrong |
+| --- | --- |
+| `icons.tsx` | The Phosphor wrapper lost its `weight` prop, so every brand mark (WhatsApp, GitHub, LinkedIn, X) renders as a thin outline instead of duotone. The `CaretDown` call in `Faq.tsx` has the same empty gap where props used to be |
+| Glossy chips | Only `Services` uses `Icon3D chip`. Contact rows, About, the FAB and every other icon render flat, which is the inconsistency reported |
+| Chip size | `size-14` chip with a `size-7` glyph reads small and dim next to 32px headings |
+| Project cards | The tech list is bare mono text separated by gaps. That is the "badges do not look like badges" report |
+| Locations | The only real badge-shaped element on the site, so it and the project cards disagree with each other |
+| FAQ | Native `<details>`, so open and close is instant with no height animation |
+| CTA block | Heading, one sentence, two buttons and a small QR inside a dark rectangle. No hierarchy, no proof, no reason to act now |
+| How it works | Four equal text columns with no icons, no numbering and no connector. Congested at 1440, a plain stack at 390 |
+| Footer | Three columns of plain text links, no icons, no contact card, nothing to click that looks clickable |
+| Header | Logo, five mono links, GitHub and Resume. The primary action (WhatsApp) is missing from it, so the only CTA above the fold competes with itself |
+| Home length | All 18 projects render on the home page before anything else loads, which pushes services, experience and contact very far down |
+| Color | Every token is chroma 0. Nothing on the page directs the eye to an action |
+| Blog | Two posts, both dated 18 Sep 2026 |
+
+### 12.2 Tasks
+
+**R1 Icon system.** Restore `weight="duotone"` on the Phosphor wrapper and the lost props on
+`CaretDown`. Extend `icons.tsx` with the glyphs the new sections need (calendar, clock,
+send, document, verify, code, briefcase, message, copy, link, play, tag, timer, star,
+arrow up), all Iconsax Bulk, all through the same `{ className, size }` contract. Audit
+every call site and give a standalone icon the chip treatment, with `sm`, `md` and `lg`
+chip sizes so a step card can carry a large one and a contact row a small one.
+
+**R2 Typography.** Replace the display face. Self hosted, same loader, same four role
+system, so `font-display`, `font-sans`, `font-mono` and the Malayalam fallback keep
+working and no call site changes. CLAUDE.md golden rule gets rewritten to the new faces.
+Pick is question 2 below.
+
+**R3 Color.** Keep the dark base, stop being chroma 0. One accent hue carries actions,
+links, focus rings and the live status dot, with a tinted surface and a tinted border
+derived from it for badges and hover states. Text stays neutral so contrast holds. The
+phosphor caret token folds into the accent instead of being a second green. CLAUDE.md
+"black and white only" and "one accent, one element" rules get rewritten. Pick is
+question 1 below.
+
+**R4 Badge component.** `app/components/common/Badge.tsx`, variants `tech`, `status`,
+`meta`, `count`, sizes `sm` and `md`, optional leading icon, tinted surface and border
+from the accent for the live ones and neutral for tech. Applied to project card stacks,
+project detail, blog tags, open source meta, location chips, experience stacks and the
+availability pill.
+
+**R5 QR modal.** `QrPanel` gets a client wrapper: the tile is a button, click opens a
+Dialog with the code at ~320px, the destination as text, a copy button and a WhatsApp
+button. Applies everywhere a QR already renders (CTA block, contact, hire, location,
+project and post pages).
+
+**R6 Motion.** Minimal and motivated, every one with a one line reason in code: section
+headings and cards keep the existing `Reveal` but get a shared spring, buttons take a
+press scale, cards take a border and lift on hover through motion values, badges take a
+hover tint, the modal and the dialogs take a spring scale in, the step connector draws in
+on scroll. All gated on `usePointerEffects()` where pointer shaped, all flat under
+`prefers-reduced-motion`.
+
+**R7 FAQ animation.** Keep `<details>` so the answer stays in the DOM for crawlers and
+works with no JavaScript, and animate height with the grid rows technique plus a framer
+rotate on the caret. No content is moved behind a client toggle.
+
+**R8 CTA block redesign.** Two columns at `lg`. Left: heading, a line of proof (reply
+time, hours, languages), three actions ranked WhatsApp, call, email, each with an icon,
+and a live availability badge. Right: the QR card, now clickable, with the scan hint
+under it. Real spacing, one border, no shadow.
+
+**R9 How it works.** Four step cards with a number, a large glossy icon, the verb as the
+title and the sentence under it, with a connector line between them at `lg` that draws in
+on scroll. Two by two at `md`, a vertical timeline at 390.
+
+**R10 WhatsApp placement.** Depends on question 3.
+
+**R11 Timed modal.** Opens once per visitor after a delay or on exit intent, whichever
+lands first, offering a talk or a quote, with WhatsApp and call in it. Remembered in
+`localStorage`, never shown on a return visit that dismissed it, never on the hire form,
+closes on Escape and on backdrop click, and it does not autofocus a field on mobile.
+Delay and content are question 4.
+
+**R12 Blog from the public repos.** Four new posts, each from a real repo, each with a
+hero image already in `public/appwrite/projects/`, each linking to the project page, the
+repo and the live URL, tags, an `opengraph-image.tsx`, a `posts.ts` entry, the sitemap
+and the feed. Candidates: the js.org resume builder, the shadcn registry image cropper,
+LangSync, the Gmail outreach sender. Facts come from the repos, not from memory.
+
+**R13 Click rate.** Hire me moves into the header as the one solid button, project cards
+grow a visible "Open case study" affordance, the home page shows six projects and sends
+the rest to /projects, the mobile bottom bar carries WhatsApp and call, each section ends
+with one internal link, and the availability badge gives a reason to act now.
+
+**R14 Header and footer.** Header: active state, the solid Hire me, GitHub as an icon
+button, a real mobile menu. Footer: a contact card with the QR and the number, social
+icon buttons, the location list, and the same badge vocabulary as the rest.
+
+**R15 Spacing and symmetry.** One section rhythm (`py-14 md:py-20 lg:py-24`), one
+container, one heading size per level, one gap scale, verified at 390, 768 and 1440 with
+Chromium side by side.
+
+**R16 Verification.** `pnpm check:dashes`, `pnpm build`, both SEO scripts against
+`pnpm start`, and a Chromium pass over every route at three widths before it lands.
+
+### 12.3 Rules this round has to break, on purpose
+
+Three golden rules in CLAUDE.md are written against what the brief asks for. They get
+rewritten in the same commit, not quietly ignored:
+
+- "black and white only" and "one accent, one element" become a one hue accent system.
+- The four faces rule keeps its shape but names the new display and mono faces.
+- "No gradients on surfaces" stays for cards. The chip exception grows to cover every
+  icon chip size, which is where the glossy look comes from.
+
+**R17 Reference study, then a twist.** Work through the nine references now listed in
+CLAUDE.md and pull the patterns that keep showing up: the bento service grid, the bordered
+step rail, the marquee of logos, the sticky CTA bar, the animated counter row, the card
+hover that lights a border rather than lifting a shadow, the navbar pill highlight, the
+tag chip, the availability dot. Each one that lands here arrives changed in at least two
+of proportion, motion, content shape or surface, and the flat surface rule still applies.
+Nothing ships that a reader could place as a particular registry demo.
+
+**R18 Validate with the design taste skill.** Every concept in this round goes through
+`design-taste-frontend` before it is built, and the audit note for each element is kept in
+section 12.4 so the reasoning survives the commit.
+
+### 12.4 Design decisions, element by element
+
+| Element | Reference pattern | The twist | Why |
+| --- | --- | --- | --- |
+| Colour | One saturated accent on a neutral base, the Linear and Vercel move | The accent is the WhatsApp green, so the primary button and the brand mark agree instead of competing, and the old phosphor token folds into it | One hue with one meaning. Before this every token was chroma 0 and nothing on the page told the eye where to act |
+| Type | Geist plus Geist Mono, a pairing a developer sees every day | Display and body are the same face separated by weight and tracking, so the site reads as one voice and one less file goes over the wire | The brief was "standard fonts people like". Bricolage was the face that read as generated |
+| Badge | The registry tag chip | Fixed height, full corner, mono, three tones where the tone carries meaning rather than decoration | A stack printed as bare words separated by gaps was the "badges do not look like badges" report |
+| Icon chip | The glossy app-icon tile | Monochrome gloss for description, accent gloss for action, three sizes, and the specular highlight tracks the pointer tilt | The chip existed on one section only, so eleven other icons looked flat next to it |
+| How it works | The numbered step row | No numbers. A rail draws itself left to right behind the icons at `lg` and turns vertical below it, and each step is one sentence | The section was four columns of small text, which is the congestion that was reported. Numbers would have added a second label to something the rail already says |
+| Closing CTA | The split CTA card | Left side answers the three questions somebody has before messaging a stranger (free, how fast, which language) as badges, right side is the three ways to reach me ranked, with the QR under them | A heading, a sentence and two buttons asked for a decision while giving nothing to decide with |
+| WhatsApp | The floating action bubble | Deleted. It is the solid header button from `md` up and a docked bar below it, and the bar steps aside over the contact form | A bubble in the corner covers the form it is asking you to fill in, and it is the single most templated element on a freelance site |
+| Quote prompt | The exit-intent modal | Desktop only, 30 seconds or exit intent, once per visitor, remembered | Google's intrusive interstitial rule is about mobile pages that cover content on arrival from search. A phone already has the docked bar, so a phone gets nothing extra |
+| FAQ | The JS accordion | Stays a native `<details>` and animates through `::details-content` with `interpolate-size`, so the answer text is in the DOM for crawlers and there is no JavaScript at all | The report was "no animation". A client-side accordion would have animated it and cost the SEO value of the answers |
+| Project card | The image card | Two line description at every width, three stack badges plus a count, and a "Case study" affordance that lights up with the border | The whole card was already a link, but a card with no visible action reads as a picture |
+| Blog index | The dated headline list | Two columns, each with the real screenshot of the thing the post is about, date and reading time as badges | Four new posts landed in this round. A wall of dated headlines does not get opened |
+| Footer | Three columns of links | A contact block with the availability badge, the number and the email, then the marks as glossy icon chips on their own row | The footer was the least clickable part of the site |
+| Header | Logo, links, two buttons | GitHub becomes an icon, Resume becomes the quiet ghost button, WhatsApp becomes the one solid button, and below `lg` there is a real menu | There was no navigation at all below `lg`, so every page but the current one was unreachable from a phone |
+
+### 12.5 Decisions locked in for this round
+
+| Item | Decision |
+| --- | --- |
+| Accent | Signal green, `oklch(0.78 0.17 152)`, on a warm near-black base. It carries buttons, links, focus rings, badge tints and the availability dot. The WhatsApp CTA reads as native because the accent and the brand mark agree. The old `--phosphor` token folds into it, so there is still one hue on the page |
+| Base | `oklch(0.15 0.004 60)` background and `oklch(0.18 0.004 60)` card, so no pure black anywhere |
+| Faces | Geist for display and body, separated by weight and size, Geist Mono for UI labels, buttons, dates and code, Anek Malayalam unchanged. Bricolage Grotesque and Google Sans Code come out, which takes the site from four faces to three |
+| WhatsApp | The floating bottom right button goes. WhatsApp becomes the one solid button in the header, and phones get a docked bar with WhatsApp and Call that cannot cover the contact form |
+| Popup | Fires at 30 seconds or on exit intent, whichever lands first, once per visitor, dismissal remembered. Offers the free twenty minute call and a fixed quote, with WhatsApp and Call inside |
+| Dials | DESIGN_VARIANCE 7, MOTION_INTENSITY 6, VISUAL_DENSITY 4, from the developer portfolio preset plus the overhaul bump |
+| Design read | Developer portfolio for hiring managers and Kerala clients, dark engineered language, Tailwind v4 tokens, one saturated accent, restrained physical motion |
+
+### 12.6 Audience review, and what was done about it
+
+A recruiter persona and a small-business client persona were run against the real pages
+through headless Chromium. The recruiter's report, and the response to each point:
+
+| Finding | Action |
+| --- | --- |
+| The fold never says whether he is available, at what level, or whether remote works. "Currently at Lascade" reads as "not looking" | Done. The availability badge shares the top line with the Malayalam greeting, so it costs no height, and it now says "Open to roles and projects" rather than "Open for projects". The subline leads with "Three years" and ends with "remote across India" |
+| The typewriter spends most of its life as a fragment. A screenshot caught the role reading "An" | Done. The role swaps as a whole word with a short slide, so it cannot be caught half written. The sizer that stops the line reflowing stays |
+| Six FAQ rows shut, with "Are you open to full time jobs?" behind a click, and "Who is the best full stack developer in Thrissur?" first | Done. The list now opens with freelance, full time and mobile, the search-phrased question moved to fourth, and the first answer is open on arrival. The FAQ schema is unchanged, so nothing was lost |
+| The home page projects rail shows one card at a time on a phone | Done. One column on a phone, three cards, the rest behind the button. Two columns from `sm` |
+| "Where I work" is a wall of 31 place chips on the home page | Compromise. The home page shows districts and statewide only, with a link to /hire for the 13 towns. Every town page keeps its internal links from /hire, the footer and its siblings, so the crawl paths survive |
+| Every post is dated 18 September 2026 | Open, for Nevil. I will not invent publication dates. If the two original posts were written earlier, set their real dates in `app/data/posts.ts` |
+| No project says what he owned, or gives a number | Open, for Nevil. The facts are not in the repo and inventing them is worse than leaving the gap. A `role` and a `metrics` field on `projects.json` is the fix once the real answers exist |
+| The site cannot decide between freelancer and full time hire | Partly. The badge now names both, and /hire holds the services pitch. The deeper split is a positioning decision, not a layout one |
+| Delete the location pages and the search-phrased FAQ | Declined. They are the SEO layer this site was built for and they earn their keep on the pages they were built for. Reduced on the home page instead |
+| The floating "N" circle overlaps the docked bar on a phone | Not a site element. That is the Next.js dev indicator and it does not exist in a production build |
+
+The client persona (a 12 person interior design firm in Thrissur, non technical, wants a
+site and a small booking dashboard) found a different set of problems:
+
+| Finding | Action |
+| --- | --- |
+| "The Projects page is empty on a phone." Reproduced at several window heights | Fixed, and it was a real bug rather than a rendering artifact. Every card and every `Reveal` shipped `opacity: 0` in the server rendered HTML and waited for hydration to undo it, so on a slow load the page was a heading over nothing. Entrances are now CSS keyframes (`.rise-in`, `.reveal` in globals.css), scroll-linked where the browser has a view timeline. The whole site now renders with JavaScript disabled, verified in Chromium with `--disable-javascript` |
+| "Thrissur is close enough to Thrissur that I can be there and back in a day" on the Thrissur page | Fixed in `app/hire/copy.ts`. The district page fell through to the drivable branch. It now says he lives there |
+| "Workers, D1, R2 and cron through OpenNext" in the list a client reads. "I understood zero words" | Fixed. Every service blurb is in plain words now ("Getting it live and keeping it live, on hosting that costs a few hundred rupees a month"). The keywords still live in the toolkit, the experience bullets and the schema, where they are read by the audience that wants them |
+| "a Lighthouse score you can show a client", on a page whose reader is the client | Fixed. "Built to be found on Google from day one, and fast enough to keep the people who arrive" |
+| "filters that survive a refresh" read as "my data might disappear" | Fixed. "Big lists stay fast and nobody loses their place" |
+| "See the other 12" sounds like the good ones are hidden | Fixed. "See all 18 projects" |
+| The form never says what happens after Send | Fixed. The same promise as the WhatsApp route, in the same words, under the button |
+| "The menu is a small square with an icon in it. I could not tell what it was" | Fixed. It says Menu, and Close when open |
+| No price floor, no timeline anywhere | Open, for Nevil. This is the single biggest conversion gap and it needs your numbers, not mine. A "small business sites start from X" line and a "most take N weeks" line in the FAQ would have got a message out of this reader today |
+| No testimonials, no client names, no logos | Open, for Nevil. `app/data/testimonials.ts` renders the section and the Review schema the moment there is one real quote in it. Two sentences with real names beats anything else on this list |
+| Nothing shows a dashboard, which is what they came for | Open, for Nevil. The dashboards service has no screenshot behind it. If a client project can be shown, even blurred, it belongs in `projects.json` |
+| Email is a gmail.com address on a site selling web work | Open, for Nevil. `nevil@nevil.dev` forwarding to Gmail is an afternoon of work and it changes one line in `app/data/contact.ts` |

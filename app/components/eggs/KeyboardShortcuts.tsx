@@ -138,7 +138,7 @@ const KeyboardShortcuts = () => {
                 ref={closeButton}
                 type="button"
                 onClick={() => setOpen(false)}
-                className="font-mono text-sm uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground"
+                className="font-mono text-sm uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-accent"
               >
                 esc
               </button>

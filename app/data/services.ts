@@ -7,7 +7,7 @@
 export type Service = {
   slug: string;
   title: string;
-  /** Icon name from @phosphor-icons/react, duotone weight. */
+  /** Icon name from components/common/icons, mapped in the component. */
   icon:
     | "Browsers"
     | "Ranking"
@@ -26,7 +26,7 @@ export const services: Service[] = [
     title: "Web apps",
     icon: "Browsers",
     blurb:
-      "React and Next.js applications with real users behind them. Auth, payments, roles, the parts that get hard after the demo.",
+      "Logins, payments and the parts that get hard after the demo, built to handle real users.",
     serviceType: "Web application development",
   },
   {
@@ -34,7 +34,7 @@ export const services: Service[] = [
     title: "Websites that rank",
     icon: "Ranking",
     blurb:
-      "Next.js sites built for search from the first commit: server rendered pages, schema, sitemaps, and a Lighthouse score you can show a client.",
+      "Built to be found on Google from day one, and fast enough to keep the people who arrive.",
     serviceType: "Website design and SEO",
   },
   {
@@ -42,7 +42,7 @@ export const services: Service[] = [
     title: "Mobile apps",
     icon: "DeviceMobile",
     blurb:
-      "React Native for both stores, or Kotlin and Jetpack Compose when the app needs to be native. I have shipped an Android TV app too.",
+      "React Native for both stores, or Kotlin when it has to be native. Android TV included.",
     serviceType: "Mobile app development",
   },
   {
@@ -50,7 +50,7 @@ export const services: Service[] = [
     title: "Dashboards and admin panels",
     icon: "SquaresFour",
     blurb:
-      "The screen your team uses all day. Tables that handle ten thousand rows, filters that survive a refresh, permissions that hold.",
+      "The screen your team uses all day. Big lists stay fast and nobody loses their place.",
     serviceType: "Admin dashboard development",
   },
   {
@@ -58,7 +58,7 @@ export const services: Service[] = [
     title: "Cloudflare and deployment",
     icon: "CloudArrowUp",
     blurb:
-      "Workers, D1, R2, Durable Objects and cron, wired up with OpenNext. Also Docker, CI on GitHub Actions, and getting off a server you are tired of paying for.",
+      "Getting it live and keeping it live, on hosting that costs a few hundred rupees a month.",
     serviceType: "Cloud deployment and DevOps",
   },
   {
@@ -66,7 +66,7 @@ export const services: Service[] = [
     title: "Performance fixes and rescues",
     icon: "Gauge",
     blurb:
-      "A slow site, a build nobody can run, or a project the last developer left half finished. I will read it, tell you what it needs, and fix it.",
+      "A slow site, or a project the last developer left half finished. I read it and fix it.",
     serviceType: "Website performance optimisation",
   },
 ];

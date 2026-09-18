@@ -18,23 +18,38 @@ const SPRING = { stiffness: 260, damping: 18, mass: 0.4 };
  * highlight moving against the rotation is what sells it as a solid object
  * rather than a picture of one.
  *
- * `float` adds a slow idle drift and is reserved for the one floating button.
+ * `size` picks the tile: `sm` for a row (a contact line, a meta strip), `md`
+ * for a card, `lg` for a section that leads with the icon. `tone="accent"`
+ * is for a chip on something you can do, so the colour keeps meaning one
+ * thing across the site.
+ *
+ * `float` adds a slow idle drift and is reserved for a single docked element.
  * A grid of twelve drifting icons would be noise, not depth.
  *
  * With no pointer, or under reduced motion, this renders the chip and the
  * glyph with no movement at all: the gloss is static, which still looks like
  * an object.
  */
+
+const CHIP_SIZES = {
+  sm: "size-10 rounded-xl",
+  md: "size-14",
+  lg: "size-16 icon-chip-lg md:size-18",
+} as const;
 const Icon3D = ({
   children,
   className,
   float = false,
   chip = false,
-  chipClassName = "size-14",
+  size = "md",
+  tone = "neutral",
+  chipClassName,
 }: PropsWithChildren<{
   className?: string;
   float?: boolean;
   chip?: boolean;
+  size?: keyof typeof CHIP_SIZES;
+  tone?: "neutral" | "accent";
   chipClassName?: string;
 }>) => {
   const enabled = usePointerEffects();
@@ -62,7 +77,11 @@ const Icon3D = ({
   const sheenTransform = useMotionTemplate`translate(${sheenX}, ${sheenY})`;
 
   const body = chip ? (
-    <span className={`icon-chip squircle ${chipClassName}`}>
+    <span
+      className={`icon-chip squircle ${tone === "accent" ? "icon-chip-accent" : ""} ${
+        chipClassName ?? CHIP_SIZES[size]
+      }`}
+    >
       {enabled ? (
         <motion.span
           className="icon-chip-sheen"

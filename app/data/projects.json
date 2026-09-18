@@ -3,7 +3,7 @@
     "id": "38df7b4803b2a64f18aa",
     "slug": "tmplayer",
     "title": "TMPlayer",
-    "description": "An open-source Telegram video player for Android TV and phone. Sign in with a QR code, pick a chat, and playback starts while the file is still downloading.",
+    "description": "Telegram video player for Android TV and phone. Playback starts while the file is still downloading.",
     "tagline": "Your Telegram videos, on the TV and in your hand. Start watching before the download finishes.",
     "longDescription": [
       "Videos shared through your own Telegram chats are awkward to watch on a television: download to a phone, copy the file across, then find somewhere to keep it. TMPlayer removes that detour. Scan a QR code with the phone that holds your Telegram account, open a chat, pick a video, and playback starts while the file continues downloading. On a phone the same app signs in by number and redraws itself as a Material 3 phone app rather than a TV grid.",
@@ -44,7 +44,7 @@
     "id": "6a4f9c2e00187ab3d4f1",
     "slug": "seatinfo",
     "title": "SeatInfo",
-    "description": "Know your seat before you sit. SeatInfo unifies to-scale seat maps, live availability, AI seat picks, and real traveler reviews behind one flight-number search.",
+    "description": "To-scale seat maps, live availability and real traveller reviews behind one flight-number search.",
     "tagline": "Know your seat before you sit: to-scale aircraft seat maps, live availability, and AI seat picks behind one flight-number search.",
     "longDescription": [
       "SeatInfo is a flight seat-intelligence platform that shows travelers exactly where they will sit before they fly. Search by flight number or by route and get the whole cabin drawn to scale, seat by seat, with seat ratings, window views, and onboard amenities for aircraft like the Emirates 777-300ER, Qatar A350-900, and Cathay Pacific A350-1000. After SeatGuru shut down in October 2025, SeatInfo positions itself as its natural replacement.",
@@ -112,7 +112,7 @@
     "id": "693a430b002238a01567",
     "slug": "flightpoints",
     "title": "Flightpoints",
-    "description": "Find the lowest points price for any route. Track saver awards, compare miles across airlines, and get alerts when award seats become available.",
+    "description": "Finds the lowest points price for a route, tracks saver awards and alerts you when seats open.",
     "tagline": "An award flight search engine that compares premium seat availability across 25+ airline loyalty programs in real time.",
     "longDescription": [
       "Flightpoints aggregates award-seat availability across 28+ airline loyalty programs, including United MileagePlus, Air Canada Aeroplan, and Emirates Skywards, so one search finds the lowest points price for a route instead of checking each airline by hand. Results are live and filterable by cabin class, route, or region, and multi-city itineraries are supported.",
@@ -146,7 +146,7 @@
     "id": "68ded97a003738100445",
     "slug": "parazyakampany",
     "title": "Parazyakampany",
-    "description": "Animated and responsive promotional website made for Parazya Kampany, a full-service creative agency.",
+    "description": "Animated promotional site for Parazya Kampany, a full-service creative agency in Kerala.",
     "tagline": "An animated promotional website for Parazya Kampany, a full-service advertising and creative agency.",
     "longDescription": [
       "Parazyakampany.com is the marketing site for Parazya Kampany, an advertising and creative agency working under the tagline 'Where Creativity Meets Dawn'. The site presents six core service areas: branding, digital advertising, social media marketing, campaign planning, print advertising, and content marketing.",
@@ -177,7 +177,7 @@
     "id": "68569f390004aa238746",
     "slug": "resume-builder",
     "title": "Resume Builder",
-    "description": "Free, developer-friendly resume builder with live preview, JSON import/export, and AI-powered resume upload.",
+    "description": "Free resume builder with live preview, JSON import and export, and PDF upload that fills it in.",
     "tagline": "A free, developer-focused resume builder with live preview, JSON import/export, and AI-powered resume upload.",
     "longDescription": [
       "Resume Builder (resumebuilder.js.org) is a free web app for building resumes with a live-editing interface. Fill in structured sections for personal information, experience, skills, education, and projects, and watch the resume render in real time. It can also ingest an existing PDF resume and convert it to an editable format, with optional AI assistance through a Gemini API key.",
@@ -211,7 +211,7 @@
     "id": "68e8c31300153e6201db",
     "slug": "email-sender",
     "title": "Email Sender",
-    "description": "Send personalized bulk job-outreach emails to HRs and recruiters from your own Gmail. No third-party email service involved.",
+    "description": "Personalised bulk outreach to recruiters from your own Gmail. No third-party email service involved.",
     "tagline": "A small open-source Next.js app for sending personalized bulk job-outreach emails from your own Gmail account.",
     "longDescription": [
       "EmailxSender helps job seekers send personalized outreach or bulk recruiter emails directly from their own Gmail account using a Gmail App Password. No third-party email service, no shady middleman. Log in with your Gmail address and app password, compose the email, attach a PDF resume, add recipients, and send. Each recipient gets an individual delivery instead of being dumped into a BCC list.",
@@ -243,7 +243,7 @@
     "id": "68ea0e15001093ee0469",
     "slug": "image-cropper",
     "title": "Image Cropper",
-    "description": "ShadcnUI registry compatible image cropper component with drag and drop, configurable aspect ratios, and file-size limits.",
+    "description": "shadcn/ui registry image cropper with drag and drop, aspect ratios and file-size limits.",
     "tagline": "A ShadcnUI-registry React component for uploading and cropping images with drag-and-drop and configurable aspect ratios.",
     "longDescription": [
       "Image Cropper is a reusable React image-crop component distributed through a custom ShadcnUI registry. Developers install the full source code into their project with a single CLI command (pnpm, npm, yarn, or bun all work) instead of adding another black-box dependency, which means the component is theirs to modify.",
@@ -306,7 +306,7 @@
     "id": "695e31740002b90bc657",
     "slug": "sindhuja-regency",
     "title": "Sindhuja Regency",
-    "description": "A minimalist landing page for a premium 10-story apartment complex, emphasizing modern living and easy user navigation.",
+    "description": "Minimalist landing page for a ten storey apartment complex, built around one clear enquiry path.",
     "tagline": null,
     "longDescription": [],
     "features": [],
@@ -483,7 +483,7 @@
     "id": "648b97d53585e792fe9a",
     "slug": "simon-game",
     "title": "Simon Game",
-    "description": "The classic Simon Says memory game as a web app. Repeat the growing sequence of colors and sounds for as long as you can.",
+    "description": "The Simon Says memory game as a web app. Repeat the growing sequence for as long as you can.",
     "tagline": "The classic Simon memory game in the browser. Press a key and repeat the growing sequence.",
     "longDescription": [
       "A web implementation of the classic 1978 Simon electronic memory game. Press any key to start, then repeat an increasingly long sequence of color flashes and sounds until your memory gives out.",

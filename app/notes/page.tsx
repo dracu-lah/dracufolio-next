@@ -64,7 +64,7 @@ const NotesPage = () => {
           ],
         )}
       />
-      <main className="mx-auto max-w-3xl px-6 pt-28 md:pt-32">
+      <main className="mx-auto max-w-3xl px-6 pt-24 md:pt-28">
         <div className="flex flex-col gap-10">
           <div className="flex flex-col items-start gap-5">
             <BackLink />
@@ -123,7 +123,7 @@ const NotesPage = () => {
                           href={note.source}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 font-mono text-sm text-muted-foreground transition-colors duration-300 hover:text-foreground"
+                          className="inline-flex items-center gap-1.5 font-mono text-sm text-muted-foreground transition-colors duration-300 hover:text-accent"
                         >
                           original
                           <ArrowUpRight className="size-4" />

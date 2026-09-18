@@ -1,0 +1,137 @@
+"use client";
+import { useEffect, useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import Badge from "@/components/common/Badge";
+import Icon3D from "@/components/motion/Icon3D";
+import { CallTimer, Phone, WhatsappLogo } from "@/components/common/icons";
+import {
+  AVAILABILITY,
+  HOURS,
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  whatsappUrl,
+} from "@/data/contact";
+
+const DELAY_MS = 30_000;
+const STORAGE_KEY = "dracufolio:quote-prompt";
+
+/**
+ * One offer, once, and only on a pointer device.
+ *
+ * Timing: thirty seconds on the page, or the moment the pointer leaves toward
+ * the browser chrome, whichever lands first. Google's intrusive interstitial
+ * rule is about mobile pages that cover the content on arrival from search,
+ * which is why this never renders below `md`: a phone already has the docked
+ * WhatsApp bar, so a phone gets nothing it did not already have.
+ *
+ * Once dismissed or acted on, it is remembered in localStorage and never shown
+ * again. Escape and the backdrop both close it, and nothing inside is
+ * autofocused, so it cannot hijack a keyboard or open a soft keyboard.
+ */
+const QuotePrompt = ({ message }: { message?: string }) => {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    // A coarse pointer is a touch screen. Narrow windows are excluded too, so
+    // a resized desktop window behaves like the phone it is pretending to be.
+    const isPhone =
+      window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768;
+    if (isPhone) return;
+
+    try {
+      if (localStorage.getItem(STORAGE_KEY)) return;
+    } catch {
+      // Storage can be blocked. Showing it once per page load is acceptable.
+    }
+
+    let done = false;
+    const fire = () => {
+      if (done) return;
+      done = true;
+      setOpen(true);
+      try {
+        localStorage.setItem(STORAGE_KEY, String(Date.now()));
+      } catch {}
+    };
+
+    const timer = setTimeout(fire, DELAY_MS);
+    // Exit intent: the pointer crossing the top edge of the viewport is the
+    // move toward the tab bar or the address bar.
+    const onLeave = (event: MouseEvent) => {
+      if (event.clientY <= 0) fire();
+    };
+    document.addEventListener("mouseout", onLeave);
+
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener("mouseout", onLeave);
+    };
+  }, []);
+
+  const href = whatsappUrl(
+    message ??
+      "Hi Nevil, I would like a quote. Here is what I am trying to build:",
+  );
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent className="sm:max-w-lg">
+        <div className="flex flex-col gap-5">
+          <div className="flex items-center gap-4">
+            <Icon3D chip size="lg" tone="accent">
+              <CallTimer className="size-8" />
+            </Icon3D>
+            <div className="flex flex-col gap-2">
+              {AVAILABILITY.open && (
+                <Badge tone="accent" dot>
+                  {AVAILABILITY.label}
+                </Badge>
+              )}
+              <DialogTitle className="font-display text-2xl font-bold tracking-tight">
+                Free twenty minute call
+              </DialogTitle>
+            </div>
+          </div>
+
+          <DialogDescription className="text-base leading-relaxed text-muted-foreground">
+            Tell me what you are building and you get a fixed scope and a fixed
+            figure back. No meeting, no agency in between, and if I am the wrong
+            person for it I will say so.
+          </DialogDescription>
+
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+              className="flex h-12 flex-1 items-center justify-center gap-2.5 rounded-lg squircle border border-accent bg-accent font-mono text-sm tracking-[0.14em] text-accent-foreground uppercase transition-colors duration-200 hover:bg-accent-muted"
+            >
+              <WhatsappLogo className="size-5" />
+              WhatsApp
+            </a>
+            <a
+              href={PHONE_TEL}
+              onClick={() => setOpen(false)}
+              className="flex h-12 flex-1 items-center justify-center gap-2.5 rounded-lg squircle border border-border font-mono text-sm tracking-[0.14em] uppercase transition-colors duration-200 hover:border-accent-edge hover:bg-accent-tint"
+            >
+              <Phone className="size-5" />
+              {PHONE_DISPLAY}
+            </a>
+          </div>
+
+          <p className="font-mono text-xs tracking-[0.14em] text-muted-foreground uppercase">
+            {HOURS.display}
+          </p>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export default QuotePrompt;

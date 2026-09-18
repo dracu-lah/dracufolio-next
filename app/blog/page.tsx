@@ -1,4 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
+import Badge from "@/components/common/Badge";
+import { CalendarIcon, ClockIcon } from "@/components/common/icons";
 import BackLink from "@/components/common/BackLink";
 import Footer from "@/components/common/Footer";
 import JsonLd from "@/components/common/JsonLd";
@@ -58,7 +61,7 @@ const BlogPage = () => (
         ],
       )}
     />
-    <main className="mx-auto max-w-7xl px-6 pt-28 md:px-10 md:pt-32 lg:px-14">
+    <main className="mx-auto max-w-7xl px-6 pt-24 md:px-10 md:pt-28 lg:px-14">
       <div className="flex flex-col gap-10 md:gap-12">
         <div className="flex flex-col items-start gap-5">
           <BackLink />
@@ -91,28 +94,54 @@ const BlogPage = () => (
           </p>
         </div>
 
-        <ul className="flex flex-col gap-6">
+        <ul className="grid gap-6 md:grid-cols-2">
           {publishedPosts.map((post, index) => (
             <li key={post.slug}>
-              <Reveal delay={index * 0.06}>
-                <SpotlightCard className="overflow-hidden rounded-xl squircle border border-border bg-card transition-colors duration-300 hover:border-foreground">
-                  <Link href={`/blog/${post.slug}`} className="block p-6 md:p-8">
-                    <div className="flex flex-wrap items-center gap-3 font-mono text-sm text-muted-foreground">
-                      <time dateTime={post.date}>
-                        {formatPostDate(post.date)}
-                      </time>
-                      <span aria-hidden>/</span>
-                      <span>{post.readingMinutes} min read</span>
-                    </div>
-                    <h2 className="font-display pt-3 text-xl font-bold tracking-tight md:text-3xl">
-                      {post.title}
-                    </h2>
-                    <p className="max-w-3xl pt-3 text-base leading-relaxed text-muted-foreground md:text-lg">
-                      {post.description}
-                    </p>
-                    <p className="pt-4 font-mono text-sm text-muted-foreground">
-                      {post.tags.join("  ")}
-                    </p>
+              <Reveal delay={index * 0.06} className="h-full">
+                <SpotlightCard className="h-full overflow-hidden rounded-xl squircle border border-border bg-card transition-colors duration-300 hover:border-accent-edge">
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className="group flex h-full flex-col"
+                  >
+                    {/* A post with a picture of the thing it is about gets
+                        opened. A wall of dated headlines does not. */}
+                    {post.image && (
+                      <span className="relative block aspect-[16/9] overflow-hidden border-b border-border">
+                        <Image
+                          src={post.image}
+                          alt=""
+                          fill
+                          sizes="(min-width: 768px) 50vw, 100vw"
+                          className="object-cover transition-transform duration-500 ease-out lg:group-hover:scale-[1.03]"
+                        />
+                      </span>
+                    )}
+
+                    <span className="flex flex-1 flex-col gap-3 p-6">
+                      <span className="flex flex-wrap items-center gap-2">
+                        <Badge icon={CalendarIcon}>
+                          <time dateTime={post.date}>
+                            {formatPostDate(post.date)}
+                          </time>
+                        </Badge>
+                        <Badge icon={ClockIcon}>
+                          {post.readingMinutes} min read
+                        </Badge>
+                      </span>
+
+                      <h2 className="font-display text-xl font-bold tracking-tight transition-colors duration-300 group-hover:text-accent md:text-2xl">
+                        {post.title}
+                      </h2>
+                      <p className="line-clamp-3 text-base leading-relaxed text-muted-foreground">
+                        {post.description}
+                      </p>
+
+                      <span className="mt-auto flex flex-wrap gap-1.5 pt-2">
+                        {post.tags.slice(0, 4).map((tag) => (
+                          <Badge key={tag}>{tag}</Badge>
+                        ))}
+                      </span>
+                    </span>
                   </Link>
                 </SpotlightCard>
               </Reveal>
