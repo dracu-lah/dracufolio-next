@@ -7,7 +7,7 @@ export const experience = [
     period: "Nov 2025 - Present",
     points: [
       "Builds and ships REDACTED, a REDACTED product on Next.js 16 and the Cloudflare stack: Workers via OpenNext, D1 for REDACTED data, R2 for assets, Durable Objects and cron triggers",
-      "Owns the REDACTED experience end to end, from to-scale SVG rendering and zoom and pan interaction down to the seed pipeline that validates and imports every map",
+      "Owns the REDACTED experience end to end, from to-scale map rendering and zoom and pan interaction down to the seed pipeline that validates and imports every map",
       "Localised the product with next-intl and a translation sync engine, keeping every locale file in step with one source of truth",
       "Set up the SEO baseline across the catalog pages, plus Mixpanel event tagging so every outbound link reports the surface it came from",
       "Integrated the Resend SDK with Django to automate transactional email workflows",
