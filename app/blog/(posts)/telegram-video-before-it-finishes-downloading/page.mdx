@@ -1,0 +1,128 @@
+import { PostHeader, PostFooter } from "@/components/blog/PostChrome";
+import { postMetadata } from "@/lib/blog";
+
+export const slug = "telegram-video-before-it-finishes-downloading";
+export const metadata = postMetadata(slug);
+
+<PostHeader slug={slug} />
+
+A film sitting in a Telegram channel starts playing in TMPlayer within a few seconds, and nothing has been downloaded when it starts. Seeking to minute 90 does not wait for minutes 1 to 89 either. The part that makes that work is one Media3 `DataSource` of 394 lines and one arithmetic class of 61, and the second one is where I got it wrong.
+
+Everything below is from my own app, [TMPlayer](https://github.com/dracu-lah/TMPlayer), which is GPL-3.0 and built on Media3 1.10.1 and tdl-coroutines 9.0.0.
+
+## What Media3 expects from a DataSource
+
+Media3 asks for three methods: `open` returns how many bytes are readable from the requested position, `read` fills a byte array and returns how many bytes it actually managed, and `close` releases whatever was held. A seek is not a method. ExoPlayer closes the source and calls `open` again with a new position, which is the single fact that makes offset streaming possible at all.
+
+The class is `TdDataSource` in `app/src/main/java/com/tmplayer/player/TdDataSource.kt`, extending `BaseDataSource(true)`, with a `Factory` that Media3 calls once per load. It only understands one URI scheme, built by the top-level `tdFileUri` helper, whose authority is the TDLib file id.
+
+The other thing Media3 gives you is permission to block. `open` and `read` run on its own loading thread, and a cancelled load arrives as a thread interrupt, so a blocking call is fine as long as it stays interruptible. `TdDataSource` has one private `blocking` helper that wraps `runBlocking` with a timeout and turns `InterruptedException` into `InterruptedIOException`, and the two timeouts around it are 120 seconds for an open and 70 for a read.
+
+`read` is also allowed to return less than it was asked for, which is what turns a partially downloaded file into a playable one:
+
+```kotlin
+override fun read(buffer: ByteArray, offset: Int, length: Int): Int {
+    if (length == 0) return 0
+    if (bytesRemaining == 0L) return C.RESULT_END_OF_INPUT
+
+    // Fast path: no coroutine and no TDLib round-trip, which is all but a handful of reads.
+    val available = cachedAvailable(position) ?: blocking(READ_TIMEOUT_MS) { awaitBytesAt(position) }
+    val wanted = minOf(length.toLong(), bytesRemaining, available).toInt()
+
+    val read = synchronized(this) {
+        val file = openHandle()
+        file.seek(position)
+        file.read(buffer, offset, wanted)
+    }
+```
+
+## What TDLib actually gives you
+
+TDLib has no byte-range read. You call `downloadFile` with a file id, a priority, an offset, a limit and `synchronous = false`, and it fills a file on disk in the background while you read that file yourself. It reports progress through `updateFile`, and the three fields that matter are `local.downloadOffset`, `local.downloadedPrefixSize` and `local.path`.
+
+A limit of 0 means keep going to the end of the file, which is exactly what playback wants. Priority runs from 1 to 32 and playback takes 32, so a screen full of thumbnail fetches never starves the video. The result of `downloadFile` is checked rather than dropped, because a refused request looks identical to a slow one from the reader's side: without that check, a flood wait or an expired file reference turns into a minute of blank screen followed by a timeout message that tells the viewer nothing.
+
+The important constraint is that TDLib holds one contiguous stretch of the file per download and frees what falls outside it. Asking for a new offset moves that stretch, it does not add a second one.
+
+Because Media3's extractors issue a great many small reads, asking TDLib about the file on each one would put a request round trip in front of every byte. So `startWatching` opens one subscription to `fileUpdates` for the whole life of the source, `absorb` folds each update into local state, and a counter is bumped per update so a read that has to wait is woken by the update itself. A read that hears nothing for a second falls back to `getFile` and asks directly, which keeps a source alive even if its collector died with the client.
+
+## The window class: knowing what you can read
+
+All the arithmetic lives in `DownloadWindow`, a 61-line object in `app/src/main/java/com/tmplayer/player/DownloadWindow.kt` with two functions, no state, and no Android or TDLib imports. `availableAt` answers how many bytes are readable at a position, and `needsRestart` answers whether the download has to be re-aimed. Nothing else in the player does this sum.
+
+```kotlin
+fun availableAt(
+    position: Long,
+    size: Long,
+    downloadOffset: Long,
+    downloadedPrefixSize: Long,
+    completed: Boolean,
+): Long {
+    if (position < 0) return 0
+    if (completed) return (size - position).coerceAtLeast(0)
+
+    val windowEnd = downloadOffset + downloadedPrefixSize
+    if (position < downloadOffset || position >= windowEnd) return 0
+    return windowEnd - position
+}
+```
+
+Two details in there matter more than they look. The position is compared against both ends of the window, not only the far one. And the byte exactly at `windowEnd` is not readable, because `downloadedPrefixSize` is a count, so the last valid byte is one below the sum.
+
+The `completed` flag it takes is not TDLib's own. `LocalFilePolicy.evaluate` in `app/src/main/java/com/tmplayer/data/LocalFileAvailability.kt` reduces six inputs to `Complete`, `Partial` or `Missing`, and it refuses to say `Complete` when the file on disk is shorter than the larger of `size` and `expectedSize`, even if TDLib says the download finished. `absorb` only widens the window to the whole file when that policy agrees.
+
+## Seeking into a hole
+
+The bug that taught me the near end of the window matters shipped in commit `a6de327`. Seek forward, watch for a while, seek back, and playback died with "No valid varint length mask found"; the only way out was Back, which destroys the activity and builds a fresh source. It was reproducible on any partially downloaded film.
+
+The cause was the fast path. `TdDataSource` cached the window so that small reads cost nothing, but it remembered only the far end. After a forward seek, TDLib had moved its stretch ahead and freed what was behind it, while the cached far end was still a long way past the byte the player now wanted. The subtraction happily reported half a megabyte available. The partial file keeps its full length on disk, so the `RandomAccessFile` read succeeded and handed the extractor a hole full of zeroes.
+
+`DownloadWindow.availableAt` had the correct check the whole time and was simply never reached. The fix was to hold the window as one value with both ends, so a reader can never catch a new start against an old end, and to route every question through that function. About two hundred seek events on a real film, most of them forward and then back, with no source error.
+
+Re-aiming the download is the other half, and it is deliberately reluctant:
+
+```kotlin
+fun needsRestart(
+    position: Long,
+    downloadOffset: Long,
+    downloadedPrefixSize: Long,
+    active: Boolean,
+    completed: Boolean,
+): Boolean {
+    if (completed) return false
+    if (position < downloadOffset) return true
+    val windowEnd = downloadOffset + downloadedPrefixSize
+    if (position > windowEnd + FORWARD_SLACK_BYTES) return true
+    // Sitting exactly at the edge with nothing downloading means TDLib gave up on us.
+    return !active && position >= windowEnd
+}
+```
+
+`FORWARD_SLACK_BYTES` is 4 MiB. A seek that lands inside that slack is left alone, because the running download will reach it sooner than a restart would. The last clause is the one that saves a stalled session: sitting at the edge of the window with nothing downloading means the request died, and only a fresh `downloadFile` at that offset will move it.
+
+A short read is treated as a lie rather than an end of stream. It closes the file handle, empties the cached window and throws, so the next read goes back to TDLib instead of trusting a boundary that was wrong. The handle is also dropped whenever the path changes, because TDLib renames the partial file when a download finishes and the old inode would otherwise keep being read.
+
+## What the tests pin down
+
+`DownloadWindowTest` is 14 tests, and they are the seek matrix from the project's `PLAN.md` written as arithmetic instead of as a checklist. The whole suite is 256 test methods across 25 files, plain JUnit on the JVM, and none of them talk to TDLib. That was the point of moving the sums into a pure object.
+
+The test names are the specification:
+
+- `a byte behind a window that has moved forward is not readable`, which is the regression from `a6de327`
+- `the byte exactly at the window edge is not readable yet`
+- `seeking just ahead of the buffer lets the running download catch up`
+- `a stalled download at the buffer edge is restarted`
+- `a completed file never restarts`
+- `reading past the end of a finished file yields nothing rather than a negative count`
+
+`LocalFilePolicyTest` adds 5, including `completed flag with a short file is still partial`, which is the case that would otherwise let the player believe an interrupted download was a finished file. `StreamStatsTest` has 21, covering the figures on the loading screen: `StreamStats.downloadedFraction` measures the end of TDLib's window against the file size, so the percentage a viewer sees is the point the video is watchable up to rather than a count of bytes on disk.
+
+## What I would do differently
+
+I would make the window a single value from the first commit rather than as a bug fix. Two fields that have to move together are a data class, and the day they were separate fields was the day playback broke. I would also write the fake TDLib the plan promised, because the layer above the arithmetic is still verified by hand on a TV stick.
+
+The `DataSource` does three jobs: it talks to TDLib, it tracks what is on disk, and it reads bytes. Only the third one is really a `DataSource`. Splitting the conversation with TDLib into its own object would have made the update subscription, the stall timeout and the restart decision testable together, and those are the parts that misbehave on a bad connection.
+
+The timeouts are guesses that survived. One second between polls, 60 seconds before a stalled read gives up, 120 seconds for an open: no measurement chose those, and a slow stick on hotel wifi deserves something that adapts instead. The one decision I would keep unchanged is making destructive behaviour a named pure function. `Reload.plan` decides between reloading in place and throwing the cached copy away, and it never throws away a video the viewer asked to keep. That rule is a one-line `when` branch, and it says at the call site what a press is about to do, which the `if` buried in a click listener never did.
+
+<PostFooter slug={slug} />
