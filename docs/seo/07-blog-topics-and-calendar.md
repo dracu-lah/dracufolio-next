@@ -292,3 +292,49 @@ post a month is worth more.
 - [ ] Every post has a byline, a real date, the schema and a sitemap entry
 - [ ] Every cross-post carries the canonical URL back to `nevil.dev`
 - [ ] Every post pinged through IndexNow and submitted in Search Console
+
+---
+
+## Bringing your LinkedIn posts onto the site
+
+Your LinkedIn posts cannot be scraped, and this is not a tooling limit. A
+request to your profile or your activity feed without a logged-in session
+answers with a redirect to a sign-in wall and no content, and LinkedIn's
+robots.txt says in plain words that automated access without their written
+permission is prohibited. Anything that claims to do it is either using your
+session cookie or breaking their terms on your behalf.
+
+LinkedIn's own export is the supported way, it is your content, and it takes
+about ten minutes.
+
+1. LinkedIn, top right menu, **Settings and privacy**
+2. **Data privacy**, then **Get a copy of your data**
+3. Choose **Download larger data archive** or tick **Posts** (it may be listed
+   as **Shares**), then **Request archive**
+4. LinkedIn emails a link, usually within ten minutes. Download and unzip it.
+5. Find `Shares.csv` in the unzipped folder and run:
+
+   ```bash
+   node scripts/import-linkedin.mjs ~/Downloads/Basic_LinkedInDataExport/Shares.csv
+   ```
+
+6. Open `app/data/notes.ts`, read what came in, and delete anything not worth
+   keeping. The import already drops anything under 25 words, strips the
+   trailing hashtag block into tags, and replaces em dashes so the push hook
+   does not block you.
+7. `pnpm check:dashes && pnpm build`, then commit and push.
+
+They appear at **nevil.dev/notes**, which stays hidden and out of the sitemap
+while the file is empty.
+
+### Why they land on one page instead of becoming blog posts
+
+A LinkedIn post is a few sentences. Turning each one into its own page gives
+you fifty pages of two hundred words, which is thin content: those pages
+compete with your real posts for the same keywords and drag the whole domain
+down. One dated page of notes is original writing by you and reads as exactly
+what it is, and each note links back to the LinkedIn original.
+
+If one of them has a real idea in it, that is a blog post waiting to happen.
+Expand it to 1,200 words with the code and the numbers, publish it on the
+blog, and leave the note pointing at it.

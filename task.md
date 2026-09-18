@@ -785,6 +785,33 @@ Recorded honestly, because a plan that quietly rewrites itself is not a plan.
   location pages was computed from real coordinates rather than memory.
 - **Ollur in Malayalam is** ഒല്ലൂർ. **Shoranur is in Palakkad district**, and its page says so.
 
+### T21. Notes from LinkedIn (asked for mid build)
+
+LinkedIn cannot be scraped, and that is not a tooling limit: a request to the
+profile or the activity feed without a session answers 301 to a sign-in wall
+with zero bytes, and LinkedIn's robots.txt states in plain words that automated
+access without their written permission is prohibited. Verified both, rather
+than assumed.
+
+The supported route is LinkedIn's own data export, which is your content:
+- `scripts/import-linkedin.mjs` reads `Shares.csv` from the export, parses it
+  properly (post text is full of commas, quotes and newlines, so splitting on
+  commas would shred it), pulls the trailing hashtag block out into tags,
+  drops anything under 25 words, normalises the dates and strips em dashes on
+  the way in so the push hook does not block you.
+- It writes `app/data/notes.ts`, which starts empty. `/notes` 404s and stays
+  out of the sitemap and the blog copy until there is something in it, the same
+  way the testimonials section works.
+- Tested end to end against a synthetic export: three rows in, the one liner
+  skipped, two notes rendered at 390 px with dates, tags and a link to the
+  original.
+- Steps for you are at the end of `docs/seo/07`.
+
+They land on one page rather than one post each, on purpose. A LinkedIn post is
+a few sentences, and fifty pages of two hundred words is thin content that
+competes with the real posts for the same keywords. If a note has a real idea
+in it, that is a blog post waiting to be written properly.
+
 ### The IndexNow key
 
 `public/75a8f5544719e8d9f23a01eb8ccfca56.txt`. The key is the file name and the file
