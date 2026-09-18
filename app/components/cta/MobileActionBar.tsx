@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Phone, WhatsappLogo } from "@/components/common/icons";
 import { PHONE_TEL, WHATSAPP_URL } from "@/data/contact";
+import { SquircleLink } from "@/components/ui/squircle";
 
 /**
  * The phone-sized replacement for the floating bubble that used to sit in the
@@ -44,22 +45,24 @@ const MobileActionBar = () => {
       transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
     >
       <div className="flex items-center gap-2 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-        <a
+        <SquircleLink
           href={WHATSAPP_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex h-12 flex-1 items-center justify-center gap-2.5 rounded-lg squircle border border-accent bg-accent font-mono text-sm tracking-[0.14em] text-accent-foreground uppercase transition-transform duration-150 active:translate-y-px"
+          className="flex h-12 flex-1 items-center justify-center gap-2.5 bg-accent font-mono text-sm tracking-[0.14em] text-accent-foreground uppercase transition-transform duration-150 active:translate-y-px"
         >
           <WhatsappLogo className="size-5" />
           WhatsApp
-        </a>
-        <a
+        </SquircleLink>
+        <SquircleLink
           href={PHONE_TEL}
           aria-label="Call Nevil"
-          className="flex size-12 items-center justify-center rounded-lg squircle border border-border transition-colors duration-200 active:bg-accent-tint"
+          borderWidth={1}
+          fillClassName="bg-background transition-colors"
+          className="flex size-12 items-center justify-center bg-border transition-colors duration-200 [&>[data-fill]]:active:bg-accent-tint"
         >
           <Phone className="size-5" />
-        </a>
+        </SquircleLink>
       </div>
     </motion.div>
   );

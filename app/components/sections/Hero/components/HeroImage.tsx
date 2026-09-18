@@ -1,4 +1,5 @@
 import { GetHeroImageAPI } from "@/services/api";
+import { Squircle } from "@/components/ui/squircle";
 import Image from "next/image";
 import React from "react";
 
@@ -11,7 +12,12 @@ const HeroImage = async () => {
   }
 
   return (
-    <figure className="overflow-hidden rounded-xl squircle border border-border">
+    <Squircle
+      as="figure"
+      borderWidth={1}
+      fillClassName="bg-card"
+      className="overflow-hidden bg-border"
+    >
       {heroImage ? (
         <Image
           priority
@@ -28,7 +34,7 @@ const HeroImage = async () => {
           <span className="text-base uppercase tracking-[0.22em]">no image</span>
         </div>
       )}
-    </figure>
+    </Squircle>
   );
 };
 

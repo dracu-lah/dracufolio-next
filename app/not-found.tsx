@@ -24,7 +24,7 @@ const NotFound = () => (
       </h1>
       <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
         The link is wrong or the page has moved. Press{" "}
-        <kbd className="rounded-md squircle border border-border px-1.5 py-0.5 font-mono text-base text-foreground">
+        <kbd className="rounded-md border border-border px-1.5 py-0.5 font-mono text-base text-foreground">
           ?
         </kbd>{" "}
         for a list of shortcuts, or start from one of these.

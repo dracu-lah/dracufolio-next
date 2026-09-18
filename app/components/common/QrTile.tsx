@@ -8,6 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { CheckCircle, CopyIcon, ArrowUpRight } from "@/components/common/icons";
+import { SQUIRCLE, Squircle, useSquircle } from "@/components/ui/squircle";
 
 /**
  * The QR tile, and the enlarged view behind it.
@@ -34,6 +35,15 @@ const QrTile = ({
   className?: string;
 }) => {
   const [copied, setCopied] = useState(false);
+  const {
+    attach: tileRef,
+    style: tileStyle,
+    fill: tileFill,
+  } = useSquircle<HTMLButtonElement>({
+    cornerRadius: SQUIRCLE.card,
+    borderWidth: 1,
+    fillClassName: "bg-card transition-colors",
+  });
 
   const copy = async () => {
     try {
@@ -52,14 +62,19 @@ const QrTile = ({
         <button
           type="button"
           aria-label={`${label}, open the larger code`}
-          className={`group hidden cursor-pointer items-center gap-4 rounded-xl squircle border border-border bg-card p-4 text-left transition-colors duration-300 hover:border-accent-edge md:flex ${className}`}
+          ref={tileRef}
+          style={tileStyle}
+          className={`group relative isolate hidden cursor-pointer items-center gap-4 bg-border p-4 text-left transition-colors duration-300 hover:bg-accent-edge md:flex ${className}`}
         >
-          <span
-            className="size-24 shrink-0 rounded-md squircle bg-white p-2"
+          {tileFill}
+          <Squircle
+            as="div"
+            cornerRadius={SQUIRCLE.sm}
+            className="size-24 shrink-0 bg-white p-2"
             // Generated from `url` on the server, never from user input.
             dangerouslySetInnerHTML={{ __html: svg }}
           />
-          <span className="flex flex-col gap-1">
+          <span className="relative flex flex-col gap-1">
             <span className="font-mono text-sm tracking-[0.18em] text-muted-foreground uppercase transition-colors duration-300 group-hover:text-accent">
               {label}
             </span>
@@ -81,8 +96,9 @@ const QrTile = ({
         </DialogDescription>
 
         <div className="flex flex-col items-center gap-5 pt-2">
-          <span
-            className="size-70 rounded-xl squircle bg-white p-4"
+          <Squircle
+            cornerRadius={SQUIRCLE.card}
+            className="size-70 bg-white p-4"
             dangerouslySetInnerHTML={{ __html: svg }}
           />
 
@@ -94,7 +110,7 @@ const QrTile = ({
               <button
                 type="button"
                 onClick={copy}
-                className="flex h-11 flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg squircle border border-border font-mono text-sm tracking-[0.14em] uppercase transition-colors duration-200 hover:border-accent-edge hover:bg-accent-tint"
+                className="flex h-11 flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg border border-border font-mono text-sm tracking-[0.14em] uppercase transition-colors duration-200 hover:border-accent-edge hover:bg-accent-tint"
               >
                 {copied ? (
                   <CheckCircle className="size-4" />
@@ -107,7 +123,7 @@ const QrTile = ({
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-11 flex-1 items-center justify-center gap-2 rounded-lg squircle border border-accent bg-accent font-mono text-sm tracking-[0.14em] text-accent-foreground uppercase transition-colors duration-200 hover:bg-accent-muted"
+                className="flex h-11 flex-1 items-center justify-center gap-2 rounded-lg border border-accent bg-accent font-mono text-sm tracking-[0.14em] text-accent-foreground uppercase transition-colors duration-200 hover:bg-accent-muted"
               >
                 Open here
                 <ArrowUpRight className="size-4" />

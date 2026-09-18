@@ -1,4 +1,5 @@
 import { useFormContext } from "react-hook-form";
+import { Squircle, SQUIRCLE } from "@/components/ui/squircle";
 
 interface InputFieldProps {
   name: keyof import("@/lib/validation/contact-schema").ContactFormData;
@@ -28,13 +29,23 @@ const InputField = ({
           {label}
         </label>
       )}
-      <input
-        id={name}
-        type={type}
-        placeholder={placeholder}
-        {...register(name)}
-        className="w-full rounded-lg squircle border border-input bg-background p-3.5 text-base outline-none transition-colors duration-300 placeholder:text-muted-foreground/60 focus:border-foreground"
-      />
+      {/* The frame is the clipped surface: the field inside it has no
+          border of its own, because a clip-path cuts a CSS border off at
+          the corner. Focus moves the frame colour instead. */}
+      <Squircle
+        cornerRadius={SQUIRCLE.control}
+        borderWidth={1}
+        fillClassName="bg-background"
+        className="w-full bg-input transition-colors duration-200 focus-within:bg-accent-edge"
+      >
+        <input
+          id={name}
+          type={type}
+          placeholder={placeholder}
+          {...register(name)}
+          className="w-full bg-transparent p-3.5 text-base outline-none placeholder:text-muted-foreground/60"
+        />
+      </Squircle>
       {errors[name] && (
         <span className="text-base text-destructive">
           {errors[name]?.message as string}

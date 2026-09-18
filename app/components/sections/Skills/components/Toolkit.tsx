@@ -1,10 +1,16 @@
 import Badge from "@/components/common/Badge";
+import { Squircle } from "@/components/ui/squircle";
 import Reveal from "@/components/common/Reveal";
 import { toolkit } from "@/data/experience";
 
 const Toolkit = () => (
   <Reveal className="w-full">
-    <dl className="grid overflow-hidden rounded-xl squircle divide-y divide-border border border-border md:grid-cols-2 md:divide-y-0">
+    <Squircle
+      as="dl"
+      borderWidth={1}
+      fillClassName="bg-background"
+      className="grid divide-y divide-border overflow-hidden bg-border md:grid-cols-2 md:divide-y-0"
+    >
       {toolkit.map((row, i) => (
         <div
           key={row.label}
@@ -24,7 +30,7 @@ const Toolkit = () => (
           </dd>
         </div>
       ))}
-    </dl>
+    </Squircle>
   </Reveal>
 );
 

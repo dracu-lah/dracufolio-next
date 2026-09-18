@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Badge from "@/components/common/Badge";
 import Reveal from "@/components/common/Reveal";
+import { Squircle } from "@/components/ui/squircle";
 import { CalendarIcon } from "@/components/common/icons";
 import { experience } from "@/data/experience";
 
@@ -8,14 +9,19 @@ const ExperienceList = () => (
   <div className="flex flex-col gap-6 md:gap-8">
     {experience.map((job, index) => (
       <Reveal key={job.company} delay={index * 0.08} className="w-full">
-        <article className="rounded-xl squircle border border-border bg-card p-6 transition-colors duration-300 hover:border-accent-edge md:p-8">
+        <Squircle
+          as="article"
+          borderWidth={1}
+          fillClassName="bg-card"
+          className="bg-border p-6 transition-colors duration-300 hover:bg-accent-edge md:p-8"
+        >
           <div className="flex items-start gap-4 pb-6">
             <Image
               src={job.logo}
               alt={`${job.company} logo`}
               width={128}
               height={128}
-              className="size-11 shrink-0 rounded-lg squircle object-cover md:size-12"
+              className="size-11 shrink-0 rounded-lg object-cover md:size-12"
             />
             <div className="flex flex-col gap-1">
               <h3 className="font-display text-lg font-bold tracking-tight sm:text-xl md:text-2xl">
@@ -51,7 +57,7 @@ const ExperienceList = () => (
               <Badge key={tool}>{tool}</Badge>
             ))}
           </div>
-        </article>
+        </Squircle>
       </Reveal>
     ))}
   </div>

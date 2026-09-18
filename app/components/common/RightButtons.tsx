@@ -29,7 +29,7 @@ const RightButtons = () => {
         aria-label="Section shortcuts"
         initial={{ x: 200 }}
         animate={{ x: show ? 0 : 200 }}
-        className="hidden flex-col gap-0.5 rounded-xl squircle border border-border bg-background/90 p-1.5 backdrop-blur-sm lg:flex"
+        className="hidden flex-col gap-0.5 rounded-xl border border-border bg-background/90 p-1.5 backdrop-blur-sm lg:flex"
         onMouseLeave={() => setHovered(null)}
       >
         {navItems.map((item) => (
@@ -47,7 +47,7 @@ const RightButtons = () => {
             {highlighted === item.id && (
               <motion.span
                 layoutId="side-nav-hover"
-                className="absolute inset-0 -z-10 rounded-lg squircle bg-foreground"
+                className="absolute inset-0 -z-10 rounded-lg bg-foreground"
                 transition={{ type: "spring", stiffness: 500, damping: 40 }}
               />
             )}

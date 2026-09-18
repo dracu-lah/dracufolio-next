@@ -10,6 +10,7 @@ import {
   ScopeDocument,
 } from "@/components/common/icons";
 import Badge from "@/components/common/Badge";
+import { SQUIRCLE, Squircle } from "@/components/ui/squircle";
 import { publishedPosts } from "@/data/posts";
 import { GetProjectsAPI, GetProjectBySlugAPI } from "@/services/api";
 import { Button } from "@/components/ui/button";
@@ -160,7 +161,13 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
           </div>
         </header>
 
-        <figure className="overflow-hidden rounded-2xl squircle border border-border bg-card">
+        <Squircle
+          as="figure"
+          cornerRadius={SQUIRCLE.panel}
+          borderWidth={1}
+          fillClassName="bg-card"
+          className="overflow-hidden bg-border"
+        >
           <Image
             priority
             width={1920}
@@ -171,7 +178,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
             className="w-full object-cover"
             draggable="false"
           />
-        </figure>
+        </Squircle>
 
         {project.images.length > 1 && (
           <div className="grid gap-6 pt-6 md:grid-cols-2">
@@ -183,7 +190,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
                 sizes="(min-width: 768px) 30rem, 100vw"
                 src={img}
                 alt={`${project.title} screenshot`}
-                className="w-full rounded-xl squircle border border-border object-cover"
+                className="w-full rounded-xl border border-border object-cover"
                 draggable="false"
               />
             ))}
@@ -230,7 +237,12 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
             )}
           </div>
 
-          <aside className="h-fit overflow-hidden rounded-xl squircle border border-border bg-card">
+          <Squircle
+            as="aside"
+            borderWidth={1}
+            fillClassName="bg-card"
+            className="h-fit overflow-hidden bg-border"
+          >
             <p className="border-b border-border p-6 font-mono text-base uppercase tracking-[0.2em] text-muted-foreground">
               Project info
             </p>
@@ -278,12 +290,15 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
                 />
               </div>
             )}
-          </aside>
+          </Squircle>
         </div>
 
-        <nav
+        <Squircle
+          as="nav"
           aria-label="Project navigation"
-          className="mt-12 grid overflow-hidden rounded-xl squircle divide-y divide-border border border-border md:mt-16 md:grid-cols-2 md:divide-x md:divide-y-0"
+          borderWidth={1}
+          fillClassName="bg-background"
+          className="mt-12 grid divide-y divide-border overflow-hidden bg-border md:mt-16 md:grid-cols-2 md:divide-x md:divide-y-0"
         >
           {prev ? (
             <Link
@@ -315,7 +330,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
               end of list
             </span>
           )}
-        </nav>
+        </Squircle>
       </main>
       <CtaBlock
         heading="Want something like this?"

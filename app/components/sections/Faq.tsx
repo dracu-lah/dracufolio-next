@@ -42,7 +42,7 @@ const Faq = ({
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="group hidden max-w-xs items-start gap-4 rounded-xl squircle border border-border bg-card p-5 transition-colors duration-300 hover:border-accent-edge lg:flex"
+            className="group hidden max-w-xs items-start gap-4 rounded-xl border border-border bg-card p-5 transition-colors duration-300 hover:border-accent-edge lg:flex"
           >
             <Icon3D chip size="sm" tone="accent">
               <WhatsappLogo className="size-5" />

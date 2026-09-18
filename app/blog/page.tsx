@@ -98,7 +98,10 @@ const BlogPage = () => (
           {publishedPosts.map((post, index) => (
             <li key={post.slug}>
               <Reveal delay={index * 0.06} className="h-full">
-                <SpotlightCard className="h-full overflow-hidden rounded-xl squircle border border-border bg-card transition-colors duration-300 hover:border-accent-edge">
+                <SpotlightCard
+                  border
+                  className="h-full overflow-hidden bg-border transition-colors duration-300 hover:bg-accent-edge"
+                >
                   <Link
                     href={`/blog/${post.slug}`}
                     className="group flex h-full flex-col"

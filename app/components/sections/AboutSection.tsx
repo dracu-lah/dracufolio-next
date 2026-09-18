@@ -10,6 +10,7 @@ import Reveal from "@/components/common/Reveal";
 import InlineLogo from "@/components/common/InlineLogo";
 import { GetHeroImageAPI } from "@/services/api";
 import Icon3D from "@/components/motion/Icon3D";
+import { Squircle } from "@/components/ui/squircle";
 import {
   EMAIL_MAILTO,
   GITHUB_URL,
@@ -71,7 +72,12 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
         <Reveal className="w-full">
           <div className="flex flex-col gap-6">
             {portrait && (
-              <figure className="overflow-hidden rounded-xl squircle border border-border">
+              <Squircle
+                as="figure"
+                borderWidth={1}
+                fillClassName="bg-card"
+                className="overflow-hidden bg-border"
+              >
                 <Image
                   width={720}
                   height={900}
@@ -81,7 +87,7 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
                   src={portrait}
                   alt="Nevil Krishna K, full stack developer in Thrissur, Kerala"
                 />
-              </figure>
+              </Squircle>
             )}
             <ul className="flex flex-wrap justify-center gap-x-5 gap-y-3">
               {socialLinks.map(({ href, label, icon: Icon, external }) => (

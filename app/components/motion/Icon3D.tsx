@@ -8,6 +8,7 @@ import {
 } from "framer-motion";
 import type { PointerEvent, PropsWithChildren } from "react";
 import { usePointerEffects } from "@/hooks/usePointer";
+import { useSquircle } from "@/components/ui/squircle";
 
 const MAX_DEGREES = 14;
 const SPRING = { stiffness: 260, damping: 18, mass: 0.4 };
@@ -32,9 +33,9 @@ const SPRING = { stiffness: 260, damping: 18, mass: 0.4 };
  */
 
 const CHIP_SIZES = {
-  sm: "size-10 rounded-xl",
-  md: "size-14",
-  lg: "size-16 icon-chip-lg md:size-18",
+  sm: { className: "size-10", radius: 14 },
+  md: { className: "size-14", radius: 18 },
+  lg: { className: "size-16 md:size-18", radius: 24 },
 } as const;
 const Icon3D = ({
   children,
@@ -53,6 +54,15 @@ const Icon3D = ({
   chipClassName?: string;
 }>) => {
   const enabled = usePointerEffects();
+  const {
+    attach: chipRef,
+    style: chipStyle,
+    fill: chipFill,
+  } = useSquircle<HTMLSpanElement>({
+    cornerRadius: CHIP_SIZES[size].radius,
+    borderWidth: 1,
+    fillClassName: "icon-chip-fill",
+  });
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
 
@@ -77,11 +87,20 @@ const Icon3D = ({
   const sheenTransform = useMotionTemplate`translate(${sheenX}, ${sheenY})`;
 
   const body = chip ? (
+    /*
+     * Border mode, the same way the cards do it: the chip element is the rim
+     * colour and the fill layer is the glass, both clipped to the same
+     * squircle, so the rim curves with the surface instead of being cut off at
+     * the corners by the clip.
+     */
     <span
-      className={`icon-chip squircle ${tone === "accent" ? "icon-chip-accent" : ""} ${
-        chipClassName ?? CHIP_SIZES[size]
+      ref={chipRef}
+      style={chipStyle}
+      className={`icon-chip ${tone === "accent" ? "icon-chip-accent" : ""} ${
+        chipClassName ?? CHIP_SIZES[size].className
       }`}
     >
+      {chipFill}
       {enabled ? (
         <motion.span
           className="icon-chip-sheen"

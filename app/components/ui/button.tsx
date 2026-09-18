@@ -1,8 +1,10 @@
+"use client";
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
+import { SQUIRCLE, useSquircle } from "@/components/ui/squircle";
 
 /**
  * One button, four intents. `solid` is the accent fill and there is exactly one
@@ -13,18 +15,18 @@ import { cn } from "@/lib/utils";
  * line: `whitespace-nowrap` is deliberate, a CTA that wraps is a broken CTA.
  */
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer rounded-lg squircle font-mono text-base font-medium uppercase tracking-[0.14em] transition-[background-color,border-color,color,transform] duration-200 active:translate-y-px disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-ring/60 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 aria-invalid:border-destructive",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer rounded-lg font-mono text-base font-medium uppercase tracking-[0.14em] transition-[background-color,border-color,color,transform] duration-200 active:translate-y-px disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-ring/60 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 aria-invalid:border-destructive",
   {
     variants: {
       variant: {
         default:
-          "border border-border bg-card text-foreground hover:border-accent-edge hover:bg-accent-tint hover:text-foreground",
+          "group bg-border text-foreground hover:bg-accent-edge [&>[data-fill]]:bg-card [&>[data-fill]]:transition-colors hover:[&>[data-fill]]:bg-accent-tint",
         solid:
-          "border border-accent bg-accent text-accent-foreground hover:bg-accent-muted hover:border-accent-muted",
+          "bg-accent text-accent-foreground hover:bg-accent-muted",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90 focus-visible:ring-destructive/40",
         outline:
-          "border border-input bg-transparent hover:border-accent-edge hover:bg-accent-tint",
+          "group bg-input text-foreground hover:bg-accent-edge [&>[data-fill]]:bg-background [&>[data-fill]]:transition-colors hover:[&>[data-fill]]:bg-accent-tint",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent-tint hover:text-foreground",
@@ -45,24 +47,64 @@ const buttonVariants = cva(
   },
 );
 
+/** The variants whose edge is a line rather than a fill. */
+const BORDERED = new Set(["default", "outline"]);
+
 function Button({
   className,
   variant,
   size,
   asChild = false,
+  children,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
   }) {
-  const Comp = asChild ? Slot : "button";
+  /*
+   * The corner is a clip-path rather than a border-radius, so it is the same
+   * shape in every engine. A clip cuts a CSS border off at the corner, which
+   * is why the bordered variants are drawn in border mode instead: the button
+   * background is the edge colour and the fill layer inside it is the surface.
+   *
+   * `asChild` hands the element to somebody else's component, so there is
+   * nowhere to put the fill layer. Those keep the plain radius, which is why
+   * the clip falls back to `borderRadius` rather than to a square.
+   */
+  const bordered = !asChild && BORDERED.has(variant ?? "default");
+  const { attach, style, fill } = useSquircle<HTMLButtonElement>({
+    cornerRadius: size === "lg" ? SQUIRCLE.control + 2 : SQUIRCLE.control,
+    borderWidth: bordered ? 1 : 0,
+  });
+
+  // Slot wants exactly one element child, so an `asChild` button hands the
+  // children through untouched: no fill layer, no clip, plain radius.
+  if (asChild) {
+    return (
+      <Slot
+        data-slot="button"
+        className={cn(buttonVariants({ variant, size, className }))}
+        {...props}
+      >
+        {children}
+      </Slot>
+    );
+  }
 
   return (
-    <Comp
+    <button
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      ref={attach}
+      style={style}
+      className={cn(
+        "relative isolate",
+        buttonVariants({ variant, size, className }),
+      )}
       {...props}
-    />
+    >
+      {fill}
+      {children}
+    </button>
   );
 }
 
