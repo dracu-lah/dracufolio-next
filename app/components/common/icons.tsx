@@ -2,6 +2,7 @@ import {
   ArrowDown2,
   ArrowLeft2,
   ArrowRight2,
+  ArrowRight3,
   Call,
   Category,
   CloseCircle,
@@ -95,6 +96,8 @@ export const MapPin = bulk(Location, "MapPin");
 export const ArrowLeft = bulk(ArrowLeft2, "ArrowLeft");
 export const ArrowRight = bulk(ArrowRight2, "ArrowRight");
 export const CaretDown = bulk(ArrowDown2, "CaretDown");
+/** Points out of the site, for a link to somebody else's page. */
+export const ArrowUpRight = bulk(ArrowRight3, "ArrowUpRight");
 export const CircleNotch = bulk(Refresh2, "CircleNotch");
 export const CloseX = bulk(CloseCircle, "CloseX");
 

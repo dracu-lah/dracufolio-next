@@ -9,6 +9,7 @@ import { formatPostDate } from "@/lib/blog";
 import { pageGraph } from "@/lib/schema";
 import { AUTHOR, SITE_URL, pageMetadata } from "@/lib/seo";
 import { publishedPosts } from "@/data/posts";
+import { hasNotes } from "@/data/notes";
 
 const description =
   "Notes from real work by Nevil Krishna K, a full stack developer in Thrissur, Kerala: Android and Media3, Next.js on Cloudflare Workers, React patterns and the SEO that comes with them.";
@@ -73,7 +74,20 @@ const BlogPage = () => (
             >
               RSS
             </Link>
-            .
+            {hasNotes ? (
+              <>
+                , and the shorter ones are in{" "}
+                <Link
+                  href="/notes"
+                  className="text-foreground underline underline-offset-4"
+                >
+                  notes
+                </Link>
+                .
+              </>
+            ) : (
+              "."
+            )}
           </p>
         </div>
 

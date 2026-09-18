@@ -3,6 +3,7 @@ import { GetProjectsAPI } from "@/services/api";
 import { SITE_URL, absolute } from "@/lib/seo";
 import { locations } from "@/data/locations";
 import { publishedPosts } from "@/data/posts";
+import { hasNotes } from "@/data/notes";
 import { CONTENT_DATES, asDate } from "@/data/updated";
 import { PORTRAIT_PATH } from "@/data/contact";
 
@@ -48,6 +49,17 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       changeFrequency: "weekly",
       priority: 0.8,
     },
+    // Only listed once the LinkedIn import has actually put something there.
+    ...(hasNotes
+      ? [
+          {
+            url: `${SITE_URL}/notes`,
+            lastModified: asDate(CONTENT_DATES.blog),
+            changeFrequency: "weekly" as const,
+            priority: 0.5,
+          },
+        ]
+      : []),
     {
       url: `${SITE_URL}/about`,
       lastModified: asDate(CONTENT_DATES.about),
