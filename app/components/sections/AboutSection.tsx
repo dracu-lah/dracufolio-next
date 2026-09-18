@@ -94,7 +94,7 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
                     className="flex items-center gap-2 font-mono text-base uppercase tracking-[0.18em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
                   >
                     <Icon3D>
-                      <Icon className="size-4" aria-hidden />
+                      <Icon className="size-4" />
                     </Icon3D>
                     {label}
                   </a>

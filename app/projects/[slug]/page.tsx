@@ -104,7 +104,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
             href="/projects"
             className="inline-flex items-center gap-3 font-mono text-base uppercase tracking-[0.2em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
           >
-            <ArrowLeft size={16} aria-hidden />
+            <ArrowLeft size={16} />
             Back to projects
           </Link>
         </nav>
@@ -277,7 +277,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
               className="group flex items-center justify-between gap-4 p-6 transition-colors duration-300 hover:bg-card"
             >
               <span className="flex items-center gap-3 text-base uppercase tracking-[0.18em] text-muted-foreground">
-                <ArrowLeft size={16} aria-hidden /> prev
+                <ArrowLeft size={16} /> prev
               </span>
               <span className="font-display font-bold">{prev.title}</span>
             </Link>
@@ -293,7 +293,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
             >
               <span className="font-display font-bold">{next.title}</span>
               <span className="flex items-center gap-3 text-base uppercase tracking-[0.18em] text-muted-foreground">
-                next <ArrowRight size={16} aria-hidden />
+                next <ArrowRight size={16} />
               </span>
             </Link>
           ) : (

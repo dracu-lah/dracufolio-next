@@ -66,7 +66,7 @@ const Locations = ({ currentSlug }: { currentSlug?: string }) => (
                         <MapPin
                          
                           className="size-4 shrink-0"
-                          aria-hidden
+                         
                         />
                         {location.name}
                       </Link>

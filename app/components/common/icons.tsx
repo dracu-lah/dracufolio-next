@@ -57,7 +57,7 @@ const bulk = (Glyph: IconsaxGlyph, displayName: string) => {
       color="currentColor"
       className={className}
       {...(size === undefined ? {} : { size: String(size) })}
-      aria-hidden
+     
     />
   );
   Wrapped.displayName = displayName;
@@ -70,7 +70,7 @@ const duotone = (Glyph: PhosphorGlyph, displayName: string) => {
      
       className={className}
       {...(size === undefined ? {} : { size })}
-      aria-hidden
+     
     />
   );
   Wrapped.displayName = displayName;

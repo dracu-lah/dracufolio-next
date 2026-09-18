@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { GithubLogo, WhatsappLogo } from "@/components/common/icons";
+import { GithubLogo } from "@/components/common/icons";
 import {
   motion,
   useMotionValueEvent,
@@ -9,7 +9,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { PropsWithChildren, useState } from "react";
-import { GITHUB_URL, WHATSAPP_URL } from "@/data/contact";
+import { GITHUB_URL } from "@/data/contact";
 
 const navLinks = [
   { href: "/hire", label: "hire" },
@@ -121,20 +121,10 @@ const Navbar = ({ children }: PropsWithChildren) => {
       </div>
 
       <div className="flex items-center gap-x-2 md:gap-x-3">
-        {/* Below md the GitHub button is hidden, so WhatsApp takes its slot:
-            the floating button steps aside near the contact form, and the
-            navbar is the one thing on screen at every scroll position. */}
-        <a
-          href={WHATSAPP_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="md:hidden"
-          aria-label="Message Nevil on WhatsApp"
-        >
-          <Button size="icon">
-            <WhatsappLogo className="size-5" aria-hidden />
-          </Button>
-        </a>
+        {/* No WhatsApp button here. The floating one is on screen at every
+            scroll position already, so a second one in the navbar put two
+            links with the same accessible name on the page at once and gave a
+            390px navbar three buttons. */}
         <a
           href={GITHUB_URL}
           target="_blank"
@@ -143,7 +133,7 @@ const Navbar = ({ children }: PropsWithChildren) => {
           aria-label="GitHub profile"
         >
           <Button className="h-full">
-            <GithubLogo className="size-4" aria-hidden />
+            <GithubLogo className="size-4" />
             GitHub
           </Button>
         </a>

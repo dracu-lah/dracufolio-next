@@ -116,7 +116,7 @@ const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
                       className="size-6 shrink-0 rounded-md object-contain md:size-7"
                     />
                   ) : (
-                    <GithubLogo className="size-6 shrink-0 md:size-7" aria-hidden />
+                    <GithubLogo className="size-6 shrink-0 md:size-7" />
                   )}
                   {item.name}
                 </h3>

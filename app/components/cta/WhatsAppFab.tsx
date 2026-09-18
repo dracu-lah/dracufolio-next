@@ -29,6 +29,7 @@ const WhatsAppFab = () => {
 
   return (
     <motion.div
+      data-whatsapp-fab
       className="fixed right-4 bottom-4 z-50 md:right-6 md:bottom-6"
       initial={reduceMotion ? false : { opacity: 0, y: 12 }}
       animate={{
@@ -47,7 +48,7 @@ const WhatsAppFab = () => {
           className="flex items-center gap-2.5 rounded-lg squircle border border-foreground bg-foreground px-4 py-3 font-mono text-sm uppercase tracking-[0.16em] text-background transition-colors duration-300 hover:bg-background hover:text-foreground"
         >
           <Icon3D float>
-            <WhatsappLogo className="size-5" aria-hidden />
+            <WhatsappLogo className="size-5" />
           </Icon3D>
           WhatsApp
         </a>

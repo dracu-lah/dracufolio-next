@@ -126,7 +126,11 @@ export const ogImage = ({
           </div>
 
           {photo && (
+            // next/image does not exist inside an ImageResponse: satori renders
+            // a plain img and ignores alt, so both lint rules are moot here.
+            // eslint-disable-next-line @next/next/no-img-element
             <img
+              alt=""
               src={photo}
               width={260}
               height={260}

@@ -240,6 +240,60 @@ body b {
 }
 
 /*
+ * The one place this site allows a gradient on a surface, asked for explicitly:
+ * a glossy chip behind an icon. It is scoped to the chip and never to a card, a
+ * button or a section, so the flat-surface rule still holds everywhere it
+ * matters. Monochrome, so the single-palette lock holds too: white at low alpha
+ * over black, never a hue.
+ *
+ * Three layers make it read as a solid object rather than a tinted box: a
+ * diagonal body gradient (light from the top left), a specular sheen over the
+ * top half, and a one pixel top highlight for the lit edge.
+ */
+.icon-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  border: 1px solid color-mix(in oklch, var(--foreground) 14%, transparent);
+  background:
+    linear-gradient(
+      152deg,
+      color-mix(in oklch, var(--foreground) 16%, transparent) 0%,
+      color-mix(in oklch, var(--foreground) 6%, transparent) 46%,
+      color-mix(in oklch, var(--foreground) 2%, transparent) 100%
+    );
+  overflow: hidden;
+}
+
+/* The lit top edge. A real object catches light on the edge facing it. */
+.icon-chip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklch, var(--foreground) 28%, transparent) 0,
+    transparent 1.5px
+  );
+}
+
+/* The sheen, moved by the pointer in Icon3D so the highlight tracks the tilt. */
+.icon-chip-sheen {
+  position: absolute;
+  inset: -40%;
+  pointer-events: none;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklch, var(--foreground) 22%, transparent),
+    transparent 70%
+  );
+}
+
+/*
  * Pointer-lit hairline for a card. The element is a one pixel frame: the radial
  * gradient paints the whole box, then the mask subtracts the content box so
  * only the frame survives. No fill change, no shadow, nothing to repaint.

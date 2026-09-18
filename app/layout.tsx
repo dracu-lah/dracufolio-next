@@ -100,10 +100,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body
-        className={`bg-background text-foreground ${fontVariables} font-sans antialiased`}
-      >
+    /*
+     * The font variables go on <html>, not <body>. globals.css declares
+     * --font-display and friends on :root, and a custom property that
+     * references another one resolves it on the element where it is declared.
+     * With the next/font classes on <body>, :root could not see
+     * --font-bricolage, so every stack was invalid there and the whole site
+     * silently rendered in the system fallback.
+     */
+    <html lang="en" className={`dark ${fontVariables}`}>
+      <body className="bg-background text-foreground font-sans antialiased">
         <Navbar>
           <ResumeDownloadButton />
         </Navbar>
