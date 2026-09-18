@@ -45,6 +45,12 @@ export const inPersonAnswer = (location: Location) => {
   if (location.district === "Thrissur")
     return `Yes. ${location.name} is inside Thrissur district, so I can come to you for the first conversation and for anything that needs a whiteboard rather than a screen share. After that most of it runs on WhatsApp and a weekly demo.`;
 
+  // The Thrissur district page fell through to the "drivable" branch and read
+  // "Thrissur is close enough to Thrissur", which is the one page where that
+  // sentence had to be right.
+  if (location.slug === "thrissur")
+    return "Yes, easily. I live and work in Thrissur, so meeting in person costs nothing but the time, and anything that needs a whiteboard rather than a screen share can happen the same week.";
+
   if (location.slug === "shoranur")
     return "Yes. Shoranur is about an hour from Thrissur by road and a shorter hop by train, so a first meeting in person is easy to arrange. The rest of the project runs on WhatsApp and weekly demo calls.";
 

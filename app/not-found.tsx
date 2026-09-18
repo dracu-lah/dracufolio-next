@@ -12,7 +12,7 @@ import Footer from "@/components/common/Footer";
 const NotFound = () => (
   <>
     <meta name="robots" content="noindex, nofollow" />
-    <main className="mx-auto flex min-h-[70vh] max-w-3xl flex-col items-start justify-center gap-6 px-6 pt-28 pb-16">
+    <main className="mx-auto flex min-h-[70vh] max-w-3xl flex-col items-start justify-center gap-6 px-6 pt-24 pb-14">
       <p
         aria-hidden
         className="font-mono text-base break-all text-muted-foreground"

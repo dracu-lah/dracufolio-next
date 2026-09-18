@@ -7,7 +7,10 @@ import {
   ArrowRight,
   GithubLogo,
   Globe,
+  ScopeDocument,
 } from "@/components/common/icons";
+import Badge from "@/components/common/Badge";
+import { publishedPosts } from "@/data/posts";
 import { GetProjectsAPI, GetProjectBySlugAPI } from "@/services/api";
 import { Button } from "@/components/ui/button";
 import Footer from "@/components/common/Footer";
@@ -62,6 +65,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
   const currentIndex = projects.findIndex((p) => p.slug === project.slug);
   const prev = projects[currentIndex - 1] ?? null;
   const next = projects[currentIndex + 1] ?? null;
+  const writeUp = publishedPosts.find((post) => post.project === project.slug);
 
   const path = `/projects/${project.slug}`;
   const creativeWork = {
@@ -98,11 +102,11 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
           [creativeWork],
         )}
       />
-      <main className="mx-auto max-w-5xl px-6 pt-24 pb-16 md:pt-32 md:pb-20">
+      <main className="mx-auto max-w-5xl px-6 pt-24 pb-16 md:pt-28 md:pb-20">
         <nav aria-label="Breadcrumb">
           <Link
             href="/projects"
-            className="inline-flex items-center gap-3 font-mono text-base uppercase tracking-[0.2em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
+            className="inline-flex items-center gap-3 font-mono text-base uppercase tracking-[0.2em] text-muted-foreground transition-colors duration-300 hover:text-accent"
           >
             <ArrowLeft size={16} />
             Back to projects
@@ -142,6 +146,15 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
                 >
                   view source <GithubLogo size={18} />
                 </a>
+              </Button>
+            )}
+            {writeUp && (
+              /* A project page and a post about the same thing were two dead
+                 ends. Now each one points at the other. */
+              <Button asChild size="lg" className="w-full sm:w-auto">
+                <Link href={`/blog/${writeUp.slug}`}>
+                  read the write-up <ScopeDocument size={18} />
+                </Link>
               </Button>
             )}
           </div>
@@ -207,7 +220,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
                     >
                       <span
                         aria-hidden
-                        className="mt-2.5 size-1.5 shrink-0 bg-muted-foreground"
+                        className="mt-2.5 size-1.5 shrink-0 rounded-full bg-accent"
                       />
                       {feature}
                     </li>
@@ -234,14 +247,9 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
                 <dt className="uppercase tracking-[0.2em] text-muted-foreground">
                   stack
                 </dt>
-                <dd className="flex flex-wrap gap-2">
+                <dd className="flex flex-wrap gap-1.5">
                   {project.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="rounded-md squircle border border-border px-2.5 py-1 font-mono text-base text-muted-foreground"
-                    >
-                      {skill}
-                    </span>
+                    <Badge key={skill}>{skill}</Badge>
                   ))}
                 </dd>
               </div>
@@ -250,7 +258,13 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
                   status
                 </dt>
                 <dd>
-                  {project.liveUrl ? "deployed" : "archived"}
+                  {project.liveUrl ? (
+                    <Badge tone="accent" dot>
+                      Deployed
+                    </Badge>
+                  ) : (
+                    <Badge>Archived</Badge>
+                  )}
                 </dd>
               </div>
             </dl>

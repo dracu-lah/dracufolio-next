@@ -51,7 +51,7 @@ const Home = () => (
       <TerminalRule path="faq" />
       <FaqSection faqs={homeFaqs} heading="Questions" />
       <TerminalRule path="locations" />
-      <LocationsSection />
+      <LocationsSection compact />
       <TerminalRule path="contact" />
       <ContactSection />
       <Footer />

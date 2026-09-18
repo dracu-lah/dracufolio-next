@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import Navbar from "./components/common/Navbar/Navbar";
 import ResumeDownloadButton from "./components/common/Navbar/ResumeDownloadButton";
-import WhatsAppFab from "./components/cta/WhatsAppFab";
+import MobileActionBar from "./components/cta/MobileActionBar";
+import QuotePrompt from "./components/cta/QuotePrompt";
 import ConsoleSignature from "./components/eggs/ConsoleSignature";
 import KeyboardShortcuts from "./components/eggs/KeyboardShortcuts";
 import { Analytics } from "@vercel/analytics/next";
@@ -90,7 +91,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
+  themeColor: "#0d0d0c",
   colorScheme: "dark",
 };
 
@@ -105,7 +106,7 @@ export default function RootLayout({
      * --font-display and friends on :root, and a custom property that
      * references another one resolves it on the element where it is declared.
      * With the next/font classes on <body>, :root could not see
-     * --font-bricolage, so every stack was invalid there and the whole site
+     * --font-geist-sans, so every stack was invalid there and the whole site
      * silently rendered in the system fallback.
      */
     <html lang="en" className={`dark ${fontVariables}`}>
@@ -114,7 +115,8 @@ export default function RootLayout({
           <ResumeDownloadButton />
         </Navbar>
         {children}
-        <WhatsAppFab />
+        <MobileActionBar />
+        <QuotePrompt />
         <KeyboardShortcuts />
         <ConsoleSignature />
         <Analytics />

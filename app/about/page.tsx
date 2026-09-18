@@ -40,7 +40,7 @@ const AboutPage = () => (
         ],
       })}
     />
-    <main className="mx-auto max-w-7xl px-6 pt-28 md:px-10 md:pt-32 lg:px-14">
+    <main className="mx-auto max-w-7xl px-6 pt-24 md:px-10 md:pt-28 lg:px-14">
       <BackLink />
     </main>
     <AboutSection asPage />

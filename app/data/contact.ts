@@ -61,3 +61,16 @@ export const HOURS = {
   closes: "19:00",
   display: "Monday to Saturday, 9am to 7pm IST",
 };
+
+/**
+ * Availability, as a fact rather than a mood. The badge next to the CTA and
+ * the one in the header both read from here, so "open for work" is changed in
+ * one file the day it stops being true.
+ */
+export const AVAILABILITY = {
+  open: true,
+  label: "Open to roles and projects",
+  /** The promise under the primary button. Keep it to something you can keep. */
+  replyTime: "Most messages get an answer the same day",
+  shortReply: "Answers the same day",
+};

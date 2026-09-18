@@ -1,12 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
-import { CircleNotch } from "@/components/common/icons";
+import { CheckCircle, CircleNotch, SendIcon } from "@/components/common/icons";
 import { useFormContext } from "react-hook-form";
 import ContactFormProvider from "./components/FormProvider";
 import InputField from "./components/InputField";
 import TextareaField from "./components/TextareaField";
 import { sendContactEmail } from "@/services/email";
 import { ContactFormData } from "@/lib/validation/contact-schema";
+import { AVAILABILITY, HOURS } from "@/data/contact";
 
 const ContactForm = () => {
   const [status, setStatus] = useState<"loading" | "success" | "error" | null>(
@@ -46,9 +47,10 @@ const ContactForm = () => {
         {status === "success" && (
           <p
             role="status"
-            className="rounded-lg squircle border border-border p-3 text-center text-base tracking-wide text-foreground"
+            className="flex items-center justify-center gap-2 rounded-lg squircle border border-accent-edge bg-accent-tint p-3 text-center text-base tracking-wide text-accent"
           >
-            Message sent successfully.
+            <CheckCircle className="size-5" />
+            Message sent. I will reply the same day.
           </p>
         )}
         {status === "error" && (
@@ -86,17 +88,22 @@ const ContactForm = () => {
         <button
           type="submit"
           disabled={status === "loading"}
-          className={`flex cursor-pointer items-center justify-center gap-3 rounded-lg squircle border border-input p-3.5 font-mono text-base font-medium uppercase tracking-[0.18em] transition-colors duration-300 ${
+          className={`flex h-12 cursor-pointer items-center justify-center gap-3 rounded-lg squircle border border-accent bg-accent font-mono text-base font-medium tracking-[0.14em] text-accent-foreground uppercase transition-[background-color,transform] duration-200 active:translate-y-px ${
             status == "loading"
-              ? "cursor-not-allowed opacity-50"
-              : "hover:bg-foreground hover:text-background focus:bg-foreground focus:text-background"
+              ? "cursor-not-allowed opacity-60"
+              : "hover:bg-accent-muted"
           }`}
         >
-          {status === "loading" && (
+          {status === "loading" ? (
             <CircleNotch className="size-4 animate-spin" />
+          ) : (
+            <SendIcon className="size-4" />
           )}
           {status === "loading" ? "Sending" : "Send message"}
         </button>
+        <p className="text-center text-sm text-muted-foreground">
+          {AVAILABILITY.shortReply}, {HOURS.display}. WhatsApp is faster.
+        </p>
       </form>
     </div>
   );

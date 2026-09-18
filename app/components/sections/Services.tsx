@@ -37,9 +37,9 @@ const Services = ({
   return (
     <section
       id="services"
-      className="mx-auto max-w-7xl px-6 py-14 md:px-10 md:py-20 lg:px-14"
+      className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-16 lg:px-14 lg:py-20"
     >
-      <div className="flex flex-col gap-8 md:gap-12">
+      <div className="flex flex-col gap-7 md:gap-10">
         <Reveal>
           <Heading className="font-display text-3xl font-bold tracking-tight md:text-4xl">
             {heading}
@@ -59,16 +59,18 @@ const Services = ({
                     isLeftColumn ? "md:border-r md:border-border" : ""
                   } ${!isLastRow ? "md:border-b md:border-border" : ""}`}
                 >
-                  <div className="flex h-full flex-col gap-4 p-6 md:p-8">
-                    <Icon3D chip className="text-foreground">
-                      <Glyph className="size-7" />
+                  <div className="flex h-full flex-col gap-5 p-6 md:p-8">
+                    <Icon3D chip size="lg" className="text-foreground">
+                      <Glyph className="size-8 md:size-9" />
                     </Icon3D>
-                    <h3 className="font-display text-xl font-bold tracking-tight">
-                      {service.title}
-                    </h3>
-                    <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
-                      {service.blurb}
-                    </p>
+                    <div className="flex flex-col gap-2">
+                      <h3 className="font-display text-xl font-bold tracking-tight">
+                        {service.title}
+                      </h3>
+                      <p className="text-base leading-relaxed text-muted-foreground">
+                        {service.blurb}
+                      </p>
+                    </div>
                   </div>
                 </SpotlightCard>
               </Reveal>

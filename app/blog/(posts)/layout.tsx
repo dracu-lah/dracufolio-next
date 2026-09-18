@@ -10,7 +10,7 @@ import ScrollProgress from "@/components/motion/ScrollProgress";
 const PostLayout = ({ children }: PropsWithChildren) => (
   <>
     <ScrollProgress />
-    <main className="mx-auto max-w-3xl px-6 pt-28 pb-16 md:pt-32 md:pb-20">
+    <main className="mx-auto max-w-3xl px-6 pt-24 pb-14 md:pt-28 md:pb-16">
       {children}
     </main>
     <Footer />

@@ -78,7 +78,7 @@ const ContactSection = ({ asPage = false }: { asPage?: boolean }) => {
   return (
     <section
       id="contact"
-      className="mx-auto max-w-7xl px-6 py-14 md:px-10 md:py-20 lg:px-14"
+      className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-16 lg:px-14 lg:py-20"
     >
       <div className="grid items-start gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
         <div className="flex max-w-2xl flex-col items-start gap-6">
@@ -107,13 +107,13 @@ const ContactSection = ({ asPage = false }: { asPage?: boolean }) => {
                     {...(external
                       ? { target: "_blank", rel: "noopener noreferrer" }
                       : {})}
-                    className="group flex items-center gap-4 py-4 text-base transition-colors duration-300 hover:text-foreground md:text-lg"
+                    className="group flex items-center gap-4 py-3.5 text-base transition-colors duration-300 hover:text-accent md:text-lg"
                   >
-                    <Icon3D className="text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
-                      <Glyph className="size-6" />
+                    <Icon3D chip size="sm" tone="accent">
+                      <Glyph className="size-5" />
                     </Icon3D>
                     <span className="flex flex-1 flex-wrap items-baseline gap-x-3">
-                      <span className="font-mono text-sm uppercase tracking-[0.18em] text-muted-foreground">
+                      <span className="font-mono text-sm tracking-[0.18em] text-muted-foreground uppercase">
                         {label}
                       </span>
                       <span>{value}</span>

@@ -8,78 +8,87 @@ html {
 @custom-variant dark (&:is(.dark *));
 
 /*
- * dracufolio: black and white only.
- * Every token is a neutral grey (chroma 0). Hierarchy comes from lightness
- * and from borders, never from hue.
+ * dracufolio: warm near-black, one signal-green accent.
+ * Neutrals are warm (a trace of chroma at hue 60) so the page reads as a lit
+ * room rather than a switched-off screen, and nothing is pure #000 or #fff.
+ * Hierarchy still comes from lightness and borders. The accent is the only hue
+ * on the page and it means one thing: this is the thing to act on.
  */
 :root,
 .dark {
-  --background: oklch(0 0 0);
-  --foreground: oklch(1 0 0);
-  --card: oklch(0.14 0 0);
-  --card-foreground: oklch(1 0 0);
-  --popover: oklch(0.14 0 0);
-  --popover-foreground: oklch(1 0 0);
-  --primary: oklch(1 0 0);
-  --primary-foreground: oklch(0 0 0);
-  --secondary: oklch(0.19 0 0);
-  --secondary-foreground: oklch(1 0 0);
-  --muted: oklch(0.16 0 0);
-  --muted-foreground: oklch(0.74 0 0);
-  --accent: oklch(0.19 0 0);
-  --accent-foreground: oklch(1 0 0);
-  --destructive: oklch(0.75 0 0);
-  --destructive-foreground: oklch(0 0 0);
-  --border: oklch(0.26 0 0);
-  --input: oklch(0.32 0 0);
-  --ring: oklch(1 0 0);
-  --chart-1: oklch(1 0 0);
+  --background: oklch(0.15 0.004 60);
+  --foreground: oklch(0.97 0 0);
+  --card: oklch(0.18 0.004 60);
+  --card-foreground: oklch(0.97 0 0);
+  --popover: oklch(0.19 0.004 60);
+  --popover-foreground: oklch(0.97 0 0);
+
+  /*
+   * The accent. Signal green, the same family as the WhatsApp mark, so the
+   * primary button looks like the thing it opens instead of fighting it.
+   * `accent-foreground` is the label that sits on a filled accent surface and
+   * is dark on purpose: white on this green fails contrast at body size.
+   */
+  --accent: oklch(0.78 0.17 152);
+  --accent-foreground: oklch(0.17 0.02 152);
+  /* The accent at low alpha: badge fills, hover washes, the chip tint. */
+  --accent-tint: color-mix(in oklch, var(--accent) 12%, transparent);
+  --accent-edge: color-mix(in oklch, var(--accent) 34%, transparent);
+  --accent-muted: oklch(0.86 0.09 152);
+
+  --primary: var(--accent);
+  --primary-foreground: var(--accent-foreground);
+  --secondary: oklch(0.23 0.004 60);
+  --secondary-foreground: oklch(0.97 0 0);
+  --muted: oklch(0.21 0.004 60);
+  --muted-foreground: oklch(0.73 0.004 60);
+  --destructive: oklch(0.7 0.16 25);
+  --destructive-foreground: oklch(0.17 0.02 25);
+  --border: oklch(0.28 0.004 60);
+  --input: oklch(0.34 0.004 60);
+  --ring: var(--accent);
+  --chart-1: var(--accent);
   --chart-2: oklch(0.8 0 0);
   --chart-3: oklch(0.65 0 0);
   --chart-4: oklch(0.45 0 0);
-  --chart-5: oklch(0.26 0 0);
-  --sidebar: oklch(0.14 0 0);
-  --sidebar-foreground: oklch(1 0 0);
-  --sidebar-primary: oklch(1 0 0);
-  --sidebar-primary-foreground: oklch(0 0 0);
-  --sidebar-accent: oklch(0.19 0 0);
-  --sidebar-accent-foreground: oklch(1 0 0);
-  --sidebar-border: oklch(0.26 0 0);
-  --sidebar-ring: oklch(1 0 0);
+  --chart-5: oklch(0.28 0 0);
+  --sidebar: oklch(0.18 0.004 60);
+  --sidebar-foreground: oklch(0.97 0 0);
+  --sidebar-primary: var(--accent);
+  --sidebar-primary-foreground: var(--accent-foreground);
+  --sidebar-accent: oklch(0.23 0.004 60);
+  --sidebar-accent-foreground: oklch(0.97 0 0);
+  --sidebar-border: oklch(0.28 0.004 60);
+  --sidebar-ring: var(--accent);
 
   /*
-   * Four faces, one job each (see CLAUDE.md).
-   *   display    Bricolage Grotesque  headings only
-   *   sans/body  Geist Sans           prose only
-   *   mono       Google Sans Code     UI, labels, buttons, code, dates
-   *   malayalam  Anek Malayalam       Malayalam glyphs, from any role
+   * Three faces, one job each (see CLAUDE.md).
+   *   display    Geist Sans, bold and tight   headings only
+   *   sans/body  Geist Sans, regular          prose only
+   *   mono       Geist Mono                   UI, labels, buttons, code, dates
+   *   malayalam  Anek Malayalam               Malayalam glyphs, from any role
    *
    * Every stack ends with the Malayalam face before the system fallbacks, so a
    * Malayalam code point in a heading, a paragraph or a button falls through to
    * Anek instead of a tofu box. Because the browser only fetches a face it
-   * needs a glyph from, that file stays unrequested on English-only pages, and
-   * the same trick keeps the latin-ext files off the wire until an accented
-   * character shows up.
+   * needs a glyph from, that file stays unrequested on English-only pages.
    */
-  --font-display: var(--font-bricolage), var(--font-bricolage-ext),
-    var(--font-malayalam), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-geist-sans), var(--font-malayalam), ui-sans-serif,
+    system-ui, sans-serif;
   --font-sans: var(--font-geist-sans), var(--font-malayalam), ui-sans-serif,
     system-ui, sans-serif;
-  --font-mono: var(--font-google-sans), var(--font-google-sans-ext),
-    var(--font-malayalam), ui-monospace, SFMono-Regular, Menlo, Consolas,
-    monospace;
+  --font-mono: var(--font-geist-mono), var(--font-malayalam), ui-monospace,
+    SFMono-Regular, Menlo, Consolas, monospace;
   --font-malayalam-stack: var(--font-malayalam), var(--font-geist-sans),
     ui-sans-serif, sans-serif;
   /* No serif anywhere on this site. The token exists so nothing inherits one. */
   --font-serif: var(--font-sans);
 
   /*
-   * The one non-neutral value on the site. CLAUDE.md calls text-phosphor a
-   * highlight rather than a theme, so it is spent on exactly one element: the
-   * blinking caret after the hero role. The OG card uses the same green for
-   * its rule. Anything else that wants attention uses weight or a border.
+   * Kept as an alias so the hero caret and the OG card keep compiling. There is
+   * one hue on this site now, and this is it.
    */
-  --phosphor: oklch(0.83 0.11 157);
+  --phosphor: var(--accent);
 
   --radius: 0.75rem;
   /* flat surfaces: nothing casts a shadow */
@@ -129,6 +138,9 @@ html {
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-phosphor: var(--phosphor);
+  --color-accent-tint: var(--accent-tint);
+  --color-accent-edge: var(--accent-edge);
+  --color-accent-muted: var(--accent-muted);
 
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
@@ -199,6 +211,110 @@ body a {
   @apply outline-none;
 }
 
+/*
+ * Room for the docked action bar on phones. The bar is fixed, so it cannot
+ * push the footer up by itself, and without this the last footer line sits
+ * under it.
+ */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: 5rem;
+  }
+}
+
+/*
+ * The FAQ accordion, animated without a line of JavaScript.
+ *
+ * The answer stays a native <details>, so it opens with no hydration, works
+ * with the keyboard for free and keeps the answer text in the DOM where a
+ * crawler and an AI assistant can lift it. `interpolate-size` is what makes a
+ * height of `auto` animatable; browsers without it simply snap open, which is
+ * exactly what the accordion did before.
+ */
+@supports (interpolate-size: allow-keywords) {
+  :root {
+    interpolate-size: allow-keywords;
+  }
+}
+
+details::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition:
+    block-size 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    content-visibility 320ms allow-discrete;
+}
+
+details[open]::details-content {
+  block-size: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  details::details-content {
+    transition: none;
+  }
+}
+
+/*
+ * Card entrance, in CSS rather than in JavaScript.
+ *
+ * A framer entrance writes `opacity: 0` into the server rendered HTML and
+ * waits for hydration to undo it. With eighteen cards and eighteen
+ * screenshots on /projects, that wait was long enough to show an empty page,
+ * which is the one thing a projects page must never do. A keyframe with
+ * `both` runs as soon as the stylesheet does, with no JavaScript involved at
+ * all, and the delay is set per card by an inline custom property.
+ */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise-in {
+  animation: rise-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+/*
+ * The same keyframe, tied to the scroll position where the browser supports a
+ * view timeline, so a section still arrives as you reach it. Where it does not
+ * (Firefox today), the element fades in on load instead. Either way the
+ * content is painted by CSS and never waits for a script.
+ */
+.reveal {
+  animation: rise-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: rise-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 55%;
+    animation-delay: 0ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise-in,
+  .reveal {
+    animation: none;
+  }
+}
+
+/* Keyboard users get the accent ring, pointer users get nothing extra. */
+:where(a, button, summary, input, textarea):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
 body b {
   @apply font-semibold text-foreground;
 }
@@ -256,28 +372,58 @@ body b {
   align-items: center;
   justify-content: center;
   border-radius: 14px;
-  border: 1px solid color-mix(in oklch, var(--foreground) 14%, transparent);
+  border: 1px solid color-mix(in oklch, var(--foreground) 16%, transparent);
   background:
     linear-gradient(
       152deg,
-      color-mix(in oklch, var(--foreground) 16%, transparent) 0%,
-      color-mix(in oklch, var(--foreground) 6%, transparent) 46%,
+      color-mix(in oklch, var(--foreground) 20%, transparent) 0%,
+      color-mix(in oklch, var(--foreground) 7%, transparent) 46%,
       color-mix(in oklch, var(--foreground) 2%, transparent) 100%
     );
+  /* The only shadow on the site, and it is inside the chip: a lit top edge and
+     a dark bottom edge is what tells the eye this is a solid, not a rectangle. */
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklch, var(--foreground) 30%, transparent),
+    inset 0 -1px 0 color-mix(in oklch, var(--background) 60%, transparent);
   overflow: hidden;
 }
 
-/* The lit top edge. A real object catches light on the edge facing it. */
+/* Bigger chips need a bigger radius or the corners read as a different shape. */
+.icon-chip-lg {
+  border-radius: 20px;
+}
+
+/*
+ * The action variant. A chip on something you can do (message, call, quote)
+ * takes the accent, a chip on something being described stays neutral, so the
+ * colour keeps meaning one thing.
+ */
+.icon-chip-accent {
+  border-color: var(--accent-edge);
+  background:
+    linear-gradient(
+      152deg,
+      color-mix(in oklch, var(--accent) 30%, transparent) 0%,
+      color-mix(in oklch, var(--accent) 12%, transparent) 46%,
+      color-mix(in oklch, var(--accent) 4%, transparent) 100%
+    );
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklch, var(--accent) 45%, transparent),
+    inset 0 -1px 0 color-mix(in oklch, var(--background) 60%, transparent);
+  color: var(--accent);
+}
+
+/* The curved top highlight. A real object catches light on the edge facing it. */
 .icon-chip::before {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    color-mix(in oklch, var(--foreground) 28%, transparent) 0,
-    transparent 1.5px
+  background: radial-gradient(
+    120% 70% at 30% -10%,
+    color-mix(in oklch, var(--foreground) 22%, transparent) 0%,
+    transparent 60%
   );
 }
 
@@ -288,10 +434,19 @@ body b {
   pointer-events: none;
   background: radial-gradient(
     closest-side,
-    color-mix(in oklch, var(--foreground) 22%, transparent),
+    color-mix(in oklch, var(--foreground) 26%, transparent),
     transparent 70%
   );
 }
+
+.icon-chip-accent .icon-chip-sheen {
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklch, var(--accent) 34%, transparent),
+    transparent 70%
+  );
+}
+
 
 /*
  * Pointer-lit hairline for a card. The element is a one pixel frame: the radial

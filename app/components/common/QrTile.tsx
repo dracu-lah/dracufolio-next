@@ -1,0 +1,123 @@
+"use client";
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { CheckCircle, CopyIcon, ArrowUpRight } from "@/components/common/icons";
+
+/**
+ * The QR tile, and the enlarged view behind it.
+ *
+ * A code at 96px scans from about a hand's width away and no further, which is
+ * exactly the distance somebody is not sitting at. Clicking it opens the same
+ * code at 280px, where a phone picks it up across a desk, with the destination
+ * written out and a copy button for anybody who would rather paste it.
+ *
+ * The SVG is generated on the server at build time and handed down as a
+ * string. Nothing here touches user input.
+ */
+const QrTile = ({
+  svg,
+  url,
+  label,
+  hint,
+  className = "",
+}: {
+  svg: string;
+  url: string;
+  label: string;
+  hint?: string;
+  className?: string;
+}) => {
+  const [copied, setCopied] = useState(false);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard is blocked in some browsers without a user gesture chain.
+      // The link is on screen either way, so there is nothing to recover.
+    }
+  };
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <button
+          type="button"
+          aria-label={`${label}, open the larger code`}
+          className={`group hidden cursor-pointer items-center gap-4 rounded-xl squircle border border-border bg-card p-4 text-left transition-colors duration-300 hover:border-accent-edge md:flex ${className}`}
+        >
+          <span
+            className="size-24 shrink-0 rounded-md squircle bg-white p-2"
+            // Generated from `url` on the server, never from user input.
+            dangerouslySetInnerHTML={{ __html: svg }}
+          />
+          <span className="flex flex-col gap-1">
+            <span className="font-mono text-sm tracking-[0.18em] text-muted-foreground uppercase transition-colors duration-300 group-hover:text-accent">
+              {label}
+            </span>
+            {hint && (
+              <span className="max-w-50 text-sm leading-relaxed text-muted-foreground">
+                {hint}
+              </span>
+            )}
+          </span>
+        </button>
+      </DialogTrigger>
+
+      <DialogContent className="sm:max-w-md">
+        <DialogTitle className="font-display text-2xl font-bold tracking-tight">
+          {label}
+        </DialogTitle>
+        <DialogDescription className="text-base leading-relaxed text-muted-foreground">
+          {hint ?? "Point your phone camera at the code."}
+        </DialogDescription>
+
+        <div className="flex flex-col items-center gap-5 pt-2">
+          <span
+            className="size-70 rounded-xl squircle bg-white p-4"
+            dangerouslySetInnerHTML={{ __html: svg }}
+          />
+
+          <div className="flex w-full flex-col gap-2">
+            <p className="truncate text-center font-mono text-sm text-muted-foreground">
+              {url.replace(/^https?:\/\//, "").split("?")[0]}
+            </p>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={copy}
+                className="flex h-11 flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg squircle border border-border font-mono text-sm tracking-[0.14em] uppercase transition-colors duration-200 hover:border-accent-edge hover:bg-accent-tint"
+              >
+                {copied ? (
+                  <CheckCircle className="size-4" />
+                ) : (
+                  <CopyIcon className="size-4" />
+                )}
+                {copied ? "Copied" : "Copy link"}
+              </button>
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-11 flex-1 items-center justify-center gap-2 rounded-lg squircle border border-accent bg-accent font-mono text-sm tracking-[0.14em] text-accent-foreground uppercase transition-colors duration-200 hover:bg-accent-muted"
+              >
+                Open here
+                <ArrowUpRight className="size-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export default QrTile;

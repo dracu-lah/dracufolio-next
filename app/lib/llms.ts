@@ -86,7 +86,7 @@ const skillsSection = () => `
 
 ${skills.join(", ")}
 
-${toolkit.map((row) => `- ${row.label}: ${row.value}`).join("\n")}
+${toolkit.map((row) => `- ${row.label}: ${row.items.join(", ")}`).join("\n")}
 `;
 
 const areasSection = () => {
@@ -115,7 +115,7 @@ ${experience
     (job) =>
       `### ${job.role}, ${job.company} (${job.period})\n${job.points
         .map((point) => `- ${point}`)
-        .join("\n")}\nStack: ${job.stack}`,
+        .join("\n")}\nStack: ${job.stack.join(", ")}`,
   )
   .join("\n\n")}
 `;

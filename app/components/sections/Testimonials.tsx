@@ -12,9 +12,9 @@ const Testimonials = () => {
   return (
     <section
       id="testimonials"
-      className="mx-auto max-w-7xl px-6 py-14 md:px-10 md:py-20 lg:px-14"
+      className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-16 lg:px-14 lg:py-20"
     >
-      <div className="flex flex-col gap-8 md:gap-12">
+      <div className="flex flex-col gap-7 md:gap-10">
         <Reveal>
           <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
             What people say

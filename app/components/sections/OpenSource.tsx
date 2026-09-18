@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { GithubLogo } from "@/components/common/icons";
 
+import Badge from "@/components/common/Badge";
 import Reveal from "@/components/common/Reveal";
 
 type Item = {
@@ -76,7 +77,7 @@ const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
   return (
     <section
       id="open-source"
-      className="mx-auto max-w-7xl px-6 py-14 md:px-10 md:py-20 lg:px-14"
+      className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-16 lg:px-14 lg:py-20"
     >
       <div className="grid items-start gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
         <div className="flex flex-col gap-5 lg:sticky lg:top-28">
@@ -89,7 +90,7 @@ const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
             <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
               163 public repos on{" "}
               <a
-                className="underline underline-offset-4 transition-colors duration-300 hover:text-foreground"
+                className="underline underline-offset-4 transition-colors duration-300 hover:text-accent"
                 href="https://github.com/dracu-lah"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -105,7 +106,7 @@ const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
           {items.map((item) => {
             const body = (
               <>
-                <h3 className="font-display flex items-center gap-3 text-xl font-bold tracking-tight md:text-2xl">
+                <h3 className="font-display flex items-center gap-3 text-xl font-bold tracking-tight transition-colors duration-300 group-hover:text-accent md:text-2xl">
                   {item.logo ? (
                     <Image
                       src={item.logo}
@@ -123,9 +124,11 @@ const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
                 <p className="pt-2 text-base leading-relaxed text-muted-foreground md:text-lg">
                   {item.description}
                 </p>
-                <p className="pt-3 font-mono text-base text-muted-foreground">
-                  {item.meta}
-                </p>
+                <div className="flex flex-wrap gap-1.5 pt-3">
+                  {item.meta.split(" · ").map((tag) => (
+                    <Badge key={tag}>{tag}</Badge>
+                  ))}
+                </div>
               </>
             );
 
@@ -135,7 +138,7 @@ const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
                   {item.internal ? (
                     <Link
                       href={item.href}
-                      className="block py-6 transition-opacity duration-300 hover:opacity-75"
+                      className="group block py-6"
                     >
                       {body}
                     </Link>
@@ -144,7 +147,7 @@ const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block py-6 transition-opacity duration-300 hover:opacity-75"
+                      className="group block py-6"
                     >
                       {body}
                     </a>

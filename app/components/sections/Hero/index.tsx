@@ -6,6 +6,8 @@ import RoleCycle from "@/components/motion/RoleCycle";
 import Spotlight from "@/components/motion/Spotlight";
 import WhatsAppButton from "@/components/cta/WhatsAppButton";
 import { Button } from "@/components/ui/button";
+import Badge from "@/components/common/Badge";
+import { AVAILABILITY } from "@/data/contact";
 import { ml } from "@/data/ml";
 
 /**
@@ -29,22 +31,28 @@ const ROLES = [
 const HeroSection = () => (
   <section
     id="hero"
-    className="mx-auto max-w-7xl px-6 pt-28 pb-14 md:px-10 md:pt-36 md:pb-20 lg:px-14"
+    className="mx-auto max-w-7xl px-6 pt-24 pb-8 md:px-10 md:pt-28 md:pb-10 lg:px-14"
   >
     <Spotlight />
     <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
       <div className="flex flex-col items-start gap-6 md:gap-8">
         <Reveal>
-          <p
-            lang="ml"
-            className="text-lg text-muted-foreground"
-          >
-            {ml.heroGreeting}
-          </p>
+          {/* One row, two jobs: the local greeting and the one fact a
+              recruiter looks for first. Neither costs a line of its own. */}
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            {AVAILABILITY.open && (
+              <Badge tone="accent" dot size="md">
+                {AVAILABILITY.label}
+              </Badge>
+            )}
+            <p lang="ml" className="text-lg text-muted-foreground">
+              {ml.heroGreeting}
+            </p>
+          </div>
         </Reveal>
 
         <Reveal delay={0.06}>
-          <h1 className="font-display text-5xl font-bold tracking-tight sm:text-6xl">
+          <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
             Nevil Krishna K
             <span className="mt-4 block font-mono text-lg font-normal text-muted-foreground sm:text-xl">
               <RoleCycle roles={ROLES} />
@@ -54,12 +62,12 @@ const HeroSection = () => (
 
         <Reveal delay={0.12}>
           <p className="max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-            React, Next.js and TypeScript on the web, Kotlin on Android.
-            Currently at{" "}
+            Three years building web apps, websites and Android apps people
+            actually use. At{" "}
             <span className="text-foreground">
               <InlineLogo src="/logos/lascade.png">Lascade</InlineLogo>
             </span>{" "}
-            in Thrissur, Kerala, working remotely across India.
+            in Thrissur, Kerala, remote across India.
           </p>
         </Reveal>
 

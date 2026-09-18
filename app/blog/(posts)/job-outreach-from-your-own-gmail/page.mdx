@@ -1,0 +1,42 @@
+import { PostHeader, PostFooter } from "@/components/blog/PostChrome";
+import { postMetadata } from "@/lib/blog";
+
+export const slug = "job-outreach-from-your-own-gmail";
+export const metadata = postMetadata(slug);
+
+<PostHeader slug={slug} />
+
+Looking for work means sending the same email to two hundred people with three lines changed each time. The tools built for that are marketing tools: you sign up, you hand over your contact list, you send from their domain, and the recruiter gets something that looks like a newsletter.
+
+[EmailxSender](/projects/email-sender) does the same job from your own Gmail account, with nothing in the middle. The [source is on GitHub](https://github.com/dracu-lah/emailsender-next) under MIT.
+
+## One email per person, never BCC
+
+Every recipient gets their own message, addressed to them. This is not a nicety: a recruiter who can see forty other names in the header knows exactly how much thought went into the message, and a mail provider that sees one message to forty external addresses has an opinion about that too.
+
+Individual sends are slower and that is fine. Nobody is sending two hundred of these per minute.
+
+## The credential question
+
+Sending as you means authenticating as you. The app asks for your Gmail address and a Gmail App Password, the sixteen character one you generate in your Google account with two factor turned on.
+
+That password is kept in `localStorage` in your browser and used to talk to Gmail's SMTP. There is no backend holding it, because there is no backend. An app password is also revokable on its own, so if you stop using the tool you remove that one credential without touching your account.
+
+I would rather this were OAuth. OAuth for sending mail means a verified app, a consent screen and a review process, which is the right answer for a product and the wrong answer for a tool one person uses for six weeks while job hunting.
+
+## The parts that actually matter when you are sending two hundred of these
+
+The sending is a library call. Everything useful is around it:
+
+- **Drafts save themselves.** Subject, body, recipient list and the attached resume all persist. A tab crash in the middle of a session is a recoverable event rather than an evening.
+- **Contact history per account.** You can see who you already wrote to, because the second email to the same person a week later is the one that makes you look careless.
+- **A resume attachment that stays attached.** One PDF, selected once, sent with every message.
+- **Dark and light.** You are doing this at night.
+
+## What I would tell somebody building the same thing
+
+Personalisation is not a merge field. Swapping a name into a template produces the exact thing everybody ignores. What worked was a short body with one sentence I actually wrote per company, and the tool being fast enough that writing that one sentence is the slowest part.
+
+Which means the honest version of this tool is not an automation. It is a way to remove the twenty seconds of copying, pasting and re-attaching between the messages you are still writing yourself.
+
+<PostFooter slug={slug} />

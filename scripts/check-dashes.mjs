@@ -10,6 +10,13 @@ import { readFileSync } from "node:fs";
 const EM_DASH = String.fromCharCode(0x2014);
 const SKIP = /^(pnpm-lock\.yaml|public\/|\.next\/|node_modules\/)|\.(png|jpe?g|webp|ico|pdf|svg|woff2?)$/;
 
+/**
+ * `next dev` writes its own agent rules block into CLAUDE.md on every run and
+ * re-adds it if you delete it, em dashes and all. That text is not ours to
+ * style, so it is skipped rather than fought with on every push.
+ */
+const GENERATED = /<!-- BEGIN:nextjs-agent-rules -->[\s\S]*?<!-- END:nextjs-agent-rules -->/g;
+
 const files = execSync("git ls-files", { encoding: "utf8" })
   .split("\n")
   .filter((f) => f && !SKIP.test(f));
@@ -23,7 +30,11 @@ for (const file of files) {
     continue;
   }
   if (!text.includes(EM_DASH)) continue;
-  text.split("\n").forEach((line, i) => {
+  // Blank the generated block, keeping the line count so numbers still match.
+  const checked = text.replace(GENERATED, (block) =>
+    block.replace(/[^\n]/g, " "),
+  );
+  checked.split("\n").forEach((line, i) => {
     if (line.includes(EM_DASH)) hits.push(`${file}:${i + 1}: ${line.trim()}`);
   });
 }

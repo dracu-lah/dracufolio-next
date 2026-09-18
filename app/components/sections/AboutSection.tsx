@@ -51,7 +51,7 @@ const socialLinks = [
 ];
 
 const contentLink =
-  "underline underline-offset-4 transition-colors duration-300 hover:text-foreground";
+  "underline underline-offset-4 transition-colors duration-300 hover:text-accent";
 
 const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
   const Heading = asPage ? "h1" : "h2";
@@ -65,7 +65,7 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
   return (
     <section
       id="about"
-      className="mx-auto max-w-7xl px-6 py-14 md:px-10 md:py-20 lg:px-14"
+      className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-16 lg:px-14 lg:py-20"
     >
       <div className="grid items-start gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <Reveal className="w-full">
@@ -83,7 +83,7 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
                 />
               </figure>
             )}
-            <ul className="flex flex-wrap justify-center gap-x-8 gap-y-3">
+            <ul className="flex flex-wrap justify-center gap-x-5 gap-y-3">
               {socialLinks.map(({ href, label, icon: Icon, external }) => (
                 <li key={label}>
                   <a
@@ -91,9 +91,9 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
                     {...(external
                       ? { target: "_blank", rel: "noopener noreferrer" }
                       : {})}
-                    className="flex items-center gap-2 font-mono text-base uppercase tracking-[0.18em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
+                    className="flex items-center gap-2.5 font-mono text-sm tracking-[0.16em] text-muted-foreground uppercase transition-colors duration-300 hover:text-accent"
                   >
-                    <Icon3D>
+                    <Icon3D chip size="sm" tone="accent">
                       <Icon className="size-4" />
                     </Icon3D>
                     {label}

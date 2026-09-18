@@ -1,0 +1,51 @@
+import { PostHeader, PostFooter } from "@/components/blog/PostChrome";
+import { postMetadata } from "@/lib/blog";
+
+export const slug = "shadcn-registry-image-cropper";
+export const metadata = postMetadata(slug);
+
+<PostHeader slug={slug} />
+
+Every project I take on eventually needs the same screen: pick an image, crop it to the ratio the backend wants, upload. I had rebuilt it three times before I admitted it was a component and not a task, and the interesting part turned out to be how you hand it to the next project.
+
+The result is [image-cropper](https://github.com/dracu-lah/image-cropper-react), and its own page on this site is [here](/projects/image-cropper). It installs like this:
+
+```bash
+pnpm dlx shadcn@latest add https://imagexcropper.netlify.app/r/image-crop.json
+```
+
+## Why a registry entry and not an npm package
+
+A published package is a dependency. You get a version number, a lockfile entry, and a component you can configure only as far as its props allow. The first time the design changes in a way the props do not cover, you are writing a wrapper around somebody else's markup or forking the package.
+
+A shadcn registry entry is a different contract. The CLI fetches a JSON file, writes the source into your project, and leaves. After that the component is yours: it uses your Tailwind tokens, your `cn`, your button, and if the crop overlay needs to look different on this project you edit it instead of filing an issue. There is no upgrade path, which is the honest trade. For a piece of UI that has to match a design system, not having an upgrade path is the point.
+
+The registry file is plain JSON: a name, the dependencies to install, and the files to write. Because it is served over HTTP, publishing a new version is a deploy, not a release.
+
+## The props are the whole API
+
+Three props, which is what a component like this should need:
+
+```tsx
+<ImageCrop
+  aspectRatio={16 / 9}
+  fileLimitMB={5}
+  onCropComplete={(file) => upload(file)}
+/>
+```
+
+`aspectRatio` fixes the crop box, `fileLimitMB` rejects the file before it is read into memory, and `onCropComplete` hands back the cropped result. Everything else, the drag and drop zone, the file browser, the preview, is behaviour rather than configuration, so it does not need a prop.
+
+The size limit belongs in the component rather than in the upload handler. A phone photo is regularly eight or ten megabytes, and the difference between rejecting it at selection and rejecting it after a failed upload is the difference between a sentence of feedback and a spinner that ends in an error.
+
+## What took the longest
+
+Not the cropping. The cropping is a library call. The time went into the states around it: an empty dropzone that says what it wants, a drag-over state that does not flicker when the pointer crosses a child element, a file that is the wrong type, a file that is too big, and the moment after the crop where the user needs to see what they are about to send.
+
+That is the part a "just use a library" answer skips, and it is the reason this exists as a component with the source in your repo rather than as a snippet in a gist.
+
+## If you want it
+
+The [repo](https://github.com/dracu-lah/image-cropper-react) has the registry URL and the props table. If you use it in something, tell me what you had to change: the changes people make to it are a better roadmap than anything I would write on my own.
+
+<PostFooter slug={slug} />

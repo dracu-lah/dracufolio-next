@@ -10,7 +10,7 @@ const BackLink = ({
 }) => (
   <Link
     href={href}
-    className="inline-flex items-center gap-2 font-mono text-sm uppercase tracking-[0.18em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
+    className="inline-flex items-center gap-2 font-mono text-sm uppercase tracking-[0.18em] text-muted-foreground transition-colors duration-300 hover:text-accent"
   >
     <ArrowLeft className="size-4" />
     {label}
