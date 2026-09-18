@@ -15,6 +15,11 @@
   .head { position: relative; display: flex; align-items: flex-start; justify-content: space-between; }
   .head .side { font-size: 10pt; line-height: 12.2pt; }
   .head .right { text-align: right; }
+  /* The QR sits beside the contact lines, not above them, so the header keeps
+     its height and the resume keeps its single page. Scans to the WhatsApp
+     chat: a printed resume is the one place a link cannot be clicked. */
+  .head .contact { display: flex; align-items: flex-start; justify-content: flex-end; gap: 6pt; }
+  .head .qr { width: 26pt; height: 26pt; display: block; }
   .name { position: absolute; left: 0; right: 0; text-align: center; top: 2.5pt; font-family: "Times New Roman", Liberation Serif, serif; font-size: 18pt; line-height: 18pt;
           font-variant: small-caps; letter-spacing: .3pt; }
   h2 { font-family: "Times New Roman", Liberation Serif, serif; font-variant: small-caps; font-size: 11pt; font-weight: normal;
@@ -37,7 +42,12 @@
 <div class="head">
   <div class="side">Thrissur, Kerala<br><a href="https://www.linkedin.com/in/nevil-krishna-k-77170222a/">LinkedIn</a> | <a href="https://github.com/dracu-lah">Github</a> | <a href="http://nevil.dev">nevil.dev</a></div>
   <div class="name">Nevil Krishna</div>
-  <div class="side right">(+91) 9207932070<br><a href="mailto:nevilkrishna@gmail.com">nevilkrishna@gmail.com</a></div>
+  <div class="side right contact">
+    <div>
+      <a href="https://wa.me/919207932070">(+91) 9207932070</a> (WhatsApp)<br><a href="mailto:nevilkrishna@gmail.com">nevilkrishna@gmail.com</a>
+    </div>
+    <img class="qr" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAAAAklEQVR4AewaftIAAASUSURBVO3BgW0kBwwEwR7i8k957ATIB7xY6F7uqgDlF2vLE0m4tOWShDe15Scl4TcbJK0GSatB0mqQtBokrQZJq0HS6sMftOWbJeFNbXlTWy5JuCThiba8qS3fLAmXQdJqkLQaJK0GSatB0mqQtBokrT48lIQ3teVNSbi05Ym2XJJwacslCZe2XJJwacubkvCmtjwxSFoNklaDpNUgaTVIWg2SVoOk1QedknBpyxNtuSThiSTovxskrQZJq0HSapC0GiStBkmrQdLqg75aWy5JuLTlkgTtBkmrQdJqkLQaJK0GSatB0mqQtPrwUFu0S8KlLZckPJGEb9aWbzZIWg2SVoOk1SBpNUhaDZJWg6TVhz9Iwv9ZWy5JuLTlkoRLWy5JuLTlkoQ3JeFvNkhaDZJWg6TVIGk1SFoNklaDpNWnLfrv2vJEW96UhDe15TcbJK0GSatB0mqQtBokrQZJq0HSKkA5tOWShG/WlieScGnLJQmXtlyS8Ka2PJGEb9aWJwZJq0HSapC0GiStBkmrQdJqkLT68OXa8kQSLm25tOWShJ/UlieScGnLpS2XJFza8qYkXNpyGSStBkmrQdJqkLQaJK0GSatB0urDl0vCb5aES1ueSMKlLZckPNGWSxKeaMsTSbgMklaDpNUgaTVIWg2SVoOk1SBpFaC8qC0/KQk/qS2XJFza8kQS/mZteVMSLoOk1SBpNUhaDZJWg6TVIGk1SFp92nJJwpuScGnLJQmXtlyScGnLE0l4IglvasslCU+05ZKEJ5LwpkHSapC0GiStBkmrQdJqkLQaJK0+Sbi05YkkvKktPykJl7ZcknBpy5uS8ERbLkm4tOWShEtbLkm4tOUySFoNklaDpNUgaTVIWg2SVoOk1Ycf1pZLEt7Ult8sCZe2XJJwScITSfhJSbgMklaDpNUgaTVIWg2SVoOk1SBp9eEv15ZLEp5IwjdLwqUtlyRc2vJEEp5oyxNtuSThMkhaDZJWg6TVIGk1SFoNklaDpNWHh5LwRBIubbkk4Se15Ym2XJLwk5LwzZJwaculLZdB0mqQtBokrQZJq0HSapC0GiSt0n/xP5aES1ueSMKlLU8k4U1teVMSnmjLmwZJq0HSapC0GiStBkmrQdJqkLT6JOE3a8ulLZckPNGWSxIubXmiLZckPJGES1ueaMslCW8aJK0GSatB0mqQtBokrQZJq0HS6sMftOWbJeGJJDzRlp/UlksS3tSWNyXh0pY3DZJWg6TVIGk1SFoNklaDpNUgafXhoSS8qS0/qS1vasslCT8pCT+pLZckXNryxCBpNUhaDZJWg6TVIGk1SFoNklYf9EgSnmjLpS2XJDzRlksSnmjLJQmXJDyRhCcGSatB0mqQtBokrQZJq0HSapC0+qBH2vKmJFza8kQSLm15U1suSXiiLZckXAZJq0HSapC0GiStBkmrQdJqkLT68FBb/mZtuSThibZcknBpyyUJ3ywJb2rLmwZJq0HSapC0GiStBkmrQdJqkLT68AdJ+M2ScGnLJQlvSsITbXkiCd8sCW8aJK0GSatB0mqQtBokrQZJq0HS6h8knWTOizDETwAAAABJRU5ErkJggg==" alt="QR code to nevil.dev/whatsapp">
+  </div>
 </div>
 
 <h2>Summary</h2>
