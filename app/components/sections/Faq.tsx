@@ -38,7 +38,7 @@ const Faq = ({
                 <dt>{faq.q}</dt>
                 <CaretDown
                  
-                  aria-hidden
+                 
                   className="mt-1 size-5 shrink-0 text-muted-foreground transition-transform duration-300 group-open:rotate-180"
                 />
               </summary>

@@ -1,6 +1,7 @@
 "use client";
 import {
   motion,
+  useMotionTemplate,
   useMotionValue,
   useSpring,
   useTransform,
@@ -8,24 +9,38 @@ import {
 import type { PointerEvent, PropsWithChildren } from "react";
 import { usePointerEffects } from "@/hooks/usePointer";
 
-const MAX_DEGREES = 12;
+const MAX_DEGREES = 14;
 const SPRING = { stiffness: 260, damping: 18, mass: 0.4 };
 
 /**
- * Tilts an icon toward the pointer inside a perspective box. The duotone glyph
- * has two stacked layers, so a small rotation is enough to read as depth.
+ * Tilts an icon toward the pointer inside a perspective box, and with `chip`
+ * sets it on a glossy tile whose specular highlight tracks the tilt. The
+ * highlight moving against the rotation is what sells it as a solid object
+ * rather than a picture of one.
  *
- * `float` adds a slow idle drift and is reserved for the one floating button;
- * a grid of twelve drifting icons would be noise, not depth.
+ * `float` adds a slow idle drift and is reserved for the one floating button.
+ * A grid of twelve drifting icons would be noise, not depth.
+ *
+ * With no pointer, or under reduced motion, this renders the chip and the
+ * glyph with no movement at all: the gloss is static, which still looks like
+ * an object.
  */
 const Icon3D = ({
   children,
   className,
   float = false,
-}: PropsWithChildren<{ className?: string; float?: boolean }>) => {
+  chip = false,
+  chipClassName = "size-14",
+}: PropsWithChildren<{
+  className?: string;
+  float?: boolean;
+  chip?: boolean;
+  chipClassName?: string;
+}>) => {
   const enabled = usePointerEffects();
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
+
   const rotateX = useSpring(
     useTransform(pointerY, [-0.5, 0.5], [MAX_DEGREES, -MAX_DEGREES]),
     SPRING,
@@ -35,8 +50,40 @@ const Icon3D = ({
     SPRING,
   );
 
+  // The sheen slides the opposite way to the rotation, the way a reflection does.
+  const sheenX = useSpring(
+    useTransform(pointerX, [-0.5, 0.5], ["-18%", "18%"]),
+    SPRING,
+  );
+  const sheenY = useSpring(
+    useTransform(pointerY, [-0.5, 0.5], ["-18%", "18%"]),
+    SPRING,
+  );
+  const sheenTransform = useMotionTemplate`translate(${sheenX}, ${sheenY})`;
+
+  const body = chip ? (
+    <span className={`icon-chip squircle ${chipClassName}`}>
+      {enabled ? (
+        <motion.span
+          className="icon-chip-sheen"
+          style={{ transform: sheenTransform }}
+          aria-hidden
+        />
+      ) : (
+        <span
+          className="icon-chip-sheen"
+          style={{ transform: "translate(-8%, -12%)" }}
+          aria-hidden
+        />
+      )}
+      <span className="relative">{children}</span>
+    </span>
+  ) : (
+    children
+  );
+
   if (!enabled) {
-    return <span className={className}>{children}</span>;
+    return <span className={className}>{body}</span>;
   }
 
   const onPointerMove = (event: PointerEvent<HTMLSpanElement>) => {
@@ -71,7 +118,7 @@ const Icon3D = ({
             }
           : {})}
       >
-        {children}
+        {body}
       </motion.span>
     </span>
   );

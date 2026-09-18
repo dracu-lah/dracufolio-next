@@ -241,7 +241,7 @@ const LocationPage = async ({ params }: { params: Promise<Params> }) => {
                       <MapPin
                        
                         className="size-4 shrink-0"
-                        aria-hidden
+                       
                       />
                       {near.name}
                     </Link>

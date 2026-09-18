@@ -60,8 +60,8 @@ const Services = ({
                   } ${!isLastRow ? "md:border-b md:border-border" : ""}`}
                 >
                   <div className="flex h-full flex-col gap-4 p-6 md:p-8">
-                    <Icon3D className="text-foreground">
-                      <Glyph className="size-8" aria-hidden />
+                    <Icon3D chip className="text-foreground">
+                      <Glyph className="size-7" />
                     </Icon3D>
                     <h3 className="font-display text-xl font-bold tracking-tight">
                       {service.title}
