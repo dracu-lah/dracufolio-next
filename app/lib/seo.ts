@@ -49,7 +49,15 @@ export const pageMetadata = ({
   noindex,
 }: PageMetaInput): Metadata => {
   const url = absolute(path);
-  const images = image ? [{ url: absolute(image) }] : undefined;
+  /*
+   * alt travels with the image. A route that passes its own `image` opts out
+   * of the opengraph-image file convention, and that convention was the only
+   * thing supplying og:image:alt, so exactly the pages with a real screenshot
+   * were the ones shipping an unlabelled card.
+   */
+  const images = image
+    ? [{ url: absolute(image), alt: `${title}, by ${AUTHOR}` }]
+    : undefined;
 
   return {
     title,
@@ -73,22 +81,8 @@ export const pageMetadata = ({
       title: `${title} | ${AUTHOR}`,
       description,
       creator: X_HANDLE,
-      ...(images ? { images: images.map((i) => i.url) } : {}),
+      ...(images ? { images } : {}),
     },
   };
 };
 
-/**
- * Standalone breadcrumb, for the few places that are not part of a page graph.
- * Pages built with `pageGraph()` get their breadcrumb from the graph instead.
- */
-export const breadcrumbJsonLd = (trail: { name: string; path: string }[]) => ({
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: trail.map((crumb, i) => ({
-    "@type": "ListItem",
-    position: i + 1,
-    name: crumb.name,
-    item: absolute(crumb.path),
-  })),
-});

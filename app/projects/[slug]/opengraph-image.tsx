@@ -10,8 +10,12 @@ export async function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
 }
 
-const Image = async ({ params }: { params: { slug: string } }) => {
-  const project = await GetProjectBySlugAPI(params.slug);
+// params is a Promise in Next 16. It was typed and read as a plain object
+// here, so every project card rendered the fallback: the eyebrow said Project,
+// the title said Project, and nineteen shares looked identical.
+const Image = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  const { slug } = await params;
+  const project = await GetProjectBySlugAPI(slug);
 
   return ogImage({
     eyebrow: project?.year ? `Project · ${project.year}` : "Project",

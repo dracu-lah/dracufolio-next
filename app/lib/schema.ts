@@ -37,6 +37,7 @@ export const ID = {
   service: `${SITE_URL}/#service`,
   website: `${SITE_URL}/#website`,
   organisation: `${SITE_URL}/#service`,
+  blog: `${SITE_URL}/blog#blog`,
 } as const;
 
 const ref = (id: string) => ({ "@id": id });
@@ -140,10 +141,21 @@ const serviceNode = {
   founder: ref(ID.person),
   employee: ref(ID.person),
   image: portrait,
-  logo: absolute(PORTRAIT_PATH),
+  /*
+   * The logo is the site mark, not the face. This pointed at the portrait,
+   * which is the same mistake the manifest made with its icon list: a
+   * photograph of a person is an image of the person, not a logo of the
+   * business, and a consumer of this graph will draw it as a brand tile.
+   */
+  logo: absolute("/icon-512.png"),
   telephone: PHONE_E164,
   email: `mailto:${EMAIL}`,
-  priceRange: "Quote per project",
+  /*
+   * priceRange is read as a symbolic band, the way a maps listing shows one.
+   * The free text that used to sit here ("Quote per project") is not a range
+   * and gets dropped, so the field said nothing at all.
+   */
+  priceRange: "₹₹",
   currenciesAccepted: "INR",
   address: postalAddress,
   geo: geoCoordinates,

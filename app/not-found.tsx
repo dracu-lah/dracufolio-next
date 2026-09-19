@@ -1,6 +1,24 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Footer from "@/components/common/Footer";
+
+/*
+ * Next injects its own <meta name="robots" content="noindex"> on anything
+ * returning 404. Without this export the root layout's robots and googlebot
+ * tags are inherited on top of it, so the page said noindex and index, follow
+ * at the same time. This overrides both to agree with Next.
+ *
+ * follow stays true on purpose. A crawler that lands here should be able to
+ * take the recovery links back into the site rather than stop at the 404.
+ */
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: true,
+    googleBot: { index: false, follow: true },
+  },
+};
 
 /**
  * Rendered with a real 404 status, and kept out of every index: search engines
@@ -11,7 +29,6 @@ import Footer from "@/components/common/Footer";
  */
 const NotFound = () => (
   <>
-    <meta name="robots" content="noindex, nofollow" />
     <main className="mx-auto flex min-h-[70vh] max-w-3xl flex-col items-start justify-center gap-6 px-6 pt-24 pb-14">
       <p aria-hidden className="text-base break-all text-muted-foreground">
         <span className="text-foreground">$</span> cat this-page

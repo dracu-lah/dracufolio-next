@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { AUTHOR } from "@/lib/seo";
+import { token } from "@/lib/palette";
 
 /**
  * A manifest is a small entity signal (name, icons, theme) and it makes the
@@ -13,8 +14,14 @@ const manifest = (): MetadataRoute.Manifest => ({
     "Portfolio and hire page of Nevil Krishna K, a full stack developer in Thrissur, Kerala. React, Next.js, TypeScript and Android.",
   start_url: "/",
   display: "standalone",
-  background_color: "#000000",
-  theme_color: "#000000",
+  /*
+   * Read from globals.css, not typed here. These two said #000000 while the
+   * viewport said #0d0d0c and the stylesheet said something else again, so the
+   * splash screen behind an installed icon was a black the site never uses.
+   * Same fix as the OG card: the token moves, these move.
+   */
+  background_color: token("background"),
+  theme_color: token("background"),
   lang: "en",
   categories: ["business", "developer", "portfolio"],
   /*

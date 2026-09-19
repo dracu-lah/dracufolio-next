@@ -29,14 +29,10 @@ const GLYPHS = {
   Gauge,
 } as const;
 
-const Services = ({
-  asPage = false,
-  heading = "What I build",
-}: {
-  asPage?: boolean;
-  heading?: string;
-}) => {
-  const Heading = asPage ? "h2" : "h2";
+const Services = ({ heading = "What I build" }: { heading?: string }) => {
+  // The heading is always an h2. There used to be an asPage prop choosing
+  // between "h2" and "h2", which no caller ever passed.
+  const Heading = "h2" as const;
 
   return (
     <section

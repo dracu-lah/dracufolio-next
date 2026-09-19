@@ -54,6 +54,10 @@ export const blogPostingNode = (slug: string) => {
     description: post.description,
     url,
     mainEntityOfPage: { "@id": `${url}#webpage` },
+    // The Blog node on /blog already lists every post. This is the same edge
+    // pointing back, so a post reached on its own resolves to the collection
+    // it belongs to rather than floating loose in the graph.
+    isPartOf: ref(ID.blog),
     datePublished: post.date,
     dateModified: post.updated ?? post.date,
     author: ref(ID.person),

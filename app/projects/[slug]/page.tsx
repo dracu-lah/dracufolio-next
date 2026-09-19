@@ -82,7 +82,9 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
     // project resolves to the same entity in the knowledge graph.
     author: ref(ID.person),
     creator: ref(ID.person),
-    ...(project.year ? { dateCreated: project.year } : {}),
+    // year is a number in projects.json, and schema.org dateCreated is a date
+    // string. A bare 2026 is a type error every validator flags.
+    ...(project.year ? { dateCreated: String(project.year) } : {}),
   };
 
   return (
