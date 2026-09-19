@@ -17,13 +17,21 @@ const manifest = (): MetadataRoute.Manifest => ({
   theme_color: "#000000",
   lang: "en",
   categories: ["business", "developer", "portfolio"],
+  /*
+   * The portrait used to be the second icon here. A photograph is not a brand
+   * mark, and an install prompt crops whatever it is given, so it is out. These
+   * are generated from scripts/assets/icon.svg by `pnpm icons`. The maskable
+   * one keeps the mark inside the middle 80 percent, which is all a launcher
+   * guarantees to keep.
+   */
   icons: [
-    { src: "/favicon.ico", sizes: "any", type: "image/x-icon" },
+    { src: "/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+    { src: "/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
     {
-      src: "/nevil-krishna-k.jpg",
-      sizes: "835x835",
-      type: "image/jpeg",
-      purpose: "any",
+      src: "/icon-maskable-512.png",
+      sizes: "512x512",
+      type: "image/png",
+      purpose: "maskable",
     },
   ],
 });
