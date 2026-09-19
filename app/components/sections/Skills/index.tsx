@@ -3,6 +3,7 @@ import Link from "next/link";
 import ExperienceList from "./components/ExperienceList";
 import Toolkit from "./components/Toolkit";
 import Reveal from "@/components/common/Reveal";
+import { LINKEDIN_URL } from "@/data/contact";
 // import { GetSkillsAPI } from "@/services/api";
 
 const SkillsSection = () => {
@@ -24,7 +25,7 @@ const SkillsSection = () => {
               handoff to production. The full work history is on{" "}
               <a
                 className="underline underline-offset-4 transition-colors duration-300 hover:text-accent"
-                href="https://www.linkedin.com/in/nevil-krishna-k-77170222a/"
+                href={LINKEDIN_URL}
                 target="_blank"
                 rel="noopener noreferrer"
               >

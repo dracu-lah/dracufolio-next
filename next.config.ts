@@ -52,7 +52,7 @@ const nextConfig: NextConfig = {
       { source: "/cv", destination: RESUME, statusCode: 308 },
       {
         source: "/linkedin",
-        destination: "https://www.linkedin.com/in/nevil-krishna-k-77170222a/",
+        destination: "https://www.linkedin.com/in/nevilkrishnak/",
         statusCode: 308,
       },
       { source: "/github", destination: "https://github.com/dracu-lah", statusCode: 308 },

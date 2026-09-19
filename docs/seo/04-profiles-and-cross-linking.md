@@ -6,7 +6,11 @@ things faster than any new account.
 
 ## Part A. LinkedIn
 
-`https://www.linkedin.com/in/nevil-krishna-k-77170222a/`
+`https://www.linkedin.com/in/nevilkrishnak`
+
+> The paste-ready blocks now live in `assets/linkedin-profile.md`, rebuilt from the real
+> repo data. Use those. The versions below are kept for context and say "3 years" where the
+> current ones say "3+", and list LangSync as TypeScript where it is actually Python.
 
 LinkedIn ranks in Google for a person's name, usually in the top three. Recruiters search
 inside LinkedIn, so the headline and the skills decide whether the profile ever appears.

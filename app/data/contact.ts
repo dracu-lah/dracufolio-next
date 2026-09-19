@@ -27,7 +27,7 @@ export const whatsappUrl = (message: string = DEFAULT_WHATSAPP_MESSAGE) =>
 export const WHATSAPP_URL = whatsappUrl();
 
 export const LINKEDIN_URL =
-  "https://www.linkedin.com/in/nevil-krishna-k-77170222a/";
+  "https://www.linkedin.com/in/nevilkrishnak/";
 export const GITHUB_URL = "https://github.com/dracu-lah";
 export const X_URL = "https://x.com/nevilkrishnak";
 export const X_HANDLE = "@nevilkrishnak";
