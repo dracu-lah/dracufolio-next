@@ -125,7 +125,11 @@ const BlogPage = () => (
                       />
                     </span>
 
-                    <span className="flex flex-1 flex-col gap-3 p-6">
+                    {/* `p-5` on a phone, which is what the project card
+                        already uses. At `p-6` the date and the read time
+                        needed 299px in a 294px box, so they broke onto two
+                        rows for the sake of five pixels. */}
+                    <span className="flex flex-1 flex-col gap-3 p-5 md:p-6">
                       <span className="flex flex-wrap items-center gap-2">
                         <Badge icon={CalendarIcon}>
                           <time dateTime={post.date}>

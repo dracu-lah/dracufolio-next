@@ -9,6 +9,10 @@ import { whatsappUrl } from "@/data/contact";
  * visitor recognises it without reading it.
  *
  * `message` prefills the chat so the first line says which page it came from.
+ *
+ * `data-whatsapp-cta` is how the docked bar in `MobileActionBar` knows to step
+ * aside: whatever page this button lands on, the bar is not allowed to sit on
+ * top of it.
  */
 const WhatsAppButton = ({
   message,
@@ -24,6 +28,7 @@ const WhatsAppButton = ({
   const link = (
     <a
       href={whatsappUrl(message)}
+      data-whatsapp-cta
       target="_blank"
       rel="noopener noreferrer"
       className={className || "w-full sm:w-auto"}
