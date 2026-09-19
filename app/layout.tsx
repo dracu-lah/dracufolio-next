@@ -8,6 +8,7 @@ import KeyboardShortcuts from "./components/eggs/KeyboardShortcuts";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { fontVariables } from "./lib/fonts";
+import { token } from "./lib/palette";
 import { AUTHOR, SITE_NAME, SITE_URL, TITLE_TEMPLATE } from "./lib/seo";
 import { metaKeywords } from "./data/keywords";
 import {
@@ -72,7 +73,12 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: SITE_NAME,
     locale: "en_US",
-    alternateLocale: ["ml_IN"],
+    /*
+     * No alternateLocale. og:locale:alternate claims the same content exists
+     * at another URL in that language, and there is no Malayalam version of
+     * any page here. The Malayalam on the site is a line inside an English
+     * page, which lang="ml" already marks.
+     */
     type: "website",
   },
   twitter: {
@@ -99,7 +105,9 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0d0d0c",
+  // The browser chrome colour on a phone. Read from the stylesheet so it cannot
+  // drift from --background the way it had, by two hex values.
+  themeColor: token("background"),
   colorScheme: "dark",
 };
 

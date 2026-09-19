@@ -1,3 +1,4 @@
+import { CONTENT_DATES } from "@/data/updated";
 import Image from "next/image";
 import Link from "next/link";
 import Badge from "@/components/common/Badge";
@@ -9,7 +10,7 @@ import CtaBlock from "@/components/cta/CtaBlock";
 import Reveal from "@/components/common/Reveal";
 import SpotlightCard from "@/components/motion/SpotlightCard";
 import { formatPostDate } from "@/lib/blog";
-import { pageGraph } from "@/lib/schema";
+import { ID, pageGraph } from "@/lib/schema";
 import { AUTHOR, SITE_URL, pageMetadata } from "@/lib/seo";
 import { publishedPosts } from "@/data/posts";
 import { hasNotes } from "@/data/notes";
@@ -38,6 +39,7 @@ const BlogPage = () => (
           name: `Blog | ${AUTHOR}`,
           description,
           type: "CollectionPage",
+          dateModified: CONTENT_DATES.blog,
           breadcrumb: [
             { name: "Home", path: "/" },
             { name: "Blog", path: "/blog" },
@@ -46,7 +48,7 @@ const BlogPage = () => (
         [
           {
             "@type": "Blog",
-            "@id": `${SITE_URL}/blog#blog`,
+            "@id": ID.blog,
             name: `Blog | ${AUTHOR}`,
             description,
             url: `${SITE_URL}/blog`,
@@ -118,7 +120,7 @@ const BlogPage = () => (
                     <span className="relative block aspect-video w-full shrink-0 overflow-hidden border-b border-border lg:h-full lg:w-auto lg:border-r lg:border-b-0">
                       <Image
                         src={post.image ?? `/blog/card/${post.slug}`}
-                        alt=""
+                        alt={post.title}
                         fill
                         sizes="(min-width: 1024px) 500px, 100vw"
                         className="object-cover"

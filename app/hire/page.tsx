@@ -1,3 +1,4 @@
+import { CONTENT_DATES } from "@/data/updated";
 import Link from "next/link";
 import BackLink from "@/components/common/BackLink";
 import Footer from "@/components/common/Footer";
@@ -49,6 +50,7 @@ const HirePage = async () => {
             path: "/hire",
             name: title,
             description,
+            dateModified: CONTENT_DATES.hire,
             breadcrumb: [
               { name: "Home", path: "/" },
               { name: "Hire", path: "/hire" },

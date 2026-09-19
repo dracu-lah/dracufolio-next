@@ -1,3 +1,4 @@
+import { CONTENT_DATES } from "@/data/updated";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -83,6 +84,7 @@ const LocationPage = async ({ params }: { params: Promise<Params> }) => {
             path,
             name: headline(location),
             description: metaDescription(location),
+            dateModified: CONTENT_DATES.locations,
             breadcrumb: [
               { name: "Home", path: "/" },
               { name: "Hire", path: "/hire" },

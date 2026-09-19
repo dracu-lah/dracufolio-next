@@ -1516,3 +1516,106 @@ passes on 60 routes, `check-seo` passes, lint and the dash guard pass.
   alone as out of scope.
 - The two 307 redirects and the IndexNow ping are unchanged. Both live in the
   Vercel and Cloudflare dashboards or in an unwritten script, not in this diff.
+
+## 15. What a 2026 audit found that the site was still getting wrong (20 Sep 2026)
+
+### What was raised
+
+"Do whatever things missed for this, do web search and add missing seo
+changes."
+
+### What the research changed
+
+Current practice was checked before touching anything, and most of it confirmed
+what is already here rather than adding to it.
+
+- **FAQ rich results are gone.** Google deprecated them in May 2026 and is
+  removing the reporting behind them. The `FAQPage` markup on the home page,
+  /hire and all 29 location pages still parses and still feeds AI answers, so it
+  stays, but it will never draw a rich result again. Nothing to do.
+- **llms.txt does nothing.** Google said on the record it reads no llms.txt, no
+  major model provider has committed to it, and a large crawl study found 97
+  percent of these files get zero AI bot traffic. The two files here cost
+  nothing to keep and are left alone, but they should not be counted as a win.
+- **The Wikidata advice in `09` holds up.** The 2026 blogs call a Wikidata item
+  close to mandatory. That advice is written for brands with press coverage.
+  The reasoning in `09` about notability and self created items being deleted is
+  still correct for a private individual, so the doc is unchanged.
+
+### Fixed
+
+Found by auditing every route against the current guidance.
+
+- **Every project share card was blank.** `app/projects/[slug]/opengraph-image.tsx`
+  typed `params` as a plain object and read `params.slug` off it. `params` is a
+  Promise in Next 16, so the lookup returned undefined and all 19 cards rendered
+  the fallback: eyebrow "Project", title "Project", no description. Confirmed by
+  rendering one before and after.
+- **`dateCreated` on a project was a number.** `project.year` is `2026` in
+  `projects.json`, and schema.org wants a date string. Every validator flags it.
+- **Blog index thumbnails had `alt=""`.** Not decorative, not aria-hidden, so
+  every post thumbnail was invisible to image search for no reason.
+- **The 404 carried two contradicting robots directives.** Next injects its own
+  `noindex` on anything returning 404, and the root layout's `index, follow` was
+  inherited on top of it. The page now overrides both to agree, and keeps
+  `follow` so a crawler that lands there can take the recovery links out.
+- **Hand set OG images shipped without `og:image:alt`.** A route passing its own
+  `image` opts out of the file convention, and that convention was the only
+  thing supplying alt. So the pages with a real screenshot were the ones sharing
+  an unlabelled card.
+- **`logo` on the ProfessionalService pointed at the portrait.** Same mistake the
+  manifest made with its icons. It is the site mark now, which exists as a real
+  512 PNG since section 14.
+- **`priceRange` was the string "Quote per project".** That is not a range, so
+  the field said nothing. It is a symbolic band now.
+- **/hire, /hire/[location] and /blog had no `dateModified`** in their WebPage
+  node, while five other routes did, and the sitemap already had honest dates
+  for all three. The sitemap and the graph disagreed about whether those pages
+  had ever changed.
+- **`og:locale:alternate` claimed a Malayalam version exists.** It does not.
+  There is no ml URL, only Malayalam lines inside English pages, which
+  `lang="ml"` already marks.
+- **A blog post did not point back at the Blog it belongs to.** The `Blog` node
+  lists every post; the posts did not carry `isPartOf`. There is a stable
+  `ID.blog` now and the edge runs both ways.
+- **Manifest and viewport colours had drifted three ways.** The manifest said
+  `#000000` twice, the viewport said `#0d0d0c`, and `--background` was neither.
+  All three read the token now, the same fix the OG card got.
+- **Dead code removed.** `breadcrumbJsonLd` in `seo.ts` was exported, unused, and
+  emitted a `BreadcrumbList` with no `@id`, which is a trap for whoever adds the
+  next page. `Services.tsx` had `const Heading = asPage ? "h2" : "h2"` and an
+  `asPage` prop no caller ever passed.
+
+### Checked and left alone
+
+- Internal linking is already a full mesh. Every location page links its 2 to 4
+  curated neighbours, then all 29 locations, and every blog post links every
+  other. The doorway page risk that 29 near identical location pages would
+  normally carry is covered by unique copy per page plus real internal links.
+- Canonical, sitemap entry, OG image and breadcrumb are present on every route.
+  The home page is the only one without `pageMetadata()`, which is correct.
+- Testimonials are an empty array and the `Review` node is gated on it. That is
+  the right call, and it stays empty until real quotes exist. `AggregateRating`
+  is absent for the same reason: inventing one is a policy violation.
+
+### Deviations and things not done
+
+- The six per post `opengraph-image.tsx` routes and the one on /about are built
+  but never used, because a page that sets `openGraph.images` suppresses the
+  file convention. They are left in place rather than deleted: which image wins
+  for a post is a taste call, not a bug.
+- Three post images are `.webp`, which LinkedIn renders unreliably as a card.
+  Not changed, because converting them is an image decision.
+- The FAQ accordion nests `<dt>` and `<dd>` inside `<details>`, which is invalid
+  definition list structure on 31 pages. Left alone: the fix is a markup
+  restructure of a working component and the risk to the design outweighs a
+  validator warning. The FAQ schema is unaffected.
+- `Offer` nodes carry no price, which makes them unparseable. A quote per
+  project genuinely has no price, so the honest options are to leave them or
+  drop the `OfferCatalog`. Left as is.
+- `wordCount` on a post is reading minutes times 200, not a real count.
+- Performance was not measured. The PageSpeed Insights API refused on quota
+  without a key, so Core Web Vitals here are unverified.
+- A `pkill` run against the Next server name also killed the dev server running
+  for the seatinfo project in another directory. Nothing was lost, but it should
+  have been scoped to the port.
