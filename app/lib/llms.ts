@@ -9,7 +9,6 @@ import { ml } from "@/data/ml";
 import {
   EMAIL,
   GITHUB_URL,
-  HOURS,
   LANGUAGES,
   LINKEDIN_URL,
   LOCALITY,
@@ -19,6 +18,7 @@ import {
   REGION,
   WHATSAPP_URL,
   X_URL,
+  YOUTUBE_URL,
 } from "@/data/contact";
 import { AUTHOR, SITE_URL, absolute } from "./seo";
 
@@ -51,7 +51,6 @@ Also known as: Nevil Krishna, nevil.dev
 - Email: ${EMAIL}
 - Website: ${SITE_URL}
 - Hire page: ${SITE_URL}/hire
-- Hours: ${HOURS.display}
 - Languages: ${LANGUAGES.join(", ")}
 - Based in: ${LOCALITY}, ${REGION}, India
 - Photo: ${absolute(PORTRAIT_PATH)}
@@ -61,6 +60,7 @@ Also known as: Nevil Krishna, nevil.dev
 - GitHub: ${GITHUB_URL}
 - LinkedIn: ${LINKEDIN_URL}
 - X: ${X_URL}
+- YouTube: ${YOUTUBE_URL}
 - Resume PDF: ${SITE_URL}/resume
 - RSS: ${SITE_URL}/feed.xml
 `;

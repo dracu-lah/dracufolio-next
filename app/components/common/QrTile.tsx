@@ -64,22 +64,30 @@ const QrTile = ({
           aria-label={`${label}, open the larger code`}
           ref={tileRef}
           style={tileStyle}
-          className={`group relative isolate hidden cursor-pointer items-center gap-4 bg-border p-4 text-left transition-colors duration-300 hover:bg-accent-edge md:flex ${className}`}
+          className={`group relative isolate hidden w-full cursor-pointer items-center gap-4 bg-border p-4 text-left transition-colors duration-300 hover:bg-accent-edge md:flex ${className}`}
         >
           {tileFill}
+          {/*
+            A fixed code, not a stretched one. `self-stretch aspect-square`
+            looked right until the caption wrapped: the code took the row
+            height, its width followed, that squeezed the caption into a
+            narrower column, which made it taller, which grew the code again.
+            At this size the code is the tallest thing in the row, so it sets
+            the height and the padding comes out even on all four sides.
+          */}
           <Squircle
             as="div"
             cornerRadius={SQUIRCLE.sm}
-            className="size-24 shrink-0 bg-white p-2"
+            className="size-28 shrink-0 bg-white p-2 [&>svg]:size-full"
             // Generated from `url` on the server, never from user input.
             dangerouslySetInnerHTML={{ __html: svg }}
           />
-          <span className="relative flex flex-col gap-1">
-            <span className="font-mono text-sm tracking-[0.18em] text-muted-foreground uppercase transition-colors duration-300 group-hover:text-accent">
+          <span className="relative flex min-w-0 flex-1 flex-col justify-center gap-1">
+            <span className="text-base font-medium text-foreground transition-colors duration-300 group-hover:text-accent">
               {label}
             </span>
             {hint && (
-              <span className="max-w-50 text-sm leading-relaxed text-muted-foreground">
+              <span className="text-base leading-relaxed text-muted-foreground">
                 {hint}
               </span>
             )}
@@ -103,19 +111,19 @@ const QrTile = ({
           />
 
           <div className="flex w-full flex-col gap-2">
-            <p className="truncate text-center font-mono text-sm text-muted-foreground">
+            <p className="truncate text-center text-base text-muted-foreground">
               {url.replace(/^https?:\/\//, "").split("?")[0]}
             </p>
             <div className="flex gap-2">
               <button
                 type="button"
                 onClick={copy}
-                className="flex h-11 flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg border border-border font-mono text-sm tracking-[0.14em] uppercase transition-colors duration-200 hover:border-accent-edge hover:bg-accent-tint"
+                className="flex h-11 flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg border border-border text-sm font-medium tracking-[0.06em] uppercase transition-colors duration-200 hover:border-accent-edge hover:bg-accent-tint"
               >
                 {copied ? (
-                  <CheckCircle className="size-4" />
+                  <CheckCircle className="size-5" />
                 ) : (
-                  <CopyIcon className="size-4" />
+                  <CopyIcon className="size-5" />
                 )}
                 {copied ? "Copied" : "Copy link"}
               </button>
@@ -123,10 +131,10 @@ const QrTile = ({
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-11 flex-1 items-center justify-center gap-2 rounded-lg border border-accent bg-accent font-mono text-sm tracking-[0.14em] text-accent-foreground uppercase transition-colors duration-200 hover:bg-accent-muted"
+                className="flex h-11 flex-1 items-center justify-center gap-2 rounded-lg border border-accent bg-accent text-sm font-medium tracking-[0.06em] text-accent-foreground uppercase transition-colors duration-200 hover:bg-accent-muted"
               >
                 Open here
-                <ArrowUpRight className="size-4" />
+                <ArrowUpRight className="size-5" />
               </a>
             </div>
           </div>

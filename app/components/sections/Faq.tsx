@@ -1,6 +1,9 @@
 import Reveal from "@/components/common/Reveal";
-import { CaretDown, WhatsappLogo } from "@/components/common/icons";
-import Icon3D from "@/components/motion/Icon3D";
+import {
+  ArrowUpRight,
+  CaretDown,
+  WhatsappLogo,
+} from "@/components/common/icons";
 import { WHATSAPP_URL } from "@/data/contact";
 import type { Faq as FaqItem } from "@/data/faq";
 
@@ -27,7 +30,7 @@ const Faq = ({
 }) => (
   <section
     id={id}
-    className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-16 lg:px-14 lg:py-20"
+    className="mx-auto max-w-7xl px-6 py-8 md:px-10 md:py-12 lg:px-14"
   >
     <div className="grid items-start gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:gap-16">
       <Reveal>
@@ -35,27 +38,32 @@ const Faq = ({
           <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
             {heading}
           </h2>
-          {/* The column beside a ten row accordion was empty at every width
-              above lg. A question that is not on the list has somewhere to go
-              now, which is the whole point of the section. */}
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group hidden max-w-xs items-start gap-4 rounded-xl border border-border bg-card p-5 transition-colors duration-300 hover:border-accent-edge lg:flex"
-          >
-            <Icon3D chip size="sm" tone="accent">
-              <WhatsappLogo className="size-5" />
-            </Icon3D>
-            <span className="flex flex-col gap-1">
-              <span className="font-mono text-sm tracking-[0.14em] uppercase transition-colors duration-300 group-hover:text-accent">
-                Not on the list
-              </span>
-              <span className="text-base leading-relaxed text-muted-foreground">
-                Ask it on WhatsApp. Answered the same day.
-              </span>
-            </span>
-          </a>
+          {/*
+            This was an icon chip, an uppercase eyebrow and an explainer line
+            inside a bordered box: the exact shape every generated portfolio
+            uses for a small aside, and three pieces of chrome around one
+            sentence. It is a sentence and a link now, hung off a rule, which
+            is what it always was.
+
+            Still `lg` only. Below that the docked WhatsApp bar is on screen,
+            and two WhatsApp CTAs at once is the thing that bar exists to stop.
+          */}
+          <div className="hidden max-w-xs flex-col gap-3 border-t border-border pt-5 lg:flex">
+            <p className="text-lg leading-relaxed text-muted-foreground">
+              Something not answered here? Ask it directly, and you get an
+              answer the same day.
+            </p>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 self-start text-lg font-medium text-foreground underline decoration-border underline-offset-[6px] transition-colors duration-200 hover:text-accent hover:decoration-accent-edge"
+            >
+              <WhatsappLogo className="size-5 text-accent" />
+              WhatsApp
+              <ArrowUpRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+            </a>
+          </div>
         </div>
       </Reveal>
 

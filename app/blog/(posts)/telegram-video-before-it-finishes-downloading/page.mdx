@@ -4,11 +4,27 @@ import { postMetadata } from "@/lib/blog";
 export const slug = "telegram-video-before-it-finishes-downloading";
 export const metadata = postMetadata(slug);
 
+{/*
+  Type size inside a diagram. The SVG scales with the column, so a font size in
+  user units is not a font size on screen: 30 units land at 16px on a 390px
+  phone, and the 19 above 560px keeps the same label near 21px on the desktop
+  column instead of letting it grow to 36.
+*/}
+export const svgText = "text-[30px] min-[560px]:text-[19px]";
+
 <PostHeader slug={slug} />
 
 A film sitting in a Telegram channel starts playing in TMPlayer within a few seconds, and nothing has been downloaded when it starts. Seeking to minute 90 does not wait for minutes 1 to 89 either. The part that makes that work is one Media3 `DataSource` of 394 lines and one arithmetic class of 61, and the second one is where I got it wrong.
 
 Everything below is from my own app, [TMPlayer](https://github.com/dracu-lah/TMPlayer), which is GPL-3.0 and built on Media3 1.10.1 and tdl-coroutines 9.0.0.
+
+<Figure
+  src="/appwrite/projects/tmplayer.webp"
+  alt="The TMPlayer site, with the app's chat screen showing a Telegram chat and its videos as a grid"
+  width={1920}
+  height={1080}
+  caption="tmplayer.org, where the APK is downloaded. The panel below the fold is the app itself: one Telegram chat, its videos as a grid, and the screen you press play from."
+/>
 
 ## What Media3 expects from a DataSource
 
@@ -44,6 +60,49 @@ A limit of 0 means keep going to the end of the file, which is exactly what play
 
 The important constraint is that TDLib holds one contiguous stretch of the file per download and frees what falls outside it. Asking for a new offset moves that stretch, it does not add a second one.
 
+<Figure caption={<>One window, and the player reads inside it. <code className="font-mono text-foreground">open</code> answers with the distance from the position to the end of the window, which is why a film plays before it has finished downloading and why a byte behind the window is worth nothing.</>}>
+  <svg
+    viewBox="0 0 560 372"
+    role="img"
+    aria-labelledby="window-diagram"
+    className="block h-auto w-full text-foreground"
+  >
+    <title id="window-diagram">
+      TDLib keeps one downloaded window inside the file. The player reads from
+      its position to the end of that window, and everything outside the window
+      is either freed or not downloaded yet.
+    </title>
+
+    <text x="20" y="84" fill="var(--muted-foreground)" className={svgText}>byte 0</text>
+    <text x="540" y="84" textAnchor="end" fill="var(--muted-foreground)" className={svgText}>end of file</text>
+
+    <rect x="20" y="110" width="150" height="60" rx="4" fill="none" stroke="var(--border)" strokeWidth="2" strokeDasharray="6 6" />
+    <rect x="170" y="110" width="230" height="60" rx="4" fill="var(--accent-tint)" stroke="var(--accent)" strokeWidth="2" />
+    <rect x="400" y="110" width="140" height="60" rx="4" fill="none" stroke="var(--border)" strokeWidth="2" strokeDasharray="6 6" />
+
+    <text x="95" y="140" textAnchor="middle" dominantBaseline="middle" fill="var(--muted-foreground)" className={svgText}>freed</text>
+    <text x="285" y="140" textAnchor="middle" dominantBaseline="middle" fill="var(--accent)" className={svgText}>downloaded</text>
+    <text x="470" y="140" textAnchor="middle" dominantBaseline="middle" fill="var(--muted-foreground)" className={svgText}>not yet</text>
+
+    <text x="250" y="46" textAnchor="middle" fill="currentColor" className={`${svgText} font-mono`}>position</text>
+    <line x1="250" y1="58" x2="250" y2="96" stroke="currentColor" strokeWidth="2" />
+    <polygon points="242,94 258,94 250,110" fill="currentColor" />
+
+    <line x1="250" y1="170" x2="250" y2="190" stroke="var(--accent)" strokeWidth="2" strokeDasharray="6 6" />
+    <line x1="250" y1="190" x2="250" y2="210" stroke="var(--accent)" strokeWidth="3" />
+    <line x1="250" y1="200" x2="400" y2="200" stroke="var(--accent)" strokeWidth="3" />
+    <line x1="400" y1="190" x2="400" y2="210" stroke="var(--accent)" strokeWidth="3" />
+    <text x="325" y="242" textAnchor="middle" fill="var(--accent)" className={svgText}>readable now</text>
+
+    <line x1="400" y1="170" x2="400" y2="190" stroke="var(--border)" strokeWidth="2" strokeDasharray="6 6" />
+    <line x1="400" y1="210" x2="400" y2="262" stroke="var(--border)" strokeWidth="2" strokeDasharray="6 6" />
+    <text x="392" y="288" textAnchor="end" fill="var(--muted-foreground)" className={`${svgText} font-mono`}>windowEnd</text>
+
+    <line x1="170" y1="170" x2="170" y2="322" stroke="var(--border)" strokeWidth="2" strokeDasharray="6 6" />
+    <text x="178" y="348" fill="var(--muted-foreground)" className={`${svgText} font-mono`}>downloadOffset</text>
+  </svg>
+</Figure>
+
 Because Media3's extractors issue a great many small reads, asking TDLib about the file on each one would put a request round trip in front of every byte. So `startWatching` opens one subscription to `fileUpdates` for the whole life of the source, `absorb` folds each update into local state, and a counter is bumped per update so a read that has to wait is woken by the update itself. A read that hears nothing for a second falls back to `getFile` and asks directly, which keeps a source alive even if its collector died with the client.
 
 ## The window class: knowing what you can read
@@ -76,6 +135,51 @@ The `completed` flag it takes is not TDLib's own. `LocalFilePolicy.evaluate` in 
 The bug that taught me the near end of the window matters shipped in commit `a6de327`. Seek forward, watch for a while, seek back, and playback died with "No valid varint length mask found"; the only way out was Back, which destroys the activity and builds a fresh source. It was reproducible on any partially downloaded film.
 
 The cause was the fast path. `TdDataSource` cached the window so that small reads cost nothing, but it remembered only the far end. After a forward seek, TDLib had moved its stretch ahead and freed what was behind it, while the cached far end was still a long way past the byte the player now wanted. The subtraction happily reported half a megabyte available. The partial file keeps its full length on disk, so the `RandomAccessFile` read succeeded and handed the extractor a hole full of zeroes.
+
+<Figure caption={<>The seek back, with a cache that remembered one end of two. Subtracting the position from a far end that has moved on measures a span whose first half was freed, and a partial file keeps its full length on disk, so the read succeeds and returns zeroes.</>}>
+  <svg
+    viewBox="0 0 560 412"
+    role="img"
+    aria-labelledby="hole-diagram"
+    className="block h-auto w-full text-foreground"
+  >
+    <title id="hole-diagram">
+      After seeking forward and back, the player position sits in the part of
+      the file TDLib has freed, while the cached far end still reports that
+      span as readable.
+    </title>
+
+    {/* Guides only in the gap between the two bars, so they line the rows up
+        without drawing a second edge across a box. */}
+    {/* Guides only in the gap between the two bars, so they line the rows up
+        without drawing a second edge across a box. */}
+    <line x1="120" y1="122" x2="120" y2="252" stroke="var(--border)" strokeWidth="1.5" strokeDasharray="4 6" />
+    <line x1="400" y1="122" x2="400" y2="252" stroke="var(--border)" strokeWidth="1.5" strokeDasharray="4 6" />
+
+    <text x="20" y="34" fill="currentColor" className={svgText}>After a forward seek</text>
+
+    <polygon points="112,44 128,44 120,58" fill="currentColor" />
+    <line x1="120" y1="58" x2="120" y2="118" stroke="currentColor" strokeWidth="2" />
+
+    <rect x="20" y="64" width="380" height="54" rx="4" fill="none" stroke="var(--border)" strokeWidth="2" strokeDasharray="6 6" />
+    <text x="265" y="91" textAnchor="middle" dominantBaseline="middle" fill="var(--muted-foreground)" className={svgText}>freed by TDLib</text>
+    <rect x="400" y="64" width="140" height="54" rx="4" fill="var(--accent-tint)" stroke="var(--accent)" strokeWidth="2" />
+
+    <text x="130" y="158" textAnchor="middle" fill="currentColor" className={`${svgText} font-mono`}>position</text>
+    <text x="540" y="158" textAnchor="end" fill="var(--accent)" className={svgText}>TDLib window</text>
+
+    <text x="20" y="226" fill="currentColor" className={svgText}>What the cache said</text>
+
+    <rect x="120" y="256" width="280" height="54" rx="4" fill="none" stroke="var(--muted-foreground)" strokeWidth="2" strokeDasharray="6 6" />
+    <text x="260" y="283" textAnchor="middle" dominantBaseline="middle" fill="var(--muted-foreground)" className={svgText}>zeroes on disk</text>
+    <rect x="400" y="256" width="140" height="54" rx="4" fill="var(--accent-tint)" stroke="var(--accent)" strokeWidth="2" />
+
+    <line x1="120" y1="338" x2="120" y2="358" stroke="currentColor" strokeWidth="3" />
+    <line x1="120" y1="348" x2="540" y2="348" stroke="currentColor" strokeWidth="3" />
+    <line x1="540" y1="338" x2="540" y2="358" stroke="currentColor" strokeWidth="3" />
+    <text x="330" y="394" textAnchor="middle" fill="currentColor" className={svgText}>the cached sum said this</text>
+  </svg>
+</Figure>
 
 `DownloadWindow.availableAt` had the correct check the whole time and was simply never reached. The fix was to hold the window as one value with both ends, so a reader can never catch a new start against an old end, and to route every question through that function. About two hundred seek events on a real film, most of them forward and then back, with no source error.
 

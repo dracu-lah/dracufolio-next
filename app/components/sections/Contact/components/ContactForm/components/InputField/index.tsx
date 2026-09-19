@@ -22,10 +22,7 @@ const InputField = ({
   return (
     <div className="flex flex-col gap-2">
       {label && (
-        <label
-          htmlFor={name}
-          className="font-mono text-base uppercase tracking-[0.2em] text-muted-foreground"
-        >
+        <label htmlFor={name} className="text-base text-muted-foreground">
           {label}
         </label>
       )}

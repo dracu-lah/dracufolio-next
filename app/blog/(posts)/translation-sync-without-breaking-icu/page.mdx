@@ -4,6 +4,14 @@ import { postMetadata } from "@/lib/blog";
 export const slug = "translation-sync-without-breaking-icu";
 export const metadata = postMetadata(slug);
 
+{/*
+  Type size inside a diagram. The SVG scales with the column, so a font size in
+  user units is not a font size on screen: 30 units land at 16px on a 390px
+  phone, and the 19 above 560px keeps the same label near 21px on the desktop
+  column instead of letting it grow to 36.
+*/}
+export const svgText = "text-[30px] min-[560px]:text-[19px]";
+
 <PostHeader slug={slug} />
 
 A localised product has one English file that people edit and a directory of other files that drift away from it. Somebody adds a key, five locales do not have it. Somebody rewords a sentence, five locales still say the old thing and nobody notices, because nobody on the team reads Portuguese.
@@ -29,6 +37,58 @@ Hand that to any translation API as a string and you get back a sentence with `p
 
 So LangSync parses the message into a tree first, pulls out only the human-readable fragments, sends those, and rebuilds the message around the arguments and keywords, which never move. Every rebuilt message is validated before it is written. If it does not parse, it does not land.
 
+<Figure caption={<>The same message as a tree. The argument name, the keyword <code className="font-mono text-foreground">plural</code> and the branch names are structure, so they are rebuilt untouched; the two leaves are the only text a translation API ever sees.</>}>
+  <svg
+    viewBox="0 0 560 530"
+    role="img"
+    aria-labelledby="icu-tree-diagram"
+    className="block h-auto w-full text-foreground"
+  >
+    <title id="icu-tree-diagram">
+      An ICU plural message parsed into a tree, where only the two leaf
+      sentences are sent for translation and every keyword, argument and brace
+      is rebuilt from the tree.
+    </title>
+
+    <rect x="20" y="20" width="520" height="150" rx="8" fill="none" stroke="var(--border)" strokeWidth="2" />
+    <text x="44" y="60" fill="currentColor" xmlSpace="preserve" className={`${svgText} font-mono`}>{"{count, plural,"}</text>
+    <text x="44" y="102" fill="var(--accent)" xmlSpace="preserve" className={`${svgText} font-mono`}>{"  one {# seat left}"}</text>
+    <text x="44" y="144" fill="var(--accent)" xmlSpace="preserve" className={`${svgText} font-mono`}>{"  other {# seats left}}"}</text>
+
+    <line x1="280" y1="170" x2="280" y2="200" stroke="var(--muted-foreground)" strokeWidth="2" />
+    <polygon points="272,198 288,198 280,214" fill="var(--muted-foreground)" />
+
+    <rect x="180" y="215" width="200" height="56" rx="6" fill="none" stroke="var(--border)" strokeWidth="2" />
+    <text x="280" y="243" textAnchor="middle" dominantBaseline="middle" fill="currentColor" className={`${svgText} font-mono`}>plural</text>
+    <line x1="380" y1="243" x2="400" y2="243" stroke="var(--border)" strokeWidth="2" />
+    <rect x="400" y="215" width="140" height="56" rx="6" fill="none" stroke="var(--border)" strokeWidth="2" />
+    <text x="470" y="243" textAnchor="middle" dominantBaseline="middle" fill="currentColor" className={`${svgText} font-mono`}>count</text>
+
+    <line x1="280" y1="271" x2="280" y2="292" stroke="var(--border)" strokeWidth="2" />
+    <line x1="140" y1="292" x2="420" y2="292" stroke="var(--border)" strokeWidth="2" />
+    <line x1="140" y1="292" x2="140" y2="320" stroke="var(--border)" strokeWidth="2" />
+    <line x1="420" y1="292" x2="420" y2="320" stroke="var(--border)" strokeWidth="2" />
+
+    <rect x="20" y="320" width="240" height="56" rx="6" fill="none" stroke="var(--border)" strokeWidth="2" />
+    <text x="140" y="348" textAnchor="middle" dominantBaseline="middle" fill="currentColor" className={`${svgText} font-mono`}>one</text>
+    <rect x="300" y="320" width="240" height="56" rx="6" fill="none" stroke="var(--border)" strokeWidth="2" />
+    <text x="420" y="348" textAnchor="middle" dominantBaseline="middle" fill="currentColor" className={`${svgText} font-mono`}>other</text>
+
+    <line x1="140" y1="376" x2="140" y2="404" stroke="var(--border)" strokeWidth="2" />
+    <line x1="420" y1="376" x2="420" y2="404" stroke="var(--border)" strokeWidth="2" />
+
+    <rect x="20" y="404" width="240" height="60" rx="6" fill="var(--accent-tint)" stroke="var(--accent)" strokeWidth="2" />
+    <text x="140" y="434" textAnchor="middle" dominantBaseline="middle" fill="var(--accent)" className={`${svgText} font-mono`}>{"# seat left"}</text>
+    <rect x="300" y="404" width="240" height="60" rx="6" fill="var(--accent-tint)" stroke="var(--accent)" strokeWidth="2" />
+    <text x="420" y="434" textAnchor="middle" dominantBaseline="middle" fill="var(--accent)" className={`${svgText} font-mono`}>{"# seats left"}</text>
+
+    <rect x="20" y="488" width="22" height="22" rx="4" fill="var(--accent-tint)" stroke="var(--accent)" strokeWidth="2" />
+    <text x="54" y="507" fill="var(--muted-foreground)" className={svgText}>translated</text>
+    <rect x="260" y="488" width="22" height="22" rx="4" fill="none" stroke="var(--border)" strokeWidth="2" />
+    <text x="294" y="507" fill="var(--muted-foreground)" className={svgText}>kept as is</text>
+  </svg>
+</Figure>
+
 That validation pass also repairs what earlier tools broke: a target string that is already malformed ICU gets detected and healed instead of copied forward forever.
 
 ## Batching is where the cost goes
@@ -37,11 +97,65 @@ The naive loop is one request per key per locale. A thousand keys and six locale
 
 LangSync batches the fragments instead. The saving is not marginal: the API overhead drops by up to 98 percent compared with one call per string, which is the difference between a sync you run in CI and a sync you avoid running. Locales run concurrently on a thread pool, with the parallelism and batch size in config, and rate limits are handled with exponential backoff rather than a crash halfway through writing a file.
 
+<Figure caption="The same work, counted differently. A request carries a batch of fragments rather than one string, each locale runs its own pass on the thread pool, and a rate limit backs off and retries instead of killing the run halfway through a file.">
+  <svg
+    viewBox="0 0 560 508"
+    role="img"
+    aria-labelledby="batching-diagram"
+    className="block h-auto w-full text-foreground"
+  >
+    <title id="batching-diagram">
+      The batching pipeline: source keys are parsed into text fragments, the
+      fragments are grouped into batches, and each locale sends one request per
+      batch instead of one request per string.
+    </title>
+
+    <rect x="20" y="20" width="520" height="64" rx="8" fill="none" stroke="var(--border)" strokeWidth="2" />
+    <text x="280" y="52" textAnchor="middle" dominantBaseline="middle" fill="currentColor" className={svgText}>keys in one source file</text>
+
+    <line x1="280" y1="84" x2="280" y2="100" stroke="var(--muted-foreground)" strokeWidth="2" />
+    <polygon points="272,98 288,98 280,112" fill="var(--muted-foreground)" />
+
+    <rect x="20" y="112" width="520" height="64" rx="8" fill="none" stroke="var(--border)" strokeWidth="2" />
+    <text x="280" y="144" textAnchor="middle" dominantBaseline="middle" fill="currentColor" className={svgText}>ICU parsed, fragments out</text>
+
+    <line x1="280" y1="176" x2="280" y2="192" stroke="var(--muted-foreground)" strokeWidth="2" />
+    <polygon points="272,190 288,190 280,204" fill="var(--muted-foreground)" />
+
+    <rect x="20" y="204" width="520" height="64" rx="8" fill="var(--accent-tint)" stroke="var(--accent)" strokeWidth="2" />
+    <text x="280" y="236" textAnchor="middle" dominantBaseline="middle" fill="var(--accent)" className={svgText}>fragments grouped in batches</text>
+
+    <line x1="256" y1="268" x2="256" y2="300" stroke="var(--muted-foreground)" strokeWidth="2" />
+    <polygon points="248,300 264,300 256,316" fill="var(--muted-foreground)" />
+    <text x="540" y="300" textAnchor="end" fill="var(--muted-foreground)" className={svgText}>once per locale</text>
+
+    {/* Three offset cards: one pass per locale, running at the same time. */}
+    <rect x="44" y="320" width="472" height="58" rx="8" fill="var(--card)" stroke="var(--border)" strokeWidth="2" />
+    <rect x="32" y="332" width="472" height="58" rx="8" fill="var(--card)" stroke="var(--border)" strokeWidth="2" />
+    <rect x="20" y="344" width="472" height="58" rx="8" fill="var(--card)" stroke="var(--border)" strokeWidth="2" />
+    <text x="256" y="373" textAnchor="middle" dominantBaseline="middle" fill="currentColor" className={svgText}>one request per batch</text>
+
+    <line x1="256" y1="402" x2="256" y2="414" stroke="var(--muted-foreground)" strokeWidth="2" />
+    <polygon points="248,414 264,414 256,428" fill="var(--muted-foreground)" />
+
+    <rect x="20" y="428" width="520" height="60" rx="8" fill="none" stroke="var(--border)" strokeWidth="2" />
+    <text x="280" y="458" textAnchor="middle" dominantBaseline="middle" fill="var(--muted-foreground)" className={svgText}>translation API</text>
+  </svg>
+</Figure>
+
 ## Knowing what changed
 
 The part that makes it safe to run repeatedly is `.langsync-state.json`, a snapshot of what the source looked like the last time. With it, a sync can tell the three cases apart: a key that is new, a key whose English text was edited since last time, and a key that is gone.
 
 Without that snapshot you have two bad options: retranslate everything on every run, or trust that a target file which has a value for a key is up to date. The first is expensive, the second is how you end up shipping last quarter's wording.
+
+<Figure
+  src="/appwrite/blog/langsync-run.webp"
+  alt="A langsync run in a terminal: source file, state file, counts of new, edited and removed keys, then one line per locale with its batch count"
+  width={1600}
+  height={900}
+  caption="One sync. The state snapshot narrows the run to the 44 keys that actually moved, each locale leaves as six batches rather than 44 separate calls, and every rebuilt ICU message is validated before a file is written. The two keys the source dropped stay until you pass --prune."
+/>
 
 Configuration lives in `langsync.json`: the source file, the target directory, how many locales to run at once, batch size, and a whitelist of terms that must never be translated. Product names go in that list, and so does every piece of jargon your marketing team has opinions about.
 

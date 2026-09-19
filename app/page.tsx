@@ -6,7 +6,6 @@ import FaqSection from "./components/sections/Faq";
 import LocationsSection from "./components/sections/Locations";
 import TestimonialsSection from "./components/sections/Testimonials";
 import ContactSection from "./components/sections/Contact";
-import TerminalRule from "./components/common/TerminalRule";
 import Footer from "./components/common/Footer";
 import JsonLd from "./components/common/JsonLd";
 import { faqNode, pageGraph } from "./lib/schema";
@@ -43,16 +42,11 @@ const Home = () => (
     <main>
       <HeroSection />
       <PortfolioSection />
-      <TerminalRule path="services" />
       <ServicesSection />
-      <TerminalRule path="experience" />
       <SkillsSection />
       <TestimonialsSection />
-      <TerminalRule path="faq" />
       <FaqSection faqs={homeFaqs} heading="Questions" />
-      <TerminalRule path="locations" />
       <LocationsSection compact />
-      <TerminalRule path="contact" />
       <ContactSection />
       <Footer />
     </main>

@@ -2,65 +2,54 @@ import Link from "next/link";
 import HeroImage from "./components/HeroImage";
 import Reveal from "@/components/common/Reveal";
 import InlineLogo from "@/components/common/InlineLogo";
-import RoleCycle from "@/components/motion/RoleCycle";
 import Spotlight from "@/components/motion/Spotlight";
-import WhatsAppButton from "@/components/cta/WhatsAppButton";
 import { Button } from "@/components/ui/button";
-import Badge from "@/components/common/Badge";
-import { AVAILABILITY } from "@/data/contact";
-import { ml } from "@/data/ml";
+import { BriefcaseIcon, SquaresFour } from "@/components/common/icons";
 
 /**
- * Four text elements and two buttons, and it has to fit the first screen at
- * 390px as well as at 1280px. The greeting is the hero's one small label, so
- * there is no eyebrow above the name.
+ * Two text elements and two buttons, and it has to fit the first screen at
+ * 390px as well as at 1280px.
  *
- * The role after the name cycles because the roles are the thing a visitor
- * came to establish: it says full stack, React, Next.js and Android inside a
- * couple of seconds without spending a paragraph on it. The full list stays in
- * the DOM for crawlers and screen readers.
+ * The roles sit on one static line. They used to cycle through a typewriter,
+ * which meant the one fact a visitor came to establish was never all on screen
+ * at once and the page never stopped moving. Written out, every role is
+ * readable in the first glance and there is no perpetual animation left on the
+ * site.
  */
-const ROLES = [
-  { text: "Full Stack Developer" },
-  { text: "React Developer" },
-  { text: "Next.js Developer" },
-  { text: "Android Developer" },
-  { text: ml.roleFullStack, lang: "ml" as const },
-];
+const ROLES = ["Full Stack Developer", "React", "Next.js", "Android"];
 
 const HeroSection = () => (
   <section
     id="hero"
-    className="mx-auto max-w-7xl px-6 pt-24 pb-8 md:px-10 md:pt-28 md:pb-10 lg:px-14"
+    className="mx-auto max-w-7xl px-6 pt-20 pb-8 md:px-10 md:pt-28 md:pb-10 lg:px-14"
   >
     <Spotlight />
-    <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
-      <div className="flex flex-col items-start gap-6 md:gap-8">
+    <div className="grid items-center gap-8 md:gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
+      <div className="flex flex-col items-start gap-4 md:gap-5">
         <Reveal>
-          {/* One row, two jobs: the local greeting and the one fact a
-              recruiter looks for first. Neither costs a line of its own. */}
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-            {AVAILABILITY.open && (
-              <Badge tone="accent" dot size="md">
-                {AVAILABILITY.label}
-              </Badge>
-            )}
-            <p lang="ml" className="text-lg text-muted-foreground">
-              {ml.heroGreeting}
-            </p>
-          </div>
-        </Reveal>
-
-        <Reveal delay={0.06}>
           <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
             Nevil Krishna K
-            <span className="mt-4 block font-mono text-lg font-normal text-muted-foreground sm:text-xl">
-              <RoleCycle roles={ROLES} />
+            {/* The slash trails its role rather than leading the next one, so
+                a wrap never starts a line with a stray separator. */}
+            {/* `tracking-normal` because this span sits inside the h1 and was
+                inheriting its `tracking-tight`. A monospace shrugged that off;
+                DM Sans at -0.025em reads as cramped. */}
+            <span className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-base leading-snug font-medium tracking-normal text-muted-foreground sm:text-lg">
+              {ROLES.map((role, i) => (
+                <span key={role} className="whitespace-nowrap">
+                  {role}
+                  {i < ROLES.length - 1 && (
+                    <span aria-hidden className="pl-2 text-border">
+                      /
+                    </span>
+                  )}
+                </span>
+              ))}
             </span>
           </h1>
         </Reveal>
 
-        <Reveal delay={0.12}>
+        <Reveal delay={0.06}>
           <p className="max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl">
             Three years building web apps, websites and Android apps people
             actually use. At{" "}
@@ -71,18 +60,34 @@ const HeroSection = () => (
           </p>
         </Reveal>
 
-        <Reveal delay={0.18} className="w-full">
-          <div className="flex w-full max-w-xl flex-col gap-3 sm:flex-row md:gap-4">
-            <WhatsAppButton message="Hi Nevil, I found your site. I would like to talk about a project." />
-            <Link href="/projects" className="w-full sm:w-auto">
-              <Button className="w-full sm:w-auto">Projects</Button>
+        {/*
+          Two doors, not the WhatsApp button that the header and the docked bar
+          are already carrying: somebody with a project or a role goes to
+          /hire, somebody judging the work goes to /projects. The resume is
+          deliberately not a third button here, it is already in the header
+          from `lg` up and in the mobile menu below it. WhatsApp stays the one
+          accent-filled button in view, so neither of these is solid.
+        */}
+        <Reveal delay={0.12} className="w-full">
+          <div className="flex w-full max-w-xl flex-wrap items-center gap-3 md:gap-4">
+            <Link href="/hire">
+              <Button className="bg-accent-edge hover:bg-accent hover:text-accent-foreground">
+                <BriefcaseIcon className="size-5" />
+                Hire me
+              </Button>
+            </Link>
+            <Link href="/projects">
+              <Button variant="ghost">
+                <SquaresFour className="size-5" />
+                Projects
+              </Button>
             </Link>
           </div>
         </Reveal>
       </div>
 
       <Reveal
-        delay={0.24}
+        delay={0.18}
         y={40}
         className="justify-self-center lg:justify-self-end"
       >

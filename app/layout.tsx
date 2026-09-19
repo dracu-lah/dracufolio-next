@@ -106,7 +106,7 @@ export default function RootLayout({
      * --font-display and friends on :root, and a custom property that
      * references another one resolves it on the element where it is declared.
      * With the next/font classes on <body>, :root could not see
-     * --font-geist-sans, so every stack was invalid there and the whole site
+     * --font-sans-face, so every stack was invalid there and the whole site
      * silently rendered in the system fallback.
      */
     <html lang="en" className={`dark ${fontVariables}`}>

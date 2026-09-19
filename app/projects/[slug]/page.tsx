@@ -107,7 +107,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
         <nav aria-label="Breadcrumb">
           <Link
             href="/projects"
-            className="inline-flex items-center gap-3 font-mono text-base uppercase tracking-[0.2em] text-muted-foreground transition-colors duration-300 hover:text-accent"
+            className="inline-flex items-center gap-3 text-base text-muted-foreground transition-colors duration-300 hover:text-accent"
           >
             <ArrowLeft size={16} />
             Back to projects
@@ -134,7 +134,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  visit live <Globe size={18} />
+                  Visit live <Globe size={18} />
                 </a>
               </Button>
             )}
@@ -145,7 +145,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  view source <GithubLogo size={18} />
+                  View source <GithubLogo size={18} />
                 </a>
               </Button>
             )}
@@ -154,7 +154,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
                  ends. Now each one points at the other. */
               <Button asChild size="lg" className="w-full sm:w-auto">
                 <Link href={`/blog/${writeUp.slug}`}>
-                  read the write-up <ScopeDocument size={18} />
+                  Read the write-up <ScopeDocument size={18} />
                 </Link>
               </Button>
             )}
@@ -199,7 +199,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
 
         <div className="grid gap-10 pt-10 md:pt-14 lg:grid-cols-[1.2fr_0.8fr] lg:gap-12">
           <div className="flex flex-col gap-6">
-            <h2 className="font-mono text-base uppercase tracking-[0.22em] text-muted-foreground">
+            <h2 className="text-base text-muted-foreground">
               About this project
             </h2>
             {(project.longDescription.length
@@ -216,7 +216,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
 
             {project.features.length > 0 && (
               <>
-                <h2 className="pt-4 font-mono text-base uppercase tracking-[0.22em] text-muted-foreground">
+                <h2 className="pt-4 text-base text-muted-foreground">
                   Features
                 </h2>
                 <ul className="flex flex-col gap-3">
@@ -243,22 +243,18 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
             fillClassName="bg-card"
             className="h-fit overflow-hidden bg-border"
           >
-            <p className="border-b border-border p-6 font-mono text-base uppercase tracking-[0.2em] text-muted-foreground">
+            <p className="border-b border-border p-6 text-base text-muted-foreground">
               Project info
             </p>
             <dl className="flex flex-col gap-4 p-6">
               {project.year && (
                 <div className="grid grid-cols-[4.5rem_1fr] gap-3 text-base md:grid-cols-[6rem_1fr] md:gap-4">
-                  <dt className="uppercase tracking-[0.2em] text-muted-foreground">
-                    year
-                  </dt>
+                  <dt className="text-muted-foreground">Year</dt>
                   <dd>{project.year}</dd>
                 </div>
               )}
               <div className="grid grid-cols-[4.5rem_1fr] gap-3 text-base md:grid-cols-[6rem_1fr] md:gap-4">
-                <dt className="uppercase tracking-[0.2em] text-muted-foreground">
-                  stack
-                </dt>
+                <dt className="text-muted-foreground">Stack</dt>
                 <dd className="flex flex-wrap gap-1.5">
                   {project.skills.map((skill) => (
                     <Badge key={skill}>{skill}</Badge>
@@ -266,9 +262,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
                 </dd>
               </div>
               <div className="grid grid-cols-[4.5rem_1fr] gap-3 text-base md:grid-cols-[6rem_1fr] md:gap-4">
-                <dt className="uppercase tracking-[0.2em] text-muted-foreground">
-                  status
-                </dt>
+                <dt className="text-muted-foreground">Status</dt>
                 <dd>
                   {project.liveUrl ? (
                     <Badge tone="accent" dot>
@@ -285,7 +279,7 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
                 <QrPanel
                   url={project.liveUrl}
                   label="Open on your phone"
-                  hint={`Scan to open ${project.title} on a phone instead of typing the URL.`}
+                  hint={`Open ${project.title} on your phone.`}
                   className="border-0 bg-transparent p-0"
                 />
               </div>
@@ -305,14 +299,14 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
               href={`/projects/${prev.slug}`}
               className="group flex items-center justify-between gap-4 p-6 transition-colors duration-300 hover:bg-card"
             >
-              <span className="flex items-center gap-3 text-base uppercase tracking-[0.18em] text-muted-foreground">
-                <ArrowLeft size={16} /> prev
+              <span className="flex items-center gap-3 text-base text-muted-foreground">
+                <ArrowLeft size={16} /> Previous
               </span>
               <span className="font-display font-bold">{prev.title}</span>
             </Link>
           ) : (
-            <span className="p-6 text-base uppercase tracking-[0.18em] text-muted-foreground/40">
-              start of list
+            <span className="p-6 text-base text-muted-foreground/40">
+              Start of list
             </span>
           )}
           {next ? (
@@ -321,19 +315,19 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
               className="group flex items-center justify-between gap-4 p-6 transition-colors duration-300 hover:bg-card"
             >
               <span className="font-display font-bold">{next.title}</span>
-              <span className="flex items-center gap-3 text-base uppercase tracking-[0.18em] text-muted-foreground">
-                next <ArrowRight size={16} />
+              <span className="flex items-center gap-3 text-base text-muted-foreground">
+                Next <ArrowRight size={16} />
               </span>
             </Link>
           ) : (
-            <span className="p-6 text-right text-base uppercase tracking-[0.18em] text-muted-foreground/40">
-              end of list
+            <span className="p-6 text-right text-base text-muted-foreground/40">
+              End of list
             </span>
           )}
         </Squircle>
       </main>
       <CtaBlock
-        heading="Want something like this?"
+        heading="Want something like this built for your product?"
         message={`Hi Nevil, I saw ${project.title} on your site and wanted to talk about a project.`}
       />
       <Footer />

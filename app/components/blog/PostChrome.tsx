@@ -44,9 +44,9 @@ export const PostHeader = ({ slug }: { slug: string }) => {
       <nav aria-label="Breadcrumb" className="not-prose">
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 font-mono text-sm uppercase tracking-[0.18em] text-muted-foreground transition-colors duration-300 hover:text-accent"
+          className="inline-flex items-center gap-2 text-base text-muted-foreground transition-colors duration-300 hover:text-accent"
         >
-          <ArrowLeft className="size-4" />
+          <ArrowLeft className="size-5" />
           Blog
         </Link>
       </nav>
@@ -69,16 +69,13 @@ export const PostHeader = ({ slug }: { slug: string }) => {
           <span aria-hidden className="text-muted-foreground">
             /
           </span>
-          <time
-            dateTime={post.date}
-            className="font-mono text-sm text-muted-foreground"
-          >
+          <time dateTime={post.date} className="text-base text-muted-foreground">
             {formatPostDate(post.date)}
           </time>
           <span aria-hidden className="text-muted-foreground">
             /
           </span>
-          <span className="font-mono text-sm text-muted-foreground">
+          <span className="text-base text-muted-foreground">
             {post.readingMinutes} min read
           </span>
         </div>
@@ -106,14 +103,12 @@ export const PostFooter = ({ slug }: { slug: string }) => {
       <QrPanel
         url={`${SITE_URL}/blog/${post.slug}`}
         label="Read on your phone"
-        hint="Point a camera at this to carry the article with you."
+        hint="Open this post on your phone."
       />
 
       {more.length > 0 && (
         <nav aria-label="More posts" className="flex flex-col gap-4">
-          <h2 className="font-mono text-sm uppercase tracking-[0.2em] text-muted-foreground">
-            More posts
-          </h2>
+          <h2 className="text-base text-muted-foreground">More posts</h2>
           <ul className="divide-y divide-border border-t border-b border-border">
             {more.map((other) => (
               <li key={other.slug}>
@@ -134,10 +129,17 @@ export const PostFooter = ({ slug }: { slug: string }) => {
         </nav>
       )}
 
+      {/*
+        `bare` is load bearing here. This wrapper is a column flex container,
+        and the full CTA section carries `mx-auto`: an auto cross-axis margin
+        cancels `align-items: stretch`, so the section sized to its content,
+        which came out as zero. The card kept its height and painted nothing,
+        which read as a thousand pixels of empty page at the end of every post.
+      */}
       <CtaBlock
+        bare
         heading="Building something like this?"
         message={`Hi Nevil, I read your post "${post.title}" and wanted to ask about a project.`}
-        className="px-0 md:px-0 lg:px-0"
       />
     </div>
   );

@@ -8,7 +8,8 @@ const Image = () =>
   ogImage({
     eyebrow: "Projects",
     title: "All Projects",
-    description: "Travel products, open-source tools, and side projects built with React and Next.js.",
+    description:
+      "Travel products, open-source tools, and side projects built with React and Next.js.",
   });
 
 export default Image;

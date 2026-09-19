@@ -100,7 +100,7 @@ const NotesPage = () => {
                   <article className="flex flex-col gap-3 py-7">
                     <time
                       dateTime={note.date}
-                      className="font-mono text-sm text-muted-foreground"
+                      className="text-base text-muted-foreground"
                     >
                       {formatPostDate(note.date)}
                     </time>
@@ -114,7 +114,7 @@ const NotesPage = () => {
                     ))}
                     <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-1">
                       {note.tags.length > 0 && (
-                        <p className="font-mono text-sm text-muted-foreground">
+                        <p className="text-base text-muted-foreground">
                           {note.tags.join("  ")}
                         </p>
                       )}
@@ -123,10 +123,10 @@ const NotesPage = () => {
                           href={note.source}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 font-mono text-sm text-muted-foreground transition-colors duration-300 hover:text-accent"
+                          className="inline-flex items-center gap-1.5 text-base text-muted-foreground transition-colors duration-300 hover:text-accent"
                         >
                           original
-                          <ArrowUpRight className="size-4" />
+                          <ArrowUpRight className="size-5" />
                         </a>
                       )}
                     </div>

@@ -16,6 +16,14 @@ The builder keeps one JSON object. The editor writes to it, the preview reads fr
 
 That means the file you download is also the file you upload next year, and that a resume can be diffed, kept in a repo, or passed to somebody else's renderer. A resume builder that can only produce a PDF has made the same mistake as the PDF it is replacing.
 
+<Figure
+  src="/appwrite/projects/resume-builder.png"
+  alt="The Resume Builder editor, on the Personal tab, with fields for name, title, phone, website, email and a professional summary"
+  width={965}
+  height={625}
+  caption="The editor. The tabs across the top are sections of the one object rather than separate documents, and the buttons above them load it from sample data or from a JSON file you already have."
+/>
+
 ## Reading a PDF back in
 
 The upload path is the part people ask about. A PDF has no structure to recover: it stores glyphs with coordinates, not "this is the job title". Parsing it with rules means writing a heuristic for every resume template that exists, and being wrong about all of them.

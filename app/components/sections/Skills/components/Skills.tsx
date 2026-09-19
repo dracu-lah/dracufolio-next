@@ -3,7 +3,10 @@ import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 
 const skillName = (path: string) =>
-  path.split("/").pop()?.replace(/\.\w+$/, "") ?? "skill";
+  path
+    .split("/")
+    .pop()
+    ?.replace(/\.\w+$/, "") ?? "skill";
 
 const Skills = ({ skills }: { skills: string[] }) => {
   const reduceMotion = useReducedMotion();
@@ -35,13 +38,13 @@ const Skills = ({ skills }: { skills: string[] }) => {
           >
             <Image
               draggable="false"
-              className="size-16 object-contain transition-transform duration-300 group-hover:scale-105 md:size-24"
+              className="size-16 object-contain md:size-24"
               width={160}
               height={160}
               src={skill}
               alt={`${name} logo`}
             />
-            <span className="font-mono text-base uppercase tracking-[0.2em] text-muted-foreground transition-colors duration-300 group-hover:text-accent">
+            <span className="text-base text-muted-foreground transition-colors duration-300 group-hover:text-accent">
               {name}
             </span>
           </motion.li>

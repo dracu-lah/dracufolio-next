@@ -49,7 +49,7 @@ const MobileActionBar = () => {
           href={WHATSAPP_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex h-12 flex-1 items-center justify-center gap-2.5 bg-accent font-mono text-sm tracking-[0.14em] text-accent-foreground uppercase transition-transform duration-150 active:translate-y-px"
+          className="flex h-12 flex-1 items-center justify-center gap-2.5 bg-accent text-sm font-medium tracking-[0.06em] text-accent-foreground uppercase transition-transform duration-150 active:translate-y-px"
         >
           <WhatsappLogo className="size-5" />
           WhatsApp

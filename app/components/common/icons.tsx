@@ -42,6 +42,7 @@ import {
   LinkedinLogo as PhLinkedin,
   WhatsappLogo as PhWhatsapp,
   XLogo as PhX,
+  YoutubeLogo as PhYoutube,
 } from "@phosphor-icons/react/dist/ssr";
 
 /**
@@ -150,3 +151,4 @@ export const WhatsappLogo = duotone(PhWhatsapp, "WhatsappLogo");
 export const GithubLogo = duotone(PhGithub, "GithubLogo");
 export const LinkedinLogo = duotone(PhLinkedin, "LinkedinLogo");
 export const XLogo = duotone(PhX, "XLogo");
+export const YoutubeLogo = duotone(PhYoutube, "YoutubeLogo");

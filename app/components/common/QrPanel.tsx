@@ -27,7 +27,13 @@ const QrPanel = async ({
   const svg = await qrSvg(url);
 
   return (
-    <QrTile svg={svg} url={url} label={label} hint={hint} className={className} />
+    <QrTile
+      svg={svg}
+      url={url}
+      label={label}
+      hint={hint}
+      className={className}
+    />
   );
 };
 

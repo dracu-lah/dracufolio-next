@@ -94,31 +94,36 @@ const BlogPage = () => (
           </p>
         </div>
 
-        <ul className="grid gap-6 md:grid-cols-2">
+        <ul className="flex flex-col gap-5">
           {publishedPosts.map((post, index) => (
             <li key={post.slug}>
-              <Reveal delay={index * 0.06} className="h-full">
+              <Reveal delay={index * 0.06}>
                 <SpotlightCard
                   border
-                  className="h-full overflow-hidden bg-border transition-colors duration-300 hover:bg-accent-edge"
+                  className="overflow-hidden bg-border transition-colors duration-300 hover:bg-accent-edge"
                 >
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="group flex h-full flex-col"
+                    className="group flex flex-col lg:h-70 lg:flex-row"
                   >
                     {/* A post with a picture of the thing it is about gets
-                        opened. A wall of dated headlines does not. */}
-                    {post.image && (
-                      <span className="relative block aspect-[16/9] overflow-hidden border-b border-border">
-                        <Image
-                          src={post.image}
-                          alt=""
-                          fill
-                          sizes="(min-width: 768px) 50vw, 100vw"
-                          className="object-cover transition-transform duration-500 ease-out lg:group-hover:scale-[1.03]"
-                        />
-                      </span>
-                    )}
+                        opened. A wall of dated headlines does not. The posts
+                        with nothing to photograph get the generated title card
+                        instead, so no row is missing its left half. */}
+                    {/* 16:9 at every width. The thumbnail used to stretch to
+                        the row height, which turned it into a near square on a
+                        tablet and cropped the screenshot to its middle third.
+                        Holding the ratio and letting `h-full` set the width
+                        means the row is the same shape as the picture in it. */}
+                    <span className="relative block aspect-video w-full shrink-0 overflow-hidden border-b border-border lg:h-full lg:w-auto lg:border-r lg:border-b-0">
+                      <Image
+                        src={post.image ?? `/blog/card/${post.slug}`}
+                        alt=""
+                        fill
+                        sizes="(min-width: 1024px) 500px, 100vw"
+                        className="object-cover"
+                      />
+                    </span>
 
                     <span className="flex flex-1 flex-col gap-3 p-6">
                       <span className="flex flex-wrap items-center gap-2">
@@ -132,14 +137,19 @@ const BlogPage = () => (
                         </Badge>
                       </span>
 
-                      <h2 className="font-display text-xl font-bold tracking-tight transition-colors duration-300 group-hover:text-accent md:text-2xl">
+                      {/* Clamped, and the row has a fixed height above `md`.
+                          A title that ran to two lines and a description that
+                          ran to three made every card a different shape, and a
+                          list of things that are all the same kind of thing
+                          should not look like a ransom note. */}
+                      <h2 className="font-display line-clamp-2 text-xl font-bold tracking-tight transition-colors duration-300 group-hover:text-accent md:text-2xl">
                         {post.title}
                       </h2>
-                      <p className="line-clamp-3 text-base leading-relaxed text-muted-foreground">
+                      <p className="line-clamp-2 text-base leading-relaxed text-muted-foreground">
                         {post.description}
                       </p>
 
-                      <span className="mt-auto flex flex-wrap gap-1.5 pt-2">
+                      <span className="mt-auto flex h-8 flex-wrap gap-1.5 overflow-hidden pt-2">
                         {post.tags.slice(0, 4).map((tag) => (
                           <Badge key={tag}>{tag}</Badge>
                         ))}

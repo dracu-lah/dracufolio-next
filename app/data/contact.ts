@@ -31,6 +31,7 @@ export const LINKEDIN_URL =
 export const GITHUB_URL = "https://github.com/dracu-lah";
 export const X_URL = "https://x.com/nevilkrishnak";
 export const X_HANDLE = "@nevilkrishnak";
+export const YOUTUBE_URL = "https://www.youtube.com/@nevilkrishnak4064";
 export const SOURCE_URL = "https://github.com/dracu-lah/dracufolio-next";
 
 export const RESUME_PATH = "/appwrite/resume/Nevil-3-Years-Frontend-Resume.pdf";
@@ -47,7 +48,10 @@ export const COUNTRY = "India";
 export const COUNTRY_CODE = "IN";
 export const GEO = { latitude: 10.5276, longitude: 76.2144 };
 
-/** Mon to Sat, 09:00 to 19:00 IST. Used by the site copy and by schema. */
+/**
+ * Mon to Sat, 09:00 to 19:00 IST. Structured data only now: the hours line was
+ * taken out of the visible copy, so nothing renders a sentence from this.
+ */
 export const HOURS = {
   days: [
     "Monday",
@@ -59,7 +63,6 @@ export const HOURS = {
   ],
   opens: "09:00",
   closes: "19:00",
-  display: "Monday to Saturday, 9am to 7pm IST",
 };
 
 /**

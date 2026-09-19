@@ -38,9 +38,9 @@ const Services = ({
   return (
     <section
       id="services"
-      className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-16 lg:px-14 lg:py-20"
+      className="mx-auto max-w-7xl px-6 py-8 md:px-10 md:py-12 lg:px-14"
     >
-      <div className="flex flex-col gap-7 md:gap-10">
+      <div className="flex flex-col gap-5 md:gap-7">
         <Reveal>
           <Heading className="font-display text-3xl font-bold tracking-tight md:text-4xl">
             {heading}
@@ -58,13 +58,21 @@ const Services = ({
             const isLastRow = i >= services.length - 2;
             return (
               <Reveal key={service.slug} delay={(i % 2) * 0.06}>
-                <SpotlightCard
-                  radius={220}
-                  className={`h-full ${i > 0 ? "border-t border-border md:border-t-0" : ""} ${
-                    isLeftColumn ? "md:border-r md:border-border" : ""
-                  } ${!isLastRow ? "md:border-b md:border-border" : ""}`}
-                >
-                  <div className="flex h-full flex-col gap-5 p-6 md:p-8">
+                {/*
+                  The divider sits on the padded child, not on the clipped card,
+                  and the card is clipped at radius 0. A clip-path is measured
+                  from clientWidth, which excludes the border, so a border on a
+                  clipped element is cut off by exactly its own width and
+                  disappears. That is what ate every divider in this block.
+                */}
+                <SpotlightCard radius={220} cornerRadius={0} className="h-full">
+                  <div
+                    className={`flex h-full flex-col gap-5 p-6 md:p-8 ${
+                      i > 0 ? "border-t border-border md:border-t-0" : ""
+                    } ${isLeftColumn ? "md:border-r md:border-border" : ""} ${
+                      !isLastRow ? "md:border-b md:border-border" : ""
+                    }`}
+                  >
                     <Icon3D chip size="lg" className="text-foreground">
                       <Glyph className="size-8 md:size-9" />
                     </Icon3D>

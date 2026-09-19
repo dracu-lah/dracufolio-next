@@ -1,6 +1,7 @@
 import { publishedPosts } from "@/data/posts";
 import { AUTHOR, SITE_URL, absolute } from "@/lib/seo";
 import { EMAIL } from "@/data/contact";
+import { postImage, postImageType } from "@/lib/blog";
 
 export const dynamic = "force-static";
 export const revalidate = 86400;
@@ -24,11 +25,8 @@ export const GET = async () => {
       <pubDate>${new Date(`${post.date}T00:00:00Z`).toUTCString()}</pubDate>
       <description>${escape(post.description)}</description>
       <author>${EMAIL} (${AUTHOR})</author>
-${post.tags.map((tag) => `      <category>${escape(tag)}</category>`).join("\n")}${
-        post.image
-          ? `\n      <enclosure url="${absolute(post.image)}" type="image/webp" />`
-          : ""
-      }
+${post.tags.map((tag) => `      <category>${escape(tag)}</category>`).join("\n")}
+      <enclosure url="${absolute(postImage(post))}" type="${postImageType(post)}" />
     </item>`;
     })
     .join("\n");

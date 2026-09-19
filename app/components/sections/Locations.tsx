@@ -40,9 +40,9 @@ const Locations = ({
 }) => (
   <section
     id="locations"
-    className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-16 lg:px-14 lg:py-20"
+    className="mx-auto max-w-7xl px-6 py-8 md:px-10 md:py-12 lg:px-14"
   >
-    <div className="flex flex-col gap-7 md:gap-10">
+    <div className="flex flex-col gap-5 md:gap-7">
       <Reveal className="flex flex-col gap-4">
         <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
           Where I work
@@ -61,9 +61,7 @@ const Locations = ({
           const items = locations.filter((l) => group.match(l.kind));
           return (
             <Reveal key={group.label} className="flex flex-col gap-3">
-              <h3 className="font-mono text-sm tracking-[0.2em] text-muted-foreground uppercase">
-                {group.label}
-              </h3>
+              <h3 className="text-base text-muted-foreground">{group.label}</h3>
               <ul className="scrollbar-visible -mx-6 flex snap-x gap-2 overflow-x-auto px-6 pb-2 md:mx-0 md:flex-wrap md:overflow-visible md:px-0 md:pb-0">
                 {items.map((location) => {
                   const current = location.slug === currentSlug;
@@ -72,13 +70,13 @@ const Locations = ({
                       <Link
                         href={`/hire/${location.slug}`}
                         aria-current={current ? "page" : undefined}
-                        className={`flex h-9 items-center gap-2 rounded-full border px-3.5 font-mono text-sm whitespace-nowrap transition-colors duration-200 ${
+                        className={`flex h-9 items-center gap-2 rounded-full border px-3.5 text-sm whitespace-nowrap transition-colors duration-200 ${
                           current
                             ? "border-accent-edge bg-accent-tint text-accent"
                             : "border-border bg-secondary/60 text-muted-foreground hover:border-accent-edge hover:bg-accent-tint hover:text-accent"
                         }`}
                       >
-                        <MapPin className="size-4 shrink-0" />
+                        <MapPin className="size-5 shrink-0" />
                         {location.name}
                       </Link>
                     </li>
@@ -91,10 +89,10 @@ const Locations = ({
         {compact && (
           <Link
             href="/hire"
-            className="group inline-flex items-center gap-2 font-mono text-sm tracking-wide text-muted-foreground uppercase transition-colors duration-200 hover:text-accent"
+            className="group inline-flex items-center gap-2 text-base text-muted-foreground transition-colors duration-200 hover:text-accent"
           >
             And 13 towns around Thrissur
-            <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+            <ArrowRight className="size-5 transition-transform duration-200 group-hover:translate-x-0.5" />
           </Link>
         )}
       </div>

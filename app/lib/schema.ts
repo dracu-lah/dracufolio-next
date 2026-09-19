@@ -13,6 +13,7 @@ import {
   REGION,
   WHATSAPP_URL,
   X_URL,
+  YOUTUBE_URL,
 } from "@/data/contact";
 import { occupations, skills } from "@/data/keywords";
 import { serviceTypes, services } from "@/data/services";
@@ -72,6 +73,7 @@ export const sameAs = [
   GITHUB_URL,
   LINKEDIN_URL,
   X_URL,
+  YOUTUBE_URL,
   "https://tmplayer.org",
   "https://resumebuilder.js.org",
 ];

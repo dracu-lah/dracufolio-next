@@ -18,9 +18,7 @@ const Toolkit = () => (
             i % 2 === 0 ? "md:border-r md:border-border" : ""
           } ${i < 2 ? "md:border-b md:border-border" : ""}`}
         >
-          <dt className="font-mono text-sm tracking-[0.2em] text-muted-foreground uppercase">
-            {row.label}
-          </dt>
+          <dt className="text-base text-muted-foreground">{row.label}</dt>
           <dd className="flex flex-wrap gap-1.5">
             {row.items.map((item) => (
               <Badge key={item} size="md">

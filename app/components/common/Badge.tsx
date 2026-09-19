@@ -24,8 +24,8 @@ const TONES = {
 } as const;
 
 const SIZES = {
-  sm: "h-6 gap-1.5 px-2.5 text-xs",
-  md: "h-7 gap-2 px-3 text-sm",
+  sm: "h-7 gap-1.5 px-3 text-sm",
+  md: "h-8 gap-2 px-3.5 text-base",
 } as const;
 
 const Badge = ({
@@ -44,13 +44,10 @@ const Badge = ({
   className?: string;
 }) => (
   <span
-    className={`inline-flex items-center rounded-full border font-mono leading-none whitespace-nowrap ${TONES[tone]} ${SIZES[size]} ${className}`}
+    className={`inline-flex items-center rounded-full border font-medium leading-none whitespace-nowrap ${TONES[tone]} ${SIZES[size]} ${className}`}
   >
     {dot && (
-      <span
-        aria-hidden
-        className="size-1.5 shrink-0 rounded-full bg-current"
-      />
+      <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-current" />
     )}
     {Icon && <Icon className="size-3.5 shrink-0" />}
     {children}
