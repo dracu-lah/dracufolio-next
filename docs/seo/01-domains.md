@@ -12,6 +12,36 @@ redirect avoids that. Every link, every share and every bit of trust that ever l
 grows. The second domain is bought so nobody else takes the name, and so a person who types
 the full name still reaches the site.
 
+## 0. Renew nevil.dev first, before anything else in this folder
+
+`nevil.dev` expires **1 October 2026**. It is registered at **Namecheap**, and only its
+nameservers point at Cloudflare. Cloudflare does not renew anything and will not warn you:
+the billing lives at Namecheap, and a domain on Cloudflare nameservers still lapses on the
+registrar's schedule.
+
+Everything in this repo is anchored to that hostname. The canonical tags, the sitemap, the
+Search Console property, the `@id` values in the JSON-LD graph, the QR codes baked in at
+build time, the resume PDF, the Google Business Profile link and every backlink asked for in
+`05`. If it lapses, none of that degrades gracefully. It all points at nothing at once, and
+the indexed pages drop out rather than move.
+
+A lapsed `.dev` does not come back cheaply either. It goes to a grace period, then to
+redemption, and the redemption fee is several times the renewal. A name this short and this
+on-brand is also worth dropcatching, so the grace period is not a plan.
+
+1. Log in to Namecheap, open Domain List, find `nevil.dev`.
+2. Renew it **now**, and renew for more than one year. Three to five years costs the same per
+   year and removes the whole failure mode. Registrars allow up to ten.
+3. Turn **Auto-Renew** on, then check the card on file has not expired. Auto-renew with a dead
+   card is the usual way a domain is lost.
+4. Confirm the new expiry date reads 2029 or later before closing the tab.
+5. Leave the nameservers on Cloudflare. Nothing about renewing touches DNS.
+
+Do not transfer the domain to Cloudflare Registrar this month. A transfer adds a year and
+Cloudflare charges at cost, so it is worth doing eventually, but a transfer started inside
+the last two weeks before expiry can fail and leave the domain lapsed mid-move. Renew first,
+transfer in a quiet month.
+
 ## 1. Buy nevilkrishna.com
 
 Rough yearly prices for a `.com`. Indian registrars add 18% GST, so the number at checkout is
@@ -198,6 +228,7 @@ If `dig` prints nothing:
 
 ## Done when
 
+- [ ] `nevil.dev` renewed to 2029 or later, auto-renew on, card on file valid
 - [ ] `nevilkrishna.com` bought, auto-renew on
 - [ ] Domain active on Cloudflare, SSL mode Full (strict)
 - [ ] Two proxied A records plus the SPF and DMARC TXT records added
