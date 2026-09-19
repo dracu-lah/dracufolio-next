@@ -1341,3 +1341,61 @@ desktop card; a 390px phone has about 34px less to give.
   `distDir`, because the dev server's HMR connection stops headless Chromium
   from ever firing load. The config change and the build directory were both
   reverted; `check-jsonld` and `check-seo` pass on all 60 routes.
+
+## 13. One WhatsApp button in view, wherever you are (19 Sep 2026)
+
+### What was raised
+
+"Check the site now and see if anything else looks off", then "fix all" against
+the three findings that came back.
+
+### What was actually wrong
+
+A sweep over 10 routes at 390, 820 and 1440 found the layout clean: no
+horizontal page overflow anywhere, one h1 per page, nothing under 14px. What it
+did find was the rule in CLAUDE.md being broken on a page that matters:
+
+- Two WhatsApp CTAs on screen at once on /hire and /hire/thrissur. On a desktop
+  it was the solid header button and the solid hero button, about 500px apart.
+  On a phone it was the hero button with the docked bar sitting on top of it.
+- The docked bar only ever watched `#contact`. Every inner page ends in a
+  CtaBlock with its own WhatsApp button, so the bar sat over that one too, and
+  the rootMargin it used for the form (`-20%`) meant a button low in the
+  viewport did not register at all.
+- Both of those are older than the alignment work in section 12. They were
+  found by measuring, not by looking: the sweep counts links to wa.me that are
+  on screen, visible, and not behind `pointer-events: none`.
+- On /blog at 390 the date and the read time needed 299px in a 294px box, so
+  they broke onto two rows for the sake of five pixels.
+
+### Shipped
+
+- `usePageCtaOnScreen` in `app/components/cta/`: one IntersectionObserver over
+  everything matching a selector, keyed on the path because both callers
+  outlive the page under them. The route change clears the answer during
+  render, not in the effect, for the same reason the navbar closes its menu
+  that way.
+- `WhatsAppButton` carries `data-whatsapp-cta`, so every page level WhatsApp
+  button is findable wherever it is dropped.
+- The docked bar asks that hook twice: once for the page CTA at margin 0, once
+  for `#contact` at `-20%`, because a button should count the moment it is
+  visible and a tall form should not.
+- The header button asks the same hook and drops to the bordered variant while
+  a page CTA is in view. Same size, same place, same label, so nothing moves:
+  there is now exactly one accent filled WhatsApp button in any view on any
+  route, confirmed by reading computed background colours at 1440.
+- Blog card is `p-5` on a phone and `p-6` from `md`, which is what the project
+  card already does. The two badges share one line again.
+
+### Deviations
+
+- The fix offered was "header goes ghost on /hire only". It ships as the
+  observer instead, on every route, because the CtaBlock at the foot of
+  /projects, /blog, /open-source and every project page had the same pair and a
+  path check would have left all of them broken.
+- `ghost` became `default`. Ghost has no edge at all, and the header cluster is
+  GitHub, Resume and WhatsApp side by side: a button with no frame between two
+  framed ones reads as a mistake rather than as deference.
+- The footer's WhatsApp entry sits in the socials row and is left alone. It is
+  a profile link in a list of profile links, not a CTA, and the rule is about
+  two buttons competing for the same tap.

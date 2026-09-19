@@ -1,9 +1,9 @@
 "use client";
 import { motion, useReducedMotion } from "framer-motion";
-import { useEffect, useState } from "react";
 import { Phone, WhatsappLogo } from "@/components/common/icons";
 import { PHONE_TEL, WHATSAPP_URL } from "@/data/contact";
 import { SquircleLink } from "@/components/ui/squircle";
+import { usePageCtaOnScreen } from "./usePageCtaOnScreen";
 
 /**
  * The phone-sized replacement for the floating bubble that used to sit in the
@@ -14,23 +14,17 @@ import { SquircleLink } from "@/components/ui/squircle";
  * the page to hit with a thumb. Above `md` it does not render at all, because
  * the header already carries the same action.
  *
- * It still steps out of the way while the contact form is on screen, so the
- * bar is never sitting on top of the send button it is competing with.
+ * It steps out of the way for the contact form, so it is never sitting on top
+ * of the send button it is competing with, and for any WhatsApp button the
+ * page puts on screen. It used to watch the form alone, which meant it sat
+ * over the hero button on the hire pages and over the one in the closing
+ * block: two WhatsApp CTAs at once, the exact thing this bar exists to stop.
  */
 const MobileActionBar = () => {
   const reduceMotion = useReducedMotion();
-  const [hidden, setHidden] = useState(false);
-
-  useEffect(() => {
-    const contact = document.getElementById("contact");
-    if (!contact) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setHidden(entry.isIntersecting),
-      { rootMargin: "0px 0px -20% 0px" },
-    );
-    observer.observe(contact);
-    return () => observer.disconnect();
-  }, []);
+  const ctaOnScreen = usePageCtaOnScreen();
+  const formOnScreen = usePageCtaOnScreen("#contact", "0px 0px -20% 0px");
+  const hidden = ctaOnScreen || formOnScreen;
 
   return (
     <motion.div

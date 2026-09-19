@@ -17,6 +17,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { PropsWithChildren, useEffect, useState } from "react";
+import { usePageCtaOnScreen } from "@/components/cta/usePageCtaOnScreen";
 import {
   GITHUB_URL,
   PHONE_DISPLAY,
@@ -53,6 +54,11 @@ const Navbar = ({ children }: PropsWithChildren) => {
       (link) => link.href !== "/" && pathname.startsWith(link.href),
     )?.href ?? (pathname === "/" ? "/" : null);
   const highlighted = hovered ?? activeHref;
+
+  /* The page's own WhatsApp button, if it has one in view: the hire hero, the
+     closing block at the foot of every inner page. The button below defers to
+     it. */
+  const pageCtaOnScreen = usePageCtaOnScreen();
 
   /**
    * Scroll state comes from useScroll rather than a window scroll listener.
@@ -217,14 +223,22 @@ const Navbar = ({ children }: PropsWithChildren) => {
 
               `md` and not `sm`: the docked bar is `md:hidden`, so at `sm` this
               button and the bar were both on screen, which is the two WhatsApp
-              CTAs at once that the bar exists to prevent. */}
+              CTAs at once that the bar exists to prevent.
+
+              It also drops the accent fill while the page's own WhatsApp
+              button is on screen. This bar is fixed, so on the hire hero and
+              at the foot of every page with a closing block there were two
+              accent filled buttons for the same action, a few hundred pixels
+              apart. It is the same deference the docked bar makes on a phone.
+              The button keeps its place and its size, so nothing moves: it
+              stops being the loud one while something louder is in view. */}
           <a
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="hidden md:block"
           >
-            <Button variant="solid">
+            <Button variant={pageCtaOnScreen ? "default" : "solid"}>
               <WhatsappLogo className="size-5" />
               WhatsApp
             </Button>
