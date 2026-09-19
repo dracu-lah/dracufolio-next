@@ -23,12 +23,16 @@ const ProjectCard = ({
   index: number;
 }) => {
   /*
-   * A budget in characters, not a fixed count. The footer has room for roughly
-   * 26 characters of badge text before the "+N" counter stops fitting beside
-   * the arrow, so names are taken while they fit and everything left over is
-   * counted. At least one always shows, however long its name is.
+   * A budget in characters, not a fixed count. Names are taken while they fit
+   * and everything left over is counted, and at least one always shows however
+   * long its name is.
+   *
+   * 20, not the 26 this started at: 26 was measured against the 384px desktop
+   * card, and the card on a 390px phone has about 34px less room. The row
+   * cannot wrap, a grid item is `min-width: auto`, so the over-long row was
+   * widening the whole column and pushing the card past the right gutter.
    */
-  const BUDGET = 26;
+  const BUDGET = 20;
   const visible: string[] = [];
   let used = 0;
   for (const skill of project.skills) {
@@ -66,7 +70,7 @@ const ProjectCard = ({
           ...clipStyle,
         } as CSSProperties
       }
-      className="rise-in group relative isolate flex h-full flex-col bg-border transition-colors duration-300 hover:bg-accent-edge"
+      className="rise-in group relative isolate flex h-full min-w-0 flex-col bg-border transition-colors duration-300 hover:bg-accent-edge"
     >
       {clipFill}
       {spotlight && (
@@ -117,7 +121,7 @@ const ProjectCard = ({
           two long ones do not, and the remainder always goes into the counter.
         */}
         <div className="flex flex-nowrap items-center justify-between gap-3 border-t border-border px-5 py-4 md:px-6">
-          <div className="flex min-w-0 flex-nowrap items-center gap-1.5">
+          <div className="flex min-w-0 flex-nowrap items-center gap-1.5 overflow-hidden">
             {visible.map((skill: string) => (
               <Badge key={skill}>{skill}</Badge>
             ))}

@@ -24,13 +24,17 @@ import {
   WHATSAPP_URL,
 } from "@/data/contact";
 
+/**
+ * Five links, not six. Open source came off the bar: it is the longest label
+ * of the set and it was the first thing to crowd the centre group, and the
+ * footer and the about page both still route to it.
+ */
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/hire", label: "Hire" },
   { href: "/projects", label: "Projects" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
-  { href: "/open-source", label: "Open source" },
 ];
 
 const Navbar = ({ children }: PropsWithChildren) => {
@@ -116,7 +120,13 @@ const Navbar = ({ children }: PropsWithChildren) => {
         )}
       </AnimatePresence>
 
-      <div className="flex items-center justify-between px-4 py-3 md:px-6">
+      {/* Same container as every page: `max-w-7xl` and the page gutter. The bar
+          used to run edge to edge at `px-4`, so on a 1440px screen the logo sat
+          112px left of the page's own left edge, the WhatsApp button the same
+          distance right of it, and the site read as though nothing was centred.
+          The link group below is absolute against the bar, which is the full
+          width of the screen, so it stays on the viewport centre either way. */}
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-3 md:px-10 lg:px-14">
         <motion.a
           href="/"
           aria-label="Home"
@@ -251,29 +261,42 @@ const Navbar = ({ children }: PropsWithChildren) => {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden border-t border-border lg:hidden"
+            className="overflow-hidden border-t border-border bg-background lg:hidden"
           >
-            {/* Capped and scrollable, because a phone in landscape has about
-                330px of height and the panel is taller than that. */}
-            <div className="flex max-h-[calc(100dvh-4.5rem)] flex-col gap-1 overflow-y-auto px-4 py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  aria-current={activeHref === link.href ? "page" : undefined}
-                  className={`flex min-h-12 items-center rounded-lg px-3 text-base font-medium tracking-wide uppercase transition-colors duration-200 ${
-                    activeHref === link.href
-                      ? "bg-accent-tint text-accent"
-                      : "text-muted-foreground"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
+            {/* The panel runs to the bottom of the screen rather than stopping
+                where its last link stops: a half-height sheet with the page
+                showing under it read as an unfinished dropdown.
+
+                4.3125rem is the bar: a 44px row plus the 12px padding either
+                side plus its own border. The height is a real value rather
+                than `auto` so the open animation still has something to
+                measure, and it scrolls because a phone in landscape has about
+                330px of height to give. */}
+            <div className="flex h-[calc(100dvh-4.3125rem)] flex-col gap-4 overflow-y-auto px-6 py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
+              {/* The links take the free height and sit in the middle of it.
+                  Stacked at the top they left a screen of empty background
+                  between the last one and the buttons, which reads as a panel
+                  that failed to finish loading. */}
+              <div className="flex flex-1 flex-col justify-center gap-1">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    aria-current={activeHref === link.href ? "page" : undefined}
+                    className={`flex min-h-14 items-center rounded-lg px-3 text-lg font-medium tracking-wide uppercase transition-colors duration-200 ${
+                      activeHref === link.href
+                        ? "bg-accent-tint text-accent"
+                        : "text-muted-foreground"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
 
               <div
-                className="mt-2 flex flex-col gap-2 border-t border-border pt-4"
+                className="flex flex-col gap-2 border-t border-border pt-4"
                 onClick={() => setMenuOpen(false)}
               >
                 {/* Call and the resume, not WhatsApp: the docked bar at the

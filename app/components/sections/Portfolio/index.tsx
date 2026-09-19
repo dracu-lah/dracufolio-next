@@ -36,20 +36,18 @@ const PortfolioSection = async ({
 
   return (
     /*
-     * The rail is a sibling of the heading rather than a child of the same
-     * capped container. Inside it, `max-w-7xl` clamped the scroller at 1280
-     * and the bleed stopped short of the screen: on a 1430px window the last
-     * card was sliced 75px from the edge with a strip of empty page after it,
-     * which reads as a layout bug rather than as "there is more here". Only
-     * the heading is capped now, and the rail runs the full width.
+     * The heading and the rail share one capped container, the same one every
+     * other section on the page uses. The rail used to bleed to the screen
+     * edge instead, which put a card past the right gutter and read as an
+     * overflow bug rather than as "there is more here".
      */
     <section id="portfolio" className="flex flex-col gap-5 py-8 md:gap-6 md:py-10">
-      <div className="mx-auto w-full max-w-7xl">
+      <div className="mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-14">
         {/* Heading and the link out sit on one line, so the section starts with
             work instead of with two stacked rows of chrome. That link is the
             only route to the full list; a second button under the rail was the
             same destination twice. */}
-        <Reveal className="px-6 md:px-10 lg:px-14">
+        <Reveal>
           <div className="flex flex-col gap-3">
             <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
               <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
@@ -72,7 +70,6 @@ const PortfolioSection = async ({
             )}
           </div>
         </Reveal>
-
       </div>
 
       <ProjectsRail projects={featured} />
