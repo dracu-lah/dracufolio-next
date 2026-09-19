@@ -91,7 +91,13 @@ export const posts: Post[] = [
     date: "2026-09-18",
     tags: ["Python", "i18n", "CLI", "next-intl"],
     readingMinutes: 6,
-    image: "/appwrite/projects/seatinfo.webp",
+    /*
+     * A CLI has no screen to photograph, so the card is a run of the tool
+     * itself, rendered in the site's own colours and mono face. It replaces a
+     * borrowed SeatInfo screenshot, which told the reader the post was about a
+     * different product.
+     */
+    image: "/appwrite/blog/langsync-run.webp",
   },
 ];
 

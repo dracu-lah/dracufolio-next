@@ -7,7 +7,6 @@ import InputField from "./components/InputField";
 import TextareaField from "./components/TextareaField";
 import { sendContactEmail } from "@/services/email";
 import { ContactFormData } from "@/lib/validation/contact-schema";
-import { AVAILABILITY, HOURS } from "@/data/contact";
 import { Squircle, SquircleButton } from "@/components/ui/squircle";
 
 const ContactForm = () => {
@@ -67,48 +66,41 @@ const ContactForm = () => {
           </p>
         )}
 
-        <InputField
-          name="user_name"
-          label="name"
-          placeholder="Your name"
-        />
+        <InputField name="user_name" label="Name" placeholder="Your name" />
         <InputField
           name="user_phno"
-          label="phone"
+          label="Phone"
           placeholder="Phone number"
           type="tel"
         />
         <InputField
           name="user_email"
-          label="email"
+          label="Email"
           placeholder="you@example.com"
           type="email"
         />
         <TextareaField
           name="user_message"
-          label="message"
+          label="Message"
           placeholder="What are you working on?"
         />
 
         <SquircleButton
           type="submit"
           disabled={status === "loading"}
-          className={`flex h-12 cursor-pointer items-center justify-center gap-3 bg-accent font-mono text-base font-medium tracking-[0.14em] text-accent-foreground uppercase transition-[background-color,transform] duration-200 active:translate-y-px ${
+          className={`flex h-12 cursor-pointer items-center justify-center gap-3 bg-accent text-base font-medium tracking-[0.14em] text-accent-foreground uppercase transition-[background-color,transform] duration-200 active:translate-y-px ${
             status == "loading"
               ? "cursor-not-allowed opacity-60"
               : "hover:bg-accent-muted"
           }`}
         >
           {status === "loading" ? (
-            <CircleNotch className="size-4 animate-spin" />
+            <CircleNotch className="size-5 animate-spin" />
           ) : (
-            <SendIcon className="size-4" />
+            <SendIcon className="size-5" />
           )}
           {status === "loading" ? "Sending" : "Send message"}
         </SquircleButton>
-        <p className="text-center text-sm text-muted-foreground">
-          {AVAILABILITY.shortReply}, {HOURS.display}. WhatsApp is faster.
-        </p>
       </form>
     </Squircle>
   );

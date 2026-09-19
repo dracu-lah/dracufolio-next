@@ -13,9 +13,9 @@ const Testimonials = () => {
   return (
     <section
       id="testimonials"
-      className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-16 lg:px-14 lg:py-20"
+      className="mx-auto max-w-7xl px-6 py-8 md:px-10 md:py-12 lg:px-14"
     >
-      <div className="flex flex-col gap-7 md:gap-10">
+      <div className="flex flex-col gap-5 md:gap-7">
         <Reveal>
           <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
             What people say
@@ -49,7 +49,7 @@ const Testimonials = () => {
                         person.name
                       )}
                     </span>
-                    <span className="font-mono text-sm text-muted-foreground">
+                    <span className="text-base text-muted-foreground">
                       {person.role}, {person.company}
                     </span>
                   </figcaption>

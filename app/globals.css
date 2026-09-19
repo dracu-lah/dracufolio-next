@@ -8,44 +8,68 @@ html {
 @custom-variant dark (&:is(.dark *));
 
 /*
- * dracufolio: warm near-black, one signal-green accent.
+ * dracufolio: warm near-black, one leaf-green accent.
  * Neutrals are warm (a trace of chroma at hue 60) so the page reads as a lit
  * room rather than a switched-off screen, and nothing is pure #000 or #fff.
  * Hierarchy still comes from lightness and borders. The accent is the only hue
  * on the page and it means one thing: this is the thing to act on.
+ *
+ * Palette source: colorhunt 2A7C13 / 76C457 / FFF8CF / FBE6C2. The two greens
+ * become the accent and its pressed state. The two creams cannot be surfaces
+ * on a dark theme, so they are folded into the text colours instead: the
+ * foreground carries a trace of the cream's warmth rather than being a
+ * clinical white, which is most of what made the old palette read as generic.
  */
 :root,
 .dark {
   --background: oklch(0.15 0.004 60);
-  --foreground: oklch(0.97 0 0);
+  /* #FFF8CF at a fraction of its chroma: warm to the eye, still reads white. */
+  --foreground: oklch(0.97 0.013 95);
   --card: oklch(0.18 0.004 60);
-  --card-foreground: oklch(0.97 0 0);
+  --card-foreground: var(--foreground);
   --popover: oklch(0.19 0.004 60);
-  --popover-foreground: oklch(0.97 0 0);
+  --popover-foreground: var(--foreground);
 
   /*
-   * The accent. Signal green, the same family as the WhatsApp mark, so the
-   * primary button looks like the thing it opens instead of fighting it.
+   * The accent. #76C457, a leaf green: still the WhatsApp family, so the
+   * primary button looks like the thing it opens, but off the mint/spring
+   * green at hue 152 that every AI-built portfolio ships with. 8.8:1 on the
+   * background.
+   *
    * `accent-foreground` is the label that sits on a filled accent surface and
-   * is dark on purpose: white on this green fails contrast at body size.
+   * is dark on purpose: white on this green is 2.1:1 and fails outright. The
+   * palette's own #2A7C13 fails there too at 2.5:1, so it is the pressed state
+   * (`accent-deep`) rather than a label colour.
    */
-  --accent: oklch(0.78 0.17 152);
-  --accent-foreground: oklch(0.17 0.02 152);
+  --accent: oklch(0.746 0.164 138);
+  --accent-foreground: oklch(0.17 0.03 138);
+  --accent-deep: oklch(0.516 0.156 140);
   /* The accent at low alpha: badge fills, hover washes, the chip tint. */
   --accent-tint: color-mix(in oklch, var(--accent) 12%, transparent);
   --accent-edge: color-mix(in oklch, var(--accent) 34%, transparent);
-  --accent-muted: oklch(0.86 0.09 152);
+  --accent-muted: oklch(0.83 0.13 138);
+  /* #FBE6C2, the palette's sand. A warm highlight, never a second signal. */
+  --sand: oklch(0.933 0.052 81);
 
   --primary: var(--accent);
   --primary-foreground: var(--accent-foreground);
   --secondary: oklch(0.23 0.004 60);
-  --secondary-foreground: oklch(0.97 0 0);
+  --secondary-foreground: var(--foreground);
   --muted: oklch(0.21 0.004 60);
-  --muted-foreground: oklch(0.73 0.004 60);
+  --muted-foreground: oklch(0.73 0.012 90);
   --destructive: oklch(0.7 0.16 25);
   --destructive-foreground: oklch(0.17 0.02 25);
-  --border: oklch(0.28 0.004 60);
-  --input: oklch(0.34 0.004 60);
+  /*
+   * The edge, and it is lighter than it looks like it should be on purpose.
+   * A 1px border only lands on a whole device pixel when the element does.
+   * The aside on a project page is the second half of an `fr` split, so its
+   * left edge sits on a fraction at most window widths, and Chromium spreads
+   * the line over three pixels: at 0.28 the peak came out around #242221 and
+   * the border simply disappeared against the background. At 0.325 a smeared
+   * hairline still reads as a line.
+   */
+  --border: oklch(0.325 0.004 60);
+  --input: oklch(0.385 0.004 60);
   --ring: var(--accent);
   --chart-1: var(--accent);
   --chart-2: oklch(0.8 0 0);
@@ -63,23 +87,23 @@ html {
 
   /*
    * Three faces, one job each (see CLAUDE.md).
-   *   display    Geist Sans, bold and tight   headings only
-   *   sans/body  Geist Sans, regular          prose only
-   *   mono       Geist Mono                   UI, labels, buttons, code, dates
-   *   malayalam  Anek Malayalam               Malayalam glyphs, from any role
+   *   display    DM Sans, bold and tight       headings only
+   *   sans/body  DM Sans, regular              prose only
+   *   mono       Google Sans Code              UI, labels, buttons, code, dates
+   *   malayalam  Anek Malayalam                Malayalam glyphs, from any role
    *
    * Every stack ends with the Malayalam face before the system fallbacks, so a
    * Malayalam code point in a heading, a paragraph or a button falls through to
    * Anek instead of a tofu box. Because the browser only fetches a face it
    * needs a glyph from, that file stays unrequested on English-only pages.
    */
-  --font-display: var(--font-geist-sans), var(--font-malayalam), ui-sans-serif,
+  --font-display: var(--font-sans-face), var(--font-malayalam), ui-sans-serif,
     system-ui, sans-serif;
-  --font-sans: var(--font-geist-sans), var(--font-malayalam), ui-sans-serif,
+  --font-sans: var(--font-sans-face), var(--font-malayalam), ui-sans-serif,
     system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), var(--font-malayalam), ui-monospace,
+  --font-mono: var(--font-mono-face), var(--font-malayalam), ui-monospace,
     SFMono-Regular, Menlo, Consolas, monospace;
-  --font-malayalam-stack: var(--font-malayalam), var(--font-geist-sans),
+  --font-malayalam-stack: var(--font-malayalam), var(--font-sans-face),
     ui-sans-serif, sans-serif;
   /* No serif anywhere on this site. The token exists so nothing inherits one. */
   --font-serif: var(--font-sans);
@@ -141,6 +165,8 @@ html {
   --color-accent-tint: var(--accent-tint);
   --color-accent-edge: var(--accent-edge);
   --color-accent-muted: var(--accent-muted);
+  --color-accent-deep: var(--accent-deep);
+  --color-sand: var(--sand);
 
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);

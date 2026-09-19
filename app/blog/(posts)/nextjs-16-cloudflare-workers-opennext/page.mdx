@@ -4,11 +4,27 @@ import { postMetadata } from "@/lib/blog";
 export const slug = "nextjs-16-cloudflare-workers-opennext";
 export const metadata = postMetadata(slug);
 
+{/*
+  Type size inside a diagram. The SVG scales with the column, so a font size in
+  user units is not a font size on screen: 30 units land at 16px on a 390px
+  phone, and the 19 above 560px keeps the same label near 21px on the desktop
+  column instead of letting it grow to 36.
+*/}
+export const svgText = "text-[30px] min-[560px]:text-[19px]";
+
 <PostHeader slug={slug} />
 
 SeatInfo is a seat map product. You look up a flight and get a to-scale drawing of the cabin, every seat placed by its own coordinates and rotation, with zoom and pan and a catalog of aircraft and airlines around it. It runs on Cloudflare Workers, built with Next.js 16 and React 19, deployed through the OpenNext Cloudflare adapter and Wrangler.
 
 I did the frontend and most of the platform work. This is what the stack was like, including what only showed up after a deploy.
+
+<Figure
+  src="/appwrite/projects/seatinfo.webp"
+  alt="The SeatInfo home page, with a search by route and by flight number above the seat map catalog"
+  width={1920}
+  height={1080}
+  caption="Where a visit starts: a route or a flight number, then the cabin. Every page of the catalog behind this one is rendered by a single Worker script and served from a cache in R2."
+/>
 
 ## Why Workers instead of Node
 
@@ -25,6 +41,48 @@ Tree-shaking barrel imports keeps that number down: one icon library was pulling
 OpenNext takes the output of `next build` and repackages it as one Workers entrypoint plus a directory of static assets, then swaps out the three pieces of Next infrastructure that assume a Node server: the incremental cache, the tag cache and the revalidation queue. You pick an implementation for each in a config file. Your application code does not change, your deploy pipeline changes completely.
 
 We put the incremental cache in R2, the tag cache in D1 so on-demand revalidation works, and the queue in a Durable Object. That queue is not optional in practice: the default is a stub that throws, so anything using ISR returns a 500 until you choose one.
+
+<Figure caption="The three pieces you have to name. Your pages do not change, but the Node server they assumed is gone, and every piece of Next infrastructure that used a filesystem or a long-lived process is now a binding you pick in a config file.">
+  <svg
+    viewBox="0 0 560 470"
+    role="img"
+    aria-labelledby="opennext-diagram"
+    className="block h-auto w-full text-foreground"
+  >
+    <title id="opennext-diagram">
+      A request reaches one Worker script that runs the whole Next.js server,
+      and the three pieces OpenNext swaps out are the incremental cache in R2,
+      the tag cache in D1 and the revalidation queue in a Durable Object.
+    </title>
+
+    <rect x="20" y="20" width="520" height="60" rx="8" fill="none" stroke="var(--border)" strokeWidth="2" />
+    <text x="280" y="50" textAnchor="middle" dominantBaseline="middle" fill="currentColor" className={svgText}>visitor request</text>
+
+    <line x1="280" y1="80" x2="280" y2="90" stroke="var(--muted-foreground)" strokeWidth="2" />
+    <polygon points="272,90 288,90 280,104" fill="var(--muted-foreground)" />
+
+    <rect x="20" y="104" width="520" height="60" rx="8" fill="none" stroke="var(--border)" strokeWidth="2" />
+    <text x="280" y="134" textAnchor="middle" dominantBaseline="middle" fill="currentColor" className={svgText}>next-intl middleware</text>
+
+    <line x1="280" y1="164" x2="280" y2="174" stroke="var(--muted-foreground)" strokeWidth="2" />
+    <polygon points="272,174 288,174 280,188" fill="var(--muted-foreground)" />
+
+    <rect x="20" y="188" width="520" height="66" rx="8" fill="var(--accent-tint)" stroke="var(--accent)" strokeWidth="2" />
+    <text x="280" y="221" textAnchor="middle" dominantBaseline="middle" fill="var(--accent)" className={svgText}>Next.js in one Worker script</text>
+
+    <line x1="60" y1="254" x2="60" y2="418" stroke="var(--border)" strokeWidth="2" />
+    <line x1="60" y1="298" x2="110" y2="298" stroke="var(--border)" strokeWidth="2" />
+    <line x1="60" y1="358" x2="110" y2="358" stroke="var(--border)" strokeWidth="2" />
+    <line x1="60" y1="418" x2="110" y2="418" stroke="var(--border)" strokeWidth="2" />
+
+    <rect x="110" y="270" width="430" height="56" rx="8" fill="none" stroke="var(--border)" strokeWidth="2" />
+    <text x="325" y="298" textAnchor="middle" dominantBaseline="middle" fill="currentColor" className={svgText}>R2, page cache</text>
+    <rect x="110" y="330" width="430" height="56" rx="8" fill="none" stroke="var(--border)" strokeWidth="2" />
+    <text x="325" y="358" textAnchor="middle" dominantBaseline="middle" fill="currentColor" className={svgText}>D1, tag index</text>
+    <rect x="110" y="390" width="430" height="56" rx="8" fill="none" stroke="var(--border)" strokeWidth="2" />
+    <text x="325" y="418" textAnchor="middle" dominantBaseline="middle" fill="currentColor" className={svgText}>Durable Object, queue</text>
+  </svg>
+</Figure>
 
 ```ts
 import { defineCloudflareConfig } from "@opennextjs/cloudflare";

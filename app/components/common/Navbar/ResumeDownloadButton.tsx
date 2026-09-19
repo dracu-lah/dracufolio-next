@@ -10,7 +10,7 @@ const ResumeDownloadButton = async () => {
         {/* Quieter than the WhatsApp button next to it on purpose: a header
             with two loud buttons has no primary action. */}
         <Button variant="ghost">
-          <DownloadIcon className="size-4" />
+          <DownloadIcon className="size-5" />
           Resume
         </Button>
       </a>

@@ -35,7 +35,11 @@ const WhatsAppButton = ({
     </a>
   );
 
-  return magnetic ? <Magnetic className="w-full sm:w-auto">{link}</Magnetic> : link;
+  return magnetic ? (
+    <Magnetic className="w-full sm:w-auto">{link}</Magnetic>
+  ) : (
+    link
+  );
 };
 
 export default WhatsAppButton;

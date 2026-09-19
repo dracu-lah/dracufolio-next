@@ -47,7 +47,7 @@ export const homeFaqs: Faq[] = [
   },
   {
     q: "How do I contact you?",
-    a: `WhatsApp is fastest: ${PHONE_DISPLAY}. You can also call the same number between 9am and 7pm, Monday to Saturday, or use the form on this page. I answer WhatsApp within a few hours on a working day.`,
+    a: `WhatsApp is fastest: ${PHONE_DISPLAY}. You can also call the same number, or use the form on this page. I answer WhatsApp within a few hours on a working day.`,
   },
   {
     q: "Which languages do you speak?",

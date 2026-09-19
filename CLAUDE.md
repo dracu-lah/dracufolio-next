@@ -25,16 +25,32 @@ content in `app/data/*.json`, served through the thin wrappers in `app/services/
   way, with the field itself borderless inside the frame. Anything at `rounded-full`
   (badges, location chips, avatars) stays a plain radius, since a circle has no corner to
   smooth.
-- **Three faces, one job each.** Display and body are both **Geist Sans**, separated by
-  weight and size rather than by a second family: `font-display` at 700 and tight tracking
-  for headings, the hero name, project and post titles, and `font-sans` at 400 for
-  paragraphs and prose. UI is **Geist Mono** (`font-mono`): nav, buttons, labels, dates,
-  code, the caret, never a paragraph. Malayalam is **Anek Malayalam**, which every stack
-  ends with, so a Malayalam code point falls through from any role. Geist ships through
-  the `geist` package and Anek is self-hosted in `app/lib/fonts.ts`; do not add a fourth.
+- **Two faces, and mono is for code only.** Display and body are both **DM Sans**,
+  separated by weight and size rather than by a second family: `font-display` at 700 and
+  tight tracking for headings, the hero name, project and post titles, and `font-sans` at
+  400 for paragraphs and prose. **Google Sans Code** (`font-mono`) is for code blocks,
+  inline code and keyboard keys, and nothing else.
+  Nav, buttons, labels, dates and badges used to be mono. They are not any more: a
+  monospace UI over a green accent is the house style of every AI-built portfolio, and at
+  14px it was unreadable once the page was zoomed out. Those all sit in DM Sans at
+  `font-medium`, which is what replaces the presence mono used to give them.
+  Google Sans is Google's proprietary brand face and cannot be used here; Google Sans Code
+  is the OFL sibling and is self-hosted in `app/fonts/` with its licence. Malayalam is
+  **Anek Malayalam**, which every stack ends with, so a Malayalam code point falls through
+  from any role. Do not add a fourth.
   Emphasis inside a heading is weight or italic of the same face. No serif anywhere, no
   Bricolage, no Fraunces, no Instrument Serif, no gradient text, no letter-spaced all-caps
   headlines.
+- **Uppercase is for nav, buttons and badges. Nothing else.** A label written in
+  `uppercase` with `tracking` past `0.06em` is the single most copied detail in a generated
+  portfolio. Buttons sit at `0.04em`, small labels at `0.06em`, and a text link is sentence
+  case at normal tracking. A label's text is written the way it reads ("Full profile",
+  "WhatsApp", "Home"), never lowercase leaning on a CSS transform: that broke every label
+  on the site the day the transform came off.
+- **Nothing readable is under 16px.** `text-base` is the floor for body, labels, dates and
+  meta lines; `text-sm` is only for a control that is already sized by its box. Standalone
+  icons are `size-5` or larger. Both rules exist because the site was checked at 67% zoom
+  and most of it could not be read.
 - **One type scale.** 12, 14, 16, 18, 20, 24, 32, 40, 56, 72 px, which is what
   `text-xs` through `text-6xl` now resolve to (`--text-3xl` to `--text-6xl` are redefined
   in `globals.css`). Nothing in between, no arbitrary `text-[27px]`.
@@ -52,9 +68,14 @@ content in `app/data/*.json`, served through the thin wrappers in `app/services/
 - **Malayalam carries `lang="ml"`.** Every Malayalam string lives in `app/data/ml.ts`
   with an English gloss, and every element rendering one sets `lang="ml"` so the
   Malayalam face and the taller line height apply.
-- **One accent, one meaning.** The palette is a warm near-black with a single signal
-  green, `--accent`, plus `--accent-tint` (12 percent fill), `--accent-edge` (34 percent
-  border) and `--accent-muted` (the hover fill). The accent means "act on this or this is
+- **One accent, one meaning.** The palette is a warm near-black with a single leaf
+  green, `--accent` (`#76C457`, from colorhunt `2A7C13/76C457/FFF8CF/FBE6C2`), plus
+  `--accent-tint` (12 percent fill), `--accent-edge` (34 percent border), `--accent-muted`
+  (the hover fill) and `--accent-deep` (`#2A7C13`, the pressed state). `--accent-deep` is
+  never a label colour: on the accent it is 2.46:1. White on the accent is 2.14:1. The dark
+  `--accent-foreground` is the only label that passes, at 8.36:1. The two creams in that
+  palette cannot be surfaces on a dark theme, so they are folded into `--foreground` and
+  `--sand` instead. The accent means "act on this or this is
   live": the primary button, a link on hover, the focus ring, the availability dot, the
   active nav pill, an accent icon chip. It is never decoration and never a second hue.
   Text stays neutral so contrast holds, and `--accent-foreground` is the dark label that

@@ -1034,3 +1034,251 @@ site and a small booking dashboard) found a different set of problems:
 | No testimonials, no client names, no logos | Open, for Nevil. `app/data/testimonials.ts` renders the section and the Review schema the moment there is one real quote in it. Two sentences with real names beats anything else on this list |
 | Nothing shows a dashboard, which is what they came for | Open, for Nevil. The dashboards service has no screenshot behind it. If a client project can be shown, even blurred, it belongs in `projects.json` |
 | Email is a gmail.com address on a site selling web work | Open, for Nevil. `nevil@nevil.dev` forwarding to Gmail is an afternoon of work and it changes one line in `app/data/contact.ts` |
+
+---
+
+# Round: border, labels, blog cards (19 Sep 2026)
+
+Status: **plan written, decisions taken, waiting for "start"**.
+
+Fifteen items came in during one session, most of them mid-build. Nothing has been changed yet.
+
+## 1. The Project info panel has no left border
+
+Findings first, because the border is actually there. On the project detail page
+(`app/projects/[slug]/page.tsx`) the aside is drawn in border mode: the element
+carries `bg-border` and the clipped fill layer carries `bg-card`. A pixel scan
+down its left edge at a 1440px window is a solid `#2A2827` run 514 rows tall, so
+the markup is right.
+
+The problem is where that edge lands. The aside is the second column of
+`lg:grid-cols-[1.2fr_0.8fr]`, and at 1440px the split happens to come out as
+whole pixels (1280 content, 112 padding, 48 gap, 672 + 448). At almost every
+other width it does not. Sampling across the edge:
+
+| Window | Pixels across the left edge |
+| --- | --- |
+| 1440 | `0C0B09` `2A2827` `131110` (crisp) |
+| 1441 | `0C0B09` `100F0D` `242221` `201F1D` `131211` |
+| 1501 | `0C0B09` `0C0B09` `131210` `262423` `1C1A18` |
+| 1600 | `0C0B09` `0C0B09` `131210` `262423` `1C1A18` |
+
+The 1px edge is smeared over three device pixels and its peak never reaches the
+border colour, which on a background this dark is the difference between a line
+and nothing. The top and right edges sit on the container's padding lines, which
+are whole pixels at any width, so they stay crisp. That is why only the left one
+goes missing, and why it comes back if you resize the window a little.
+
+Nothing in CSS snaps a fractional grid column to the device pixel grid, so the
+fix is contrast: raise `--border` from `oklch(0.28 ...)` to about
+`oklch(0.325 ...)` so a smeared hairline still reads, and lift `--input` by the
+same step to keep the field frame distinct from a plain card edge. One token,
+every hairline on the site benefits.
+
+## 2. Lowercase labels that read as a typo
+
+Sweep the site and write labels the way they read, per the golden rule already in
+CLAUDE.md. Known so far:
+
+- Project info list: `year`, `stack`, `status`
+- Project header buttons: `visit live`, `view source`, `read the write-up`
+- Project prev/next nav: `prev`, `next`, `start of list`, `end of list`
+- Navbar: `hire`, `projects`, `blog`, `about`, `open source`
+- Right rail: `home`, `projects`, `oss`, `about`, `contact`
+
+Plus whatever the full pass turns up.
+
+## 3. The rule through the phone number in the CTA card
+
+`CtaBlock` gives the contact rows `divide-y divide-border`. The rule lands 12px
+under the phone number, inside its descender band, so it reads as a strike
+through the text rather than a separator. Drop the divider, space the rows with a
+gap.
+
+## 4. The CTA heading
+
+"Want something like this?" gets rephrased and set over two lines.
+
+## 5. YouTube channel
+
+`https://www.youtube.com/@nevilkrishnak4064` is missing. It goes in
+`app/data/socials.json`, the `sameAs` array in `app/lib/schema.ts` (which the
+footer and `llms.txt` both read), so it lands everywhere at once.
+
+## 6. Images in the LangSync post
+
+`translation-sync-without-breaking-icu` carries no image, and the entry in
+`app/data/posts.ts` has a comment saying that is deliberate: it used to borrow
+the SeatInfo seat map, which is a different product. LangSync is a Python CLI and
+there is no screenshot of it in the repo. Needs a decision.
+
+## 7. Placeholder for a post with no image
+
+The blog index renders the image block only when `post.image` exists, so a post
+without one is a card of text next to cards with pictures. Needs a decision on
+what the placeholder is and whether it is generated per post.
+
+## 8. Blog cards as rows with the image on the left
+
+The index is a two-up grid of tall cards with a 16:9 image on top. It becomes a
+narrower card with the image on the left and the text beside it.
+
+## 9. The CTA card is over-padded
+
+`p-6 @4xl:p-10` on both halves plus the section's own `py-8 md:py-12`. Tighten
+the card's inner padding so it stops reading as a poster.
+
+## 10. The social rows on the about page are lost in their column
+
+`app/components/sections/AboutSection.tsx` puts them in the narrow column under
+the portrait at a `sm` chip and a 16px label, which leaves most of the width
+empty. Bigger chip, bigger label, an arrow holding the right edge.
+
+## 11. Home is missing from the header
+
+`navLinks` in `app/components/common/Navbar/Navbar.tsx` has no Home. Adding it
+needs care: every path starts with `/`, so the active-link match has to skip the
+root or Home wins every comparison.
+
+## 12. Adora Homes
+
+`https://adora.nevil.dev/`, a Next.js site on OpenNext and Cloudflare for a
+Thrissur builder. Screenshot supplied. Goes in `app/data/projects.json`.
+
+## 13. Blog posts have no images, and the end of a post is a wall of nothing
+
+Two separate things. The post bodies are pure prose with no figures. And after
+"More posts" there is roughly a thousand pixels of empty page before the footer.
+
+## 14. The "What I build" cards lost their borders
+
+`app/components/sections/Services.tsx`, after the squircle refactor.
+
+## 15. /hire shows three projects
+
+It should use the same treatment as the landing page rather than a cut-down list.
+
+## Decisions taken
+
+1. **LangSync images: both.** Inline SVG diagrams in the MDX for the ICU parse
+   tree and the batching pipeline, plus one real terminal capture of a
+   `langsync` run, which also becomes the post's card image.
+2. **Placeholder: generated per post.** A build-time image carrying the post's
+   own title on the card surface, made the same way the OG cards are, so a post
+   without a screenshot still has a card that says something.
+3. **Blog cards: one column.** Full-width rows down the page, thumbnail on the
+   left, date, title, description and tags beside it.
+
+## What shipped, and where it deviated
+
+Status: **built and checked**. Seventeen items. Verified at 1440, 1501 and 390,
+then against a real `pnpm build` and `pnpm start`:
+
+```
+node scripts/check-jsonld.mjs http://localhost:3111
+  Checking 60 routes from the sitemap.
+  All 60 routes carry a valid graph.
+
+node scripts/check-seo.mjs http://localhost:3111
+  sitemap lists 60 URLs, 27 image entries
+  29 location pages, 29 distinct location paragraphs
+  feed.xml has 6 items
+  All content checks pass.
+```
+
+The build prerenders all six `/blog/card/*` routes, and an unknown slug 404s
+rather than rendering on demand.
+
+| # | Item | Outcome |
+| --- | --- | --- |
+| 1 | Project info left border | `--border` 0.28 to 0.325, `--input` 0.34 to 0.385. Verified at 1501px, a width where the edge was invisible before |
+| 2 | Lowercase labels | Done, plus the brand names in `projects.json` (`NextJS`, `TailwindCSS`, `ReactJS`, `ShadcnUI`, `JQuery`, `Typescript`, `JS`, `HeadlessUI`, `FramerMotion`, `GeminiAPI`, `ExpressJS`) |
+| 3 | The rule through the phone number | Dropped, rows use a gap |
+| 4 | CTA heading | "Want something like this built for your product?" |
+| 5 | CTA padding | `p-6 @4xl:p-10` to `p-5 @4xl:p-7` |
+| 6 | Post figures and diagrams | A `Figure` component in the MDX map, screenshots on four posts, five inline SVG diagrams, and a rendered terminal capture for LangSync |
+| 7 | No-image placeholder | `/blog/card/<slug>`, one PNG per post, prerendered |
+| 8 | Blog cards as rows | One column, thumbnail left, stacks below `md` |
+| 9 | YouTube | `contact.ts`, `socials.json`, `sameAs`, `llms.txt`, footer, about, contact |
+| 10 | About social rows | `md` chip, 20px label, arrow on the right edge |
+| 11 | Home in the header | Added, active match skips the root |
+| 12 | Adora Homes | Added at order 2, screenshot to WebP at 132KB |
+| 13 | Post images and the empty end | End fixed, see below |
+| 14 | "What I build" borders | Restored, see below |
+| 15 | /hire projects | Landing rail, all 19 projects |
+| 16 | Blog cards all one shape | Fixed row height, title and description clamped to two lines, tags held to one row. The thumbnail is `aspect-video` at every width and `h-full` sets its width from the row, so the row is the same shape as the picture in it. Stacks below `lg` rather than `md`, because a 16:9 thumbnail plus a readable text column does not fit a tablet |
+| 17 | No hover scale on images | Removed from the blog rows, `ProjectCard` and the toolkit logos. Nothing on the site scales an image on hover now |
+
+### Three bugs found while looking, none of them the bug reported
+
+**The left border was never missing.** It is drawn at every window width. The
+aside is the second column of an `fr` split, so its left edge lands on a
+fraction at almost every width other than 1440, and Chromium spread the 1px
+edge over three device pixels with a peak of `#242221`. The top and right edges
+sit on the container's padding lines, which are whole pixels at any width, so
+they stayed crisp. Nothing in CSS snaps a fractional grid column to the device
+grid, so the fix was contrast rather than geometry.
+
+**The thousand pixels at the end of every post was the CTA at width zero.**
+`PostFooter` is a column flex container and `CtaBlock`'s section carries
+`mx-auto`. An auto cross-axis margin cancels `align-items: stretch`, so the
+section sized to its content, which came out as zero, while the card kept its
+694px height and painted nothing. The `px-0 md:px-0 lg:px-0` that was being
+passed in had never worked either: two padding utilities on one element are
+resolved by stylesheet order, not attribute order. `CtaBlock` now takes a
+`bare` flag instead.
+
+**The service card borders were in the markup the whole time.** `useSquircle`
+measured with `clientWidth`, which excludes the element's own border, but a
+clip-path resolves against the border box. The generated path was a pixel short
+and clipped away exactly the column the divider occupied. The dividers moved to
+the unclipped inner element, and `useSize` now measures `offsetWidth`, so the
+trap is gone for every future call site.
+
+### Picked up on the way
+
+- `app/lib/og.tsx` was still drawing `#7dd3a0` on `#0a0a0a`, the pre-leaf-green
+  palette, on every OG card on the site. The token reader the post card needed
+  is now `app/lib/palette.ts` and both cards read `globals.css`, so a card
+  cannot drift from the palette again.
+- The RSS enclosure hardcoded `type="image/webp"` on every post, including the
+  two with PNG images. Now derived from the extension.
+- `blogPostingNode`, the feed and the sitemap all dropped the image entirely
+  for a post without one. They point at the generated card now.
+
+### 18. The LangSync capture had a card inside a card
+
+The first cut sat the terminal output inside its own bordered, rounded panel on
+a background, so on the blog index it read as a small framed card floating
+inside the row's own frame, with dead space on every side while every other row
+was edge to edge. It is full bleed now: the surface is `--card`, the type fills
+the 16:9 frame, and the row's own border does the framing. The type got bigger
+as a result, which is most of what the phone width needed.
+
+The source is kept at `scripts/assets/langsync-run.html` with the two commands
+to regenerate it, so it is not a mystery asset the next time a number changes.
+
+Worth knowing: the dev image optimizer served the old variant for that path even
+after the file was replaced and the server restarted. `rm -rf
+.next/dev/cache/images` clears it. It does not affect a real build.
+
+### One judgement call to make
+
+The LangSync terminal capture is a reconstruction, built from what the post
+itself claims the tool does, not a recording of a real session. That is normal
+for documentation of your own tool, but the caption opens with "One sync",
+which reads like a captured run. Only you know whether those numbers match a
+real one. Say the word and it becomes an illustration in the caption, or the
+numbers get replaced with real output.
+
+### Still open, for Nevil
+
+- The Adora stack list is what the headers and the shipped CSS actually prove
+  (Next.js, React, Tailwind CSS, OpenNext, Cloudflare Workers). Correct it in
+  `app/data/projects.json` if it understates the work.
+- `adora.nevil.dev` currently serves `x-robots-tag: noindex, nofollow`. Fine for
+  a staging host, worth knowing before the project page links to it.
+- The generated post card fetches the DM Sans ttf from Google Fonts at build
+  time, because `next/font` only hands out woff2 and satori cannot read it. It
+  falls back to the built-in sans rather than failing a build with no network,
+  but it is the one build-time network dependency on the site.

@@ -6,17 +6,10 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
-import Badge from "@/components/common/Badge";
 import Icon3D from "@/components/motion/Icon3D";
 import { SquircleLink } from "@/components/ui/squircle";
 import { CallTimer, Phone, WhatsappLogo } from "@/components/common/icons";
-import {
-  AVAILABILITY,
-  HOURS,
-  PHONE_DISPLAY,
-  PHONE_TEL,
-  whatsappUrl,
-} from "@/data/contact";
+import { PHONE_DISPLAY, PHONE_TEL, whatsappUrl } from "@/data/contact";
 
 const DELAY_MS = 30_000;
 const STORAGE_KEY = "dracufolio:quote-prompt";
@@ -81,22 +74,20 @@ const QuotePrompt = ({ message }: { message?: string }) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-lg">
-        <div className="flex flex-col gap-5">
-          <div className="flex items-center gap-4">
-            <Icon3D chip size="lg" tone="accent">
-              <CallTimer className="size-8" />
+      <DialogContent className="max-w-[calc(100%-1.5rem)] p-5 sm:max-w-md sm:p-6">
+        <div className="flex flex-col gap-4 sm:gap-5">
+          {/*
+            The chip sits above the title rather than beside it. Next to a
+            two-line heading in a narrow dialog it was pushing the text into a
+            column barely wide enough for two words.
+          */}
+          <div className="flex flex-col items-start gap-3">
+            <Icon3D chip size="md" tone="accent">
+              <CallTimer className="size-6" />
             </Icon3D>
-            <div className="flex flex-col gap-2">
-              {AVAILABILITY.open && (
-                <Badge tone="accent" dot>
-                  {AVAILABILITY.label}
-                </Badge>
-              )}
-              <DialogTitle className="font-display text-2xl font-bold tracking-tight">
-                Free twenty minute call
-              </DialogTitle>
-            </div>
+            <DialogTitle className="font-display text-2xl font-bold tracking-tight text-balance">
+              Free twenty minute call
+            </DialogTitle>
           </div>
 
           <DialogDescription className="text-base leading-relaxed text-muted-foreground">
@@ -105,13 +96,19 @@ const QuotePrompt = ({ message }: { message?: string }) => {
             person for it I will say so.
           </DialogDescription>
 
-          <div className="flex flex-col gap-3 sm:flex-row">
+          {/*
+            One height for both, and the row never wraps: the phone number is
+            the long label, so it gets the flexible track and the WhatsApp
+            button keeps its intrinsic width. Below `sm` they stack and both go
+            full width, which is the only way a 44px target survives at 320px.
+          */}
+          <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
             <SquircleLink
               href={href}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setOpen(false)}
-              className="flex h-12 flex-1 items-center justify-center gap-2.5 bg-accent font-mono text-sm tracking-[0.14em] text-accent-foreground uppercase transition-colors duration-200 hover:bg-accent-muted"
+              className="flex h-12 w-full items-center justify-center gap-2.5 bg-accent px-5 text-sm font-medium tracking-[0.06em] text-accent-foreground uppercase transition-colors duration-200 hover:bg-accent-muted sm:w-auto sm:shrink-0"
             >
               <WhatsappLogo className="size-5" />
               WhatsApp
@@ -121,16 +118,12 @@ const QuotePrompt = ({ message }: { message?: string }) => {
               onClick={() => setOpen(false)}
               borderWidth={1}
               fillClassName="bg-background transition-colors"
-              className="group flex h-12 flex-1 items-center justify-center gap-2.5 bg-border font-mono text-sm tracking-[0.14em] uppercase transition-colors duration-200 hover:bg-accent-edge [&>[data-fill]]:hover:bg-accent-tint"
+              className="group flex h-12 w-full min-w-0 flex-1 items-center justify-center gap-2.5 bg-border px-4 text-sm font-medium tracking-[0.06em] whitespace-nowrap transition-colors duration-200 hover:bg-accent-edge [&>[data-fill]]:hover:bg-accent-tint sm:w-auto"
             >
-              <Phone className="size-5" />
+              <Phone className="size-5 shrink-0" />
               {PHONE_DISPLAY}
             </SquircleLink>
           </div>
-
-          <p className="font-mono text-xs tracking-[0.14em] text-muted-foreground uppercase">
-            {HOURS.display}
-          </p>
         </div>
       </DialogContent>
     </Dialog>

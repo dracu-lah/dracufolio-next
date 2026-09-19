@@ -1,14 +1,22 @@
 import type { MDXComponents } from "mdx/types";
 import Link from "next/link";
+import Figure, { MdxImage } from "@/components/blog/Figure";
 
 /**
- * Blog prose, styled here rather than with a typography plugin so the four
- * faces keep their jobs: Bricolage on the headings, Geist on the paragraphs,
- * Google Sans Code on the code and the inline identifiers. Nothing here
- * invents a new size; every step comes from the one type scale.
+ * Blog prose, styled here rather than with a typography plugin so each face
+ * keeps its job: DM Sans bold on the headings, DM Sans regular on the
+ * paragraphs, Google Sans Code on the code and the inline identifiers.
+ * Nothing here invents a new size; every step comes from the one type scale.
+ *
+ * `Figure` is in the map so a post can place a screenshot or an inline SVG
+ * diagram without an import line at the top of every MDX file.
  */
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
+    Figure,
+    img: ({ src, alt }) => (
+      <MdxImage src={typeof src === "string" ? src : undefined} alt={alt} />
+    ),
     h2: ({ children, ...props }) => (
       <h2
         className="font-display mt-14 mb-4 scroll-mt-28 text-3xl font-bold tracking-tight"

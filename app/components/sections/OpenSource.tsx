@@ -77,7 +77,7 @@ const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
   return (
     <section
       id="open-source"
-      className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-16 lg:px-14 lg:py-20"
+      className="mx-auto max-w-7xl px-6 py-8 md:px-10 md:py-12 lg:px-14"
     >
       <div className="grid items-start gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
         <div className="flex flex-col gap-5 lg:sticky lg:top-28">
@@ -136,10 +136,7 @@ const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
               <li key={item.name}>
                 <Reveal>
                   {item.internal ? (
-                    <Link
-                      href={item.href}
-                      className="group block py-6"
-                    >
+                    <Link href={item.href} className="group block py-6">
                       {body}
                     </Link>
                   ) : (

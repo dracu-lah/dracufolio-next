@@ -1,0 +1,74 @@
+<!doctype html>
+<!--
+  Source for public/appwrite/blog/langsync-run.webp, the card image and the
+  in-post figure for the LangSync write-up.
+
+  A CLI has no screen to photograph, so the run is drawn here in the site's own
+  tokens and its self-hosted mono face, and the numbers say only what the post
+  itself claims the tool does. It is deliberately full bleed: the first cut sat
+  the output inside its own bordered panel, which put a card inside the card on
+  the blog index and left dead space on every side.
+
+  To regenerate, from the repo root:
+
+    chromium-browser --headless=new --disable-gpu --no-sandbox --hide-scrollbars \
+      --window-size=1600,900 --screenshot=/tmp/langsync.png \
+      --virtual-time-budget=4000 file://$PWD/scripts/assets/langsync-run.html
+    magick /tmp/langsync.png -strip -quality 82 \
+      public/appwrite/blog/langsync-run.webp
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      @font-face {
+        font-family: "Google Sans Code";
+        src: url("file:///home/dracu/projects/personal/dracufolio-next/app/fonts/GoogleSansCode-latin.woff2")
+          format("woff2");
+        font-weight: 300 800;
+        font-style: normal;
+      }
+
+      /* The site's own tokens, copied from app/globals.css. */
+      :root {
+        --card: oklch(0.18 0.004 60);
+        --foreground: oklch(0.97 0.013 95);
+        --muted-foreground: oklch(0.73 0.012 90);
+        --accent: oklch(0.746 0.164 138);
+      }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        width: 1600px;
+        height: 900px;
+        background: var(--card);
+        display: flex;
+        align-items: center;
+        padding: 0 74px;
+        font-family: "Google Sans Code", monospace;
+      }
+
+      pre {
+        font-size: 66px;
+        line-height: 1.32;
+        color: var(--foreground);
+        white-space: pre;
+      }
+
+      .dim { color: var(--muted-foreground); }
+      .on { color: var(--accent); }
+    </style>
+  </head>
+  <body>
+    <pre><span class="on">$</span> langsync
+<span class="dim">source </span>  messages/en.json
+<span class="dim">state  </span>  .langsync-state.json
+<span class="dim">changes</span>  38 new, 6 edited, 2 gone
+<span class="dim">es-ES  </span>  44 keys  6 batches  <span class="on">ok</span>
+<span class="dim">fr-FR  </span>  44 keys  6 batches  <span class="on">ok</span>
+<span class="dim">de-DE  </span>  44 keys  6 batches  <span class="on">ok</span>
+<span class="dim">ICU    </span>  44 rebuilt, 0 rejected
+<span class="dim">done   </span>  3 files in 28.4s</pre>
+  </body>
+</html>

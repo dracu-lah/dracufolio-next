@@ -65,9 +65,16 @@ function useSize<T extends HTMLElement>() {
     observerRef.current?.disconnect();
     observerRef.current = null;
     if (!el) return;
+    /*
+     * `offsetWidth`, not `clientWidth`. A clip-path is resolved against the
+     * border box, and `clientWidth` excludes the element's own border, so a
+     * clipped element that also carries a CSS border was clipped one pixel
+     * inside it and the border vanished completely rather than being cut at
+     * the corner. That is what ate every divider in the services grid.
+     */
     const measure = () => {
-      const width = el.clientWidth;
-      const height = el.clientHeight;
+      const width = el.offsetWidth;
+      const height = el.offsetHeight;
       setSize((prev) =>
         prev.width === width && prev.height === height
           ? prev
@@ -265,7 +272,11 @@ export function SquircleButton({
     attach,
     style: clip,
     fill,
-  } = useSquircle<HTMLButtonElement>({ cornerRadius, borderWidth, fillClassName });
+  } = useSquircle<HTMLButtonElement>({
+    cornerRadius,
+    borderWidth,
+    fillClassName,
+  });
 
   return (
     <button

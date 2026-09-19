@@ -9,7 +9,7 @@ const SkillsSection = () => {
   return (
     <section
       id="experience"
-      className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-16 lg:px-14 lg:py-20"
+      className="mx-auto max-w-7xl px-6 py-8 md:px-10 md:py-12 lg:px-14"
     >
       <div className="grid items-start gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
         <div className="flex flex-col gap-5 lg:sticky lg:top-28">
@@ -38,13 +38,13 @@ const SkillsSection = () => {
         {/* Skills logo grid is parked, add back if needed */}
         {/* <Skills skills={skills} /> */}
 
-        <div className="flex flex-col gap-10 md:gap-14">
+        <div className="flex flex-col gap-8 md:gap-10">
           <Toolkit />
           <ExperienceList />
           <Reveal>
             <Link
               href="/about"
-              className="font-mono text-base uppercase tracking-[0.18em] text-muted-foreground underline underline-offset-4 transition-colors duration-300 hover:text-accent"
+              className="text-base text-muted-foreground underline underline-offset-4 transition-colors duration-300 hover:text-accent"
             >
               Full profile
             </Link>

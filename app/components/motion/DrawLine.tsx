@@ -22,7 +22,11 @@ const DrawLine = ({
       aria-hidden
       className={className}
       style={{ transformOrigin: vertical ? "top" : "left" }}
-      initial={reduceMotion ? false : { scaleX: vertical ? 1 : 0, scaleY: vertical ? 0 : 1 }}
+      initial={
+        reduceMotion
+          ? false
+          : { scaleX: vertical ? 1 : 0, scaleY: vertical ? 0 : 1 }
+      }
       whileInView={{ scaleX: 1, scaleY: 1 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}

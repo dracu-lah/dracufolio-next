@@ -16,9 +16,8 @@ import {
 } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { PropsWithChildren, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import {
-  AVAILABILITY,
   GITHUB_URL,
   PHONE_DISPLAY,
   PHONE_TEL,
@@ -26,11 +25,12 @@ import {
 } from "@/data/contact";
 
 const navLinks = [
-  { href: "/hire", label: "hire" },
-  { href: "/projects", label: "projects" },
-  { href: "/blog", label: "blog" },
-  { href: "/about", label: "about" },
-  { href: "/open-source", label: "open source" },
+  { href: "/", label: "Home" },
+  { href: "/hire", label: "Hire" },
+  { href: "/projects", label: "Projects" },
+  { href: "/blog", label: "Blog" },
+  { href: "/about", label: "About" },
+  { href: "/open-source", label: "Open source" },
 ];
 
 const Navbar = ({ children }: PropsWithChildren) => {
@@ -39,10 +39,15 @@ const Navbar = ({ children }: PropsWithChildren) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  // A project detail page still counts as "projects", a location page as "hire".
+  /*
+   * A project detail page still counts as "projects", a location page as
+   * "hire". Home is matched last, because every path starts with "/" and it
+   * would otherwise win every comparison.
+   */
   const activeHref =
-    navLinks.find((link) => pathname.startsWith(link.href))?.href ??
-    (pathname === "/" ? "/" : null);
+    navLinks.find(
+      (link) => link.href !== "/" && pathname.startsWith(link.href),
+    )?.href ?? (pathname === "/" ? "/" : null);
   const highlighted = hovered ?? activeHref;
 
   /**
@@ -57,6 +62,32 @@ const Navbar = ({ children }: PropsWithChildren) => {
     setIsScrolled((was) => (was === scrolled ? was : scrolled));
   });
 
+  /*
+   * An open menu had exactly one way out: the Close button. Tapping the page,
+   * pressing Escape and navigating all left it hanging over the content.
+   * Escape and the route change are handled here, the tap by the scrim below.
+   */
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [menuOpen]);
+
+  /*
+   * Closing the menu on a route change is an adjustment during render, not an
+   * effect. Calling setState inside an effect queues a second render pass, so
+   * the menu painted once over the new page before it closed, and the
+   * react-hooks rule flags it for exactly that reason.
+   */
+  const [lastPath, setLastPath] = useState(pathname);
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    setMenuOpen(false);
+  }
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -68,6 +99,23 @@ const Navbar = ({ children }: PropsWithChildren) => {
           : "border-transparent"
       }`}
     >
+      {/* The tap target that closes the menu. It fades rather than appearing,
+          so it reads as a layer going over the page instead of a flicker. */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            key="menu-scrim"
+            aria-hidden
+            onClick={() => setMenuOpen(false)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 -z-10 bg-background/60 backdrop-blur-sm lg:hidden"
+          />
+        )}
+      </AnimatePresence>
+
       <div className="flex items-center justify-between px-4 py-3 md:px-6">
         <motion.a
           href="/"
@@ -118,8 +166,10 @@ const Navbar = ({ children }: PropsWithChildren) => {
               href={link.href}
               onMouseEnter={() => setHovered(link.href)}
               aria-current={activeHref === link.href ? "page" : undefined}
-              className={`relative px-3 py-2 font-mono text-base tracking-wide uppercase transition-colors duration-200 ${
-                highlighted === link.href ? "text-accent" : "text-muted-foreground"
+              className={`relative px-3 py-2 text-base font-medium tracking-wide uppercase transition-colors duration-200 ${
+                highlighted === link.href
+                  ? "text-accent"
+                  : "text-muted-foreground"
               }`}
             >
               {highlighted === link.href && (
@@ -153,12 +203,16 @@ const Navbar = ({ children }: PropsWithChildren) => {
 
           {/* The one solid button on the page, present at every scroll
               position. It replaced the floating bubble that used to sit over
-              the contact form. */}
+              the contact form.
+
+              `md` and not `sm`: the docked bar is `md:hidden`, so at `sm` this
+              button and the bar were both on screen, which is the two WhatsApp
+              CTAs at once that the bar exists to prevent. */}
           <a
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:block"
+            className="hidden md:block"
           >
             <Button variant="solid">
               <WhatsappLogo className="size-5" />
@@ -174,7 +228,7 @@ const Navbar = ({ children }: PropsWithChildren) => {
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             borderWidth={1}
             fillClassName="bg-background transition-colors"
-            className="flex h-11 cursor-pointer items-center gap-2 bg-border px-3.5 font-mono text-sm tracking-[0.14em] uppercase transition-colors duration-200 hover:bg-accent-edge [&>[data-fill]]:hover:bg-accent-tint lg:hidden"
+            className="flex h-11 cursor-pointer items-center gap-2 bg-border px-3.5 text-sm font-medium tracking-[0.06em] uppercase transition-colors duration-200 hover:bg-accent-edge [&>[data-fill]]:hover:bg-accent-tint lg:hidden"
           >
             {menuOpen ? (
               <CloseX className="size-5" />
@@ -199,14 +253,16 @@ const Navbar = ({ children }: PropsWithChildren) => {
             transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden border-t border-border lg:hidden"
           >
-            <div className="flex flex-col gap-1 px-4 py-4">
+            {/* Capped and scrollable, because a phone in landscape has about
+                330px of height and the panel is taller than that. */}
+            <div className="flex max-h-[calc(100dvh-4.5rem)] flex-col gap-1 overflow-y-auto px-4 py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
                   aria-current={activeHref === link.href ? "page" : undefined}
-                  className={`rounded-lg px-3 py-3 font-mono text-base tracking-wide uppercase transition-colors duration-200 ${
+                  className={`flex min-h-12 items-center rounded-lg px-3 text-base font-medium tracking-wide uppercase transition-colors duration-200 ${
                     activeHref === link.href
                       ? "bg-accent-tint text-accent"
                       : "text-muted-foreground"
@@ -220,6 +276,8 @@ const Navbar = ({ children }: PropsWithChildren) => {
                 className="mt-2 flex flex-col gap-2 border-t border-border pt-4"
                 onClick={() => setMenuOpen(false)}
               >
+                {/* Call and the resume, not WhatsApp: the docked bar at the
+                    bottom of the screen is already carrying that one. */}
                 <a href={PHONE_TEL} className="w-full">
                   <Button className="w-full justify-start">
                     <Phone className="size-5" />
@@ -229,11 +287,19 @@ const Navbar = ({ children }: PropsWithChildren) => {
                 <span className="[&>a]:w-full [&_button]:w-full [&_button]:justify-start">
                   {children}
                 </span>
-                {AVAILABILITY.open && (
-                  <p className="px-1 pt-1 font-mono text-xs tracking-[0.14em] text-muted-foreground uppercase">
-                    {AVAILABILITY.label}
-                  </p>
-                )}
+                {/* GitHub is icon-only from `md` up, which left it with no
+                    route at all on the widths this menu covers. */}
+                <a
+                  href={GITHUB_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full"
+                >
+                  <Button variant="ghost" className="w-full justify-start">
+                    <GithubLogo className="size-5" />
+                    GitHub
+                  </Button>
+                </a>
               </div>
             </div>
           </motion.div>

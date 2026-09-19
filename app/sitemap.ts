@@ -6,6 +6,7 @@ import { publishedPosts } from "@/data/posts";
 import { hasNotes } from "@/data/notes";
 import { CONTENT_DATES, asDate } from "@/data/updated";
 import { PORTRAIT_PATH } from "@/data/contact";
+import { postImage } from "@/lib/blog";
 
 export const revalidate = 86400;
 
@@ -105,7 +106,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     lastModified: asDate(post.updated ?? post.date),
     changeFrequency: "yearly",
     priority: 0.7,
-    ...(post.image ? { images: [absolute(post.image)] } : {}),
+    images: [absolute(postImage(post))],
   }));
 
   return [

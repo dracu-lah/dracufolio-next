@@ -12,11 +12,10 @@ import Faq from "@/components/sections/Faq";
 import HowItWorks from "@/components/sections/HowItWorks";
 import Locations from "@/components/sections/Locations";
 import Services from "@/components/sections/Services";
-import Projects from "@/components/sections/Portfolio/components/Projects";
+import PortfolioSection from "@/components/sections/Portfolio";
 import ScrollProgress from "@/components/motion/ScrollProgress";
 import { MapPin } from "@/components/common/icons";
 import { Button } from "@/components/ui/button";
-import { GetProjectsAPI } from "@/services/api";
 import { faqNode, pageGraph, ref, ID } from "@/lib/schema";
 import { absolute, pageMetadata } from "@/lib/seo";
 import { locationBySlug, locations } from "@/data/locations";
@@ -63,7 +62,6 @@ const LocationPage = async ({ params }: { params: Promise<Params> }) => {
   const location = locationBySlug(slug);
   if (!location) notFound();
 
-  const projects = (await GetProjectsAPI()).slice(0, 3);
   const message = whatsappMessage(location);
   const faqs = locationFaqs({
     name: location.name,
@@ -100,7 +98,9 @@ const LocationPage = async ({ params }: { params: Promise<Params> }) => {
               provider: ref(ID.service),
               areaServed: {
                 "@type":
-                  location.kind === "country" ? "Country" : "AdministrativeArea",
+                  location.kind === "country"
+                    ? "Country"
+                    : "AdministrativeArea",
                 name: location.name,
                 ...(location.altNames.length
                   ? { alternateName: location.altNames }
@@ -125,7 +125,7 @@ const LocationPage = async ({ params }: { params: Promise<Params> }) => {
       <main className="mx-auto max-w-7xl px-6 pt-24 md:px-10 md:pt-28 lg:px-14">
         <div className="grid items-start gap-10 lg:grid-cols-[1.3fr_0.7fr] lg:gap-16">
           <div className="flex flex-col items-start gap-6">
-            <BackLink href="/hire" label="hire" />
+            <BackLink href="/hire" label="Hire" />
             <Reveal>
               <h1 className="font-display text-4xl leading-[1.05] font-bold tracking-tight md:text-5xl">
                 {headline(location)}
@@ -158,7 +158,7 @@ const LocationPage = async ({ params }: { params: Promise<Params> }) => {
               </div>
             </Reveal>
             <Reveal delay={0.22}>
-              <p className="font-mono text-sm text-muted-foreground">
+              <p className="text-base text-muted-foreground">
                 Or call{" "}
                 <a
                   href={PHONE_TEL}
@@ -175,7 +175,7 @@ const LocationPage = async ({ params }: { params: Promise<Params> }) => {
             <QrPanel
               url={whatsappUrl(message)}
               label={`Scan to chat`}
-              hint={`Opens WhatsApp with "I am in ${location.name}" already typed.`}
+              hint={`Opens WhatsApp, ${location.name} already typed.`}
             />
           </Reveal>
         </div>
@@ -183,8 +183,8 @@ const LocationPage = async ({ params }: { params: Promise<Params> }) => {
 
       <Services heading={`What I build for people in ${location.name}`} />
 
-      <section className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-16 lg:px-14 lg:py-20">
-        <div className="flex flex-col gap-7 md:gap-10">
+      <section className="mx-auto max-w-7xl px-6 py-8 md:px-10 md:py-12 lg:px-14">
+        <div className="flex flex-col gap-5 md:gap-7">
           <Reveal>
             <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
               Why me
@@ -209,21 +209,12 @@ const LocationPage = async ({ params }: { params: Promise<Params> }) => {
 
       <HowItWorks />
 
-      <section className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-16 lg:px-14 lg:py-20">
-        <div className="flex flex-col gap-7 md:gap-10">
-          <Reveal>
-            <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
-              Recent work
-            </h2>
-          </Reveal>
-          <Projects projects={projects} />
-        </div>
-      </section>
+      <PortfolioSection heading="Recent work" limit="all" />
 
       <Faq faqs={faqs} heading={`Hiring a developer in ${location.name}`} />
 
       {nearby.length > 0 && (
-        <section className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-16 lg:px-14 lg:py-20">
+        <section className="mx-auto max-w-7xl px-6 py-8 md:px-10 md:py-12 lg:px-14">
           <div className="flex flex-col gap-6">
             <Reveal>
               <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
@@ -236,13 +227,9 @@ const LocationPage = async ({ params }: { params: Promise<Params> }) => {
                   <li key={near.slug}>
                     <Link
                       href={`/hire/${near.slug}`}
-                      className="flex items-center gap-2 rounded-lg border border-border px-3 py-2 font-mono text-sm text-muted-foreground transition-colors duration-300 hover:border-foreground hover:text-accent"
+                      className="flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-base text-muted-foreground transition-colors duration-300 hover:border-foreground hover:text-accent"
                     >
-                      <MapPin
-                       
-                        className="size-4 shrink-0"
-                       
-                      />
+                      <MapPin className="size-5 shrink-0" />
                       {near.name}
                     </Link>
                   </li>

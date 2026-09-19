@@ -11,23 +11,20 @@ import HowItWorks from "@/components/sections/HowItWorks";
 import Locations from "@/components/sections/Locations";
 import Services from "@/components/sections/Services";
 import Testimonials from "@/components/sections/Testimonials";
-import Projects from "@/components/sections/Portfolio/components/Projects";
+import PortfolioSection from "@/components/sections/Portfolio";
 import ScrollProgress from "@/components/motion/ScrollProgress";
 import { Button } from "@/components/ui/button";
-import { GetProjectsAPI } from "@/services/api";
 import { pageGraph, faqNode } from "@/lib/schema";
 import { AUTHOR, pageMetadata } from "@/lib/seo";
 import { homeFaqs } from "@/data/faq";
 import Badge from "@/components/common/Badge";
 import { ml } from "@/data/ml";
-import { locationKeywords, primaryPhrases, roleShortlist } from "@/data/keywords";
 import {
-  AVAILABILITY,
-  HOURS,
-  PHONE_DISPLAY,
-  PHONE_TEL,
-  WHATSAPP_URL,
-} from "@/data/contact";
+  locationKeywords,
+  primaryPhrases,
+  roleShortlist,
+} from "@/data/keywords";
+import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL } from "@/data/contact";
 
 export const revalidate = 86400;
 
@@ -43,8 +40,6 @@ export const metadata = pageMetadata({
 });
 
 const HirePage = async () => {
-  const projects = (await GetProjectsAPI()).slice(0, 3);
-
   return (
     <>
       <ScrollProgress />
@@ -86,11 +81,6 @@ const HirePage = async () => {
             </Reveal>
             <Reveal delay={0.14}>
               <div className="flex flex-wrap items-center gap-2">
-                {AVAILABILITY.open && (
-                  <Badge tone="accent" dot size="md">
-                    {AVAILABILITY.label}
-                  </Badge>
-                )}
                 <Badge size="md">Freelance</Badge>
                 <Badge size="md">Contract</Badge>
                 <Badge size="md">Full time</Badge>
@@ -116,12 +106,15 @@ const HirePage = async () => {
               </p>
             </Reveal>
             <Reveal delay={0.22}>
-              <p className="font-mono text-sm text-muted-foreground">
+              <p className="text-base text-muted-foreground">
                 Or call{" "}
-                <a href={PHONE_TEL} className="text-foreground underline underline-offset-4">
+                <a
+                  href={PHONE_TEL}
+                  className="text-foreground underline underline-offset-4"
+                >
                   {PHONE_DISPLAY}
                 </a>
-                . {HOURS.display}.
+                .
               </p>
             </Reveal>
           </div>
@@ -130,7 +123,7 @@ const HirePage = async () => {
             <QrPanel
               url={WHATSAPP_URL}
               label="Scan to chat"
-              hint="Reading this on a laptop? Point your phone camera here and WhatsApp opens with the first message written."
+              hint="Point your phone camera here to open WhatsApp."
             />
           </Reveal>
         </div>
@@ -139,27 +132,29 @@ const HirePage = async () => {
       <Services heading="What I build" />
       <HowItWorks />
 
-      <section className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-16 lg:px-14 lg:py-20">
-        <div className="flex flex-col gap-7 md:gap-10">
-          <Reveal className="flex flex-col gap-4">
-            <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
-              Work you can open
-            </h2>
-            <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
-              Three of them below, and every project on{" "}
-              <Link href="/projects" className="text-foreground underline underline-offset-4">
-                the projects page
-              </Link>{" "}
-              links to something live.
-            </p>
-          </Reveal>
-          <Projects projects={projects} />
-        </div>
-      </section>
+      <PortfolioSection
+        heading="Work you can open"
+        limit="all"
+        intro={
+          <>
+            Every one of these links to something live. There is more on{" "}
+            <Link
+              href="/projects"
+              className="text-foreground underline underline-offset-4"
+            >
+              the projects page
+            </Link>
+            , with a write up for each.
+          </>
+        }
+      />
 
       <Testimonials />
       <Locations />
-      <Faq faqs={homeFaqs} heading={`Questions people ask ${AUTHOR.split(" ")[0]}`} />
+      <Faq
+        faqs={homeFaqs}
+        heading={`Questions people ask ${AUTHOR.split(" ")[0]}`}
+      />
       <CtaBlock message="Hi Nevil, I found your hire page. I would like to talk about a project." />
       <Footer />
     </>

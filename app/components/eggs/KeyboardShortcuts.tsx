@@ -11,18 +11,22 @@ import { RESUME_PATH, WHATSAPP_URL } from "@/data/contact";
  * fastest way around the site, which is the only kind of easter egg worth
  * shipping.
  */
-const JUMPS: { keys: string; label: string; href: string; external?: boolean }[] =
-  [
-    { keys: "g h", label: "Home", href: "/" },
-    { keys: "g p", label: "Projects", href: "/projects" },
-    { keys: "g i", label: "Hire me", href: "/hire" },
-    { keys: "g b", label: "Blog", href: "/blog" },
-    { keys: "g a", label: "About", href: "/about" },
-    { keys: "g o", label: "Open source", href: "/open-source" },
-    { keys: "g c", label: "Contact", href: "/#contact" },
-    { keys: "g r", label: "Resume PDF", href: RESUME_PATH, external: true },
-    { keys: "g w", label: "WhatsApp", href: WHATSAPP_URL, external: true },
-  ];
+const JUMPS: {
+  keys: string;
+  label: string;
+  href: string;
+  external?: boolean;
+}[] = [
+  { keys: "g h", label: "Home", href: "/" },
+  { keys: "g p", label: "Projects", href: "/projects" },
+  { keys: "g i", label: "Hire me", href: "/hire" },
+  { keys: "g b", label: "Blog", href: "/blog" },
+  { keys: "g a", label: "About", href: "/about" },
+  { keys: "g o", label: "Open source", href: "/open-source" },
+  { keys: "g c", label: "Contact", href: "/#contact" },
+  { keys: "g r", label: "Resume PDF", href: RESUME_PATH, external: true },
+  { keys: "g w", label: "WhatsApp", href: WHATSAPP_URL, external: true },
+];
 
 const isTyping = (target: EventTarget | null) => {
   const el = target as HTMLElement | null;
@@ -131,14 +135,12 @@ const KeyboardShortcuts = () => {
             transition={{ duration: 0.18 }}
           >
             <div className="flex items-center justify-between border-b border-border px-5 py-4">
-              <p className="font-mono text-sm uppercase tracking-[0.18em] text-muted-foreground">
-                Shortcuts
-              </p>
+              <p className="text-sm text-muted-foreground">Shortcuts</p>
               <button
                 ref={closeButton}
                 type="button"
                 onClick={() => setOpen(false)}
-                className="font-mono text-sm uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-accent"
+                className="text-sm text-muted-foreground transition-colors hover:text-accent"
               >
                 esc
               </button>

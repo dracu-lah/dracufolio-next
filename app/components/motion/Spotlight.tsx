@@ -1,5 +1,10 @@
 "use client";
-import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useSpring,
+} from "framer-motion";
 import { useEffect, useRef } from "react";
 import { useInView } from "framer-motion";
 import { usePointerEffects } from "@/hooks/usePointer";

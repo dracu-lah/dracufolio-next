@@ -1,10 +1,12 @@
 import Image from "next/image";
 import {
+  ArrowUpRight,
   EnvelopeSimple,
   GithubLogo,
   LinkedinLogo,
   WhatsappLogo,
   XLogo,
+  YoutubeLogo,
 } from "@/components/common/icons";
 import Reveal from "@/components/common/Reveal";
 import InlineLogo from "@/components/common/InlineLogo";
@@ -18,6 +20,7 @@ import {
   LINKEDIN_URL,
   WHATSAPP_URL,
   X_URL,
+  YOUTUBE_URL,
 } from "@/data/contact";
 import { roleShortlist } from "@/data/keywords";
 
@@ -44,11 +47,17 @@ const profile = [
 ];
 
 const socialLinks = [
-  { href: WHATSAPP_URL, label: "whatsapp", icon: WhatsappLogo, external: true },
-  { href: EMAIL_MAILTO, label: "email", icon: EnvelopeSimple, external: false },
-  { href: GITHUB_URL, label: "github", icon: GithubLogo, external: true },
-  { href: LINKEDIN_URL, label: "linkedin", icon: LinkedinLogo, external: true },
-  { href: X_URL, label: "x", icon: XLogo, external: true },
+  { href: WHATSAPP_URL, label: "WhatsApp", icon: WhatsappLogo, external: true },
+  { href: EMAIL_MAILTO, label: "Email", icon: EnvelopeSimple, external: false },
+  { href: GITHUB_URL, label: "GitHub", icon: GithubLogo, external: true },
+  { href: LINKEDIN_URL, label: "LinkedIn", icon: LinkedinLogo, external: true },
+  { href: X_URL, label: "X", icon: XLogo, external: true },
+  {
+    href: YOUTUBE_URL,
+    label: "YouTube",
+    icon: YoutubeLogo,
+    external: true,
+  },
 ];
 
 const contentLink =
@@ -66,7 +75,7 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
   return (
     <section
       id="about"
-      className="mx-auto max-w-7xl px-6 py-12 md:px-10 md:py-16 lg:px-14 lg:py-20"
+      className="mx-auto max-w-7xl px-6 py-8 md:px-10 md:py-12 lg:px-14"
     >
       <div className="grid items-start gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <Reveal className="w-full">
@@ -89,7 +98,14 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
                 />
               </Squircle>
             )}
-            <ul className="flex flex-wrap justify-center gap-x-5 gap-y-3">
+            {/* A column, not a wrapped row. Six names of very different
+                lengths wrapped into a ragged two line block under a square
+                photo; stacked, they line up with each other and with the
+                photo's edge. The row is sized to that column rather than to
+                its text: a small chip and a 16px label left most of the width
+                empty, so the chip is the `md` tile, the label is 20px, and the
+                arrow holds the right edge. */}
+            <ul className="flex w-full flex-col divide-y divide-border border-t border-b border-border">
               {socialLinks.map(({ href, label, icon: Icon, external }) => (
                 <li key={label}>
                   <a
@@ -97,12 +113,13 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
                     {...(external
                       ? { target: "_blank", rel: "noopener noreferrer" }
                       : {})}
-                    className="flex items-center gap-2.5 font-mono text-sm tracking-[0.16em] text-muted-foreground uppercase transition-colors duration-300 hover:text-accent"
+                    className="group flex items-center gap-4 py-4 text-xl text-muted-foreground transition-colors duration-300 hover:text-accent"
                   >
-                    <Icon3D chip size="sm" tone="accent">
-                      <Icon className="size-4" />
+                    <Icon3D chip size="md" tone="accent">
+                      <Icon className="size-7" />
                     </Icon3D>
                     {label}
+                    <ArrowUpRight className="ml-auto size-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   </a>
                 </li>
               ))}
@@ -111,7 +128,6 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
         </Reveal>
 
         <div className="flex flex-col items-start gap-6">
-
           <Reveal delay={0.08}>
             <Heading className="font-display text-3xl font-bold tracking-tight md:text-4xl">
               About
@@ -120,9 +136,9 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
 
           <Reveal delay={0.16}>
             <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-              Full stack developer with <b>3 years in the React and Next.js
-              ecosystem</b>, currently building high-traffic travel products
-              like{" "}
+              Full stack developer with{" "}
+              <b>3 years in the React and Next.js ecosystem</b>, currently
+              building high-traffic travel products like{" "}
               <a
                 className={contentLink}
                 href="https://seatinfo.com"
@@ -166,9 +182,7 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
                   key={row.key}
                   className="grid grid-cols-[8rem_1fr] gap-6 py-4 text-base md:grid-cols-[12rem_1fr] md:text-lg"
                 >
-                  <dt className="font-mono text-base uppercase tracking-[0.18em] text-muted-foreground">
-                    {row.key}
-                  </dt>
+                  <dt className="text-base text-muted-foreground">{row.key}</dt>
                   <dd>{row.value}</dd>
                 </div>
               ))}

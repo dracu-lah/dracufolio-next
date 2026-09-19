@@ -4,11 +4,11 @@ import { useState } from "react";
 import useActiveSection from "@/hooks/useActiveSection";
 
 const navItems = [
-  { id: "hero", href: "/", label: "home" },
-  { id: "portfolio", href: "/#portfolio", label: "projects" },
-  { id: "open-source", href: "/#open-source", label: "oss" },
-  { id: "about", href: "/#about", label: "about" },
-  { id: "contact", href: "/#contact", label: "contact" },
+  { id: "hero", href: "/", label: "Home" },
+  { id: "portfolio", href: "/#portfolio", label: "Projects" },
+  { id: "open-source", href: "/#open-source", label: "Open source" },
+  { id: "about", href: "/#about", label: "About" },
+  { id: "contact", href: "/#contact", label: "Contact" },
 ];
 
 const sectionIds = navItems.map((item) => item.id);
@@ -38,7 +38,7 @@ const RightButtons = () => {
             href={item.href}
             onMouseEnter={() => setHovered(item.id)}
             aria-current={activeId === item.id ? "true" : undefined}
-            className={`relative px-4 py-2.5 font-mono text-base uppercase tracking-[0.18em] transition-colors duration-200 ${
+            className={`relative px-4 py-2.5 text-base transition-colors duration-200 ${
               highlighted === item.id
                 ? "text-background"
                 : "text-muted-foreground"

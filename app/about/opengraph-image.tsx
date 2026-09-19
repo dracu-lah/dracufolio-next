@@ -8,7 +8,8 @@ const Image = () =>
   ogImage({
     eyebrow: "About",
     title: "Hey, I am Nevil.",
-    description: "Full stack developer, FOSS regular, Fedora and Sway on a Latitude 7430.",
+    description:
+      "Full stack developer, FOSS regular, Fedora and Sway on a Latitude 7430.",
   });
 
 export default Image;
