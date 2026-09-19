@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint .",
     "resume": "node scripts/build-resume.mjs",
-    "check:dashes": "node scripts/check-dashes.mjs"
+    "check:dashes": "node scripts/check-dashes.mjs",
+    "icons": "node scripts/build-icons.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

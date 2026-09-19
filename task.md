@@ -1399,3 +1399,120 @@ did find was the rule in CLAUDE.md being broken on a page that matters:
 - The footer's WhatsApp entry sits in the socials row and is left alone. It is
   a profile link in a list of profile links, not a CTA, and the rule is about
   two buttons competing for the same tap.
+
+## 14. The favicon Google will not show, and what is left after that (20 Sep 2026)
+
+Status: **shipped.** The colourway decision was made below rather than asked.
+
+### What was raised
+
+"Portfolio favicon not showing in the Google search engine for some reason,
+also tell me what are the next steps, I've updated the website now what are the
+next todos?"
+
+### What is actually wrong
+
+Measured against the live site, not guessed.
+
+- `app/favicon.ico` is **32x25**. It is not square. Google's own requirement is
+  a square favicon, and it asks for a multiple of 48px. A 25px tall icon fails
+  the shape test before anything else is considered, and the homepage advertises
+  the defect itself: the link tag carries `sizes="32x25"`.
+- The mark was exported cropped to its own ink, so there is no padding around
+  it. Even at the right dimensions it would sit edge to edge in the result tile.
+- The homepage ships **two** `rel="icon"` links to two different URLs. The file
+  convention emits `/favicon.ico?favicon.19nwk1d9ok270.ico` and the `icons` key
+  in `app/layout.tsx` emits a second, bare `/favicon.ico`. Google takes one
+  favicon per site and asks for a stable URL, and that query string is a content
+  hash that moves every time the file changes.
+- There is no `apple-touch-icon` at all. `/apple-touch-icon.png` is a 404.
+- `app/manifest.ts` offers `/favicon.ico` at `sizes: "any"` and the portrait JPEG
+  as the second icon. A photograph is not a brand mark, and no 192 or 512 PNG
+  exists, so the install prompt has nothing good to draw either.
+
+None of this is a crawl problem. The Search Console TXT record is in DNS, the
+robots file allows Googlebot, and `/favicon.ico` answers 200 from Vercel.
+
+### Plan
+
+1. Redraw the `>_` mark as `app/icon.svg`, 512 square, with the mark inside
+   about 64 percent of the canvas so it survives a 16px render. Candidates are
+   rendered at 512 and at 32 in the scratchpad.
+2. Generate from that one source: `app/favicon.ico` (a real multi size ico at
+   16, 32 and 48), `app/apple-icon.png` at 180, and `icon-192.png` plus
+   `icon-512.png` in `public/` for the manifest, one of them `maskable`.
+   A small script under `scripts/` so the set is regenerated from the SVG rather
+   than hand exported and drifting, the way the OG palette drifted.
+3. Delete the `icons` key from the metadata object in `app/layout.tsx`. The file
+   convention already emits the link, and two links is the thing to remove.
+4. Point `app/manifest.ts` at the new PNGs and drop the portrait from `icons`.
+5. Ship, then request indexing for `/` in Search Console. Google refreshes the
+   favicon index on its own schedule, so the result can take a few weeks to
+   change even once the markup is correct.
+
+### Open decisions
+
+- **Colourway.** Three candidates rendered, all legible at 32px: dark mark on
+  the cream `--sand` tile, which is closest to today; leaf green on near black,
+  which is the site; near black on a filled leaf green, which is the loudest in
+  a list of results. Google draws the tile against white in the search result
+  and against dark in dark mode, so the filled tile is the safest of the three.
+- **Whether the ico keeps a square tile or goes transparent.** A transparent
+  mark inherits whatever surface the browser puts behind it, which is white in a
+  search result and dark in a pinned tab.
+
+### Still open elsewhere, found while checking
+
+- `dracufolio.vercel.app` still answers **307**, not 308. `docs/seo/01` step 6
+  has been open since 18 Sep. A temporary redirect leaves the old host indexed
+  and passes nothing to `nevil.dev`.
+- `www.nevil.dev` also answers 307 to the apex. Same fix, same reason.
+- IndexNow is written up in `docs/seo/02` and the key file is served at
+  `/75a8f5544719e8d9f23a01eb8ccfca56.txt`, but nothing pings it. There is no
+  script and no build step, so every submission is manual.
+- `nevilkrishna.com` does not resolve. It was never bought. `docs/seo/01` treats
+  it as a redirect source, so either buy it or strike it from the doc.
+- Everything else in `docs/seo/README.md` under "30 minutes today" and "one day
+  this week" is off site work and is not a code change.
+
+### Shipped
+
+- `scripts/assets/icon.svg`, one 512 square source. The `>_` mark is redrawn
+  with padding so it sits inside about 64 percent of the tile instead of running
+  to the edge of it.
+- `scripts/build-icons.mjs`, run by `pnpm icons`. It renders the whole set from
+  that one file: a real multi resolution `favicon.ico` at 16, 32 and 48, a 180
+  `apple-touch-icon.png`, 192 and 512 PNGs for the manifest, a maskable 512 and
+  a copy of the SVG. ImageMagick, the same `magick` the screenshots already use,
+  and deliberately not a build step: Vercel has no ImageMagick and these change
+  about once a year.
+- `app/favicon.ico` deleted. The icons are declared by hand in `app/layout.tsx`
+  and served from `public/`, so the URLs are stable and there is exactly one
+  `rel="icon"` on the page instead of two.
+- `app/manifest.ts` points at the new PNGs. The portrait is gone from `icons`.
+- `docs/seo/01-domains.md` gains a section 0 on renewing `nevil.dev`, which the
+  folder never covered even though every other task in it depends on the name.
+
+Verified on a production build on port 3111: one icon link at
+`/favicon.ico` with `sizes="48x48"`, one apple touch icon link, all six files
+200, and the manifest carrying three PNGs with one maskable. `check-jsonld`
+passes on 60 routes, `check-seo` passes, lint and the dash guard pass.
+
+### Deviations
+
+- The colourway was left open for Nevil to pick and then decided here, because
+  "fix the favicon stuff" arrived without a choice and the fix is worthless
+  unfinished. It is the dark mark on the cream `--sand` tile, the candidate
+  closest to what was already there. The filled leaf green tile was the louder
+  option and was rejected on the rule in CLAUDE.md: the accent means act on this
+  or this is live, and a favicon is neither. Cream is a real palette token, it
+  separates from Google's white result card, and it stays visible in dark mode.
+  Changing it is one hex value in the source SVG and a `pnpm icons`.
+- The SVG ships at `/icon.svg` but is not linked from the page. A second
+  `rel="icon"` is exactly the shape of the bug being fixed, so the link is held
+  back until the favicon is confirmed showing in results.
+- `background_color` and `theme_color` in the manifest are still `#000000` while
+  the site is `#0c0b09`. Same class of drift as the OG palette, noticed and left
+  alone as out of scope.
+- The two 307 redirects and the IndexNow ping are unchanged. Both live in the
+  Vercel and Cloudflare dashboards or in an unwritten script, not in this diff.

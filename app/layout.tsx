@@ -31,8 +31,16 @@ export const metadata: Metadata = {
     default: title,
     template: TITLE_TEMPLATE,
   },
+  /*
+   * Declared by hand rather than left to the app/favicon.ico convention. That
+   * convention emits a link whose href carries a content hash, and the file it
+   * pointed at was 32x25: Google needs a square favicon at a multiple of 48 and
+   * a URL that does not move, so it showed a blank globe instead. These are
+   * stable paths under public/, generated from one source by `pnpm icons`.
+   */
   icons: {
-    icon: "/favicon.ico",
+    icon: { url: "/favicon.ico", type: "image/x-icon", sizes: "48x48" },
+    apple: { url: "/apple-touch-icon.png", type: "image/png", sizes: "180x180" },
   },
   description,
   keywords: metaKeywords,
