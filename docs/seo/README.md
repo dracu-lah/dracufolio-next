@@ -27,6 +27,7 @@ paste, exact commands.
 | `09-wikipedia-knowledge-panel.md` | The straight answer on Wikipedia and Wikidata (no, and why), and the path that actually leads to a Google knowledge panel. |
 | `10-outreach-templates.md` | Eleven ready-to-send messages: cold WhatsApp in English and Malayalam, agency email, recruiter reply, follow-ups, testimonial and referral asks, and the reply to "how much for a website". |
 | `11-monthly-checklist.md` | The one page to run on the first Saturday of every month. |
+| `12-domain-migration.md` | Moving the canonical host from nevil.dev to nevilkrishna.com. Read before buying the domain. |
 
 ## The order to do them in
 
