@@ -77,22 +77,27 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
       id="about"
       className="mx-auto max-w-7xl px-6 py-8 md:px-10 md:py-12 lg:px-14"
     >
-      <div className="grid items-start gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+      {/* Photo left, the writing beside it from `md` up. It used to stack until
+          `lg`, so an iPad got a wide photo with the page under it. */}
+      <div className="grid items-start gap-8 md:grid-cols-[0.8fr_1.2fr] md:gap-10 lg:gap-16">
         <Reveal className="w-full">
           <div className="flex flex-col gap-6">
+            {/* The same square crop as the hero, capped below `lg`: as a full
+                width 4:5 it was a 342 by 427 photo on a 390px screen, which is
+                most of the first screen of a page that is meant to be read. */}
             {portrait && (
               <Squircle
                 as="figure"
                 borderWidth={1}
                 fillClassName="bg-card"
-                className="overflow-hidden bg-border"
+                className="w-full max-w-[14rem] overflow-hidden bg-border sm:max-w-[18rem] md:max-w-none"
               >
                 <Image
                   width={720}
-                  height={900}
-                  sizes="(min-width: 1024px) 26rem, 100vw"
+                  height={720}
+                  sizes="(min-width: 1024px) 26rem, (min-width: 768px) 18rem, 14rem"
                   draggable="false"
-                  className="aspect-[4/5] w-full object-cover"
+                  className="aspect-square w-full object-cover"
                   src={portrait}
                   alt="Nevil Krishna K, full stack developer in Thrissur, Kerala"
                 />
@@ -101,11 +106,13 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
             {/* A column, not a wrapped row. Six names of very different
                 lengths wrapped into a ragged two line block under a square
                 photo; stacked, they line up with each other and with the
-                photo's edge. The row is sized to that column rather than to
-                its text: a small chip and a 16px label left most of the width
-                empty, so the chip is the `md` tile, the label is 20px, and the
-                arrow holds the right edge. */}
-            <ul className="flex w-full flex-col divide-y divide-border border-t border-b border-border">
+                photo's edge.
+
+                `md` and up only, which is where the photo gets a column of its
+                own. On a phone this was six full width rows standing between
+                the heading and the first sentence of the page, and the footer
+                carries the same six links there anyway. */}
+            <ul className="hidden w-full flex-col divide-y divide-border border-t border-b border-border md:flex">
               {socialLinks.map(({ href, label, icon: Icon, external }) => (
                 <li key={label}>
                   <a

@@ -23,14 +23,14 @@ const HeroImage = async () => {
           priority
           width={720}
           height={720}
-          sizes="(min-width: 1024px) 22rem, 18rem"
+          sizes="(min-width: 1280px) 22rem, (min-width: 1024px) 20rem, (min-width: 768px) 16rem, 14rem"
           draggable="false"
-          className="size-72 object-cover md:size-80 xl:size-88"
+          className="size-56 object-cover md:size-64 lg:size-80 xl:size-88"
           src={heroImage}
           alt="Nevil Krishna K, full stack developer in Thrissur, Kerala"
         />
       ) : (
-        <div className="flex size-72 items-center justify-center text-muted-foreground md:size-80 xl:size-88">
+        <div className="flex size-56 items-center justify-center text-muted-foreground md:size-64 lg:size-80 xl:size-88">
           <span className="text-base">no image</span>
         </div>
       )}

@@ -17,6 +17,9 @@ import { services } from "@/data/services";
  * row of three floating cards. Grouping by border instead of elevation keeps
  * the flat-surface rule and stops the section reading as a pricing table.
  */
+/** How many of the six show on a phone. The rest are `md` and up. */
+const PHONE_LIMIT = 4;
+
 const GLYPHS = {
   Browsers,
   Ranking,
@@ -56,8 +59,19 @@ const Services = ({
             const Glyph = GLYPHS[service.icon];
             const isLeftColumn = i % 2 === 0;
             const isLastRow = i >= services.length - 2;
+            /*
+             * Six of these in one column is most of a phone screen of cards
+             * that all say the same thing in a different noun. The last two
+             * stay on the desktop, where they cost one row of a two column
+             * grid instead of two more screens of scrolling.
+             */
+            const phoneHidden = i >= PHONE_LIMIT ? "hidden md:block" : "";
             return (
-              <Reveal key={service.slug} delay={(i % 2) * 0.06}>
+              <Reveal
+                key={service.slug}
+                delay={(i % 2) * 0.06}
+                className={phoneHidden}
+              >
                 {/*
                   The divider sits on the padded child, not on the clipped card,
                   and the card is clipped at radius 0. A clip-path is measured

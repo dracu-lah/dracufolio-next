@@ -15,8 +15,19 @@ import { BriefcaseIcon, SquaresFour } from "@/components/common/icons";
  * at once and the page never stopped moving. Written out, every role is
  * readable in the first glance and there is no perpetual animation left on the
  * site.
+ *
+ * Android is `wideOnly`: it shows once there is a full desktop line to put it
+ * on. On a phone and on a tablet the line wrapped onto a second row for one
+ * word, which pushed the paragraph and both buttons further down the first
+ * screen. The separator belongs to the role in front of it, so it is hidden
+ * with the role it would otherwise dangle in front of.
  */
-const ROLES = ["Full Stack Developer", "React", "Next.js", "Android"];
+const ROLES = [
+  { label: "Full Stack Developer" },
+  { label: "React" },
+  { label: "Next.js" },
+  { label: "Android", wideOnly: true },
+];
 
 const HeroSection = () => (
   <section
@@ -24,7 +35,10 @@ const HeroSection = () => (
     className="mx-auto max-w-7xl px-6 pt-20 pb-8 md:px-10 md:pt-28 md:pb-10 lg:px-14"
   >
     <Spotlight />
-    <div className="grid items-center gap-8 md:gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
+    {/* Two columns from `md`, not from `lg`. On an iPad the photo used to drop
+        under the text and sit in the middle of the page, which left a wide
+        screen holding one narrow column of words. */}
+    <div className="grid items-center gap-8 md:grid-cols-[1.2fr_0.8fr] md:gap-10 lg:gap-16">
       <div className="flex flex-col items-start gap-4 md:gap-5">
         <Reveal>
           <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
@@ -35,16 +49,29 @@ const HeroSection = () => (
                 inheriting its `tracking-tight`. A monospace shrugged that off;
                 DM Sans at -0.025em reads as cramped. */}
             <span className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-base leading-snug font-medium tracking-normal text-muted-foreground sm:text-lg">
-              {ROLES.map((role, i) => (
-                <span key={role} className="whitespace-nowrap">
-                  {role}
-                  {i < ROLES.length - 1 && (
-                    <span aria-hidden className="pl-2 text-border">
-                      /
-                    </span>
-                  )}
-                </span>
-              ))}
+              {ROLES.map((role, i) => {
+                const next = ROLES[i + 1];
+                return (
+                  <span
+                    key={role.label}
+                    className={`whitespace-nowrap ${
+                      role.wideOnly ? "hidden lg:inline" : ""
+                    }`}
+                  >
+                    {role.label}
+                    {next && (
+                      <span
+                        aria-hidden
+                        className={`pl-2 text-border ${
+                          next.wideOnly ? "hidden lg:inline" : ""
+                        }`}
+                      >
+                        /
+                      </span>
+                    )}
+                  </span>
+                );
+              })}
             </span>
           </h1>
         </Reveal>
@@ -89,7 +116,7 @@ const HeroSection = () => (
       <Reveal
         delay={0.18}
         y={40}
-        className="justify-self-center lg:justify-self-end"
+        className="justify-self-center md:justify-self-end"
       >
         <HeroImage />
       </Reveal>

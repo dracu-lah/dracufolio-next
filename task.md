@@ -1282,3 +1282,62 @@ numbers get replaced with real output.
   time, because `next/font` only hands out woff2 and satori cannot read it. It
   falls back to the built-in sans rather than failing a build with no network,
   but it is the one build-time network dependency on the site.
+
+---
+
+## 12. Alignment, phone weight and the full screen menu (19 Sep 2026)
+
+Raised in one sitting, roughly in this order: the landing page, /hire and
+/projects do not look centred; the /about portrait and social icons are too big
+on a phone; hide what is too big on a phone and keep it on the desktop; hide the
+/about social list entirely, the footer carries those links; the phone menu
+should run to the bottom of the screen; drop Android from the hero role line,
+then keep it on desktop only and hide the slash it leaves behind; the landing
+rail overflows, make it use the same width as everything else; show the hero
+photo beside the text on an iPad; on /about too, photo left and the writing
+beside it; take Open Source off the header.
+
+### What was actually wrong
+
+Every page container was already `mx-auto max-w-7xl` with a
+`px-6 md:px-10 lg:px-14` gutter. The navbar was not: it ran edge to edge at
+`px-4 md:px-6`, so on a 1440px screen the logo sat 112px left of the page's own
+left edge and the WhatsApp button the same distance right of it. That is what
+read as "nothing is centred". No page needed its text centred, so none of them
+got it.
+
+/projects had a real bug underneath the complaint. The badge row in a card is
+`flex-nowrap`, and a grid item is `min-width: auto`, so the card's min-content
+width inflated the single mobile column and pushed the card past the right
+gutter. The 26 character badge budget had been measured against the 384px
+desktop card; a 390px phone has about 34px less to give.
+
+### Shipped
+
+- Navbar row sits in the page container, so the logo, the links and the right
+  hand cluster share the page's left and right edge. Open Source came off the
+  link list; the footer and /about still route to it.
+- Phone menu is a full height panel: links centred in the free space, call,
+  resume and GitHub on the floor.
+- Hero is two columns from `md`, so an iPad gets the photo beside the text. The
+  portrait is `size-56` on a phone, `size-64` on a tablet. Android and the slash
+  in front of it are `hidden lg:inline`.
+- Projects rail lives in the same capped container as every other section, with
+  the bleed spacers gone. The cut on the last card now lands on the gutter.
+- Project card takes `min-w-0`, the badge row clips, and the budget is 20.
+- /about is two columns from `md` with the same square crop as the hero, capped
+  at 14rem on a phone. The social list is `hidden md:flex`.
+- Phone weight: four of the six service cards, two of the four toolkit rows.
+  Everything hidden is `md` and up, nothing was deleted.
+
+### Deviations
+
+- "Center aligned" was answered by aligning the navbar, not by centring any
+  text. Nothing else on the site was off centre.
+- "Remove Android from the hero" became "desktop only" one message later, and
+  the About social list went from "hide on mobile" to "hide completely" and back
+  to "desktop only". The file reflects the last instruction in each pair.
+- Verified against a production build served on port 3222 from a temporary
+  `distDir`, because the dev server's HMR connection stops headless Chromium
+  from ever firing load. The config change and the build directory were both
+  reverted; `check-jsonld` and `check-seo` pass on all 60 routes.
