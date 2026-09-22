@@ -1330,6 +1330,34 @@ desktop card; a 390px phone has about 34px less to give.
 - Phone weight: four of the six service cards, two of the four toolkit rows.
   Everything hidden is `md` and up, nothing was deleted.
 
+### Production, after the deploy
+
+Lighthouse 13, seven mobile runs and one desktop run against nevil.dev.
+
+| Category | Before | After |
+| --- | --- | --- |
+| Accessibility | 93 mobile, 87 desktop | 100, 100 |
+| Best practices | 96, 96 | 100, 100. The React #418 is gone: the console is empty on both |
+| Agentic browsing | 33, 33 | 100, 100 |
+| SEO | 100, 100 | 100, 100 |
+| Performance | 78 mobile, 98 desktop | 100 desktop. Mobile is 66 to 80 across seven runs |
+
+The things that do not depend on the network all moved the right way. Main
+thread work 3853ms to 2465, script bootup 1517ms to 1125, page weight 702KB to
+644, blocking time 625ms to about 400 on mobile and 69ms to 5 on desktop.
+
+Mobile FCP and LCP did not. The first run after the deploy read 1536ms and
+3604ms, matching the 1550ms baseline, and the six after it read 2.2 to 2.4s and
+4.2 to 4.4s on identical bytes and less CPU work than the baseline, which is
+this connection rather than the deploy. The one change that could plausibly
+cost FCP is the image priority hint, so it was A/B tested on a local build over
+three runs each: with the hint, 89/83/90 and a median FCP of 1261ms; without
+it, 76/78/88 and 1307ms. The hint is neutral to better and it stays.
+
+What is left on mobile is render time, not bytes: the LCP image is 17KB and
+arrives in 400ms, and the element then waits on the main thread. That is the
+icon bundle below.
+
 ### Deviations
 
 - "Center aligned" was answered by aligning the navbar, not by centring any
