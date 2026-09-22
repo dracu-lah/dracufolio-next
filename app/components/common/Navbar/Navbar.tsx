@@ -133,9 +133,12 @@ const Navbar = ({ children }: PropsWithChildren) => {
           The link group below is absolute against the bar, which is the full
           width of the screen, so it stays on the viewport centre either way. */}
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-3 md:px-10 lg:px-14">
+        {/* The name is on screen, so the accessible name has to contain it:
+            a link labelled "Home" over a mark that reads DVLPR gives voice
+            control nothing to say. */}
         <motion.a
           href="/"
-          aria-label="Home"
+          aria-label="DVLPR, home"
           className="flex items-center gap-x-3"
           whileHover="hover"
           initial="rest"
@@ -203,17 +206,16 @@ const Navbar = ({ children }: PropsWithChildren) => {
         <div className="flex items-center gap-x-2 md:gap-x-3">
           {/* GitHub is an icon here. At this width the word costs more than it
               says, and the mark is the thing developers scan for. */}
-          <a
-            href={GITHUB_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:block"
-            aria-label="GitHub profile"
-          >
-            <Button size="icon" aria-hidden>
+          <Button asChild size="icon" className="hidden md:inline-flex">
+            <a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub profile"
+            >
               <GithubLogo className="size-5" />
-            </Button>
-          </a>
+            </a>
+          </Button>
 
           <span className="hidden lg:block">{children}</span>
 
@@ -232,17 +234,16 @@ const Navbar = ({ children }: PropsWithChildren) => {
               apart. It is the same deference the docked bar makes on a phone.
               The button keeps its place and its size, so nothing moves: it
               stops being the loud one while something louder is in view. */}
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:block"
+          <Button
+            asChild
+            variant={pageCtaOnScreen ? "default" : "solid"}
+            className="hidden md:inline-flex"
           >
-            <Button variant={pageCtaOnScreen ? "default" : "solid"}>
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
               <WhatsappLogo className="size-5" />
               WhatsApp
-            </Button>
-          </a>
+            </a>
+          </Button>
 
           <SquircleButton
             type="button"
@@ -315,28 +316,27 @@ const Navbar = ({ children }: PropsWithChildren) => {
               >
                 {/* Call and the resume, not WhatsApp: the docked bar at the
                     bottom of the screen is already carrying that one. */}
-                <a href={PHONE_TEL} className="w-full">
-                  <Button className="w-full justify-start">
+                <Button asChild className="w-full justify-start">
+                  <a href={PHONE_TEL}>
                     <Phone className="size-5" />
                     {PHONE_DISPLAY}
-                  </Button>
-                </a>
-                <span className="[&>a]:w-full [&_button]:w-full [&_button]:justify-start">
+                  </a>
+                </Button>
+                <span className="[&>a]:w-full [&>a]:justify-start">
                   {children}
                 </span>
                 {/* GitHub is icon-only from `md` up, which left it with no
                     route at all on the widths this menu covers. */}
-                <a
-                  href={GITHUB_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full"
+                <Button
+                  asChild
+                  variant="ghost"
+                  className="w-full justify-start"
                 >
-                  <Button variant="ghost" className="w-full justify-start">
+                  <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
                     <GithubLogo className="size-5" />
                     GitHub
-                  </Button>
-                </a>
+                  </a>
+                </Button>
               </div>
             </div>
           </motion.div>

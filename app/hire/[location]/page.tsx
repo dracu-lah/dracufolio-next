@@ -152,11 +152,9 @@ const LocationPage = async ({ params }: { params: Promise<Params> }) => {
             <Reveal delay={0.18} className="w-full">
               <div className="flex w-full max-w-xl flex-col gap-3 sm:flex-row md:gap-4">
                 <WhatsAppButton size="lg" message={message} />
-                <Link href="/projects" className="w-full sm:w-auto">
-                  <Button size="lg" className="w-full sm:w-auto">
-                    Projects
-                  </Button>
-                </Link>
+                <Button asChild size="lg" className="w-full sm:w-auto">
+                  <Link href="/projects">Projects</Link>
+                </Button>
               </div>
             </Reveal>
             <Reveal delay={0.22}>

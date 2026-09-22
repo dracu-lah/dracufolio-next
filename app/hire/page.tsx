@@ -94,11 +94,9 @@ const HirePage = async () => {
                   size="lg"
                   message="Hi Nevil, I found your hire page. I would like to talk about a project."
                 />
-                <Link href="/projects" className="w-full sm:w-auto">
-                  <Button size="lg" className="w-full sm:w-auto">
-                    Projects
-                  </Button>
-                </Link>
+                <Button asChild size="lg" className="w-full sm:w-auto">
+                  <Link href="/projects">Projects</Link>
+                </Button>
               </div>
             </Reveal>
             <Reveal delay={0.24}>

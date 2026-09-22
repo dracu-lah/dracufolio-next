@@ -1,8 +1,12 @@
 import { useFormContext } from "react-hook-form";
+import {
+  contactRules,
+  type ContactFormData,
+} from "@/lib/validation/contact-schema";
 import { Squircle, SQUIRCLE } from "@/components/ui/squircle";
 
 interface InputFieldProps {
-  name: keyof import("@/lib/validation/contact-schema").ContactFormData;
+  name: keyof ContactFormData;
   label?: string;
   placeholder?: string;
   type?: string;
@@ -17,7 +21,7 @@ const InputField = ({
   const {
     register,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext<ContactFormData>();
 
   return (
     <div className="flex flex-col gap-2">
@@ -39,7 +43,7 @@ const InputField = ({
           id={name}
           type={type}
           placeholder={placeholder}
-          {...register(name)}
+          {...register(name, contactRules[name])}
           className="w-full bg-transparent p-3.5 text-base outline-none placeholder:text-muted-foreground/60"
         />
       </Squircle>

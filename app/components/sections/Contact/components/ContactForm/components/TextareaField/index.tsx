@@ -1,8 +1,12 @@
 import { useFormContext } from "react-hook-form";
+import {
+  contactRules,
+  type ContactFormData,
+} from "@/lib/validation/contact-schema";
 import { Squircle, SQUIRCLE } from "@/components/ui/squircle";
 
 interface TextareaFieldProps {
-  name: keyof import("@/lib/validation/contact-schema").ContactFormData;
+  name: keyof ContactFormData;
   label?: string;
   placeholder?: string;
   rows?: number;
@@ -17,7 +21,7 @@ const TextareaField = ({
   const {
     register,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext<ContactFormData>();
 
   return (
     <div className="flex flex-col gap-2">
@@ -39,7 +43,7 @@ const TextareaField = ({
           id={name}
           rows={rows}
           placeholder={placeholder}
-          {...register(name)}
+          {...register(name, contactRules[name])}
           className="w-full bg-transparent p-3.5 text-base outline-none placeholder:text-muted-foreground/60"
         />
       </Squircle>

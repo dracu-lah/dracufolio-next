@@ -308,10 +308,30 @@ details[open]::details-content {
 }
 
 /*
- * The same keyframe, tied to the scroll position where the browser supports a
+ * The rise without the fade, for the scroll-linked version below.
+ *
+ * A view timeline holds an element at 0% for as long as it is below the fold,
+ * so a fade there is not an entrance, it is text at `opacity: 0` sitting in
+ * the document. A contrast checker blends that against the background and
+ * reads 1.08:1, which is how eighteen readable paragraphs failed an audit. The
+ * distance still reads as an arrival, and it costs nothing to a reader who
+ * never gets there.
+ */
+@keyframes rise-up {
+  from {
+    transform: translateY(24px);
+  }
+  to {
+    transform: none;
+  }
+}
+
+/*
+ * The same entrance, tied to the scroll position where the browser supports a
  * view timeline, so a section still arrives as you reach it. Where it does not
- * (Firefox today), the element fades in on load instead. Either way the
- * content is painted by CSS and never waits for a script.
+ * (Firefox today), the element fades in on load instead, which is safe because
+ * that animation finishes on its own whether or not anybody scrolls. Either
+ * way the content is painted by CSS and never waits for a script.
  */
 .reveal {
   animation: rise-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -320,7 +340,7 @@ details[open]::details-content {
 
 @supports (animation-timeline: view()) {
   .reveal {
-    animation: rise-in linear both;
+    animation: rise-up linear both;
     animation-timeline: view();
     animation-range: entry 0% entry 55%;
     animation-delay: 0ms;

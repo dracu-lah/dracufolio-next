@@ -1619,3 +1619,254 @@ Found by auditing every route against the current guidance.
 - A `pkill` run against the Next server name also killed the dev server running
   for the seatinfo project in another directory. Nothing was lost, but it should
   have been scoped to the port.
+
+## 16. The Business Profile doc, rewritten as one step by step file (20 Sep 2026)
+
+### What was raised
+
+"google businness md is huge and i'm not able to grasp anything it's my first
+time", then "can you review the md file and make sure it's differentiated and
+only necessary copy paste stuff and necessary content is there", then "that md
+file should be step by step stuff, i will make the clients of mine write off the
+reviews for me", then "no need for two md files only use one, add redirection or
+add the path of the other md file to watch".
+
+### What the review found
+
+Two files covered the same job and neither did it well.
+`03-google-business-profile-and-reviews.md` is 465 lines of reference.
+`assets/google-business-profile.md` is a 146 line "one sitting" version that
+re-explains 8 of the 11 things `03` explains, while the blocks worth pasting
+stayed behind in `03`.
+
+- **The asset file explains instead of pasting.** Why not to keyword stuff the
+  name, why the website field is `/hire`, the whole video verification script,
+  the photo rules, all repeated from `03`.
+- **The paste blocks are in the other file.** The six service descriptions, the
+  20 service areas, the review ask in English, the review ask in Malayalam, the
+  follow-up and the four review replies all live in `03`. The asset file points
+  back at `03` four separate times for them.
+- **The duplication drifted.** The description block exists in both and differs:
+  "3+ years" at 742 characters against "3 years" at 741. The first Google Post
+  block has the same split. The rest of the repo says "3+ years".
+- **The eligibility rule is only in the file that gets skimmed.** Google requires
+  in-person contact with customers during stated hours, and that is the ground a
+  suspension is argued on. It has to be the first thing read, not a note in the
+  short version.
+
+### Decisions taken
+
+| Question | Decision |
+| --- | --- |
+| One file or two | One. Two files covering one job is what caused the drift. |
+| Which path survives | `docs/seo/03-google-business-profile-and-reviews.md`. It is in the numbered reading order and seven docs already point at it, so no cross-reference has to change. |
+| What happens to the asset path | Becomes a two line pointer at `03`, so a bookmark or a stale link still lands somewhere. |
+| Shape of the file | Numbered steps in the order the Google form asks for them. Action first, the block to paste, and at most one line of why. |
+| Part B's "who to ask" table | Cut to clients only. The seven-row table of Lascade colleagues, Udyata colleagues, college friends and FOSS contacts goes. |
+| The "3 years" split | "3+ years" wins, matching the LinkedIn and GitHub assets. |
+| Domain | Stays `nevil.dev`. The move in `12` has not happened. |
+
+### The plan
+
+**T1. Rewrite `03` as one step by step file.** Structure:
+
+- Title, one line on what a Business Profile is and why the site alone cannot
+  get into the Maps box. Time: 90 minutes once, then 15 minutes a week.
+- **Step 0, can you do this at all.** The eligibility rule, with an honest stop
+  if every client has been purely remote. Nothing else is worth reading if the
+  answer is no.
+- **Before you start.** The five-item checklist that is already there.
+- **Part A, create the profile.** Steps 1 to 13: business name, categories,
+  address, the 20 service areas, phone and website, hours, start verification
+  (the three things the video must show), description, the six services,
+  attributes, photos, first post, copy and test the review link.
+- **Part B, reviews.** Steps 14 to 17: the ask in English, the ask in Malayalam,
+  the one follow-up, replying within 48 hours with the four replies. The two
+  rules that get profiles suspended sit at the top of Part B, not buried.
+- **Part C, every week after.** The 15 minute routine and the 8 post ideas.
+- **Part D, week 1 to 8.** The table, with the review rows rewritten for clients.
+- **What to watch in Insights**, and the **Done when** checklist, both as they are.
+
+**T2. Fold in what only the asset file had.** The eligibility rule becomes Step 0.
+Nothing else in it is unique.
+
+**T3. Cut the prose hard.** Every step opens with the action. Reasoning survives
+only where it stops a mistake: the name, the primary category, 24 hour opening,
+stock photos, the review pacing. The file stays long because the paste blocks are
+long, but it is worked down, not read.
+
+**T4. Fix the drift.** One description block at "3+ years", 742 characters, and
+one first post block.
+
+**T5. Replace `assets/google-business-profile.md`** with a two line pointer at
+`../03-google-business-profile-and-reviews.md`.
+
+**T6. Update `README.md`.** Line 21 describes `03` as the step by step. Line 30's
+`assets/` row drops `google-business-profile.md` from the paste-ready list and
+says it is a pointer.
+
+### Open
+
+Nothing. Waiting on "start".
+
+---
+
+# task: the Lighthouse 13 audit, 22 Sep 2026
+
+Status: PLANNED. Written 22 Sep 2026 from `desktop.json` and `mobile.json`, two
+Lighthouse 13.4.1 runs against https://nevil.dev/ taken 22 Sep 2026 05:13 and 05:14 UTC.
+
+## 0. Where the site stands
+
+| Category | Desktop | Mobile |
+| --- | --- | --- |
+| Performance | 98 | 78 |
+| Accessibility | 87 | 93 |
+| Best practices | 96 | 96 |
+| SEO | 100 | 100 |
+| Agentic browsing | 33 | 33 |
+
+Agentic browsing is new in Lighthouse 13. It scores three things: a well formed
+accessibility tree, `llms.txt`, and CLS. Only CLS passes, hence 33.
+
+## 1. What is actually broken
+
+**A1. The FAQ list is not a description list.** `<dl>` holds
+`div > details > summary > dt` and `div > details > dd`, so neither the `dt` nor
+the `dd` has a `dl` parent. This fails `definition-list`, `dlitem` and, because
+the same rule is scored a second time for agents, `agent-accessibility-tree`.
+It is the single most expensive defect on the page: 14 accessibility points and
+33 agentic points.
+
+**A2. A focusable button inside `aria-hidden`.** The header GitHub link is
+`<a aria-label="GitHub profile"><Button aria-hidden>`. A `<button>` is focusable,
+so a keyboard lands on a node the accessibility tree says is not there. It is
+also invalid HTML: `<a>` cannot contain interactive content. The same shape
+repeats at eleven other call sites (`<Link><Button>`, `<a><Button>`).
+
+**A3. Text at opacity 0 fails contrast.** `.reveal` runs `rise-in` on a view
+timeline, so anything below the fold sits at `opacity: 0` until it is scrolled
+to. axe blends that against the background and reads 1.08:1. Eighteen elements
+on the desktop run, none on mobile, which is why the two scores differ by six.
+
+**A4. The logo link's name does not contain its label.** The mark reads
+"DVLPR" and the link is `aria-label="Home"`, so voice control has no way to say
+what is written on screen (WCAG 2.5.3).
+
+**B1. `llms.txt` has no links.** Every URL in it is bare text. The spec wants
+Markdown links, and Lighthouse checks for them literally.
+
+**C1. A React hydration error in the console.** Minified React error #418 on the
+live site. It does not reproduce against a local production build of HEAD, and
+the one markup difference between the deployed HTML and a local build is the
+active nav pill, which the deployed HTML does not have. Worth re-testing after
+the next deploy rather than guessing at it now.
+
+**P1. The LCP image has no priority hint.** `next/image` deprecated `priority`
+in Next 16 in favour of `preload`, and `preload` alone does not put
+`fetchpriority="high"` on either the preload link or the `<img>`.
+
+**P2. 630ms of blocking time on mobile.** The biggest chunk on the home page is
+324KB raw / 77KB over the wire and 82 percent of it is never executed: it is
+zod, `@hookform/resolvers` and `@emailjs/browser`, pulled in by a contact form
+that sits at the bottom of the page.
+
+## 2. The plan
+
+**T1. Rebuild the FAQ without the description list.** `details` goes straight
+under the section wrapper, the question becomes an `h3` inside `summary`, the
+answer a plain `div`. FAQPage schema already carries the semantics for a
+crawler, so nothing is lost. Check `AboutSection` and the project detail page
+stay as they are: both use `dl > div > dt + dd`, which is valid.
+
+**T2. Give `Button` a working `asChild`.** Today `asChild` drops the fill layer
+and the clip, which is why every anchor CTA wraps a real `<button>` instead.
+Clone the slotted element so the fill layer goes in as its first child and the
+clip path lands on it. Then convert all twelve `<Link><Button>` and
+`<a><Button>` sites to `<Button asChild><Link|a>`. That removes the invalid
+nesting and the `aria-hidden` on a focusable node in one pass, and internal
+links keep Next's prefetch.
+
+**T3. Take the fade off the scroll-linked reveal.** Add a transform-only
+keyframe and use it inside `@supports (animation-timeline: view())`. The rise
+stays, the fade goes. The load-time fallback and `.rise-in` keep the fade,
+because both finish on their own and are never caught at opacity 0.
+
+**T4. `aria-label="DVLPR, home"` on the logo link.** The accessible name now
+contains the visible text and still says where the link goes.
+
+**T5. Markdown links in `llms.txt` and `llms-full.txt`.** Every profile,
+project, post and location line becomes `- [Name](url): note`.
+
+**T6. `preload fetchPriority="high"` on the hero image**, replacing the
+deprecated `priority`.
+
+**T7. Get zod and emailjs off the critical path.** Four fields with four rules
+do not need a schema library: move the rules onto `react-hook-form`'s own
+`register` options and keep the types hand written. Import `@emailjs/browser`
+inside `sendContactEmail` so it is fetched on submit, not on load. Drop
+`zod` and `@hookform/resolvers` from the dependencies.
+
+**T8. The LinkedIn row in the contact list still reads `nevil-krishna-k`.**
+The handle moved to `nevilkrishnak` in 0dc3817 and this copy was missed.
+
+**T9. Verify.** Build, run `check-jsonld` and `check-seo` against `pnpm start`,
+screenshot the FAQ, the header and the hero at 390 and 1280 to confirm nothing
+moved, commit, push, and re-run Lighthouse against the deploy.
+
+## Open
+
+Answered 22 Sep 2026: T3 ships the rise without the fade, and T7 drops zod and
+the resolver as well as deferring emailjs. Nothing else open.
+
+## 3. What shipped, and where it went a different way
+
+Status: BUILT, 22 Sep 2026. T1 to T9 are in. Verified against a local
+production build with Lighthouse 13, `check-jsonld`, `check-seo`, screenshots
+at 390 and 1280, and a manual pass over the contact form.
+
+| Category | Before (mobile / desktop) | Local build after |
+| --- | --- | --- |
+| Accessibility | 93 / 87 | 100 |
+| Agentic browsing | 33 / 33 | 100 |
+| Best practices | 96 / 96 | 96 local, and the only console error left is the Vercel analytics 404 that exists on localhost and not in production |
+| Performance | 78 / 98 | 85 to 87 on three runs, total blocking time 630ms to 300ms |
+| SEO | 100 / 100 | 100 |
+
+### Deviations
+
+**T2 grew.** Fixing `asChild` fixed twelve call sites rather than the one the
+audit named, and it also fixed a thing the audit did not: `Button asChild`
+never had the clip or the fill layer, so the three CTAs on the project detail
+page that already used it were drawing a plain radius. They are squircles now.
+
+**A mid-build requirement: one source for content.** Asked for during the
+build, and it turned up more than the LinkedIn label T8 was about:
+
+- `app/data/socials.json` was a second copy of three profile URLs that
+  `contact.ts` already held. Deleted, with the `Socials` type and
+  `GetGithubURLAPI` that read it.
+- `GithubButton.tsx` was the only caller of that API. It was dead code, and it
+  was a floating bubble in the page corner with a hand-rolled SVG path, which
+  is two golden rules at once. Deleted.
+- `contact.ts` now holds a handle per profile and builds the URL from it, so
+  the label a visitor reads and the link it points at cannot drift again. That
+  is exactly how the stale `nevil-krishna-k` in the contact list survived the
+  handle change two commits ago.
+- The four handles in the contact list, the X handle in `layout.tsx`, the
+  GitHub links in `OpenSource.tsx`, the resume path in `api.ts` and the six
+  profile redirects in `next.config.ts` all read from `contact.ts` now.
+
+**C1 is not fixed, it is unexplained.** The React #418 in the console does not
+reproduce against a local production build of this tree, before or after these
+changes. The deployed HTML differs from a local build by exactly one thing, the
+active nav pill, which the deployed copy does not have. The invalid
+`<button>` inside `<a>` that T2 removed is one of the five causes React names
+for that error, so the next deploy is the test. If it survives, chase it then
+rather than guessing now.
+
+**Not done, and worth a later look.** `iconsax-reactjs` ships all six variants
+of each of the 37 icons the site imports, which is 217KB raw for a set that
+only ever renders `Bulk`. It is the second largest thing in the bundle after
+React. Extracting the Bulk paths at build time is the fix, and it is its own
+task.

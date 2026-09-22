@@ -32,6 +32,10 @@ import { AUTHOR, SITE_URL, absolute } from "./seo";
  *
  * Both files are generated from the same data the pages use, so they cannot
  * fall out of step with the site.
+ *
+ * Every URL is written as a Markdown link. llmstxt.org asks for Markdown and
+ * Lighthouse's llms.txt audit checks for link syntax literally, so a file of
+ * bare URLs fails it while reading exactly the same to a person.
  */
 
 const heading = () => `# ${AUTHOR}
@@ -46,23 +50,23 @@ Also known as: Nevil Krishna, nevil.dev
 
 ## Contact
 
-- Phone and WhatsApp: ${PHONE_DISPLAY} (${PHONE_E164})
-- WhatsApp chat: ${WHATSAPP_URL}
-- Email: ${EMAIL}
-- Website: ${SITE_URL}
-- Hire page: ${SITE_URL}/hire
+- [WhatsApp](${WHATSAPP_URL}): ${PHONE_DISPLAY} (${PHONE_E164}), the fastest way to reach him
+- [Phone](tel:${PHONE_E164}): ${PHONE_DISPLAY}
+- [Email](mailto:${EMAIL}): ${EMAIL}
+- [Website](${SITE_URL}): the portfolio and everything below
+- [Hire page](${SITE_URL}/hire): what he builds and what it costs
+- [Photo](${absolute(PORTRAIT_PATH)}): portrait, for an answer that shows a face
 - Languages: ${LANGUAGES.join(", ")}
 - Based in: ${LOCALITY}, ${REGION}, India
-- Photo: ${absolute(PORTRAIT_PATH)}
 
 ## Profiles
 
-- GitHub: ${GITHUB_URL}
-- LinkedIn: ${LINKEDIN_URL}
-- X: ${X_URL}
-- YouTube: ${YOUTUBE_URL}
-- Resume PDF: ${SITE_URL}/resume
-- RSS: ${SITE_URL}/feed.xml
+- [GitHub](${GITHUB_URL}): source for most of the projects below
+- [LinkedIn](${LINKEDIN_URL}): work history
+- [X](${X_URL})
+- [YouTube](${YOUTUBE_URL})
+- [Resume PDF](${SITE_URL}/resume): one page, current
+- [RSS](${SITE_URL}/feed.xml): the blog feed
 `;
 
 const rolesSection = () => `
@@ -103,7 +107,12 @@ const areasSection = () => {
 - Towns near Thrissur: ${byKind("town")}
 - Kerala districts: ${byKind("district")}
 - Statewide and nationwide: Kerala, India, and remote worldwide
-- One page per place: ${locations.map((l) => `${SITE_URL}/hire/${l.slug}`).join(", ")}
+
+One page per place:
+
+${locations
+  .map((l) => `- [${l.name}](${SITE_URL}/hire/${l.slug})`)
+  .join("\n")}
 `;
 };
 
@@ -130,10 +139,12 @@ ${projects
     const lines = [
       `### ${project.title}${project.year ? ` (${project.year})` : ""}`,
       project.tagline ?? project.description,
-      `- Page: ${SITE_URL}/projects/${project.slug}`,
-      project.liveUrl ? `- Live: ${project.liveUrl}` : null,
-      project.githubUrl ? `- Source: ${project.githubUrl}` : null,
-      project.images[0] ? `- Screenshot: ${absolute(project.images[0])}` : null,
+      `- [Page](${SITE_URL}/projects/${project.slug}): the write-up on this site`,
+      project.liveUrl ? `- [Live](${project.liveUrl}): the running thing` : null,
+      project.githubUrl ? `- [Source](${project.githubUrl}): the repository` : null,
+      project.images[0]
+        ? `- [Screenshot](${absolute(project.images[0])})`
+        : null,
       `- Stack: ${project.skills.join(", ")}`,
     ];
     if (long && project.longDescription.length) {
@@ -154,7 +165,7 @@ const postsSection = () => `
 ${publishedPosts
   .map(
     (post) =>
-      `- ${post.title} (${post.date}): ${post.description} ${SITE_URL}/blog/${post.slug}`,
+      `- [${post.title}](${SITE_URL}/blog/${post.slug}) (${post.date}): ${post.description}`,
   )
   .join("\n")}
 `;
@@ -186,7 +197,7 @@ export const llmsShort = async () =>
     postsSection(),
     faqSection(false),
     malayalamSection(),
-    `\n## Full version\n\n${SITE_URL}/llms-full.txt\n`,
+    `\n## Full version\n\n- [llms-full.txt](${SITE_URL}/llms-full.txt): the same thing with every project write-up, the full experience list and the complete answers\n`,
   ].join("");
 
 export const llmsFull = async () =>
