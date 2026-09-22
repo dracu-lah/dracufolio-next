@@ -1,16 +1,12 @@
-import socialsData from "@/data/socials.json";
 import aboutData from "@/data/about.json";
+import { RESUME_PATH } from "@/data/contact";
 import projectsData from "@/data/projects.json";
 import { type Project } from "@/types/portfolio";
 
 const projects = projectsData as Project[];
 
-export async function GetGithubURLAPI() {
-  return socialsData.github_url;
-}
-
 export async function GetResumeAPI() {
-  return "/appwrite/resume/Nevil-3-Years-Frontend-Resume.pdf";
+  return RESUME_PATH;
 }
 
 export async function GetHeroImageAPI() {

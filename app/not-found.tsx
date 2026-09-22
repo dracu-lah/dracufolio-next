@@ -44,17 +44,15 @@ const NotFound = () => (
         for a list of shortcuts, or start from one of these.
       </p>
       <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-        <Link href="/" className="w-full sm:w-auto">
-          <Button variant="solid" className="w-full sm:w-auto">
-            Home
-          </Button>
-        </Link>
-        <Link href="/projects" className="w-full sm:w-auto">
-          <Button className="w-full sm:w-auto">Projects</Button>
-        </Link>
-        <Link href="/hire" className="w-full sm:w-auto">
-          <Button className="w-full sm:w-auto">Hire me</Button>
-        </Link>
+        <Button asChild variant="solid" className="w-full sm:w-auto">
+          <Link href="/">Home</Link>
+        </Button>
+        <Button asChild className="w-full sm:w-auto">
+          <Link href="/projects">Projects</Link>
+        </Button>
+        <Button asChild className="w-full sm:w-auto">
+          <Link href="/hire">Hire me</Link>
+        </Button>
       </div>
     </main>
     <Footer />

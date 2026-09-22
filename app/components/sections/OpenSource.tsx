@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { GithubLogo } from "@/components/common/icons";
+import { GITHUB_URL, githubRepo } from "@/data/contact";
 
 import Badge from "@/components/common/Badge";
 import Reveal from "@/components/common/Reveal";
@@ -35,7 +36,7 @@ const items: Item[] = [
   },
   {
     name: "LangSync",
-    href: "https://github.com/dracu-lah/langsync-cli",
+    href: githubRepo("langsync-cli"),
     description:
       "Parallel i18n sync engine that keeps translation files in step with one source of truth.",
     meta: "CLI · Node.js",
@@ -58,7 +59,7 @@ const items: Item[] = [
   },
   {
     name: "swaydots and hyprdots",
-    href: "https://github.com/dracu-lah/swaydots",
+    href: githubRepo("swaydots"),
     description:
       "My desktop setup published in full: Sway and Hyprland configs, scripts and theming.",
     meta: "Shell · Sway · Hyprland",
@@ -91,7 +92,7 @@ const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
               163 public repos on{" "}
               <a
                 className="underline underline-offset-4 transition-colors duration-300 hover:text-accent"
-                href="https://github.com/dracu-lah"
+                href={GITHUB_URL}
                 target="_blank"
                 rel="noopener noreferrer"
               >

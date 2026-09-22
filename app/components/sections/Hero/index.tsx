@@ -97,18 +97,21 @@ const HeroSection = () => (
         */}
         <Reveal delay={0.12} className="w-full">
           <div className="flex w-full max-w-xl flex-wrap items-center gap-3 md:gap-4">
-            <Link href="/hire">
-              <Button className="bg-accent-edge hover:bg-accent hover:text-accent-foreground">
+            <Button
+              asChild
+              className="bg-accent-edge hover:bg-accent hover:text-accent-foreground"
+            >
+              <Link href="/hire">
                 <BriefcaseIcon className="size-5" />
                 Hire me
-              </Button>
-            </Link>
-            <Link href="/projects">
-              <Button variant="ghost">
+              </Link>
+            </Button>
+            <Button asChild variant="ghost">
+              <Link href="/projects">
                 <SquaresFour className="size-5" />
                 Projects
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
         </Reveal>
       </div>

@@ -18,6 +18,7 @@ import {
   PHONE_E164,
   REGION,
   REGION_CODE,
+  X_HANDLE,
 } from "./data/contact";
 import "./globals.css";
 
@@ -85,7 +86,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description,
-    creator: "@nevilkrishnak",
+    creator: X_HANDLE,
   },
   /**
    * Geo meta tags. Google stopped using them years ago, but Bing and several

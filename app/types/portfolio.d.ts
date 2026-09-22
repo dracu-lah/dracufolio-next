@@ -22,8 +22,3 @@ export type Projects = Project[];
 export type AboutSection = {
   about_description: string;
 };
-
-export type Socials = {
-  linkedin_url: string;
-  github_url: string;
-};

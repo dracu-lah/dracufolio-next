@@ -65,27 +65,49 @@ function Button({
    * shape in every engine. A clip cuts a CSS border off at the corner, which
    * is why the bordered variants are drawn in border mode instead: the button
    * background is the edge colour and the fill layer inside it is the surface.
-   *
-   * `asChild` hands the element to somebody else's component, so there is
-   * nowhere to put the fill layer. Those keep the plain radius, which is why
-   * the clip falls back to `borderRadius` rather than to a square.
    */
-  const bordered = !asChild && BORDERED.has(variant ?? "default");
-  const { attach, style, fill } = useSquircle<HTMLButtonElement>({
+  const bordered = BORDERED.has(variant ?? "default");
+  const { attach, style, fill } = useSquircle<HTMLElement>({
     cornerRadius: size === "lg" ? SQUIRCLE.control + 2 : SQUIRCLE.control,
     borderWidth: bordered ? 1 : 0,
   });
 
-  // Slot wants exactly one element child, so an `asChild` button hands the
-  // children through untouched: no fill layer, no clip, plain radius.
+  /*
+   * `asChild` used to hand the children straight through, which meant an
+   * anchor styled as a button got a plain radius and no fill layer. So every
+   * CTA that navigates wrapped a real <button> in an <a> instead, and that is
+   * interactive content inside a link: invalid HTML, a focusable node under
+   * `aria-hidden` in the header, and one of the shapes React names when a
+   * hydration mismatch is thrown.
+   *
+   * The slotted element gets the ref, the clip and the fill layer as its own
+   * first child, so <Button asChild><Link/></Button> is the same surface as a
+   * button and still gets Next's prefetch.
+   */
   if (asChild) {
+    const only = React.Children.only(children) as React.ReactElement<{
+      children?: React.ReactNode;
+    }>;
+
     return (
       <Slot
         data-slot="button"
-        className={cn(buttonVariants({ variant, size, className }))}
+        ref={attach as React.Ref<never>}
+        style={style}
+        className={cn(
+          "relative isolate",
+          buttonVariants({ variant, size, className }),
+        )}
         {...props}
       >
-        {children}
+        {React.cloneElement(
+          only,
+          undefined,
+          <>
+            {fill}
+            {only.props.children}
+          </>,
+        )}
       </Slot>
     );
   }
@@ -93,7 +115,7 @@ function Button({
   return (
     <button
       data-slot="button"
-      ref={attach}
+      ref={attach as React.Ref<HTMLButtonElement>}
       style={style}
       className={cn(
         "relative isolate",

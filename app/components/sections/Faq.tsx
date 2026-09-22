@@ -12,6 +12,13 @@ import type { Faq as FaqItem } from "@/data/faq";
  * and with the keyboard for free, and the answer text is in the DOM whether or
  * not it is open, which is what makes it worth anything to a crawler.
  *
+ * This used to be a <dl>, one <div><details> per row with a <dt> inside the
+ * <summary> and a <dd> after it. A <dt> has to be a direct child of a <dl>, so
+ * neither half had a parent the spec allows, and the markup failed three
+ * separate audits for it. The question is an <h3> now, which is what a
+ * question in a stack of questions actually is, and the FAQPage schema on the
+ * page already carries the question and answer pairing for a crawler.
+ *
  * Opening and closing is animated in globals.css through `::details-content`,
  * so the height transition costs nothing at runtime and degrades to the old
  * instant open on a browser that does not support it yet.
@@ -67,21 +74,21 @@ const Faq = ({
         </div>
       </Reveal>
 
-      <dl className="divide-y divide-border border-t border-b border-border">
+      <div className="divide-y divide-border border-t border-b border-border">
         {faqs.map((faq, i) => (
-          <div key={faq.q}>
-            <details className="group" open={i === 0}>
-              <summary className="flex cursor-pointer list-none items-start justify-between gap-6 py-4 text-lg font-medium marker:content-none group-hover:text-accent md:text-xl">
-                <dt className="transition-colors duration-200">{faq.q}</dt>
-                <CaretDown className="mt-1 size-5 shrink-0 text-muted-foreground transition-transform duration-300 group-open:rotate-180 group-hover:text-accent" />
-              </summary>
-              <dd className="pb-5 text-base leading-relaxed text-muted-foreground md:text-lg">
-                {faq.a}
-              </dd>
-            </details>
-          </div>
+          <details key={faq.q} className="group" open={i === 0}>
+            <summary className="flex cursor-pointer list-none items-start justify-between gap-6 py-4 marker:content-none group-hover:text-accent">
+              <h3 className="text-lg font-medium transition-colors duration-200 md:text-xl">
+                {faq.q}
+              </h3>
+              <CaretDown className="mt-1 size-5 shrink-0 text-muted-foreground transition-transform duration-300 group-open:rotate-180 group-hover:text-accent" />
+            </summary>
+            <p className="pb-5 text-base leading-relaxed text-muted-foreground md:text-lg">
+              {faq.a}
+            </p>
+          </details>
         ))}
-      </dl>
+      </div>
     </div>
   </section>
 );

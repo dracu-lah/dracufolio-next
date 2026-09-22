@@ -1,13 +1,21 @@
 import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
+import {
+  GITHUB_URL,
+  LINKEDIN_URL,
+  PHONE_E164,
+  RESUME_PATH,
+  SOURCE_URL,
+  X_URL,
+} from "./app/data/contact";
 
 // No prefilled text here on purpose. Next decodes percent-escapes in a
 // redirect destination, which would put raw spaces in the Location header and
 // that is invalid. These short links are the ones typed by hand or read out
 // loud; the in-page buttons build their own wa.me URL with the message
 // properly encoded.
-const WHATSAPP = "https://wa.me/919207932070";
-const RESUME = "/appwrite/resume/Nevil-3-Years-Frontend-Resume.pdf";
+const WHATSAPP = `https://wa.me/${PHONE_E164.replace("+", "")}`;
+const RESUME = RESUME_PATH;
 
 const nextConfig: NextConfig = {
   // Blog posts are .mdx page files, so the router has to look for them.
@@ -37,7 +45,7 @@ const nextConfig: NextConfig = {
       { source: "/oss", destination: "/open-source", statusCode: 301 },
       {
         source: "/appwrite/resume/Nevil-Krishna-Frontend-Resume.pdf",
-        destination: "/appwrite/resume/Nevil-3-Years-Frontend-Resume.pdf",
+        destination: RESUME,
         statusCode: 301,
       },
 
@@ -50,19 +58,11 @@ const nextConfig: NextConfig = {
       { source: "/call", destination: "/#contact", statusCode: 308 },
       { source: "/resume", destination: RESUME, statusCode: 308 },
       { source: "/cv", destination: RESUME, statusCode: 308 },
-      {
-        source: "/linkedin",
-        destination: "https://www.linkedin.com/in/nevilkrishnak/",
-        statusCode: 308,
-      },
-      { source: "/github", destination: "https://github.com/dracu-lah", statusCode: 308 },
-      { source: "/x", destination: "https://x.com/nevilkrishnak", statusCode: 308 },
-      { source: "/twitter", destination: "https://x.com/nevilkrishnak", statusCode: 308 },
-      {
-        source: "/source",
-        destination: "https://github.com/dracu-lah/dracufolio-next",
-        statusCode: 308,
-      },
+      { source: "/linkedin", destination: LINKEDIN_URL, statusCode: 308 },
+      { source: "/github", destination: GITHUB_URL, statusCode: 308 },
+      { source: "/x", destination: X_URL, statusCode: 308 },
+      { source: "/twitter", destination: X_URL, statusCode: 308 },
+      { source: "/source", destination: SOURCE_URL, statusCode: 308 },
       { source: "/hire-me", destination: "/hire", statusCode: 308 },
       { source: "/services", destination: "/hire", statusCode: 308 },
       { source: "/freelance", destination: "/hire", statusCode: 308 },

@@ -6,14 +6,14 @@ const ResumeDownloadButton = async () => {
   const resumeLink = await GetResumeAPI();
   if (resumeLink) {
     return (
-      <a href={resumeLink} target="_blank">
-        {/* Quieter than the WhatsApp button next to it on purpose: a header
-            with two loud buttons has no primary action. */}
-        <Button variant="ghost">
+      /* Quieter than the WhatsApp button next to it on purpose: a header
+         with two loud buttons has no primary action. */
+      <Button asChild variant="ghost">
+        <a href={resumeLink} target="_blank">
           <DownloadIcon className="size-5" />
           Resume
-        </Button>
-      </a>
+        </a>
+      </Button>
     );
   }
 };

@@ -20,7 +20,12 @@ const HeroImage = async () => {
     >
       {heroImage ? (
         <Image
-          priority
+          /* `priority` is deprecated in Next 16 and only emits the preload
+             link, which then carries no priority hint at all: Lighthouse asks
+             for `fetchpriority=high` on the LCP request and this is the LCP
+             element on every viewport. */
+          preload
+          fetchPriority="high"
           width={720}
           height={720}
           sizes="(min-width: 1280px) 22rem, (min-width: 1024px) 20rem, (min-width: 768px) 16rem, 14rem"

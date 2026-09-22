@@ -95,12 +95,12 @@ const CtaBlock = ({
 
           <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:gap-4">
             <WhatsAppButton message={message} size="lg" />
-            <a href={PHONE_TEL} className="w-full sm:w-auto">
-              <Button size="lg" className="w-full sm:w-auto">
+            <Button asChild size="lg" className="w-full sm:w-auto">
+              <a href={PHONE_TEL}>
                 <Phone className="size-5" />
                 Call
-              </Button>
-            </a>
+              </a>
+            </Button>
           </div>
         </div>
 

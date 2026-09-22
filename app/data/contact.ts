@@ -26,13 +26,27 @@ export const whatsappUrl = (message: string = DEFAULT_WHATSAPP_MESSAGE) =>
 
 export const WHATSAPP_URL = whatsappUrl();
 
-export const LINKEDIN_URL =
-  "https://www.linkedin.com/in/nevilkrishnak/";
-export const GITHUB_URL = "https://github.com/dracu-lah";
-export const X_URL = "https://x.com/nevilkrishnak";
+/*
+ * Each profile is a handle and a URL built from it, rather than two strings
+ * that have to be changed together. The LinkedIn custom URL moved once
+ * already and the contact list kept showing the old one for two commits,
+ * because the URL lived here and the label people read did not.
+ */
+export const LINKEDIN_HANDLE = "nevilkrishnak";
+export const LINKEDIN_URL = `https://www.linkedin.com/in/${LINKEDIN_HANDLE}/`;
+
+export const GITHUB_HANDLE = "dracu-lah";
+export const GITHUB_URL = `https://github.com/${GITHUB_HANDLE}`;
+/** A repo under that account. The site links to a handful by name. */
+export const githubRepo = (repo: string) => `${GITHUB_URL}/${repo}`;
+
 export const X_HANDLE = "@nevilkrishnak";
-export const YOUTUBE_URL = "https://www.youtube.com/@nevilkrishnak4064";
-export const SOURCE_URL = "https://github.com/dracu-lah/dracufolio-next";
+export const X_URL = `https://x.com/${X_HANDLE.slice(1)}`;
+
+export const YOUTUBE_HANDLE = "@nevilkrishnak4064";
+export const YOUTUBE_URL = `https://www.youtube.com/${YOUTUBE_HANDLE}`;
+
+export const SOURCE_URL = githubRepo("dracufolio-next");
 
 export const RESUME_PATH = "/appwrite/resume/Nevil-3-Years-Frontend-Resume.pdf";
 export const PORTRAIT_PATH = "/nevil-krishna-k.jpg";

@@ -1,15 +1,9 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
-import {
-  contactSchema,
-  ContactFormData,
-} from "@/lib/validation/contact-schema";
+import { ContactFormData } from "@/lib/validation/contact-schema";
 
 const ContactFormProvider = ({ children }: { children: React.ReactNode }) => {
-  const methods = useForm<ContactFormData>({
-    resolver: zodResolver(contactSchema),
-  });
+  const methods = useForm<ContactFormData>();
 
   return <FormProvider {...methods}>{children}</FormProvider>;
 };

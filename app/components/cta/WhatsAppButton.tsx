@@ -26,18 +26,22 @@ const WhatsAppButton = ({
   magnetic?: boolean;
 }) => {
   const link = (
-    <a
-      href={whatsappUrl(message)}
-      data-whatsapp-cta
-      target="_blank"
-      rel="noopener noreferrer"
-      className={className || "w-full sm:w-auto"}
+    <Button
+      asChild
+      variant="solid"
+      size={size}
+      className={`w-full sm:w-auto ${className}`}
     >
-      <Button variant="solid" size={size} className="w-full sm:w-auto">
+      <a
+        href={whatsappUrl(message)}
+        data-whatsapp-cta
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <WhatsappLogo className="size-5" />
         WhatsApp
-      </Button>
-    </a>
+      </a>
+    </Button>
   );
 
   return magnetic ? (
