@@ -22,8 +22,17 @@ const items: Item[] = [
     href: "/projects/tmplayer",
     internal: true,
     description:
-      "Telegram video player for Android TV and phone. Signs in with a QR code and streams from your own chats while the file is still downloading.",
+      "Telegram video player for Android TV, phones, Windows and Linux. Signs in with a QR code and streams from your own chats while the file is still downloading.",
     meta: "Kotlin · Jetpack Compose · TDLib · Media3 · GPL-3.0",
+  },
+  {
+    name: "TapTL",
+    logo: "/logos/taptl.png",
+    href: "/projects/taptl",
+    internal: true,
+    description:
+      "Live on-screen translator for Android games. Reads the text on screen and draws English over it, offline, with no root.",
+    meta: "Kotlin · Jetpack Compose · ML Kit · MIT",
   },
   {
     name: "Resume Builder",

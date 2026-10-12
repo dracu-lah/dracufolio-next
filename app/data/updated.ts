@@ -9,9 +9,9 @@ export const CONTENT_DATES = {
   home: "2026-09-19",
   hire: "2026-09-19",
   locations: "2026-09-18",
-  projects: "2026-09-19",
+  projects: "2026-10-12",
   about: "2026-09-19",
-  openSource: "2026-09-18",
+  openSource: "2026-10-12",
   blog: "2026-09-19",
 } as const;
 
