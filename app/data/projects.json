@@ -231,9 +231,9 @@
     "description": "Command line tool that keeps every locale file in step with one English source, translating only what changed.",
     "tagline": "Keeps every locale file in step with one source of truth, and only translates what changed.",
     "longDescription": [
-      "Every product I work on ships in several languages, and keeping a dozen locale files in step with the English one by hand meant missed keys and stale strings. LangSync treats one file as the source of truth. It works out which keys are new, edited or gone, translates only those, and writes them into every target locale in parallel.",
+      "Keeping a dozen locale files in step with an English one by hand means missed keys and stale strings. LangSync treats one file as the source of truth. It works out which keys are new, edited or gone, translates only those, and writes them into every target locale in parallel.",
       "Keys are grouped into batch requests rather than sent one at a time, which cut the network calls by up to 98 percent. Placeholders like {name} and inline tags are protected, and ICU plural and select messages are parsed so only the readable text is translated. Every rebuilt message is parsed again before it is written, so a translation that would break the syntax is rejected instead of shipped.",
-      "A snapshot of the source values tracks drift, so an edited English string is translated again everywhere. Orphan keys are reported, and only removed when you ask. Every error and warning ends with the exact command that fixes it. It now runs across all our products at work."
+      "A snapshot of the source values tracks drift, so an edited English string is translated again everywhere. Orphan keys are reported, and only removed when you ask. Every error and warning ends with the exact command that fixes it."
     ],
     "features": [
       "Parallel sync across every locale from one source file",
@@ -435,28 +435,6 @@
     "published": true,
     "order": 8,
     "concept": true
-  },
-  {
-    "id": "695e31740002b90bc657",
-    "slug": "sindhuja-regency",
-    "title": "Sindhuja Regency",
-    "description": "Minimalist landing page for a ten storey apartment complex, built around one clear enquiry path.",
-    "tagline": null,
-    "longDescription": [],
-    "features": [],
-    "skills": [
-      "React",
-      "Tailwind CSS",
-      "Framer Motion"
-    ],
-    "images": [
-      "/appwrite/projects/sindhuja-regency.png"
-    ],
-    "liveUrl": "https://sindhuja-old.netlify.app/",
-    "githubUrl": null,
-    "year": null,
-    "published": false,
-    "order": 18
   },
   {
     "id": "69116d7d0017b18ed2c2",
