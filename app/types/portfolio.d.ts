@@ -23,6 +23,12 @@ export type Project = {
   liveUrl: string | null;
   githubUrl: string | null;
   year: string | null;
+  /**
+   * A design study rather than a commissioned site: a brand I redesigned or
+   * imagined on my own. The card and the project page label it, so nobody
+   * reads it as client work.
+   */
+  concept?: boolean;
   /** Small square mark, usually the live site favicon */
   logo?: string;
   published: boolean;

@@ -21,8 +21,8 @@ link there is, and both are already true statements about you.
 Ask the person who manages the site or the HR contact, on Slack or in person.
 
 ```
-Hi [name], quick favour. I have put my portfolio together at nevil.dev with the REDACTED and
-REDACTED work on it.
+Hi [name], quick favour. I have put my portfolio together at nevil.dev, with the work I do
+here described on it.
 
 If the Lascade team page ever lists developers, could my name link out to nevil.dev? Happy to
 send a photo and a two line bio in whatever format you need.
@@ -34,7 +34,7 @@ If the answer is yes, send this, ready to paste:
 
 ```
 Nevil Krishna K, Full Stack Developer
-React, Next.js, TypeScript, Kotlin. Works on REDACTED and REDACTED.
+React, Next.js, TypeScript, Kotlin. Builds travel products on Cloudflare Workers.
 https://nevil.dev
 ```
 
@@ -45,7 +45,7 @@ Ask the former manager or the person who still runs the site.
 ```
 Hi [name], hope things are good at Udyata.
 
-I have put my portfolio up at nevil.dev, and the REDACTED admin panel and the self-hosted map
+I have put my portfolio up at nevil.dev, and the admin panel and the self-hosted map
 work are on it (nothing internal, only what is already public).
 
 If the site has a team or alumni section, could you link my name to nevil.dev? And if you are
@@ -99,7 +99,7 @@ I found your post on [top web developers in Thrissur] while looking for other de
 district. Useful list.
 
 I am a full stack developer in Thrissur with 3 years of production experience (React, Next.js,
-TypeScript, and Kotlin for Android). Most recently a REDACTED product on Cloudflare Workers and
+TypeScript, and Kotlin for Android). Most recently travel products on Cloudflare Workers and
 an admin panel used daily by an operations team.
 
 If the list is still open, here is an entry ready to paste:
@@ -205,8 +205,8 @@ Hi [name],
 Nevil here, full stack developer in Thrissur. I would like to submit a talk for the next GDG
 Kochi event.
 
-"Rendering a 2,000 REDACTED in the browser without dropping frames": SVG versus canvas, hit
-testing, zoom and pan, and what finally worked in a production booking flow.
+"Rendering a large interactive SVG in the browser without dropping frames": SVG versus canvas,
+hit testing, zoom and pan, and what finally worked in production.
 
 25 minutes with a live demo. Happy to do a shorter lightning version.
 
@@ -224,8 +224,8 @@ Hi [name],
 I am Nevil Krishna K, [department], batch of [year].
 
 If the department keeps an alumni page or a placement page, could my entry link to nevil.dev? I
-am a full stack developer, three years in, currently at Lascade LLP working on a REDACTED
-product.
+am a full stack developer, three years in, currently at Lascade LLP building travel
+products.
 
 Also happy to take a session for the current batch on getting a first developer job, or a
 hands-on workshop, whenever it suits the department.

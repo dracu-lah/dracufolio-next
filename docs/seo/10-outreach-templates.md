@@ -63,8 +63,8 @@ Hi [name],
 I am a full stack developer in Thrissur, 3 years in. React, Next.js, TypeScript for the web,
 Kotlin for Android.
 
-Currently at Lascade LLP building REDACTED, a REDACTED product on Cloudflare Workers. Before
-that, two years at Udyata on the REDACTED admin panel and a self-hosted OpenStreetMap stack.
+Currently at Lascade LLP building travel products on Next.js 16 and Cloudflare Workers. Before
+that, two years at Udyata on an admin panel and a self-hosted OpenStreetMap stack.
 
 I am available for freelance and overflow work. If [agency name] ever has a frontend build that
 needs an extra pair of hands, or a Next.js project nobody in-house wants to own, I would like to
@@ -92,8 +92,8 @@ Hi [name], thanks for reaching out.
 
 Quick answers so you have what you need:
 
-Current role: Full Stack Developer at Lascade LLP, working on REDACTED (Next.js 16 on Cloudflare
-Workers, D1, R2, Durable Objects) and REDACTED.
+Current role: Full Stack Developer at Lascade LLP, building travel products on Next.js 16 and
+Cloudflare Workers (D1, R2, Durable Objects).
 Experience: 3 years. Before Lascade, two years at Udyata Information Systems.
 Stack: React, Next.js, TypeScript, Tailwind, Zustand, TanStack Query, Node.js, Kotlin with
 Jetpack Compose, React Native, Cloudflare and AWS.
@@ -226,7 +226,7 @@ If it is still being updated, here is an entry ready to paste:
 Nevil Krishna K, Thrissur. Full stack developer. React, Next.js, TypeScript, Kotlin. Web apps,
 business websites, Android apps and dashboards. https://nevil.dev
 
-3 years of production work, currently at Lascade LLP on a REDACTED product, previously two years
+3 years of production work, currently at Lascade LLP on travel products, previously two years
 at Udyata Information Systems.
 
 In return: I ran your site through PageSpeed and there are three things slowing it down on
@@ -257,8 +257,8 @@ I would like to speak at the next [community] meetup. Two options:
 
 1. Running Next.js on Cloudflare Workers: what OpenNext does, what breaks, what it costs
    against Vercel. 20 minutes.
-2. Rendering a 2,000 seat interactive map in the browser: SVG against canvas, hit testing, and
-   getting it from 2.4s to 380ms. 20 minutes.
+2. Rendering thousands of interactive shapes in the browser: SVG against canvas, hit testing,
+   and getting the first render from 2.4s to 380ms. 20 minutes.
 
 Slides and a live demo ready for either. Happy to do a 10 minute lightning version instead if
 the slots are full.

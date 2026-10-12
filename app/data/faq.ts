@@ -27,7 +27,7 @@ export const homeFaqs: Faq[] = [
   },
   {
     q: "Who is the best full stack developer in Thrissur?",
-    a: "Nobody can honestly claim that title, so here is what you can check instead. I have three years of production work, I build with React, Next.js and TypeScript, I have shipped a REDACTED product on Cloudflare Workers and an Android TV app, and every project on this site links to something live you can open. Compare that against anyone else you are talking to.",
+    a: "Nobody can honestly claim that title, so here is what you can check instead. I have three years of production work, I build with React, Next.js and TypeScript, I have shipped travel products on Cloudflare Workers and an Android TV app, and every project on this site links to something live you can open. Compare that against anyone else you are talking to.",
   },
   {
     q: "Do you build mobile apps?",
@@ -43,7 +43,7 @@ export const homeFaqs: Faq[] = [
   },
   {
     q: "What do you charge?",
-    a: "I quote per project rather than per hour, after a short call about what you actually need. A small business website and a REDACTED platform are not the same job, so a price list on a web page would be a made up number. The call is free and takes twenty minutes.",
+    a: "I quote per project rather than per hour, after a short call about what you actually need. A small business website and a booking platform are not the same job, so a price list on a web page would be a made up number. The call is free and takes twenty minutes.",
   },
   {
     q: "How do I contact you?",

@@ -20,11 +20,11 @@ inside LinkedIn, so the headline and the skills decide whether the profile ever 
 **Profile > pencil icon next to the name > Headline.** 220 character limit. Paste:
 
 ```
-Full Stack Developer at Lascade LLP | React, Next.js, TypeScript, Kotlin | Building REDACTED and REDACTED | Web and Android apps for Thrissur, Kerala and remote clients
+Full Stack Developer at Lascade LLP | React, Next.js, TypeScript, Kotlin | Building travel products on Cloudflare Workers | Web and Android apps for Thrissur, Kerala and remote clients
 ```
 
-That is 172 characters. The words in it are the words recruiters type: the role, the stack, the
-products, the place.
+That is 184 characters. The words in it are the words recruiters type: the role, the stack, the
+work, the place.
 
 ### 2. About section
 
@@ -35,13 +35,12 @@ LinkedIn's 2,600 limit, and the "see more" cut lands after the first real senten
 Full stack developer in Thrissur, Kerala. React, Next.js and TypeScript for the web, Kotlin for
 Android. 3 years shipping production apps.
 
-Right now I am at Lascade LLP, building REDACTED, a REDACTED product where people check what a
-seat looks like before they book it. It runs on Next.js 16 on Cloudflare Workers
-through OpenNext, with D1, R2 and Durable Objects behind it, and next-intl for the languages. I
-also work on REDACTED.
+Right now I am at Lascade LLP, building travel products on Next.js 16 and Cloudflare Workers.
+They run through OpenNext, with D1, R2 and Durable Objects behind them, and next-intl for the
+languages.
 
 Before that I spent two years at Udyata Information Systems as a frontend developer. I built
-the REDACTED admin panel and set up self-hosted OpenStreetMap services (Nominatim and OSRM) so
+an admin panel and set up self-hosted OpenStreetMap services (Nominatim and OSRM) so
 the product stopped paying per map request.
 
 Outside work I ship my own things in the open. TMPlayer plays Telegram videos on an Android TV,
@@ -212,8 +211,7 @@ the profile page.
 # Nevil Krishna K
 
 Full stack developer in Thrissur, Kerala. React, Next.js and TypeScript for the web, Kotlin for
-Android. 3 years shipping production apps (REDACTED, REDACTED, REDACTED). Available for full
-time roles, freelance projects and remote contracts across India.
+Android. 3 years shipping production apps. Available for full time roles, freelance projects and remote contracts across India.
 
 - Portfolio: [nevil.dev](https://nevil.dev)
 - Hire me: [nevil.dev/hire](https://nevil.dev/hire)
@@ -224,12 +222,11 @@ time roles, freelance projects and remote contracts across India.
 
 ## What I do at work
 
-**Lascade LLP, Full Stack Developer, Nov 2025 to now.** Building REDACTED, a REDACTED product
-that shows what a seat actually looks like before you book it. Next.js 16 on Cloudflare Workers
-through OpenNext, with D1, R2, Durable Objects and next-intl. Also working on REDACTED.
+**Lascade LLP, Full Stack Developer, Nov 2025 to now.** Building travel products on Next.js 16
+and Cloudflare Workers through OpenNext, with D1, R2, Durable Objects and next-intl.
 
-**Udyata Information Systems, Frontend Developer, Jun 2023 to Aug 2025.** Built the REDACTED
-admin panel and self-hosted the OpenStreetMap stack (Nominatim and OSRM) so the product stopped
+**Udyata Information Systems, Frontend Developer, Jun 2023 to Aug 2025.** Built an admin
+panel and self-hosted the OpenStreetMap stack (Nominatim and OSRM) so the product stopped
 paying per map request.
 
 ## My own projects
@@ -251,7 +248,7 @@ Durable Objects, OpenNext, Docker, AWS, GCP, Vercel, next-intl.
 
 ## Talk to me about
 
-Rendering big SVG REDACTED without dropping frames, running Next.js on Cloudflare Workers,
+Rendering big interactive SVGs without dropping frames, running Next.js on Cloudflare Workers,
 i18n that does not rot, self-hosting maps, and Android TV apps.
 
 Malayalam and English.
@@ -286,10 +283,10 @@ each of those README files. `05-backlinks-and-lists.md` covers that.
 **Profile > Edit profile > Bio.** 160 character limit. Paste:
 
 ```
-Full stack developer in Thrissur, Kerala. React, Next.js, TypeScript for the web, Kotlin for Android. I build REDACTED by day, TMPlayer by night.
+Full stack developer in Thrissur, Kerala. React, Next.js, TypeScript for the web, Kotlin for Android. Travel products by day, TMPlayer by night.
 ```
 
-That is 145 characters.
+That is 144 characters.
 
 ### 2. Location and website
 
@@ -306,7 +303,7 @@ Write this as a new post, then use the three dots on the post and choose **Pin t
 ```
 I build web apps in React and Next.js, and Android apps in Kotlin.
 
-Day job: REDACTED, a REDACTED product on Cloudflare Workers. Before that, two years of frontend
+Day job: travel products on Cloudflare Workers at Lascade. Before that, two years of frontend
 and self-hosted maps at Udyata.
 
 Nights: TMPlayer, which plays Telegram videos on an Android TV. Kotlin, Compose, TDLib, Media3.
@@ -414,10 +411,10 @@ Nevil Krishna K, full stack developer in Thrissur, Kerala. React, Next.js and Ty
 ### 500 characters
 
 ```
-Nevil Krishna K, full stack developer in Thrissur, Kerala. React, Next.js and TypeScript for the web, Kotlin for Android. 3 years shipping production apps (REDACTED, REDACTED, REDACTED). Currently at Lascade LLP building REDACTED on Cloudflare Workers. I also maintain TMPlayer, a Telegram video player for Android TV, and Resume Builder. Available for full time roles, freelance projects and remote contracts across India. Malayalam and English. nevil.dev, WhatsApp +91 92079 32070.
+Nevil Krishna K, full stack developer in Thrissur, Kerala. React, Next.js and TypeScript for the web, Kotlin for Android. 3 years shipping production apps. Currently at Lascade LLP building travel products on Cloudflare Workers. I also maintain TMPlayer, a Telegram video player for Android TV, and Resume Builder. Available for full time roles, freelance projects and remote contracts across India. Malayalam and English. nevil.dev, WhatsApp +91 92079 32070.
 ```
 
-(486 characters. For About sections, directory long descriptions, marketplace profiles.)
+(459 characters. For About sections, directory long descriptions, marketplace profiles.)
 
 ### Malayalam line for the local directories
 

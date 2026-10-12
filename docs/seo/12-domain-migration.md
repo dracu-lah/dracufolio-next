@@ -63,7 +63,7 @@ Then confirm with curl before going further:
 
 ```bash
 curl -sI https://nevil.dev/hire/thrissur | grep -i "^HTTP\|^location"
-curl -sI https://www.nevil.dev/projects/REDACTED | grep -i "^HTTP\|^location"
+curl -sI https://www.nevil.dev/projects/tmplayer | grep -i "^HTTP\|^location"
 curl -sI "https://nevil.dev/blog?utm_source=x" | grep -i "^HTTP\|^location"
 ```
 

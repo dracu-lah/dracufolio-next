@@ -8,6 +8,7 @@ import {
   SOURCE_URL,
   X_URL,
 } from "./app/data/contact";
+import projects from "./app/data/projects.json";
 
 // No prefilled text here on purpose. Next decodes percent-escapes in a
 // redirect destination, which would put raw spaces in the Location header and
@@ -16,6 +17,11 @@ import {
 // properly encoded.
 const WHATSAPP = `https://wa.me/${PHONE_E164.replace("+", "")}`;
 const RESUME = RESUME_PATH;
+
+const PUBLISHED_SLUGS = projects
+  .filter((p) => p.published)
+  .map((p) => p.slug.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+  .join("|");
 
 const nextConfig: NextConfig = {
   // Blog posts are .mdx page files, so the router has to look for them.
@@ -43,28 +49,20 @@ const nextConfig: NextConfig = {
       { source: "/contact", destination: "/#contact", statusCode: 301 },
       { source: "/portfolio", destination: "/projects", statusCode: 301 },
       { source: "/oss", destination: "/open-source", statusCode: 301 },
-      // Four 2022 and 2023 practice projects came off the list in Oct 2026 to
-      // make room for LangSync and REDACTED. Their old pages land on the list.
-      // Six client and employer projects came off later the same month, since
-      // they are company work and not mine to show.
-      ...[
-        "drum-kit",
-        "simon-game",
-        "netflix-clone",
-        "covid19-status-tracker",
-        "REDACTED",
-        "REDACTED",
-        "REDACTED",
-        "REDACTED",
-        "adora-homes",
-        "parazyakampany",
-      ].map(
-        (slug) => ({
-          source: `/projects/${slug}`,
-          destination: "/projects",
-          statusCode: 308 as const,
-        }),
-      ),
+      // A project that comes off the list keeps its old URL alive by landing on
+      // the list. The rule is built from projects.json rather than a list of
+      // slugs, so a removed project is not named again in this file.
+      {
+        source: `/projects/:slug((?!(?:${PUBLISHED_SLUGS})$)[^/]+)`,
+        destination: "/projects",
+        statusCode: 308,
+      },
+      // Retired posts land on the blog index rather than a 404.
+      {
+        source: "/blog/nextjs-16-cloudflare-workers-opennext",
+        destination: "/blog",
+        statusCode: 308,
+      },
       {
         source: "/appwrite/resume/Nevil-Krishna-Frontend-Resume.pdf",
         destination: RESUME,

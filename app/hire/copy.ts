@@ -99,7 +99,7 @@ export const reasons = (location: Location) => {
   return [
     {
       title: "Production work, not a portfolio",
-      body: "Three years of it. A REDACTED product on Cloudflare Workers, a flight rewards site, a ride hailing admin panel, and an Android TV app with real users filing real issues. Every one of them is linked on this site.",
+      body: "Three years of it, mostly travel products on Next.js and Cloudflare Workers at my day job, plus an Android TV app of my own with real users filing real issues. My own projects are all linked on this site.",
     },
     {
       title: "Built to be found",

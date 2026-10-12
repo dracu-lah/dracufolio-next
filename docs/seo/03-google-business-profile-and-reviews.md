@@ -185,14 +185,14 @@ after PageSpeed scores.
 ### 8. Description
 
 Open **Edit profile > Business description** and paste this. It is under Google's 750 character
-limit (it is 741 characters). Do not add a phone number, and do not add links, Google strips
+limit (it is 740 characters). Do not add a phone number, and do not add links, Google strips
 them.
 
 ```
 Nevil Krishna K is a full stack developer based in Thrissur, Kerala, with 3 years of experience
 building production web and mobile apps. The web work is React, Next.js and TypeScript. The
-Android work is Kotlin and Jetpack Compose. Recent products include REDACTED, a REDACTED
-platform running on Cloudflare Workers, REDACTED, and the REDACTED admin panel. Services
+Android work is Kotlin and Jetpack Compose. Recent work includes travel products on Cloudflare
+Workers, an admin panel with self-hosted maps, and TMPlayer for Android TV. Services
 cover web applications, business websites that rank on Google, Android and React Native apps,
 dashboards and admin panels, Cloudflare deployment, and website speed fixes. Available for
 project work, retainers and remote contracts across Thrissur, Ernakulam, Kozhikode and the
@@ -220,8 +220,8 @@ in the panel.
 | --- | --- | --- | --- |
 | Logo | The monogram or a clean headshot on a plain background | 720 x 720 | Square, no text crammed in |
 | Cover | The site's home page on a laptop screen, desk visible | 1024 x 576 | This is the first impression |
-| Photo 1 | REDACTED REDACTED on a laptop | 1200 x 900 | Real screen, not a mockup frame |
-| Photo 2 | REDACTED admin panel dashboard | 1200 x 900 | Blur any real customer data |
+| Photo 1 | TapTL translating a game on a phone | 1200 x 900 | Real screen, not a mockup frame |
+| Photo 2 | LangSync running in a terminal | 1200 x 900 | Shows a tool other developers use |
 | Photo 3 | TMPlayer running on a TV | 1200 x 900 | Shows the Android side of the work |
 | Photo 4 | Resume Builder in a browser | 1200 x 900 | Shows a shipped public product |
 | Photo 5 | PageSpeed report with green scores | 1200 x 900 | Proof for the speed service |
@@ -241,8 +241,8 @@ Open **Add update > Add update**, paste this, and attach the cover photo.
 Full stack developer in Thrissur, available for project work.
 
 I build web apps with React and Next.js, Android apps with Kotlin, and admin panels for teams
-still running on spreadsheets. 3 years of production work, most recently a REDACTED platform
-and a flight rewards product.
+still running on spreadsheets. 3 years of production work, most recently travel products on
+Cloudflare Workers.
 
 Serving Thrissur, Ollur, Irinjalakuda, Chalakudy, Kunnamkulam, Guruvayur, Ernakulam and the
 rest of Kerala. Remote work anywhere in India.
@@ -278,10 +278,8 @@ qualification.
 
 | Who | Why they qualify | How many to ask | What to ask them to mention |
 | --- | --- | --- | --- |
-| Lascade LLP colleagues and leads | Worked with you daily on REDACTED and REDACTED | 4 | The product, the stack, how you work in a team |
-| Udyata Information Systems colleagues | Two years on the REDACTED admin panel and the OSM services | 4 | The admin panel, the map services, reliability |
-| REDACTED stakeholders | Used what you built | 2 | The dashboard and what it replaced |
-| Parazyakampany client contact | Paid for work and received it | 1 | The site or app, and the place |
+| Lascade LLP colleagues and leads | Worked with you daily on the travel products | 4 | The product, the stack, how you work in a team |
+| Udyata Information Systems colleagues | Two years on the admin panel and the OSM services | 4 | The admin panel, the map services, reliability |
 | College friends who got a site built | Real work delivered, even if unpaid | 4 | What the site was for, their town |
 | FOSS friends, FOSS United and TinkerHub contacts | Used TMPlayer, Resume Builder, LangSync or the dotfiles | 4 | The tool by name, and that they are in Kerala |
 | Anyone you helped debug for free | It was still real help | 2 | What the problem was |
@@ -398,8 +396,8 @@ Fifteen minutes on Saturday morning is enough.
    per year, and how long it takes. Link `/hire`.
 2. **A before and after speed fix.** Two PageSpeed screenshots side by side, the three things
    that were wrong. Link `/hire`.
-3. **One project, one screenshot.** REDACTED's REDACTED, what problem it solves, one number
-   (seats rendered, load time). Link the project page.
+3. **One project, one screenshot.** TMPlayer on a TV, what problem it solves, one number
+   (tests, start time). Link the project page.
 4. **A local angle.** "Built a booking site for a homestay near Cheruthuruthy" style post,
    naming the place, describing the work in two lines. Link `/hire/cheruthuruthy`.
 5. **A question people actually ask.** "Does my shop need an app or a website?" answered
@@ -420,7 +418,7 @@ Never post a discount code or a price in a post. Price questions belong in a con
 | 1 | Create the profile, all categories, service areas, hours, contact, description. Start verification. Upload logo and cover. | 90 min |
 | 2 | Verification cleared. Add all 6 services. Upload photos 1 to 5. Publish the first Google Post. Copy the review link and test it. | 60 min |
 | 3 | Ask the 4 Lascade colleagues and the 4 Udyata colleagues, one message each, spaced across the week. Reply to every review that lands. Post 2 (speed fix). | 40 min |
-| 4 | Ask the REDACTED and Parazyakampany contacts. Upload photos 6 to 8. Post 3 (one project). Check Insights for the first search terms. | 40 min |
+| 4 | Upload photos 6 to 8. Post 3 (one project). Check Insights for the first search terms. | 30 min |
 | 5 | Ask the 4 college friends who got a site built. Post 4 (local angle, name a town). Follow up once with anyone from week 3 who did not reply. | 40 min |
 | 6 | Ask the FOSS and TinkerHub contacts. Post 5 (a question answered). Add the profile link to the site's `sameAs` list, see `04`. | 40 min |
 | 7 | Post 6 (new blog post). Reply to all reviews. Fill in anything the profile still flags as incomplete. | 30 min |

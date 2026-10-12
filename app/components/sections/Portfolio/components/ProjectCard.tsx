@@ -95,6 +95,13 @@ const ProjectCard = ({
           className="h-full w-full object-cover"
           alt={`Screenshot of ${project.title}`}
         />
+        {/* On the screenshot rather than in the stack row, which has a fixed
+            character budget and must stay one line. */}
+        {project.concept && (
+          <span className="absolute top-3 left-3 rounded-full bg-background">
+            <Badge>Concept</Badge>
+          </span>
+        )}
       </div>
 
       <div className="flex flex-1 flex-col">

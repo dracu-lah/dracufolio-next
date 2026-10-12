@@ -27,7 +27,7 @@ section 4 is the manual work, section 10 is the design read for the motion and M
 | Easter eggs | Four, all of them things a developer would actually find and one of them useful enough to keep: vim style `g` navigation with `?` for the key list, a console signature, /humans.txt, and a shell flavoured 404 (T20) |
 | Blog | Yes, scaffold now with 2 real posts (T7) |
 | Social accounts that exist | GitHub (dracu-lah), LinkedIn, X (https://x.com/nevilkrishnak). All three go in `sameAs` |
-| REDACTED post | I may read `~/projects/company/lascade/project-REDACTED` for accuracy. The post describes approach and lessons only: no code, no secrets, no internal names, nothing copied |
+| Company product post | I may read the company's local repo for accuracy. The post describes approach and lessons only: no code, no secrets, no internal names, nothing copied |
 | Pricing on hire pages | None. "Quote per project" |
 | Icons | One family: `@phosphor-icons/react`, duotone weight for the 3D feel, wrapped in a tilt/float/draw-in component. lucide is migrated out. No hand drawn icon paths |
 | Cursor | The system cursor is never hidden or replaced. "Cursor animation" = cursor aware effects: hero spotlight, spotlight borders on cards, magnetic primary CTA. Opt in later if you still want a replacement cursor |
@@ -263,8 +263,8 @@ Each task lists the files it touches. "Done when" is the check I run before movi
 - Post 1: "Play a Telegram video before it finishes downloading: Media3 and TDLib in TMPlayer".
   Source: the local public TMPlayer repo (`~/projects/personal/TMPlayer`). Covers the custom
   DataSource, offset based partial downloads, seeking, the pure window class and its tests.
-- Post 2: "Next.js 16 on Cloudflare Workers with OpenNext: what shipping REDACTED taught me".
-  Source: the local REDACTED repo for accuracy (approach only), your resume points, public docs.
+- Post 2: "Next.js 16 on Cloudflare Workers with OpenNext: what shipping a company product taught me".
+  Source: the local company repo for accuracy (approach only), your resume points, public docs.
   Covers OpenNext build, D1, R2, Durable Objects, cron, next-intl on Workers, the SEO baseline.
 - Each post: byline with photo and link to /about, visible published date, concrete numbers, short
   answer shaped paragraphs under each H2 (this is what AI engines lift), and the shared CTA block.
@@ -371,7 +371,7 @@ Each task lists the files it touches. "Done when" is the check I run before movi
 - `03-google-business-profile-and-reviews.md`: create GBP as a service area business
   ("Nevil Krishna K, Full Stack Developer", categories Website Designer + Software Company, Thrissur,
   service areas = the 29 places, phone, hours, services, photos, first post), get the review link,
-  who to ask (Lascade and Udyata colleagues, REDACTED and Parazyakampany clients, FOSS friends),
+  who to ask (Lascade and Udyata colleagues, client contacts, FOSS friends),
   message template that asks for the service and the place to be named, how to reply, weekly post
   routine.
 - `04-profiles-and-cross-linking.md`: fix LinkedIn (headline, about, location, custom URL, featured
@@ -392,7 +392,7 @@ Each task lists the files it touches. "Done when" is the check I run before movi
   (ask ChatGPT, Claude, Perplexity, Gemini "who is a full stack developer in Thrissur" and "who is
   Nevil Krishna K", note what they cite), Bing Places, Google knowledge panel claim once it
   appears, keep every profile consistent, publish answer shaped content.
-- `07-blog-topics-and-calendar.md`: next 10 posts drawn from real work (langsync, REDACTED SVG
+- `07-blog-topics-and-calendar.md`: next 10 posts drawn from real work (langsync, large SVG
   rendering, next-intl on Workers, Zustand patterns, Fedora + Sway setup, resume builder, OSM self
   hosting), 2 per month, each cross posted to Dev.to and Hashnode with canonical back to nevil.dev.
 - `08-marketing-playbook.md`: section 7 of this file expanded with scripts and templates.
@@ -598,7 +598,7 @@ nevil.dev points back through `sameAs`) is how they decide those are all the sam
 ### 7.1 Positioning (one sentence, used everywhere)
 
 "Nevil Krishna K, full stack developer in Thrissur, Kerala. React, Next.js and TypeScript for the
-web, Kotlin for Android. 3 years shipping production apps (REDACTED, REDACTED, REDACTED).
+web, Kotlin for Android. 3 years shipping production apps (the employer products).
 Available for full time roles, freelance projects and remote contracts across India."
 
 Shorter forms for bios: "Full stack developer, Thrissur, Kerala. React, Next.js, TypeScript, Android.
@@ -612,7 +612,7 @@ with a Malayalam line for local platforms: "തൃശ്ശൂരിലെ ഫ�
 | --- | --- | --- | --- |
 | Hiring managers and recruiters (Kochi, Bangalore, remote) | "React developer Kerala", "Next.js developer", your name | Production products with numbers, clean GitHub, a one page resume, fast replies | LinkedIn, Wellfound, Naukri, Peerlist, Google |
 | Small businesses in Thrissur and the towns (shops, clinics, colleges, hotels, agencies) | "web developer in Thrissur", "website designer near me", "app developer Thrissur", Malayalam queries | A WhatsApp number, a person they can meet, a site that loads fast on their phone, Malayalam | Google Maps, JustDial, WhatsApp, word of mouth |
-| Startup founders in Kerala | "freelance full stack developer Kerala", "MVP developer Kochi" | Cloudflare and Next.js speed, REDACTED and REDACTED as proof, weekly demos | Kerala Startup Mission, LinkedIn, X, meetups |
+| Startup founders in Kerala | "freelance full stack developer Kerala", "MVP developer Kochi" | Cloudflare and Next.js speed, the employer products as proof, weekly demos | Kerala Startup Mission, LinkedIn, X, meetups |
 | Remote clients outside India | "hire Next.js developer India", "React developer remote" | English writing, timezone overlap, GitHub, blog posts, Upwork history | Upwork, Twine, GitHub, Google, AI assistants |
 | Other developers and the FOSS crowd | your projects by name | TMPlayer, Resume Builder, langsync, dotfiles | GitHub, X, Reddit, Hacker News, FOSS United |
 
@@ -775,10 +775,9 @@ Recorded honestly, because a plan that quietly rewrites itself is not a plan.
 - **TMPlayer has 256 tests, not 209.** The README badge says 209 and `projects.json` had
   copied it. Counted 256 `@Test` methods across 25 files, and both the project page and the
   new blog post now say 256.
-- **The REDACTED REDACTED are not SVG.** The schema carries a to-scale raster image plus
-  per-seat coordinates rendered as hotspots over it. `app/data/experience.ts` said "to-scale
-  SVG rendering" and now says "to-scale map rendering".
-- **The Resend and Django transactional email work is not in the REDACTED repo**, so the
+- **The employer product's interactive view is not SVG.** It is a raster image with hotspots
+  placed over it. `app/data/experience.ts` said SVG rendering and was corrected.
+- **The Resend and Django transactional email work is not in the company repo**, so the
   blog post leaves it out rather than asserting it. It stays on the resume, where it came
   from; if it lives in another repo, say so and it can go back in.
 - **Kasaragod is about 300 km from Thrissur by road, not 400.** Every distance on the 29
@@ -1109,7 +1108,7 @@ footer and `llms.txt` both read), so it lands everywhere at once.
 
 `translation-sync-without-breaking-icu` carries no image, and the entry in
 `app/data/posts.ts` has a comment saying that is deliberate: it used to borrow
-the REDACTED REDACTED, which is a different product. LangSync is a Python CLI and
+a screenshot of an employer project, which is a different product. LangSync is a Python CLI and
 there is no screenshot of it in the repo. Needs a decision.
 
 ## 7. Placeholder for a post with no image
@@ -1645,7 +1644,7 @@ Found by auditing every route against the current guidance.
 - Performance was not measured. The PageSpeed Insights API refused on quota
   without a key, so Core Web Vitals here are unverified.
 - A `pkill` run against the Next server name also killed the dev server running
-  for the REDACTED project in another directory. Nothing was lost, but it should
+  for an employer project in another directory. Nothing was lost, but it should
   have been scoped to the port.
 
 ## 16. The Business Profile doc, rewritten as one step by step file (20 Sep 2026)
@@ -1965,7 +1964,7 @@ commit. This adds a 390px shot of each site only if you want one (open question 
 
 ## 2. What shipped, and where it went a different way
 
-- T1 to T6 as planned. `gallery` is on TMPlayer (9 images), TapTL (8), REDACTED (3) and
+- T1 to T6 as planned. `gallery` is on TMPlayer (9 images), TapTL (8), an employer project (3) and
   LangSync (1). Every other project falls back to `images` with 16:9 assumed.
 - Open question 2: yes, a 390px capture of each project's site is in its gallery, taken at
   3x so it holds up in the viewer.
@@ -1973,13 +1972,13 @@ commit. This adds a 390px shot of each site only if you want one (open question 
 - T5 changed only the number. The longer "TV, phone and desktop" wording pushed the resume to
   two pages, so it still says Android TV. The PDF is rebuilt and stays one page. The TMPlayer
   repo's own README badge (209) is not touched.
-- Added after the plan: the project list now matches the resume. LangSync and REDACTED were on
-  the resume and not on the site (the hire page already claimed "a ride hailing admin panel...
-  linked on this site", which was not true until now). Drum Kit, Simon Game, the Netflix clone
+- Added after the plan: the project list now matches the resume. LangSync and an employer project
+  were on the resume and not on the site (the hire page already claimed that admin panel was
+  linked on this site, which was not true until now). Drum Kit, Simon Game, the Netflix clone
   and the COVID tracker are unpublished, and their old URLs 308 to /projects.
-- REDACTED copy says only what the resume and experience entry say: the admin panel and the
-  self-hosted Nominatim and OSRM, at Udyata, 2024 to 2025. The screenshots are of the public
-  REDACTED.com, since the admin panel is not public.
+- That project's copy says only what the resume and experience entry say: the admin panel and
+  the self-hosted Nominatim and OSRM, at Udyata, 2024 to 2025. The screenshots are of the
+  product's public site, since the admin panel is not public.
 - LangSync has no site, so its image is the GitHub repository page.
 - Wide shots in the grid keep their own ratio instead of a 16:9 crop, because the TapTL
   captures are 2.2:1 and lost their sides.

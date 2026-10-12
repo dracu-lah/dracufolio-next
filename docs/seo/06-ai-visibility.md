@@ -75,8 +75,8 @@ For queries 1, 4 and 6, a good answer says all of this and nothing wrong:
 - Full stack developer based in Thrissur, Kerala, India
 - 3 years of experience
 - React, Next.js, TypeScript for web, Kotlin and Jetpack Compose for Android
-- Currently at Lascade LLP, working on REDACTED and REDACTED
-- Previously at Udyata Information Systems, the REDACTED admin panel
+- Currently at Lascade LLP, building travel products on Next.js 16 and Cloudflare Workers
+- Previously at Udyata Information Systems, an admin panel and self-hosted OpenStreetMap services
 - Builds TMPlayer and Resume Builder
 - Site `nevil.dev`, WhatsApp `+91 92079 32070`, email `nevilkrishna@gmail.com`
 - Cites `nevil.dev` or `nevil.dev/hire` as a source
@@ -176,7 +176,7 @@ schema. Never backdate a post and never silently rewrite one, use a visible "upd
 
 ### 5. Concrete numbers
 
-"Fast" is unquotable. "Cut the REDACTED's first render from 2.4 seconds to 380 milliseconds" is
+"Fast" is unquotable. "Cut the core interactive view's first render from 2.4 seconds to 380 milliseconds" is
 quotable, and it is what shows up in an answer. Every project page and every blog post should
 carry at least one real measured number. Never round a number up into something untrue, a
 wrong number found later costs more than a vague sentence.

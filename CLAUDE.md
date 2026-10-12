@@ -111,6 +111,20 @@ content in `app/data/*.json`, served through the thin wrappers in `app/services/
   generated at build time in `app/lib/qr.ts`, never in the browser, and always dark on a
   white tile because scanners cope badly with inverted codes.
 
+- **Company work is never named.** Products built for an employer or a client belong to
+  them, and they may not want it known who built them. No product name, URL, logo,
+  screenshot or identifying detail of company or client work goes anywhere in this repo:
+  site copy, project data, blog posts, the resume, `docs/`, task files, commit messages,
+  and the GitHub profile README. Employers are named with role and dates only, and the
+  work is described by its stack and its kind ("travel products on Cloudflare Workers").
+  The portfolio holds my own products, open source, and design concepts. A concept is a
+  brand I redesigned or imagined on my own, and it carries `concept: true` in
+  `projects.json` so the card and the page say so; it never reads as commissioned work.
+  This repo is public, so before adding anything that touches a company, a client, a
+  real brand, or work done on someone else's time, stop and tell Nevil if it could be a
+  conflict of interest (an employer's product, a client's unreleased work, a competitor
+  of a current employer, a real brand's name on a concept), and let Nevil decide.
+
 ## SEO contract
 
 Every route ships all of these; if one is missing, it is a bug:

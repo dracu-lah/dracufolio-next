@@ -5,9 +5,8 @@
 **Full stack developer in Thrissur, Kerala.** React, Next.js and TypeScript for the web,
 Kotlin for Android. 3+ years shipping production apps.
 
-Right now I build [REDACTED](https://nevil.dev/projects/REDACTED) at Lascade, a REDACTED
-product that shows what a seat actually looks like before you book it. Next.js on Cloudflare
-Workers, with D1, R2 and Durable Objects behind it.
+Right now I build travel products at Lascade, on Next.js and Cloudflare Workers with D1, R2
+and Durable Objects behind them.
 
 Open to full time roles, freelance projects and remote contracts across India.
 
@@ -27,11 +26,11 @@ Open to full time roles, freelance projects and remote contracts across India.
 ## Work
 
 **Lascade LLP**, Full Stack Developer, Nov 2025 to now.
-REDACTED and REDACTED. Next.js 16 on Cloudflare Workers through OpenNext, next-intl for
-the languages.
+Travel products on Next.js 16 and Cloudflare Workers through OpenNext, next-intl for the
+languages.
 
 **Udyata Information Systems**, Frontend Developer, Jun 2023 to Aug 2025.
-Built the REDACTED admin panel, and self-hosted the OpenStreetMap stack (Nominatim and OSRM)
+Built an admin panel, and self-hosted the OpenStreetMap stack (Nominatim and OSRM)
 so the product stopped paying per map request.
 
 ## Stack
@@ -43,7 +42,7 @@ Cloudflare Workers · D1 · R2 · Vercel · Docker
 
 ## Talk to me about
 
-Rendering big SVG REDACTED without dropping frames, running Next.js on Cloudflare Workers,
+Rendering big interactive SVGs without dropping frames, running Next.js on Cloudflare Workers,
 i18n that does not rot, self-hosting maps, and Android TV apps.
 
 Malayalam and English.

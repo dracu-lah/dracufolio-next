@@ -109,7 +109,7 @@ uppercase. Form labels were lowercase strings relying on CSS, so they are now wr
 
 ### Correctness
 
-- The LangSync post was using the **REDACTED REDACTED screenshot**. LangSync is a Python CLI
+- The LangSync post was using a **screenshot from a company product**. LangSync is a Python CLI
   with no interface. The image is removed rather than replaced, because a borrowed screenshot
   tells the reader the post is about something it is not.
 

@@ -190,56 +190,22 @@
     ]
   },
   {
-    "id": "6a4f9c2e00187ab3d4f1",
-    "slug": "REDACTED",
-    "title": "REDACTED",
-    "description": "To-scale REDACTED, live availability and real traveller reviews behind one flight-number search.",
-    "tagline": "Know your seat before you sit: to-scale aircraft REDACTED, live availability, and AI seat picks behind one flight-number search.",
-    "longDescription": [
-      "REDACTED is a flight seat-intelligence platform that shows travelers exactly where they will sit before they fly. Search by flight number or by route and get the whole cabin drawn to scale, seat by seat, with seat ratings, window views, and onboard amenities for aircraft like the Emirates 777-300ER, Qatar A350-900, and Cathay Pacific A350-1000. After SeatGuru shut down in October 2025, REDACTED positions itself as its natural replacement.",
-      "The product runs on a freemium model. The free tier includes every to-scale REDACTED, flight and route search, basic AI seat recommendations, and community reviews with photos. Pro adds live seat-availability alerts, aircraft-swap alerts, and upgrade-space tracking. Accounts support Google sign-in with synced favorites and trips.",
-      "The site is internationalized with a language switcher, ships a blog and structured-data FAQ, and cross-promotes REDACTED as its sibling product."
-    ],
-    "features": [
-      "To-scale, seat-by-seat cabin maps for major aircraft",
-      "Search by flight number or route with cabin-class filters",
-      "AI seat recommendations plus community reviews and photos",
-      "Pro alerts for live availability, aircraft swaps, and upgrade space",
-      "Google or email sign-in with synced favorites",
-      "Multi-language UI, blog, and FAQ"
-    ],
-    "skills": [
-      "Next.js",
-      "Tailwind CSS",
-      "Cloudflare"
-    ],
-    "images": [
-      "/appwrite/projects/REDACTED.webp"
-    ],
-    "liveUrl": "https://REDACTED.com",
-    "githubUrl": null,
-    "year": "2026",
-    "published": false,
-    "order": 12,
-    "logo": "/logos/REDACTED.png"
-  },
-  {
     "id": "a6c1f42e90bd7c3518ef",
     "slug": "adora-homes",
     "title": "Adora Homes",
-    "description": "Marketing site for a Thrissur builder, with live project pages, K-RERA numbers and site progress updates.",
-    "tagline": "A builder's site that answers the questions a buyer actually has: where it is, what it costs in square feet, and what the site looked like last month.",
+    "description": "Concept redesign of the website for Adora Homes, a Thrissur builder. Not the official site.",
+    "tagline": "A concept revamp of a Thrissur builder's website, laid out around what a buyer asks first: where it is, the carpet area, and how far the build has got.",
     "longDescription": [
-      "Adora Homes has been building apartments and villas in Thrissur since 2018. Ten projects, a hundred families moved in, and until this site a buyer had no way to check any of it without calling the office. The site puts the three bookable projects, the seven handed over and the K-RERA registration number for each one on a page a stranger can read at eleven at night.",
-      "Every live project carries its own page: locality, carpet area range, the K-RERA number, and a dated line about what is happening on site right now (\"11th floor roof slab completed\", \"foundation works in progress\"). Those come from the site engineers, so the page ages honestly instead of going stale the week it launches.",
-      "It runs on Next.js through OpenNext on Cloudflare Workers, the same setup as the rest of my client work, which keeps hosting at a few hundred rupees a month and the pages served from the edge. Enquiries go to WhatsApp and to the office number, because that is how people in Thrissur actually get in touch."
+      "This is a concept, not the official Adora Homes site. I took a real Thrissur builder's existing website and redesigned it on my own, to see how a builder's site could answer a buyer's questions without a phone call to the office. Adora Homes did not commission it and does not run it.",
+      "Each project gets its own page: locality, carpet area range, the K-RERA registration number, and a dated line about what is happening on site. The project details are taken from the builder's public information as sample content, so treat them as a snapshot rather than a current listing.",
+      "It runs on Next.js through OpenNext on Cloudflare Workers, served from the edge. Enquiries go to WhatsApp and a phone number, because that is how people in Thrissur get in touch with a builder."
     ],
     "features": [
-      "A page per live project with locality, area range, K-RERA number and a dated site update",
-      "Progress photos from the site engineers, dated, on the projects they belong to",
-      "Seven completed communities kept on the site rather than deleted, because a sold-out project is the proof",
-      "Enquiry straight to WhatsApp or the office number, no form to wait on",
-      "Site visit booking with the hours the office actually keeps"
+      "A page per project with locality, area range, K-RERA number and a dated site update",
+      "Dated progress photos on the projects they belong to",
+      "Completed communities kept on the site, because a sold-out project is the proof",
+      "Enquiry straight to WhatsApp or a phone number, no form to wait on",
+      "Site visit booking with office hours"
     ],
     "skills": [
       "Next.js",
@@ -254,130 +220,9 @@
     "liveUrl": "https://adora.nevil.dev",
     "githubUrl": null,
     "year": "2026",
-    "published": false,
-    "order": 13
-  },
-  {
-    "id": "699930e30006a6140d93",
-    "slug": "REDACTED",
-    "title": "REDACTED",
-    "description": "Compare real flight prices with award redemptions and see the exact value of your miles before you book.",
-    "tagline": "A real-time flight value calculator that tells you whether cash or miles is the better deal before you book.",
-    "longDescription": [
-      "REDACTED compares real cash flight prices against award-miles redemptions and shows the exact cash value of a redemption before booking. A typical result: London Heathrow to New York JFK at 742 GBP cash versus 42k Virgin Points plus 198 GBP in taxes, a 324 GBP saving, with the right transfer partner identified automatically.",
-      "The engine uses real-time market data and historical redemption values across hundreds of routes. It supports over 50 airline loyalty and bank programs, including Emirates Skywards, United MileagePlus, Delta SkyMiles, and Flying Blue, and compares multiple programs at once against live cash prices. It is a comparison engine by design: bookings happen on the airline's own site, and recent searches stay on the user's device.",
-      "The product also ships a Telegram bot, a ChatGPT app, and a travel blog on award-travel strategy, and cross-links REDACTED for advanced strategies."
-    ],
-    "features": [
-      "Real-time cash versus award comparison with exact savings",
-      "Support for 50+ airline loyalty and bank points programs",
-      "Automatic multi-program comparison with transfer-partner suggestions",
-      "Cabin-class selection from Economy through First",
-      "Telegram bot and ChatGPT app integrations",
-      "Locally stored search history, no bookings handled on-site"
-    ],
-    "skills": [
-      "Next.js",
-      "Tailwind CSS",
-      "Cloudflare"
-    ],
-    "images": [
-      "/appwrite/projects/REDACTED.png"
-    ],
-    "liveUrl": "https://REDACTED.com",
-    "githubUrl": null,
-    "year": "2026",
-    "published": false,
-    "order": 14,
-    "logo": "/logos/REDACTED.png"
-  },
-  {
-    "id": "693a430b002238a01567",
-    "slug": "REDACTED",
-    "title": "REDACTED",
-    "description": "Finds the lowest points price for a route, tracks saver awards and alerts you when seats open.",
-    "tagline": "An award flight search engine that compares premium seat availability across 25+ airline loyalty programs in real time.",
-    "longDescription": [
-      "REDACTED aggregates award-seat availability across 28+ airline loyalty programs, including United MileagePlus, Air Canada Aeroplan, and Emirates Skywards, so one search finds the lowest points price for a route instead of checking each airline by hand. Results are live and filterable by cabin class, route, or region, and multi-city itineraries are supported.",
-      "Beyond search, it monitors routes around the clock with unlimited alerts by email or SMS when award seats open up, helping users get significantly better value from their miles.",
-      "The product extends past the website: iOS and Android apps, a Chrome extension that overlays Google Flights, a ChatGPT plugin, and a Telegram bot, plus award charts, points calculators, and airline comparison guides."
-    ],
-    "features": [
-      "One search across 28+ loyalty programs",
-      "Live results with cabin, route, and region filters",
-      "Unlimited 24/7 award-seat alerts via email or SMS",
-      "Multi-city itinerary search",
-      "iOS/Android apps, Chrome extension, ChatGPT plugin, Telegram bot",
-      "Award charts, calculators, and airline guides"
-    ],
-    "skills": [
-      "Next.js",
-      "Mixpanel",
-      "shadcn/ui"
-    ],
-    "images": [
-      "/appwrite/projects/REDACTED.png"
-    ],
-    "liveUrl": "https://www.REDACTED.com/",
-    "githubUrl": null,
-    "year": "2026",
-    "published": false,
-    "order": 15,
-    "logo": "/logos/REDACTED.png"
-  },
-  {
-    "id": "e5a917c3d0b6f2483c71",
-    "slug": "REDACTED",
-    "title": "REDACTED",
-    "description": "Admin panel and self-hosted OpenStreetMap services for REDACTED, a bus booking and live tracking platform.",
-    "tagline": "The admin panel behind a ride platform, and the map services it runs on its own servers.",
-    "longDescription": [
-      "REDACTED connects riders with drivers directly: find a bus going your way, book a seat, and track it to your stop. I worked on it at Udyata Information Systems between 2024 and 2025, on the side riders and drivers never see.",
-      "That meant the admin panel the platform is run from, built in React with shadcn/ui, and the map services under it, self-hosted in Docker: Nominatim to turn addresses into coordinates and back, and OSRM to work out routes between stops."
-    ],
-    "features": [
-      "Admin panel for running the platform, in React and shadcn/ui",
-      "Self-hosted Nominatim for geocoding and reverse geocoding",
-      "Self-hosted OSRM for routing between stops",
-      "Map services run in Docker on the platform's own servers"
-    ],
-    "skills": [
-      "React",
-      "shadcn/ui",
-      "Docker",
-      "OpenStreetMap",
-      "Nominatim",
-      "OSRM"
-    ],
-    "images": [
-      "/appwrite/projects/REDACTED.webp"
-    ],
-    "gallery": [
-      {
-        "src": "/appwrite/projects/REDACTED.webp",
-        "alt": "The REDACTED.com home page, with the rider and driver apps",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "src": "/appwrite/projects/REDACTED-features.webp",
-        "alt": "How booking works for riders, on REDACTED.com",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "src": "/appwrite/projects/REDACTED-site-mobile.webp",
-        "alt": "REDACTED.com on a phone",
-        "width": 1170,
-        "height": 2532
-      }
-    ],
-    "liveUrl": "https://REDACTED.com",
-    "githubUrl": null,
-    "year": "2025",
-    "published": false,
-    "order": 16,
-    "logo": "/logos/REDACTED.png"
+    "published": true,
+    "order": 6,
+    "concept": true
   },
   {
     "id": "c2d8a41f7e93b05d6a28",
@@ -425,18 +270,18 @@
   {
     "id": "68ded97a003738100445",
     "slug": "parazyakampany",
-    "title": "Parazyakampany",
-    "description": "Animated promotional site for Parazya Kampany, a full-service creative agency in Kerala.",
-    "tagline": "An animated promotional website for Parazya Kampany, a full-service advertising and creative agency.",
+    "title": "Parazya Kampany",
+    "description": "Concept redesign of the website for Parazya Kampany, an advertising agency in Thrissur. Not the official site.",
+    "tagline": "A concept revamp of a Thrissur ad agency's website, with a sound wave hero and a dark and light theme.",
     "longDescription": [
-      "REDACTED is the marketing site for Parazya Kampany, an advertising and creative agency working under the tagline 'Where Creativity Meets Dawn'. The site presents six core service areas: branding, digital advertising, social media marketing, campaign planning, print advertising, and content marketing.",
-      "Built with Next.js, Tailwind CSS, and Framer Motion, the site pairs an animated, responsive layout with clear positioning sections on customized solutions, a people-centric partnership approach, and ROI-driven strategy, plus full contact details and social links."
+      "This is a concept, not the official Parazya Kampany site. I redesigned an advertising agency's existing website on my own, to see how far a bolder visual direction could carry a small agency's pitch. The agency did not commission it and does not run it.",
+      "The hero is a yellow sound wave over a dark field under the line 'Made to be seen', and the pages cover the agency's services, a portfolio, an about page and a contact page with a quote request. Agency details are sample content taken from public information."
     ],
     "features": [
-      "Six service-area sections from branding to content marketing",
-      "Scroll and hover animations built with Framer Motion",
-      "Fully responsive layout",
-      "Agency positioning and contact sections"
+      "Animated sound wave hero",
+      "Dark and light themes",
+      "Service, portfolio, about and contact pages",
+      "Quote request as the primary action"
     ],
     "skills": [
       "Next.js",
@@ -444,14 +289,22 @@
       "Framer Motion"
     ],
     "images": [
-      "/appwrite/projects/parazyakampany.png"
+      "/appwrite/projects/parazya-concept.webp"
     ],
-    "liveUrl": "https://www.REDACTED/",
+    "liveUrl": "https://para.nevil.dev",
     "githubUrl": null,
-    "year": "2024",
-    "published": false,
-    "order": 17,
-    "logo": "/logos/parazyakampany.png"
+    "year": "2026",
+    "published": true,
+    "order": 7,
+    "concept": true,
+    "gallery": [
+      {
+        "src": "/appwrite/projects/parazya-concept.webp",
+        "alt": "The Parazya Kampany concept home page, a yellow sound wave above the line Made to be seen",
+        "width": 1920,
+        "height": 1080
+      }
+    ]
   },
   {
     "id": "68569f390004aa238746",
@@ -555,17 +408,17 @@
     "id": "68dd5cae003b83512ee8",
     "slug": "no-secrets",
     "title": "No Secrets",
-    "description": "Animated landing page for NoSecrets, an Indian zero-sugar electrolyte hydration brand.",
-    "tagline": "An animated landing page for NoSecrets, an Indian zero-sugar electrolyte brand. Hydration, honestly.",
+    "description": "Concept landing page for NoSecrets, a zero-sugar electrolyte drink brand. A design study, not a live store.",
+    "tagline": "A concept landing page for a zero-sugar electrolyte brand, built as a design study.",
     "longDescription": [
-      "The NoSecrets site is a product landing page for an Indian electrolyte-drink brand selling powdered sachets that pair water with six essential electrolytes. It presents three flavors with INR pricing, Orange Refresh, Berry Boost, and Lime Zest, under the taglines 'Hydration, Honestly' and 'No secrets, no clutter, just what your body actually needs.'",
-      "The page leans on a zero-sugar, doctor-approved, vegan, keto-friendly formulation and a made-for-India positioning, with benefit sections covering energy, mental clarity, skin, digestion, sleep, and recovery, plus customer testimonials from across Indian cities. Built with Next.js, Tailwind CSS, and Framer Motion."
+      "A concept design, not a live store or a commissioned site. I made it to try out a product landing page for an Indian electrolyte drink: powdered sachets in three flavours, Orange Refresh, Berry Boost and Lime Zest, with prices in rupees, under the line 'Hydration, Honestly'.",
+      "The page is built around the product's claims (zero sugar, six electrolytes, made for India) and benefit sections for energy, focus, skin, digestion, sleep and recovery. The testimonials and prices are sample content. Built with Next.js, Tailwind CSS and Framer Motion."
     ],
     "features": [
-      "Product cards with flavors, INR pricing, and sold-out states",
-      "Benefit-driven sections built around six electrolytes and zero sugar",
-      "Customer testimonial section",
-      "Brand-story content on transparency and clean ingredients",
+      "Product cards with flavours, rupee pricing and sold-out states",
+      "Benefit sections built around six electrolytes and zero sugar",
+      "Sample testimonial section",
+      "Brand story section on clean ingredients",
       "Animated Next.js and Framer Motion landing page"
     ],
     "skills": [
@@ -580,7 +433,8 @@
     "githubUrl": null,
     "year": "2025",
     "published": true,
-    "order": 6
+    "order": 8,
+    "concept": true
   },
   {
     "id": "695e31740002b90bc657",
@@ -608,10 +462,10 @@
     "id": "69116d7d0017b18ed2c2",
     "slug": "oroex-marketing-website",
     "title": "Oroex Marketing Website",
-    "description": "Modern animated marketing site for Oroex, built with Next.js, TypeScript, and Framer Motion.",
-    "tagline": "A modern animated marketing website for Oroex.",
+    "description": "Concept marketing site for Oroex, built with React, TypeScript and Framer Motion. A design study, not a commissioned site.",
+    "tagline": "A concept marketing website for Oroex, built as a design study.",
     "longDescription": [
-      "A marketing website for Oroex with an animated, responsive layout. Built with React, TypeScript, and Tailwind CSS, using Framer Motion for scroll reveals and interaction states."
+      "A concept design rather than a commissioned site. It is a marketing website for Oroex with an animated, responsive layout, built with React, TypeScript and Tailwind CSS, using Framer Motion for scroll reveals and interaction states."
     ],
     "features": [
       "Animated landing sections with Framer Motion",
@@ -631,7 +485,8 @@
     "githubUrl": null,
     "year": null,
     "published": true,
-    "order": 7
+    "order": 9,
+    "concept": true
   },
   {
     "id": "68eb31bc000deead8aa4",
@@ -662,7 +517,7 @@
     "githubUrl": "https://github.com/dracu-lah/donut-react",
     "year": "2025",
     "published": true,
-    "order": 8,
+    "order": 10,
     "logo": "/logos/donut-website.png"
   },
   {
@@ -694,7 +549,7 @@
     "githubUrl": "https://github.com/dracu-lah/trello-appwrite-next",
     "year": "2023",
     "published": true,
-    "order": 9
+    "order": 11
   },
   {
     "id": "66ceeb590024c8530280",
@@ -725,7 +580,7 @@
     "githubUrl": "https://github.com/dracu-lah/notes-react",
     "year": "2024",
     "published": true,
-    "order": 10,
+    "order": 12,
     "logo": "/logos/notes-app.png"
   },
   {
@@ -817,7 +672,7 @@
     "githubUrl": "https://github.com/dracu-lah/result-management-next",
     "year": "2023",
     "published": true,
-    "order": 11
+    "order": 13
   },
   {
     "id": "648c15eec2bb707738ba",

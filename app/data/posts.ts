@@ -40,17 +40,6 @@ export const posts: Post[] = [
     project: "tmplayer",
   },
   {
-    slug: "nextjs-16-cloudflare-workers-opennext",
-    title: "Next.js 16 on Cloudflare Workers with OpenNext",
-    description:
-      "What shipping a REDACTED product on Cloudflare Workers taught me about OpenNext, D1, R2, Durable Objects, cron triggers and running next-intl at the edge.",
-    date: "2026-09-18",
-    tags: ["Next.js", "Cloudflare", "OpenNext", "TypeScript", "SEO"],
-    readingMinutes: 9,
-    image: "/appwrite/projects/REDACTED.webp",
-    project: "REDACTED",
-  },
-  {
     slug: "shadcn-registry-image-cropper",
     title: "Publishing a React component through the shadcn registry",
     description:
@@ -93,9 +82,9 @@ export const posts: Post[] = [
     readingMinutes: 6,
     /*
      * A CLI has no screen to photograph, so the card is a run of the tool
-     * itself, rendered in the site's own colours and mono face. It replaces a
-     * borrowed REDACTED screenshot, which told the reader the post was about a
-     * different product.
+     * itself, rendered in the site's own colours and mono face. A borrowed
+     * screenshot of another product told the reader the post was about
+     * something else.
      */
     image: "/appwrite/blog/langsync-run.webp",
   },

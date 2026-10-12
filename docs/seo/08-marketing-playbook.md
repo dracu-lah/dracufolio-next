@@ -10,8 +10,8 @@ there is room:
 
 ```
 Nevil Krishna K, full stack developer in Thrissur, Kerala. React, Next.js and TypeScript for
-the web, Kotlin for Android. 3 years shipping production apps (REDACTED, REDACTED,
-REDACTED). Available for full time roles, freelance projects and remote contracts across India.
+the web, Kotlin for Android. 3 years shipping production apps, and the maker of TMPlayer and
+LangSync. Available for full time roles, freelance projects and remote contracts across India.
 ```
 
 Short forms, for the places that cap the length:
@@ -19,7 +19,7 @@ Short forms, for the places that cap the length:
 | Length | Use it for | Text |
 | --- | --- | --- |
 | 1 line | Email signature, business card, meta description opener | `Full stack developer in Thrissur. React, Next.js, TypeScript, Kotlin.` |
-| Spoken, 10 seconds | Meetups, phone calls, "so what do you do" | `I build web apps and Android apps. Day job is a REDACTED product on Cloudflare. I also make a Telegram player for Android TV.` |
+| Spoken, 10 seconds | Meetups, phone calls, "so what do you do" | `I build web apps and Android apps. Day job is travel products on Cloudflare Workers. I also make a Telegram player for Android TV.` |
 | Spoken, to a business owner | A shop, clinic or hotel owner who does not know what React is | `I build websites and apps for businesses. The kind that load fast on a phone and turn up on Google when someone searches for you.` |
 | 80, 160 and 500 characters | Every profile bio | See `04-profiles-and-cross-linking.md`, Part F |
 
@@ -269,7 +269,7 @@ the post. No hashtag walls, three at most.
 **1. The specific problem solved**
 
 ```
-[Rendering 2,000 seats in a browser] should be easy. It was not.
+[Rendering thousands of SVG shapes in a browser] should be easy. It was not.
 
 The first version [stuttered on every scroll on a mid-range phone].
 
@@ -315,12 +315,12 @@ Three production apps later, this has not bitten me again.
 **4. Project ship post**
 
 ```
-[REDACTED] is live.
+[TapTL] is live.
 
-It answers one question: what does this seat actually look like before I pay for it.
+It answers one question: [what does this line of game text say, without leaving the game].
 
-Built with [Next.js 16 on Cloudflare Workers, D1, R2, Durable Objects].
-[Renders a 2,000 REDACTED in under 400 ms on a mid-range phone.]
+Built with [Kotlin, on-device OCR and on-device translation].
+[One real measured number, such as how fast a translation appears.]
 
 Screenshot below. Link in the comments.
 ```
@@ -424,7 +424,7 @@ Took me two days. Writeup coming.
 **2. Build in public**
 
 ```
-Day [14] of [the REDACTED rewrite].
+Day [14] of [the interactive view rewrite].
 
 [Hit testing is done. Zoom and pan feel right on a phone. Momentum still overshoots.]
 
@@ -434,7 +434,7 @@ Day [14] of [the REDACTED rewrite].
 **3. Thread opener**
 
 ```
-I rendered a 2,000 seat interactive map in the browser and got it from 2.4s to 380ms.
+I rendered a large interactive SVG in the browser and got it from 2.4s to 380ms.
 
 Here is everything that was wrong with the first version.
 ```

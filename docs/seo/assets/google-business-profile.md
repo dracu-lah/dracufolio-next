@@ -87,11 +87,11 @@ Nothing is public until this passes. Fill in everything below while you wait.
 
 ## 6. Description
 
-Edit profile > Business description. 742 characters, under the 750 limit. No phone number and
+Edit profile > Business description. 741 characters, under the 750 limit. No phone number and
 no links, Google strips them.
 
 ```
-Nevil Krishna K is a full stack developer based in Thrissur, Kerala, with 3+ years of experience building production web and mobile apps. The web work is React, Next.js and TypeScript. The Android work is Kotlin and Jetpack Compose. Recent products include REDACTED, a REDACTED platform running on Cloudflare Workers, REDACTED, and the REDACTED admin panel. Services cover web applications, business websites that rank on Google, Android and React Native apps, dashboards and admin panels, Cloudflare deployment, and website speed fixes. Available for project work, retainers and remote contracts across Thrissur, Ernakulam, Kozhikode and the rest of Kerala. Malayalam and English. Free 20 minute first call for Thrissur district projects.
+Nevil Krishna K is a full stack developer based in Thrissur, Kerala, with 3+ years of experience building production web and mobile apps. The web work is React, Next.js and TypeScript. The Android work is Kotlin and Jetpack Compose. Recent work includes travel products on Cloudflare Workers, an admin panel with self-hosted maps, and TMPlayer for Android TV. Services cover web applications, business websites that rank on Google, Android and React Native apps, dashboards and admin panels, Cloudflare deployment, and website speed fixes. Available for project work, retainers and remote contracts across Thrissur, Ernakulam, Kozhikode and the rest of Kerala. Malayalam and English. Free 20 minute first call for Thrissur district projects.
 ```
 
 ## 7. Services
@@ -125,7 +125,7 @@ Add update > Add update. Attach the cover photo, button **Learn more** to
 ```
 Full stack developer in Thrissur, available for project work.
 
-I build web apps with React and Next.js, Android apps with Kotlin, and admin panels for teams still running on spreadsheets. 3+ years of production work, most recently a REDACTED platform and a flight rewards product.
+I build web apps with React and Next.js, Android apps with Kotlin, and admin panels for teams still running on spreadsheets. 3+ years of production work, most recently travel products on Cloudflare Workers.
 
 Serving Thrissur, Ollur, Irinjalakuda, Chalakudy, Kunnamkulam, Guruvayur, Ernakulam and the rest of Kerala. Remote work anywhere in India.
 

@@ -30,21 +30,21 @@ H2 questions:
 3. How do you wire it into CI so a missing key fails the build?
 4. What should you do about keys that exist but are still in English?
 
-### 2. Rendering a 2,000 REDACTED in the browser without dropping frames
+### 2. Rendering a large interactive SVG in the browser without dropping frames
 
 | Field | Value |
 | --- | --- |
-| Angle | The real engineering story from REDACTED. SVG versus canvas, why the first version stuttered, and the specific changes that fixed it. Include real before and after numbers. |
-| Target keyword | `render large svg REDACTED react performance` |
-| Source | REDACTED work at Lascade (describe the technique, no client code) |
+| Angle | A real engineering story from the day job. SVG versus canvas, why the first version stuttered, and the specific changes that fixed it. Include real before and after numbers. |
+| Target keyword | `render large svg react performance` |
+| Source | Work at Lascade (describe the technique only, no company code or product names) |
 | Cross-post | Dev.to, Hashnode, r/reactjs, r/webdev, X thread |
 
 H2 questions:
 
-1. Why did the naive version of the REDACTED get slow?
+1. Why did the naive version get slow?
 2. SVG or canvas for thousands of interactive shapes?
 3. How do you do hit testing and hover state without re-rendering everything?
-4. How do zoom and pan work when every seat has to stay clickable?
+4. How do zoom and pan work when every shape has to stay clickable?
 
 ### 3. Zoom and pan that feels right on a phone
 
@@ -52,7 +52,7 @@ H2 questions:
 | --- | --- |
 | Angle | The follow-up to post 2, narrower and more practical. Pinch, double tap, momentum, clamping to bounds, and why the browser's own gesture handling gets in the way. |
 | Target keyword | `pinch zoom pan react svg touch` |
-| Source | REDACTED work at Lascade |
+| Source | Work at Lascade, technique only |
 | Cross-post | Dev.to, Hashnode, r/reactjs |
 
 H2 questions:
@@ -68,7 +68,7 @@ H2 questions:
 | --- | --- |
 | Angle | This combination is rare and barely documented, which makes it the highest-value post on the list. What OpenNext does to a Next.js build, what next-intl assumes, where the two disagree, and the fix. |
 | Target keyword | `next-intl cloudflare workers opennext` |
-| Source | REDACTED deployment work |
+| Source | Cloudflare deployment work at Lascade |
 | Cross-post | Dev.to, Hashnode, r/nextjs, r/CloudFlare, the Next.js and Cloudflare Discords |
 
 H2 questions:
@@ -84,7 +84,7 @@ H2 questions:
 | --- | --- |
 | Angle | D1 migrations are simple until there is real data behind them. The workflow that works, the commands, and how to not lock yourself out of production. |
 | Target keyword | `cloudflare d1 migrations production` |
-| Source | REDACTED infrastructure work |
+| Source | Cloudflare infrastructure work at Lascade |
 | Cross-post | Dev.to, Hashnode, r/CloudFlare, the Cloudflare Discord |
 
 H2 questions:
@@ -100,7 +100,7 @@ H2 questions:
 | --- | --- |
 | Angle | Not a tutorial. The patterns that held up across three production apps and the two that had to be undone: slicing, selectors, when persistence causes more problems than it solves, and where TanStack Query takes over. |
 | Target keyword | `zustand patterns large react app` |
-| Source | Patterns from REDACTED, REDACTED admin panel and the resume builder |
+| Source | Patterns from the Lascade and Udyata work and the resume builder |
 | Cross-post | Dev.to, Hashnode, r/reactjs, X thread |
 
 H2 questions:
@@ -177,7 +177,7 @@ H2 questions:
 ### Bonus, when the moment arrives
 
 **Next.js 16 upgrade notes.** Write this the week after any real upgrade, while the pain is
-fresh. Target keyword `next.js 16 upgrade notes`. Source: the REDACTED and dracufolio upgrades.
+fresh. Target keyword `next.js 16 upgrade notes`. Source: the day job and dracufolio upgrades.
 H2 questions: what actually broke, which codemods helped and which did not, what changed about
 caching and `use cache`, and whether it was worth doing early. Upgrade posts rank hard for a
 few months and then fade, so publish it within two weeks of the upgrade or not at all.
@@ -265,7 +265,7 @@ the monthly checklist day (`11-monthly-checklist.md`), so that day is the busy o
 | Date | Post | Topic | Cross-post day |
 | --- | --- | --- | --- |
 | Sat 3 Oct 2026 | 1 | 4. next-intl on Cloudflare Workers with OpenNext | Sun 4 Oct |
-| Sat 17 Oct 2026 | 2 | 2. Rendering a 2,000 REDACTED without dropping frames | Sun 18 Oct |
+| Sat 17 Oct 2026 | 2 | 2. Rendering a large interactive SVG without dropping frames | Sun 18 Oct |
 | Sat 7 Nov 2026 | 3 | 8. Streaming video from Telegram with a custom Media3 DataSource | Sun 8 Nov |
 | Sat 21 Nov 2026 | 4 | 1. Keeping translation files in sync | Sun 22 Nov |
 | Sat 5 Dec 2026 | 5 | 5. Cloudflare D1 migrations on a live project | Sun 6 Dec |

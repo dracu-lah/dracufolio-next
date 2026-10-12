@@ -7,7 +7,7 @@ Updated with the real repo data. Supersedes the blocks in `04-profiles-and-cross
 Profile > pencil next to your name > Headline.
 
 ```
-Full Stack Developer at Lascade LLP | React, Next.js, TypeScript, Kotlin | Building REDACTED and REDACTED | Web and Android apps for Thrissur, Kerala and remote clients
+Full Stack Developer at Lascade LLP | React, Next.js, TypeScript, Kotlin | Building travel products on Cloudflare Workers | Web and Android apps for Thrissur, Kerala and remote clients
 ```
 
 ## 2. About
@@ -17,9 +17,9 @@ Profile > About > pencil.
 ```
 Full stack developer in Thrissur, Kerala. React, Next.js and TypeScript for the web, Kotlin for Android. 3+ years shipping production apps.
 
-Right now I am at Lascade LLP, building REDACTED, a REDACTED product where people check what a seat looks like before they book it. It runs on Next.js 16 on Cloudflare Workers through OpenNext, with D1, R2 and Durable Objects behind it, and next-intl for the languages. I also work on REDACTED.
+Right now I am at Lascade LLP, building travel products on Next.js 16 and Cloudflare Workers. They run through OpenNext, with D1, R2 and Durable Objects behind them, and next-intl for the languages.
 
-Before that I spent two years at Udyata Information Systems as a frontend developer. I built the REDACTED admin panel and self-hosted the OpenStreetMap stack (Nominatim and OSRM) so the product stopped paying per map request.
+Before that I spent two years at Udyata Information Systems as a frontend developer. I built an admin panel and self-hosted the OpenStreetMap stack (Nominatim and OSRM) so the product stopped paying per map request.
 
 Outside work I ship my own things in the open. TMPlayer plays Telegram videos on an Android TV, written in Kotlin with Jetpack Compose, TDLib and Media3. Resume Builder is a free resume tool at resumebuilder.js.org, and LangSync is a Python CLI that keeps i18n files in sync.
 

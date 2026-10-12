@@ -60,9 +60,6 @@ const socialLinks = [
   },
 ];
 
-const contentLink =
-  "underline underline-offset-4 transition-colors duration-300 hover:text-accent";
-
 const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
   const Heading = asPage ? "h1" : "h2";
   let portrait: string | null = null;
@@ -145,27 +142,7 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
             <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
               Full stack developer with{" "}
               <b>3 years in the React and Next.js ecosystem</b>, currently
-              building high-traffic travel products like{" "}
-              <a
-                className={contentLink}
-                href="https://REDACTED.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <InlineLogo src="/logos/REDACTED.png">REDACTED</InlineLogo>
-              </a>{" "}
-              and{" "}
-              <a
-                className={contentLink}
-                href="https://www.REDACTED.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <InlineLogo src="/logos/REDACTED.png">
-                  REDACTED
-                </InlineLogo>
-              </a>{" "}
-              at{" "}
+              building high-traffic travel products at{" "}
               <b>
                 <InlineLogo src="/logos/lascade.png">Lascade</InlineLogo>
               </b>
@@ -176,8 +153,8 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
           <Reveal delay={0.2}>
             <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
               I work mostly on performance, accessibility and the parts of a
-              product that decide whether it feels finished. Outside of client
-              work I maintain open source tools and take part in the local{" "}
+              product that decide whether it feels finished. Outside of work I
+              maintain open source tools and take part in the local{" "}
               <b>FOSS community</b>.
             </p>
           </Reveal>

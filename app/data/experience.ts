@@ -14,8 +14,8 @@ export const experience = [
     site: "https://lascade.com",
     period: "Nov 2025 - Present",
     points: [
-      "Ships REDACTED, a REDACTED product on Next.js 16 and Cloudflare Workers, D1, R2 and Durable Objects",
-      "Owns the REDACTED end to end, from to-scale rendering and zoom to the import pipeline behind it",
+      "Ships travel products on Next.js 16 and Cloudflare Workers, D1, R2 and Durable Objects",
+      "Owns the core interactive view end to end, from rendering and zoom to the import pipeline behind it",
       "Runs the i18n sync engine and the SEO baseline, plus Mixpanel tagging on every outbound link",
       "Wired the Resend SDK into Django for transactional email",
     ],
@@ -45,7 +45,7 @@ export const experience = [
       "Built and maintained 20+ reusable React components, cutting build time by 30 percent",
       "Cut first load through code splitting, lazy loading and memoization",
       "Cut API overhead by 20 percent and deploy errors by 15 percent with GitHub Actions CI/CD",
-      "Built the REDACTED admin panel and self-hosted OpenStreetMap services (Nominatim, OSRM)",
+      "Built an admin panel and self-hosted OpenStreetMap services (Nominatim, OSRM)",
     ],
     stack: [
       "React",

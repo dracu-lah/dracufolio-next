@@ -12,7 +12,7 @@ import { CONTENT_DATES } from "@/data/updated";
 export const revalidate = 86400;
 
 const description =
-  "Everything Nevil Krishna K has shipped since 2022: travel products, REDACTED, an Android TV app, admin dashboards and open-source tools, built with React, Next.js, TypeScript and Kotlin.";
+  "Projects by Nevil Krishna K since 2022: an Android TV app, open-source tools and design concepts, built with React, Next.js, TypeScript and Kotlin.";
 
 export const metadata = pageMetadata({
   title: "Projects: React, Next.js and Android work",
@@ -67,12 +67,12 @@ const ProjectsPage = async () => {
               <h1 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
                 All Projects
               </h1>
-              <Badge size="md">{projects.length} shipped</Badge>
+              <Badge size="md">{projects.length} projects</Badge>
             </div>
             <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
-              Client work, products and things I built for myself. Every card
-              opens a write-up with the stack, the decisions and a link to the
-              live site or the repo.
+              Products I run, open source tools and a few design concepts,
+              which are labelled as such. Every card opens a write-up with the
+              stack, the decisions and a link to the live site or the repo.
             </p>
           </div>
           <Projects projects={projects} />

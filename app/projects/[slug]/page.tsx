@@ -123,6 +123,13 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
           <p className="max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl">
             {project.tagline ?? project.description}
           </p>
+          {project.concept && (
+            <p className="flex max-w-3xl flex-wrap items-center gap-3 text-base text-muted-foreground">
+              <Badge size="md">Concept</Badge>
+              A design study I made on my own, not a site the brand commissioned
+              or runs.
+            </p>
+          )}
           <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:gap-4">
             {project.liveUrl && (
               <Button
@@ -136,7 +143,8 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Visit live <Globe size={18} />
+                  {project.concept ? "View concept" : "Visit live"}{" "}
+                  <Globe size={18} />
                 </a>
               </Button>
             )}
@@ -246,7 +254,9 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
               <div className="grid grid-cols-[4.5rem_1fr] gap-3 text-base md:grid-cols-[6rem_1fr] md:gap-4">
                 <dt className="text-muted-foreground">Status</dt>
                 <dd>
-                  {project.liveUrl ? (
+                  {project.concept ? (
+                    <Badge>Concept</Badge>
+                  ) : project.liveUrl ? (
                     <Badge tone="accent" dot>
                       Deployed
                     </Badge>

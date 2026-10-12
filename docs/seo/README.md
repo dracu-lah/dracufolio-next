@@ -80,7 +80,6 @@ come from. Nobody says no as often as expected.
 
 - [ ] Ask the 8 Lascade and Udyata colleagues for a Google review, one message at a time
       (`03`, Part B)
-- [ ] Ask the REDACTED and Parazyakampany contacts (`03`, Part B)
 - [ ] Ask the college friends who got a site built (`03`, Part B)
 - [ ] Ask the FOSS and TinkerHub contacts (`03`, Part B)
 - [ ] Ask Lascade and Udyata for a link from their team or alumni page (`05`, priority 1)
