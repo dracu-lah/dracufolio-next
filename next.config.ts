@@ -45,7 +45,20 @@ const nextConfig: NextConfig = {
       { source: "/oss", destination: "/open-source", statusCode: 301 },
       // Four 2022 and 2023 practice projects came off the list in Oct 2026 to
       // make room for LangSync and REDACTED. Their old pages land on the list.
-      ...["drum-kit", "simon-game", "netflix-clone", "covid19-status-tracker"].map(
+      // Six client and employer projects came off later the same month, since
+      // they are company work and not mine to show.
+      ...[
+        "drum-kit",
+        "simon-game",
+        "netflix-clone",
+        "covid19-status-tracker",
+        "REDACTED",
+        "REDACTED",
+        "REDACTED",
+        "REDACTED",
+        "adora-homes",
+        "parazyakampany",
+      ].map(
         (slug) => ({
           source: `/projects/${slug}`,
           destination: "/projects",

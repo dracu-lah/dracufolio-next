@@ -219,8 +219,8 @@
     "liveUrl": "https://REDACTED.com",
     "githubUrl": null,
     "year": "2026",
-    "published": true,
-    "order": 2,
+    "published": false,
+    "order": 12,
     "logo": "/logos/REDACTED.png"
   },
   {
@@ -254,8 +254,8 @@
     "liveUrl": "https://adora.nevil.dev",
     "githubUrl": null,
     "year": "2026",
-    "published": true,
-    "order": 3
+    "published": false,
+    "order": 13
   },
   {
     "id": "699930e30006a6140d93",
@@ -287,8 +287,8 @@
     "liveUrl": "https://REDACTED.com",
     "githubUrl": null,
     "year": "2026",
-    "published": true,
-    "order": 4,
+    "published": false,
+    "order": 14,
     "logo": "/logos/REDACTED.png"
   },
   {
@@ -321,8 +321,8 @@
     "liveUrl": "https://www.REDACTED.com/",
     "githubUrl": null,
     "year": "2026",
-    "published": true,
-    "order": 5,
+    "published": false,
+    "order": 15,
     "logo": "/logos/REDACTED.png"
   },
   {
@@ -375,8 +375,8 @@
     "liveUrl": "https://REDACTED.com",
     "githubUrl": null,
     "year": "2025",
-    "published": true,
-    "order": 6,
+    "published": false,
+    "order": 16,
     "logo": "/logos/REDACTED.png"
   },
   {
@@ -411,7 +411,7 @@
     "gallery": [
       {
         "src": "/appwrite/projects/langsync.webp",
-        "alt": "The langsync-cli repository on GitHub",
+        "alt": "The LangSync landing page, with the install command beside a finished sync of three locales",
         "width": 1920,
         "height": 1080
       }
@@ -420,7 +420,7 @@
     "githubUrl": "https://github.com/dracu-lah/langsync-cli",
     "year": "2026",
     "published": true,
-    "order": 7
+    "order": 2
   },
   {
     "id": "68ded97a003738100445",
@@ -449,8 +449,8 @@
     "liveUrl": "https://www.REDACTED/",
     "githubUrl": null,
     "year": "2024",
-    "published": true,
-    "order": 8,
+    "published": false,
+    "order": 17,
     "logo": "/logos/parazyakampany.png"
   },
   {
@@ -484,7 +484,7 @@
     "githubUrl": "https://github.com/dracu-lah/resumebuilder",
     "year": "2025",
     "published": true,
-    "order": 9,
+    "order": 3,
     "logo": "/logos/resume-builder.png"
   },
   {
@@ -517,7 +517,7 @@
     "githubUrl": "https://github.com/dracu-lah/emailsender-next",
     "year": "2025",
     "published": true,
-    "order": 10
+    "order": 4
   },
   {
     "id": "68ea0e15001093ee0469",
@@ -549,7 +549,7 @@
     "githubUrl": "https://github.com/dracu-lah/image-cropper-react/",
     "year": "2025",
     "published": true,
-    "order": 11
+    "order": 5
   },
   {
     "id": "68dd5cae003b83512ee8",
@@ -580,7 +580,7 @@
     "githubUrl": null,
     "year": "2025",
     "published": true,
-    "order": 12
+    "order": 6
   },
   {
     "id": "695e31740002b90bc657",
@@ -602,7 +602,7 @@
     "githubUrl": null,
     "year": null,
     "published": false,
-    "order": 13
+    "order": 18
   },
   {
     "id": "69116d7d0017b18ed2c2",
@@ -631,7 +631,7 @@
     "githubUrl": null,
     "year": null,
     "published": true,
-    "order": 14
+    "order": 7
   },
   {
     "id": "68eb31bc000deead8aa4",
@@ -662,7 +662,7 @@
     "githubUrl": "https://github.com/dracu-lah/donut-react",
     "year": "2025",
     "published": true,
-    "order": 15,
+    "order": 8,
     "logo": "/logos/donut-website.png"
   },
   {
@@ -694,7 +694,7 @@
     "githubUrl": "https://github.com/dracu-lah/trello-appwrite-next",
     "year": "2023",
     "published": true,
-    "order": 16
+    "order": 9
   },
   {
     "id": "66ceeb590024c8530280",
@@ -725,7 +725,7 @@
     "githubUrl": "https://github.com/dracu-lah/notes-react",
     "year": "2024",
     "published": true,
-    "order": 17,
+    "order": 10,
     "logo": "/logos/notes-app.png"
   },
   {
@@ -756,7 +756,7 @@
     "githubUrl": "https://github.com/dracu-lah/drum-kit",
     "year": "2022",
     "published": false,
-    "order": 18,
+    "order": 19,
     "logo": "/logos/drum-kit.png"
   },
   {
@@ -787,7 +787,7 @@
     "githubUrl": "https://github.com/dracu-lah/Simon-Game",
     "year": "2022",
     "published": false,
-    "order": 19
+    "order": 20
   },
   {
     "id": "648c1cc9c2f15d66810b",
@@ -817,7 +817,7 @@
     "githubUrl": "https://github.com/dracu-lah/result-management-next",
     "year": "2023",
     "published": true,
-    "order": 20
+    "order": 11
   },
   {
     "id": "648c15eec2bb707738ba",
