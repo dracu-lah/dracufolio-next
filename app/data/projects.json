@@ -35,16 +35,70 @@
       "GPL-3.0"
     ],
     "images": [
-      "/appwrite/projects/tmplayer.webp",
-      "/appwrite/projects/tmplayer-tv.webp",
-      "/appwrite/projects/tmplayer-desktop.webp"
+      "/appwrite/projects/tmplayer.webp"
     ],
     "liveUrl": "https://tmplayer.org",
     "githubUrl": "https://github.com/dracu-lah/TMPlayer",
     "year": "2026",
     "published": true,
     "order": 0,
-    "logo": "/logos/tmplayer.png"
+    "logo": "/logos/tmplayer.png",
+    "gallery": [
+      {
+        "src": "/appwrite/projects/tmplayer.webp",
+        "alt": "The tmplayer.org home page, with the app's chat screen below the download button",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "src": "/appwrite/projects/tmplayer-tv.webp",
+        "alt": "Browsing Telegram chats on a television",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "src": "/appwrite/projects/tmplayer-tv-grid.webp",
+        "alt": "One chat's videos as a grid on the TV, each tile with its quality, running time and size",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "src": "/appwrite/projects/tmplayer-desktop.webp",
+        "alt": "The desktop app, a sidebar of chat sections beside a grid of videos",
+        "width": 1920,
+        "height": 1200
+      },
+      {
+        "src": "/appwrite/projects/tmplayer-desktop-player.webp",
+        "alt": "The desktop player, its title, timebar and controls over a playing video",
+        "width": 1920,
+        "height": 1200
+      },
+      {
+        "src": "/appwrite/projects/tmplayer-phone-chats.webp",
+        "alt": "The phone app's chat list",
+        "width": 1080,
+        "height": 2400
+      },
+      {
+        "src": "/appwrite/projects/tmplayer-phone-grid.webp",
+        "alt": "One chat's videos on a phone",
+        "width": 1080,
+        "height": 2400
+      },
+      {
+        "src": "/appwrite/projects/tmplayer-phone-player.webp",
+        "alt": "The player on a phone, with its controls showing",
+        "width": 1080,
+        "height": 2400
+      },
+      {
+        "src": "/appwrite/projects/tmplayer-site-mobile.webp",
+        "alt": "tmplayer.org on a phone",
+        "width": 1170,
+        "height": 2532
+      }
+    ]
   },
   {
     "id": "b71e3d09c45a2f8e6d10",
@@ -76,16 +130,64 @@
       "MIT"
     ],
     "images": [
-      "/appwrite/projects/taptl.webp",
-      "/appwrite/projects/taptl-before.webp",
-      "/appwrite/projects/taptl-after.webp"
+      "/appwrite/projects/taptl.webp"
     ],
     "liveUrl": "https://taptl.pages.dev",
     "githubUrl": "https://github.com/dracu-lah/taptl",
     "year": "2026",
     "published": true,
     "order": 1,
-    "logo": "/logos/taptl.png"
+    "logo": "/logos/taptl.png",
+    "gallery": [
+      {
+        "src": "/appwrite/projects/taptl.webp",
+        "alt": "The taptl.pages.dev home page",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "src": "/appwrite/projects/taptl-before.webp",
+        "alt": "Valorant Mobile's settings in Chinese, before TapTL",
+        "width": 2400,
+        "height": 1080
+      },
+      {
+        "src": "/appwrite/projects/taptl-after.webp",
+        "alt": "The same settings screen with TapTL on, in English",
+        "width": 2400,
+        "height": 1080
+      },
+      {
+        "src": "/appwrite/projects/taptl-audio.webp",
+        "alt": "The audio settings tab in English with TapTL",
+        "width": 2400,
+        "height": 1080
+      },
+      {
+        "src": "/appwrite/projects/taptl-intro.webp",
+        "alt": "TapTL's intro screen",
+        "width": 1080,
+        "height": 2400
+      },
+      {
+        "src": "/appwrite/projects/taptl-language.webp",
+        "alt": "Picking the language to translate from",
+        "width": 1080,
+        "height": 2400
+      },
+      {
+        "src": "/appwrite/projects/taptl-app.webp",
+        "alt": "The setup screen, listing what is left to turn on",
+        "width": 1080,
+        "height": 2400
+      },
+      {
+        "src": "/appwrite/projects/taptl-site-mobile.webp",
+        "alt": "taptl.pages.dev on a phone",
+        "width": 1170,
+        "height": 2532
+      }
+    ]
   },
   {
     "id": "6a4f9c2e00187ab3d4f1",
@@ -224,6 +326,103 @@
     "logo": "/logos/REDACTED.png"
   },
   {
+    "id": "e5a917c3d0b6f2483c71",
+    "slug": "REDACTED",
+    "title": "REDACTED",
+    "description": "Admin panel and self-hosted OpenStreetMap services for REDACTED, a bus booking and live tracking platform.",
+    "tagline": "The admin panel behind a ride platform, and the map services it runs on its own servers.",
+    "longDescription": [
+      "REDACTED connects riders with drivers directly: find a bus going your way, book a seat, and track it to your stop. I worked on it at Udyata Information Systems between 2024 and 2025, on the side riders and drivers never see.",
+      "That meant the admin panel the platform is run from, built in React with shadcn/ui, and the map services under it, self-hosted in Docker: Nominatim to turn addresses into coordinates and back, and OSRM to work out routes between stops."
+    ],
+    "features": [
+      "Admin panel for running the platform, in React and shadcn/ui",
+      "Self-hosted Nominatim for geocoding and reverse geocoding",
+      "Self-hosted OSRM for routing between stops",
+      "Map services run in Docker on the platform's own servers"
+    ],
+    "skills": [
+      "React",
+      "shadcn/ui",
+      "Docker",
+      "OpenStreetMap",
+      "Nominatim",
+      "OSRM"
+    ],
+    "images": [
+      "/appwrite/projects/REDACTED.webp"
+    ],
+    "gallery": [
+      {
+        "src": "/appwrite/projects/REDACTED.webp",
+        "alt": "The REDACTED.com home page, with the rider and driver apps",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "src": "/appwrite/projects/REDACTED-features.webp",
+        "alt": "How booking works for riders, on REDACTED.com",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "src": "/appwrite/projects/REDACTED-site-mobile.webp",
+        "alt": "REDACTED.com on a phone",
+        "width": 1170,
+        "height": 2532
+      }
+    ],
+    "liveUrl": "https://REDACTED.com",
+    "githubUrl": null,
+    "year": "2025",
+    "published": true,
+    "order": 6,
+    "logo": "/logos/REDACTED.png"
+  },
+  {
+    "id": "c2d8a41f7e93b05d6a28",
+    "slug": "langsync",
+    "title": "LangSync",
+    "description": "Command line tool that keeps every locale file in step with one English source, translating only what changed.",
+    "tagline": "Keeps every locale file in step with one source of truth, and only translates what changed.",
+    "longDescription": [
+      "Every product I work on ships in several languages, and keeping a dozen locale files in step with the English one by hand meant missed keys and stale strings. LangSync treats one file as the source of truth. It works out which keys are new, edited or gone, translates only those, and writes them into every target locale in parallel.",
+      "Keys are grouped into batch requests rather than sent one at a time, which cut the network calls by up to 98 percent. Placeholders like {name} and inline tags are protected, and ICU plural and select messages are parsed so only the readable text is translated. Every rebuilt message is parsed again before it is written, so a translation that would break the syntax is rejected instead of shipped.",
+      "A snapshot of the source values tracks drift, so an edited English string is translated again everywhere. Orphan keys are reported, and only removed when you ask. Every error and warning ends with the exact command that fixes it. It now runs across all our products at work."
+    ],
+    "features": [
+      "Parallel sync across every locale from one source file",
+      "Batch translation, up to 98 percent fewer network calls",
+      "Placeholder and ICU plural and select protection, checked again before writing",
+      "Drift detection, so edited source strings are translated again",
+      "Nested objects and arrays translated element by element",
+      "A check mode for CI, and a fix command printed with every error"
+    ],
+    "skills": [
+      "Python",
+      "CLI",
+      "ICU MessageFormat",
+      "i18n",
+      "MIT"
+    ],
+    "images": [
+      "/appwrite/projects/langsync.webp"
+    ],
+    "gallery": [
+      {
+        "src": "/appwrite/projects/langsync.webp",
+        "alt": "The langsync-cli repository on GitHub",
+        "width": 1920,
+        "height": 1080
+      }
+    ],
+    "liveUrl": null,
+    "githubUrl": "https://github.com/dracu-lah/langsync-cli",
+    "year": "2026",
+    "published": true,
+    "order": 7
+  },
+  {
     "id": "68ded97a003738100445",
     "slug": "parazyakampany",
     "title": "Parazyakampany",
@@ -251,7 +450,7 @@
     "githubUrl": null,
     "year": "2024",
     "published": true,
-    "order": 6,
+    "order": 8,
     "logo": "/logos/parazyakampany.png"
   },
   {
@@ -285,7 +484,7 @@
     "githubUrl": "https://github.com/dracu-lah/resumebuilder",
     "year": "2025",
     "published": true,
-    "order": 7,
+    "order": 9,
     "logo": "/logos/resume-builder.png"
   },
   {
@@ -318,7 +517,7 @@
     "githubUrl": "https://github.com/dracu-lah/emailsender-next",
     "year": "2025",
     "published": true,
-    "order": 8
+    "order": 10
   },
   {
     "id": "68ea0e15001093ee0469",
@@ -350,7 +549,7 @@
     "githubUrl": "https://github.com/dracu-lah/image-cropper-react/",
     "year": "2025",
     "published": true,
-    "order": 9
+    "order": 11
   },
   {
     "id": "68dd5cae003b83512ee8",
@@ -381,7 +580,7 @@
     "githubUrl": null,
     "year": "2025",
     "published": true,
-    "order": 10
+    "order": 12
   },
   {
     "id": "695e31740002b90bc657",
@@ -403,7 +602,7 @@
     "githubUrl": null,
     "year": null,
     "published": false,
-    "order": 11
+    "order": 13
   },
   {
     "id": "69116d7d0017b18ed2c2",
@@ -432,7 +631,7 @@
     "githubUrl": null,
     "year": null,
     "published": true,
-    "order": 12
+    "order": 14
   },
   {
     "id": "68eb31bc000deead8aa4",
@@ -463,7 +662,7 @@
     "githubUrl": "https://github.com/dracu-lah/donut-react",
     "year": "2025",
     "published": true,
-    "order": 13,
+    "order": 15,
     "logo": "/logos/donut-website.png"
   },
   {
@@ -495,7 +694,7 @@
     "githubUrl": "https://github.com/dracu-lah/trello-appwrite-next",
     "year": "2023",
     "published": true,
-    "order": 14
+    "order": 16
   },
   {
     "id": "66ceeb590024c8530280",
@@ -526,7 +725,7 @@
     "githubUrl": "https://github.com/dracu-lah/notes-react",
     "year": "2024",
     "published": true,
-    "order": 15,
+    "order": 17,
     "logo": "/logos/notes-app.png"
   },
   {
@@ -556,8 +755,8 @@
     "liveUrl": "https://dracu-drum-kit.netlify.app/",
     "githubUrl": "https://github.com/dracu-lah/drum-kit",
     "year": "2022",
-    "published": true,
-    "order": 16,
+    "published": false,
+    "order": 18,
     "logo": "/logos/drum-kit.png"
   },
   {
@@ -587,8 +786,8 @@
     "liveUrl": "https://dracu-lah.github.io/Simon-Game/",
     "githubUrl": "https://github.com/dracu-lah/Simon-Game",
     "year": "2022",
-    "published": true,
-    "order": 17
+    "published": false,
+    "order": 19
   },
   {
     "id": "648c1cc9c2f15d66810b",
@@ -618,7 +817,7 @@
     "githubUrl": "https://github.com/dracu-lah/result-management-next",
     "year": "2023",
     "published": true,
-    "order": 18
+    "order": 20
   },
   {
     "id": "648c15eec2bb707738ba",
@@ -647,8 +846,8 @@
     "liveUrl": null,
     "githubUrl": "https://github.com/dracu-lah/netflixclone-next",
     "year": "2023",
-    "published": true,
-    "order": 19
+    "published": false,
+    "order": 21
   },
   {
     "id": "648b950a0b374b8d3b2g",
@@ -676,7 +875,7 @@
     "liveUrl": null,
     "githubUrl": "https://github.com/dracu-lah/covid19-status-tracker",
     "year": "2022",
-    "published": true,
-    "order": 20
+    "published": false,
+    "order": 22
   }
 ]

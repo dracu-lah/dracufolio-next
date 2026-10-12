@@ -43,6 +43,15 @@ const nextConfig: NextConfig = {
       { source: "/contact", destination: "/#contact", statusCode: 301 },
       { source: "/portfolio", destination: "/projects", statusCode: 301 },
       { source: "/oss", destination: "/open-source", statusCode: 301 },
+      // Four 2022 and 2023 practice projects came off the list in Oct 2026 to
+      // make room for LangSync and REDACTED. Their old pages land on the list.
+      ...["drum-kit", "simon-game", "netflix-clone", "covid19-status-tracker"].map(
+        (slug) => ({
+          source: `/projects/${slug}`,
+          destination: "/projects",
+          statusCode: 308 as const,
+        }),
+      ),
       {
         source: "/appwrite/resume/Nevil-Krishna-Frontend-Resume.pdf",
         destination: RESUME,

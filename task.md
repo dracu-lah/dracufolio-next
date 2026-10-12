@@ -1898,3 +1898,88 @@ of each of the 37 icons the site imports, which is 217KB raw for a set that
 only ever renders `Bulk`. It is the second largest thing in the bundle after
 React. Extracting the Bulk paths at build time is the fix, and it is its own
 task.
+
+---
+
+# task: project galleries, the missing screenshots and a full screen viewer, 12 Oct 2026
+
+Status: BUILT, 12 Oct 2026. Answer to the open questions: "update everything", so every
+recommendation below went in, plus a project list refresh (section 2).
+
+## 0. Where it stands
+
+`/projects/[slug]` draws `images[0]` as the hero and the rest in a two column grid. Every
+image gets the same generic alt ("TapTL screenshot"), and nothing opens larger. That grid
+assumes 16:9: a 1080x2400 phone capture in a half width column would stand about 1000px tall,
+which is why no phone screen is on the site yet, even though both apps are phone first.
+
+What the repos have that the site does not:
+
+| Project | Missing image | Size | Use |
+| --- | --- | --- | --- |
+| TMPlayer | `site/screenshots/tv-grid.webp` | 1920x1080 | a chat's videos on the TV |
+| TMPlayer | `docs/screenshots/desktop-player.webp` | 1920x1200 | desktop player |
+| TMPlayer | `site/screenshots/phone-chats.webp`, `phone-grid.webp` | 1080x2400 | phone app |
+| TMPlayer | `player-declutter/phone-row.webp` | 1080x2400 | phone player controls |
+| TMPlayer | `tv-settings.webp`, `player-declutter/tv-row.webp` | 1920x1080 | skipped unless you want them: settings and the TV player bar add little |
+| TapTL | `docs/screenshots/audio-after.png` | 2400x1080 | audio settings in English |
+| TapTL | `intro.png`, `language.png`, `app.png` | 1080x2400 | the three app screens |
+| TapTL | `docs/images/banner.png` | 1280x640 | skipped: a marketing banner, the site shot already says it |
+
+Site screenshots: the desktop hero shots of tmplayer.org and taptl.pages.dev were taken last
+commit. This adds a 390px shot of each site only if you want one (open question 2).
+
+## 1. The plan
+
+- **T1. Data shape.** `images` stays a string array so the other 18 projects, the sitemap,
+  OG and JSON-LD keep reading `images[0]` unchanged. A new optional `gallery` array of
+  `{ src, alt, width, height }` carries real alt text and real dimensions; when it is present
+  the page draws it instead of `images.slice(1)`. Dimensions are written in the JSON, not
+  measured at runtime.
+- **T2. Images.** Copy the rows above into `public/appwrite/projects/` as `tmplayer-*.webp`
+  and `taptl-*.webp`. WebP copied as is, PNG converted to WebP at quality 90 like last time.
+  Dark variants only, since the site is dark.
+- **T3. Layout.** Wide shots keep the two column grid. Phone shots sit in their own row,
+  three or four across on desktop and a horizontal scroll strip at 390px, each at about 240px
+  wide so one screen fits without a scroll. Squircle frames in border mode, per the rules.
+- **T4. Full screen viewer.** Every gallery image, the hero included, is a button that opens
+  a Radix dialog (reusing `components/ui/dialog.tsx` primitives for focus trap, Esc and
+  scroll lock). Inside: the image at its full size fitted to the viewport, the alt text as a
+  caption, "3 of 8", previous and next buttons, arrow keys, swipe on touch through a
+  framer-motion drag. Motion: a short slide in the direction you moved, because it tells you
+  which way you went; static under `prefers-reduced-motion`. Next/previous images preload.
+  Icons from `icons.tsx`. The viewer only loads its JS when opened (`next/dynamic`).
+- **T5. Resume line.** `scripts/resume.html` says "209 tests" for TMPlayer; change it to
+  match the 1,100 on the project page. Does not touch the TMPlayer repo's own README badge.
+- **T6. Check.** Build, `check:dashes`, `check-jsonld`, `check-seo`, screenshots of both
+  project pages and the open viewer at 390 and 1440, keyboard pass through the viewer. Commit
+  and push.
+
+## Open
+
+1. Is T5 what "update it" meant, or did you mean the README badge in the TMPlayer repo too
+   (a separate commit and push there)?
+2. A 390px site screenshot for each project as well, or are the app screens enough?
+3. Viewer on every project page (it only appears where there is more than one image), or
+   only on TMPlayer and TapTL for now? I would do every page.
+
+## 2. What shipped, and where it went a different way
+
+- T1 to T6 as planned. `gallery` is on TMPlayer (9 images), TapTL (8), REDACTED (3) and
+  LangSync (1). Every other project falls back to `images` with 16:9 assumed.
+- Open question 2: yes, a 390px capture of each project's site is in its gallery, taken at
+  3x so it holds up in the viewer.
+- Open question 3: the viewer is on every project page.
+- T5 changed only the number. The longer "TV, phone and desktop" wording pushed the resume to
+  two pages, so it still says Android TV. The PDF is rebuilt and stays one page. The TMPlayer
+  repo's own README badge (209) is not touched.
+- Added after the plan: the project list now matches the resume. LangSync and REDACTED were on
+  the resume and not on the site (the hire page already claimed "a ride hailing admin panel...
+  linked on this site", which was not true until now). Drum Kit, Simon Game, the Netflix clone
+  and the COVID tracker are unpublished, and their old URLs 308 to /projects.
+- REDACTED copy says only what the resume and experience entry say: the admin panel and the
+  self-hosted Nominatim and OSRM, at Udyata, 2024 to 2025. The screenshots are of the public
+  REDACTED.com, since the admin panel is not public.
+- LangSync has no site, so its image is the GitHub repository page.
+- Wide shots in the grid keep their own ratio instead of a 16:9 crop, because the TapTL
+  captures are 2.2:1 and lost their sides.

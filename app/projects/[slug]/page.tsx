@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -10,7 +9,8 @@ import {
   ScopeDocument,
 } from "@/components/common/icons";
 import Badge from "@/components/common/Badge";
-import { SQUIRCLE, Squircle } from "@/components/ui/squircle";
+import { Squircle } from "@/components/ui/squircle";
+import ProjectGallery from "@/components/projects/ProjectGallery";
 import { publishedPosts } from "@/data/posts";
 import { GetProjectsAPI, GetProjectBySlugAPI } from "@/services/api";
 import { Button } from "@/components/ui/button";
@@ -163,41 +163,21 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
           </div>
         </header>
 
-        <Squircle
-          as="figure"
-          cornerRadius={SQUIRCLE.panel}
-          borderWidth={1}
-          fillClassName="bg-card"
-          className="overflow-hidden bg-border"
-        >
-          <Image
-            priority
-            width={1920}
-            height={1080}
-            sizes="(min-width: 1024px) 60rem, 100vw"
-            src={project.images[0]}
-            alt={`Screenshot of ${project.title}`}
-            className="w-full object-cover"
-            draggable="false"
-          />
-        </Squircle>
-
-        {project.images.length > 1 && (
-          <div className="grid gap-6 pt-6 md:grid-cols-2">
-            {project.images.slice(1).map((img) => (
-              <Image
-                key={img}
-                width={960}
-                height={540}
-                sizes="(min-width: 768px) 30rem, 100vw"
-                src={img}
-                alt={`${project.title} screenshot`}
-                className="w-full rounded-xl border border-border object-cover"
-                draggable="false"
-              />
-            ))}
-          </div>
-        )}
+        <ProjectGallery
+          title={project.title}
+          images={
+            project.gallery ??
+            project.images.map((src, i) => ({
+              src,
+              alt:
+                i === 0
+                  ? `Screenshot of ${project.title}`
+                  : `${project.title} screenshot ${i + 1}`,
+              width: 1920,
+              height: 1080,
+            }))
+          }
+        />
 
         <div className="grid gap-10 pt-10 md:pt-14 lg:grid-cols-[1.2fr_0.8fr] lg:gap-12">
           <div className="flex flex-col gap-6">

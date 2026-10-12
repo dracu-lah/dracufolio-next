@@ -45,7 +45,8 @@ const items: Item[] = [
   },
   {
     name: "LangSync",
-    href: githubRepo("langsync-cli"),
+    href: "/projects/langsync",
+    internal: true,
     description:
       "Parallel i18n sync engine that keeps translation files in step with one source of truth.",
     meta: "CLI · Node.js",
