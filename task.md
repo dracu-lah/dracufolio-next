@@ -1139,10 +1139,10 @@ empty. Bigger chip, bigger label, an arrow holding the right edge.
 needs care: every path starts with `/`, so the active-link match has to skip the
 root or Home wins every comparison.
 
-## 12. Adora Homes
+## 12. A client site
 
-`https://adora.nevil.dev/`, a Next.js site on OpenNext and Cloudflare for a
-Thrissur builder. Screenshot supplied. Goes in `app/data/projects.json`.
+A Next.js site on OpenNext and Cloudflare for a client. Screenshot supplied.
+Goes in `app/data/projects.json`. (Removed in October 2026, see `task-3.md`.)
 
 ## 13. Blog posts have no images, and the end of a post is a wall of nothing
 
@@ -1201,7 +1201,7 @@ rather than rendering on demand.
 | 9 | YouTube | `contact.ts`, `socials.json`, `sameAs`, `llms.txt`, footer, about, contact |
 | 10 | About social rows | `md` chip, 20px label, arrow on the right edge |
 | 11 | Home in the header | Added, active match skips the root |
-| 12 | Adora Homes | Added at order 2, screenshot to WebP at 132KB |
+| 12 | A client site | Added at order 2, screenshot to WebP at 132KB |
 | 13 | Post images and the empty end | End fixed, see below |
 | 14 | "What I build" borders | Restored, see below |
 | 15 | /hire projects | Landing rail, all 19 projects |
@@ -1272,11 +1272,6 @@ numbers get replaced with real output.
 
 ### Still open, for Nevil
 
-- The Adora stack list is what the headers and the shipped CSS actually prove
-  (Next.js, React, Tailwind CSS, OpenNext, Cloudflare Workers). Correct it in
-  `app/data/projects.json` if it understates the work.
-- `adora.nevil.dev` currently serves `x-robots-tag: noindex, nofollow`. Fine for
-  a staging host, worth knowing before the project page links to it.
 - The generated post card fetches the DM Sans ttf from Google Fonts at build
   time, because `next/font` only hands out woff2 and satori cannot read it. It
   falls back to the built-in sans rather than failing a build with no network,

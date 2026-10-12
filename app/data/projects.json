@@ -190,41 +190,6 @@
     ]
   },
   {
-    "id": "a6c1f42e90bd7c3518ef",
-    "slug": "adora-homes",
-    "title": "Adora Homes",
-    "description": "Concept redesign of the website for Adora Homes, a Thrissur builder. Not the official site.",
-    "tagline": "A concept revamp of a Thrissur builder's website, laid out around what a buyer asks first: where it is, the carpet area, and how far the build has got.",
-    "longDescription": [
-      "This is a concept, not the official Adora Homes site. I took a real Thrissur builder's existing website and redesigned it on my own, to see how a builder's site could answer a buyer's questions without a phone call to the office. Adora Homes did not commission it and does not run it.",
-      "Each project gets its own page: locality, carpet area range, the K-RERA registration number, and a dated line about what is happening on site. The project details are taken from the builder's public information as sample content, so treat them as a snapshot rather than a current listing.",
-      "It runs on Next.js through OpenNext on Cloudflare Workers, served from the edge. Enquiries go to WhatsApp and a phone number, because that is how people in Thrissur get in touch with a builder."
-    ],
-    "features": [
-      "A page per project with locality, area range, K-RERA number and a dated site update",
-      "Dated progress photos on the projects they belong to",
-      "Completed communities kept on the site, because a sold-out project is the proof",
-      "Enquiry straight to WhatsApp or a phone number, no form to wait on",
-      "Site visit booking with office hours"
-    ],
-    "skills": [
-      "Next.js",
-      "React",
-      "Tailwind CSS",
-      "OpenNext",
-      "Cloudflare Workers"
-    ],
-    "images": [
-      "/appwrite/projects/adora.webp"
-    ],
-    "liveUrl": "https://adora.nevil.dev",
-    "githubUrl": null,
-    "year": "2026",
-    "published": true,
-    "order": 6,
-    "concept": true
-  },
-  {
     "id": "c2d8a41f7e93b05d6a28",
     "slug": "langsync",
     "title": "LangSync",
@@ -266,45 +231,6 @@
     "year": "2026",
     "published": true,
     "order": 2
-  },
-  {
-    "id": "68ded97a003738100445",
-    "slug": "parazyakampany",
-    "title": "Parazya Kampany",
-    "description": "Concept redesign of the website for Parazya Kampany, an advertising agency in Thrissur. Not the official site.",
-    "tagline": "A concept revamp of a Thrissur ad agency's website, with a sound wave hero and a dark and light theme.",
-    "longDescription": [
-      "This is a concept, not the official Parazya Kampany site. I redesigned an advertising agency's existing website on my own, to see how far a bolder visual direction could carry a small agency's pitch. The agency did not commission it and does not run it.",
-      "The hero is a yellow sound wave over a dark field under the line 'Made to be seen', and the pages cover the agency's services, a portfolio, an about page and a contact page with a quote request. Agency details are sample content taken from public information."
-    ],
-    "features": [
-      "Animated sound wave hero",
-      "Dark and light themes",
-      "Service, portfolio, about and contact pages",
-      "Quote request as the primary action"
-    ],
-    "skills": [
-      "Next.js",
-      "Tailwind CSS",
-      "Framer Motion"
-    ],
-    "images": [
-      "/appwrite/projects/parazya-concept.webp"
-    ],
-    "liveUrl": "https://para.nevil.dev",
-    "githubUrl": null,
-    "year": "2026",
-    "published": true,
-    "order": 7,
-    "concept": true,
-    "gallery": [
-      {
-        "src": "/appwrite/projects/parazya-concept.webp",
-        "alt": "The Parazya Kampany concept home page, a yellow sound wave above the line Made to be seen",
-        "width": 1920,
-        "height": 1080
-      }
-    ]
   },
   {
     "id": "68569f390004aa238746",
@@ -433,7 +359,7 @@
     "githubUrl": null,
     "year": "2025",
     "published": true,
-    "order": 8,
+    "order": 6,
     "concept": true
   },
   {
@@ -463,7 +389,7 @@
     "githubUrl": null,
     "year": null,
     "published": true,
-    "order": 9,
+    "order": 7,
     "concept": true
   },
   {
@@ -495,7 +421,7 @@
     "githubUrl": "https://github.com/dracu-lah/donut-react",
     "year": "2025",
     "published": true,
-    "order": 10,
+    "order": 8,
     "logo": "/logos/donut-website.png"
   },
   {
@@ -527,7 +453,7 @@
     "githubUrl": "https://github.com/dracu-lah/trello-appwrite-next",
     "year": "2023",
     "published": true,
-    "order": 11
+    "order": 9
   },
   {
     "id": "66ceeb590024c8530280",
@@ -558,7 +484,7 @@
     "githubUrl": "https://github.com/dracu-lah/notes-react",
     "year": "2024",
     "published": true,
-    "order": 12,
+    "order": 10,
     "logo": "/logos/notes-app.png"
   },
   {
@@ -589,7 +515,7 @@
     "githubUrl": "https://github.com/dracu-lah/drum-kit",
     "year": "2022",
     "published": false,
-    "order": 19,
+    "order": 12,
     "logo": "/logos/drum-kit.png"
   },
   {
@@ -620,7 +546,7 @@
     "githubUrl": "https://github.com/dracu-lah/Simon-Game",
     "year": "2022",
     "published": false,
-    "order": 20
+    "order": 13
   },
   {
     "id": "648c1cc9c2f15d66810b",
@@ -650,7 +576,7 @@
     "githubUrl": "https://github.com/dracu-lah/result-management-next",
     "year": "2023",
     "published": true,
-    "order": 13
+    "order": 11
   },
   {
     "id": "648c15eec2bb707738ba",
@@ -680,7 +606,7 @@
     "githubUrl": "https://github.com/dracu-lah/netflixclone-next",
     "year": "2023",
     "published": false,
-    "order": 21
+    "order": 14
   },
   {
     "id": "648b950a0b374b8d3b2g",
@@ -709,6 +635,6 @@
     "githubUrl": "https://github.com/dracu-lah/covid19-status-tracker",
     "year": "2022",
     "published": false,
-    "order": 22
+    "order": 15
   }
 ]

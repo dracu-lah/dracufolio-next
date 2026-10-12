@@ -46,7 +46,9 @@ const lastmods = [...sitemap.body.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map(
 if (lastmods.length !== paths.length)
   fail(`sitemap: ${lastmods.length} lastmod for ${paths.length} URLs`);
 const images = [...sitemap.body.matchAll(/<image:loc>/g)].length;
-if (images < 20) fail(`sitemap: only ${images} image entries`);
+// A floor, not a target: it catches the image entries vanishing altogether.
+// It was 20 until the company projects came off and the real count went to 19.
+if (images < 15) fail(`sitemap: only ${images} image entries`);
 notes.push(`sitemap has ${images} image entries`);
 const priorities = new Set(
   [...sitemap.body.matchAll(/<priority>([^<]+)<\/priority>/g)].map((m) => m[1]),

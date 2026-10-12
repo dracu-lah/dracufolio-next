@@ -108,30 +108,6 @@ humans as well as crawlers.
 What you cannot change is anybody else's link. That is what the 301 is for, and why it stays
 up for years rather than months.
 
-## Phase 6: adora.nevil.dev
-
-`app/data/projects.json` lists `https://adora.nevil.dev` as a live project URL. It is a real
-deployment on a subdomain of the domain you are moving away from, and a Redirect Rule written
-for the apex and `www` will not touch it.
-
-Decide which of these it is:
-
-- Move it to the client's own domain. Best outcome, and the conversation is easier now than
-  after the subdomain dies
-- Move it to `adora.nevilkrishna.com` and update `projects.json`
-- Keep it on `adora.nevil.dev` for as long as `nevil.dev` is renewed, and accept that it dies
-  the day you stop renewing
-
-It currently serves `x-robots-tag: noindex, nofollow`, so there is no search equity to lose.
-The risk is a dead link in your own portfolio, which is worse than a dead page nobody indexed.
-
-Check for others before you start:
-
-```bash
-grep -rhoE "[a-z0-9-]+\.nevil\.dev" --include="*.json" --include="*.ts" --include="*.tsx" . \
-  --exclude-dir=node_modules --exclude-dir=.next | sort -u
-```
-
 ## What to expect
 
 Rankings wobble for two to six weeks. Impressions dip, then recover on the new domain. That is
@@ -146,5 +122,4 @@ permanent loss are all avoidable: a redirect to the homepage instead of the matc
 - [ ] New sitemap submitted and reporting Success
 - [ ] Every profile you own points at `nevilkrishna.com`
 - [ ] Google Business Profile updated
-- [ ] `adora.nevil.dev` resolved one way or the other
 - [ ] `nevil.dev` renewed far enough out that the redirect outlives the transfer

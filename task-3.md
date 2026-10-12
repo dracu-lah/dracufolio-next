@@ -19,8 +19,9 @@ design studies are labelled as concepts. The standing rule is in `CLAUDE.md` und
   screenshots and logos. Old project URLs land on `/projects` through one rule in
   `next.config.ts` built from the published slugs, so no removed slug is written there.
 - `concept: true` on a project puts a "Concept" badge on its card and a note, a badge and
-  "View concept" on its page. Adora Homes (adora.nevil.dev) and Parazya Kampany
-  (para.nevil.dev) are back as concept redesigns. No Secrets and Oroex are flagged too.
+  "View concept" on its page. No Secrets and Oroex carry it.
+- Two redesigns that turned out to be client pitches came off again, under the same
+  rule: pitched work belongs to the client until they say it can be shown.
 - About, experience, hire, FAQ, the projects description, the resume and its PDF describe
   the work without product names.
 - `docs/seo/*`, `task.md` and `task-2.md` are scrubbed the same way.

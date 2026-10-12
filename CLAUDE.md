@@ -120,6 +120,8 @@ content in `app/data/*.json`, served through the thin wrappers in `app/services/
   The portfolio holds my own products, open source, and design concepts. A concept is a
   brand I redesigned or imagined on my own, and it carries `concept: true` in
   `projects.json` so the card and the page say so; it never reads as commissioned work.
+  A redesign pitched to the real brand is client work, not a concept, and stays off the
+  site until the client says it can be shown.
   This repo is public, so before adding anything that touches a company, a client, a
   real brand, or work done on someone else's time, stop and tell Nevil if it could be a
   conflict of interest (an employer's product, a client's unreleased work, a competitor
