@@ -355,7 +355,7 @@ details[open]::details-content {
 }
 
 /*
- * The review rows: the second perpetual animation on the site, asked for by
+ * The review row: the second perpetual animation on the site, asked for by
  * Nevil so every review is in view without a tall stack of cards.
  *
  * Each track holds the same group of cards twice, and slides by exactly one
@@ -374,21 +374,8 @@ details[open]::details-content {
   }
 }
 
-@keyframes marquee-right {
-  from {
-    transform: translateX(-50%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
 .marquee-track {
   animation: marquee-left var(--marquee-duration, 60s) linear infinite;
-}
-
-.marquee-track[data-direction="right"] {
-  animation-name: marquee-right;
 }
 
 .marquee:hover .marquee-track,
@@ -413,10 +400,7 @@ details[open]::details-content {
     mask-image: none;
   }
 
-  /* Both selectors, or the direction rule outranks this and the second row
-     keeps its keyframes. */
-  .marquee-track,
-  .marquee-track[data-direction="right"] {
+  .marquee-track {
     animation: none;
   }
 

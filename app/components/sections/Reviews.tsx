@@ -20,8 +20,6 @@ import { GOOGLE_MAPS_URL } from "@/data/contact";
 const MIN_CARDS = 8;
 /** Seconds per card, which keeps the speed the same however long a row is. */
 const SECONDS_PER_CARD = 8;
-/** Below this many reviews one row is enough; two would repeat every card. */
-const TWO_ROWS_FROM = 6;
 
 const ReviewCard = ({ review }: { review: GoogleReview }) => (
   <Squircle
@@ -76,13 +74,7 @@ const ReviewCard = ({ review }: { review: GoogleReview }) => (
  * hears each review once and focus never lands on a duplicate. Under reduced
  * motion the copy is not drawn at all (see .marquee-copy in globals.css).
  */
-const MarqueeRow = ({
-  reviews,
-  direction,
-}: {
-  reviews: GoogleReview[];
-  direction: "left" | "right";
-}) => {
+const MarqueeRow = ({ reviews }: { reviews: GoogleReview[] }) => {
   const repeats = Math.max(1, Math.ceil(MIN_CARDS / reviews.length));
   const group = Array.from({ length: repeats }, () => reviews).flat();
   const style = {
@@ -107,7 +99,6 @@ const MarqueeRow = ({
     <div className="marquee overflow-hidden">
       <div
         className="marquee-track flex w-max items-stretch"
-        data-direction={direction}
         style={style}
       >
         {/* The trailing padding matches the gap, so both groups are the same
@@ -130,11 +121,10 @@ const MarqueeRow = ({
  * Google reviews as proof, placed where a visitor is deciding: after the work
  * on the home page and under the hero on the hire pages.
  *
- * Two rows that loop in opposite directions, at Nevil's request, so every
- * review passes through view in the height of two cards. The reviews are
- * dealt alternately between the rows in their credibility order, so the
- * strongest two lead the two rows. A row stops while a pointer is over it or
- * a card has focus, and under reduced motion it is a static strip you scroll.
+ * One row that loops, at Nevil's request, so every review passes through view
+ * in the height of a single card. Reviews run in their credibility order, so
+ * the strongest one leads. The row stops while a pointer is over it or a card
+ * has focus, and under reduced motion it is a static strip you scroll.
  *
  * Every review here has a consent date in review-consent.json; see
  * app/data/reviews.ts.
@@ -149,13 +139,6 @@ const Reviews = ({
 }) => {
   if (!hasReviews) return null;
   const reviews = limit ? featuredReviews.slice(0, limit) : featuredReviews;
-  const rows =
-    reviews.length >= TWO_ROWS_FROM
-      ? [
-          reviews.filter((_, i) => i % 2 === 0),
-          reviews.filter((_, i) => i % 2 === 1),
-        ]
-      : [reviews];
 
   return (
     <section
@@ -186,15 +169,7 @@ const Reviews = ({
 
       {/* Full bleed on purpose: a loop reads as endless only when it runs
           past both edges of the screen. */}
-      <div className="flex flex-col gap-4 md:gap-5">
-        {rows.map((row, i) => (
-          <MarqueeRow
-            key={i}
-            reviews={row}
-            direction={i % 2 === 0 ? "left" : "right"}
-          />
-        ))}
-      </div>
+      <MarqueeRow reviews={reviews} />
     </section>
   );
 };

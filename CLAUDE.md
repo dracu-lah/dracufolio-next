@@ -110,9 +110,9 @@ run the audits before every push.
   `useScroll`, `useMotionValueEvent`), never `useState` and never a raw
   `window.addEventListener("scroll")`. Pointer-driven effects gate on
   `usePointerEffects()` so nothing hover-shaped reaches a touch screen. There are two
-  perpetual animations on the site: the hero role cycle, and the looping review rows
+  perpetual animations on the site: the hero role cycle, and the looping review row
   (`.marquee` in `globals.css`), which Nevil asked for so every review passes through view
-  in the height of two cards. The rows pause on hover and focus and are transform only. A
+  in the height of one card. The row pauses on hover and focus and is transform only. A
   third needs a reason better than either. Everything collapses to static under `prefers-reduced-motion`.
 - **One label per intent.** Contact is always "WhatsApp". Portfolio is always
   "Projects". Hiring is always "Hire me". No "Get in touch" or "Let's talk" variants.
