@@ -3,6 +3,7 @@ import Icon3D from "@/components/motion/Icon3D";
 import {
   EnvelopeSimple,
   GithubLogo,
+  GoogleLogo,
   LinkedinLogo,
   Phone,
   WhatsappLogo,
@@ -20,6 +21,7 @@ import {
   WHATSAPP_URL,
   X_URL,
   YOUTUBE_URL,
+  GOOGLE_MAPS_URL,
 } from "@/data/contact";
 import { ml } from "@/data/ml";
 import { locations } from "@/data/locations";
@@ -40,6 +42,7 @@ const socials = [
   { href: LINKEDIN_URL, label: "LinkedIn", icon: LinkedinLogo },
   { href: X_URL, label: "X", icon: XLogo },
   { href: YOUTUBE_URL, label: "YouTube", icon: YoutubeLogo },
+  { href: GOOGLE_MAPS_URL, label: "Google reviews", icon: GoogleLogo },
   { href: EMAIL_MAILTO, label: "Email", icon: EnvelopeSimple },
 ];
 

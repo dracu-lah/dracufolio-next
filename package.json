@@ -10,6 +10,7 @@
     "resume": "node scripts/build-resume.mjs",
     "check:dashes": "node scripts/check-dashes.mjs",
     "indexnow": "node scripts/indexnow.mjs",
+    "reviews:import": "node scripts/import-google-reviews.mjs",
     "icons": "node scripts/build-icons.mjs"
   },
   "dependencies": {

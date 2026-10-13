@@ -5,6 +5,7 @@ import InlineLogo from "@/components/common/InlineLogo";
 import Spotlight from "@/components/motion/Spotlight";
 import { Button } from "@/components/ui/button";
 import { BriefcaseIcon, SquaresFour } from "@/components/common/icons";
+import GoogleRating from "@/components/common/GoogleRating";
 
 /**
  * Two text elements and two buttons, and it has to fit the first screen at
@@ -113,6 +114,13 @@ const HeroSection = () => (
               </Link>
             </Button>
           </div>
+        </Reveal>
+
+        {/* Proof under the two doors. It points down the page to the reviews
+            themselves rather than off to Google, so the visitor who checks
+            is still one scroll from the WhatsApp button. */}
+        <Reveal delay={0.16}>
+          <GoogleRating href="#reviews" />
         </Reveal>
       </div>
 

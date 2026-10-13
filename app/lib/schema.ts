@@ -4,6 +4,7 @@ import {
   EMAIL,
   GEO,
   GITHUB_URL,
+  GOOGLE_MAPS_URL,
   HOURS,
   LANGUAGE_CODES,
   LINKEDIN_URL,
@@ -195,7 +196,11 @@ const serviceNode = {
       },
     })),
   },
-  sameAs,
+  // The Business Profile is this node's listing, not the Person's, so it is
+  // added here rather than to the shared sameAs. hasMap is the property Google
+  // documents for a local business's map URL.
+  sameAs: [...sameAs, GOOGLE_MAPS_URL],
+  hasMap: GOOGLE_MAPS_URL,
   // Only ever rendered when there are real reviews in the data file.
   ...(testimonials.length
     ? {

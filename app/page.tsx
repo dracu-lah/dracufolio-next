@@ -2,6 +2,7 @@ import HeroSection from "./components/sections/Hero";
 import PortfolioSection from "./components/sections/Portfolio";
 import ServicesSection from "./components/sections/Services";
 import LatestPosts from "./components/sections/LatestPosts";
+import ReviewsSection from "./components/sections/Reviews";
 import SkillsSection from "./components/sections/Skills";
 import FaqSection from "./components/sections/Faq";
 import LocationsSection from "./components/sections/Locations";
@@ -44,6 +45,7 @@ const Home = () => (
     <main>
       <HeroSection />
       <PortfolioSection />
+      <ReviewsSection />
       <LatestPosts />
       <ServicesSection />
       <SkillsSection />

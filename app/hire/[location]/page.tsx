@@ -10,6 +10,7 @@ import Reveal from "@/components/common/Reveal";
 import CtaBlock from "@/components/cta/CtaBlock";
 import WhatsAppButton from "@/components/cta/WhatsAppButton";
 import Faq from "@/components/sections/Faq";
+import Reviews from "@/components/sections/Reviews";
 import HowItWorks from "@/components/sections/HowItWorks";
 import Locations from "@/components/sections/Locations";
 import Services from "@/components/sections/Services";
@@ -184,6 +185,8 @@ const LocationPage = async ({ params }: { params: Promise<Params> }) => {
           </Reveal>
         </div>
       </main>
+
+      <Reviews />
 
       {/* The districts that used to have a page each. One list here keeps
           the text that was specific to each of them without thirteen copies

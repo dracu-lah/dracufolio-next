@@ -66,7 +66,9 @@ run the audits before every push.
   because some call sites hold a mixed list and render it through one component variable.
   Nothing outside that file passes a vendor prop like `weight` or `variant`.
   UI icons are **Iconsax** at the `Bulk` variant (a solid shape over a lighter second
-  layer, which is depth without a gradient or a shadow). Brand marks are **Phosphor** at
+  layer, which is depth without a gradient or a shadow). The one exception is `StarIcon`,
+  which is Phosphor at `fill`: Iconsax has no plain star (its `Star` has speed lines and
+  `Star1` is struck through), and a rating star is a convention, closer to a brand mark. Brand marks are **Phosphor** at
   duotone, because Iconsax has no GitHub, LinkedIn or X, and its WhatsApp glyph is a
   stylised chat bubble rather than the mark people recognise on a button. That is the only
   sanctioned second family: a logo is dictated by the brand, not the icon set.

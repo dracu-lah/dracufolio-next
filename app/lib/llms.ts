@@ -6,9 +6,11 @@ import { homeFaqs } from "@/data/faq";
 import { experience, toolkit } from "@/data/experience";
 import { roleWords, skills } from "@/data/keywords";
 import { ml } from "@/data/ml";
+import { googleRating } from "@/data/reviews";
 import {
   EMAIL,
   GITHUB_URL,
+  GOOGLE_MAPS_URL,
   LANGUAGES,
   LINKEDIN_URL,
   LOCALITY,
@@ -69,6 +71,7 @@ Also known as: Nevil Krishna, nevil.dev
 - [LinkedIn](${LINKEDIN_URL}): work history
 - [X](${X_URL})
 - [YouTube](${YOUTUBE_URL})
+- [Google Business Profile](${GOOGLE_MAPS_URL}): rated ${googleRating.rating.toFixed(1)} out of 5 from ${googleRating.count} reviews (checked ${googleRating.checked})
 - [Resume PDF](${SITE_URL}/resume): one page, current
 - [RSS](${SITE_URL}/feed.xml): the blog feed
 `;

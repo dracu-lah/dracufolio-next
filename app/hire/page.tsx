@@ -12,6 +12,7 @@ import HowItWorks from "@/components/sections/HowItWorks";
 import Locations from "@/components/sections/Locations";
 import Services from "@/components/sections/Services";
 import Testimonials from "@/components/sections/Testimonials";
+import Reviews from "@/components/sections/Reviews";
 import PortfolioSection from "@/components/sections/Portfolio";
 import ScrollProgress from "@/components/motion/ScrollProgress";
 import { Button } from "@/components/ui/button";
@@ -128,6 +129,8 @@ const HirePage = async () => {
           </Reveal>
         </div>
       </main>
+
+      <Reviews />
 
       <Services heading="What I build" />
       <HowItWorks />

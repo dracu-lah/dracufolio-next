@@ -2,6 +2,8 @@ import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 import {
   GITHUB_URL,
+  GOOGLE_MAPS_URL,
+  GOOGLE_REVIEW_URL,
   LINKEDIN_URL,
   PHONE_E164,
   RESUME_PATH,
@@ -96,6 +98,10 @@ const nextConfig: NextConfig = {
       { source: "/x", destination: X_URL, statusCode: 308 },
       { source: "/twitter", destination: X_URL, statusCode: 308 },
       { source: "/source", destination: SOURCE_URL, statusCode: 308 },
+      // nevil.dev/review is the link to send a client after a project; it is
+      // short enough to say out loud. /reviews is the profile, to read them.
+      { source: "/review", destination: GOOGLE_REVIEW_URL, statusCode: 308 },
+      { source: "/reviews", destination: GOOGLE_MAPS_URL, statusCode: 308 },
       { source: "/hire-me", destination: "/hire", statusCode: 308 },
       { source: "/services", destination: "/hire", statusCode: 308 },
       { source: "/freelance", destination: "/hire", statusCode: 308 },

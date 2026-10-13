@@ -39,7 +39,9 @@ import {
 } from "iconsax-reactjs";
 import {
   GithubLogo as PhGithub,
+  GoogleLogo as PhGoogle,
   LinkedinLogo as PhLinkedin,
+  Star as PhStar,
   WhatsappLogo as PhWhatsapp,
   XLogo as PhX,
   YoutubeLogo as PhYoutube,
@@ -145,6 +147,23 @@ export const SearchIcon = bulk(SearchNormal, "SearchIcon");
 export const SendIcon = bulk(Send2, "SendIcon");
 export const DownloadIcon = bulk(DocumentDownload, "DownloadIcon");
 export const PlusIcon = bulk(Add, "PlusIcon");
+/*
+ * The rating star is Phosphor at fill, the one UI glyph outside Iconsax.
+ * Iconsax has no plain star: `Star` carries speed lines and `Star1` is struck
+ * through, and either one in a row of five reads as something other than a
+ * rating. A rating star is a convention people read without thinking, closer
+ * to a brand mark than to an interface icon.
+ */
+export const StarIcon = Object.assign(
+  ({ className = "size-6", size }: IconProps) => (
+    <PhStar
+      weight="fill"
+      className={className}
+      {...(size === undefined ? {} : { size })}
+    />
+  ),
+  { displayName: "StarIcon" },
+);
 
 /* Brand marks, see the note above. */
 export const WhatsappLogo = duotone(PhWhatsapp, "WhatsappLogo");
@@ -152,3 +171,4 @@ export const GithubLogo = duotone(PhGithub, "GithubLogo");
 export const LinkedinLogo = duotone(PhLinkedin, "LinkedinLogo");
 export const XLogo = duotone(PhX, "XLogo");
 export const YoutubeLogo = duotone(PhYoutube, "YoutubeLogo");
+export const GoogleLogo = duotone(PhGoogle, "GoogleLogo");

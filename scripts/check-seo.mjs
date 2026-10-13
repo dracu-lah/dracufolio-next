@@ -154,6 +154,7 @@ const shortLinks = {
   "/hire-me": "/hire",
   "/x": "https://x.com/nevilkrishnak",
   "/rss": "/feed.xml",
+  "/reviews": "https://www.google.com/maps?cid=14537750488451498062",
 };
 for (const [path, target] of Object.entries(shortLinks)) {
   const res = await get(path);

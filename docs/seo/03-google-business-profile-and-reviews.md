@@ -258,6 +258,19 @@ Add a button: choose **Learn more** and set the link to `https://nevil.dev/hire`
 Reviews are the difference between being in the Maps box and being under it. Five reviews that
 name a real service and a real place beat fifty vague ones.
 
+### 0. Reviews on the site
+
+Added 13 Oct 2026. The site shows the profile's rating and the reviews themselves under the
+hero, on the hire pages and in the closing card, from `app/data/google-reviews.json`.
+
+- After a new review comes in, run `pnpm reviews:import`. It opens Chromium, waits for you to
+  sign in to Google the first time, reads the profile and updates the JSON. Check the diff and
+  commit it.
+- `nevil.dev/review` is the link to send a client. It points at the profile until the short
+  review link below is pasted into `GOOGLE_REVIEW_URL` in `app/data/contact.ts`.
+- The reviews are shown but not marked up. Google ignores review markup a business puts on its
+  own site, so stars would never appear in search from it.
+
 ### 1. Get the short review link
 
 1. Open the Business Profile (search the business name while signed in, or open

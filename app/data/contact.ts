@@ -48,6 +48,20 @@ export const YOUTUBE_URL = `https://www.youtube.com/${YOUTUBE_HANDLE}`;
 
 export const SOURCE_URL = githubRepo("dracufolio-next");
 
+/**
+ * The Google Business Profile, by its CID. A CID URL is the one Maps link
+ * that never changes: the short maps.app.goo.gl links carry tracking and the
+ * full /place/ URLs change with the name and the map position.
+ */
+export const GOOGLE_MAPS_CID = "14537750488451498062";
+export const GOOGLE_MAPS_URL = `https://www.google.com/maps?cid=${GOOGLE_MAPS_CID}`;
+/**
+ * Where a client is sent to leave a review. The proper short link
+ * (g.page/r/.../review) only exists in the Business Profile dashboard; until
+ * it is pasted here, the profile itself has a "Write a review" button.
+ */
+export const GOOGLE_REVIEW_URL = GOOGLE_MAPS_URL;
+
 export const RESUME_PATH = "/appwrite/resume/Nevil-3-Years-Frontend-Resume.pdf";
 export const PORTRAIT_PATH = "/nevil-krishna-k.jpg";
 

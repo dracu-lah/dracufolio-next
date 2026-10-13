@@ -2,11 +2,13 @@ import QrPanel from "@/components/common/QrPanel";
 import Icon3D from "@/components/motion/Icon3D";
 import { Squircle } from "@/components/ui/squircle";
 import WhatsAppButton from "./WhatsAppButton";
+import GoogleRating from "@/components/common/GoogleRating";
 import { Button } from "@/components/ui/button";
 import { EnvelopeSimple, Phone } from "@/components/common/icons";
 import {
   EMAIL,
   EMAIL_MAILTO,
+  GOOGLE_MAPS_URL,
   PHONE_DISPLAY,
   PHONE_TEL,
   whatsappUrl,
@@ -102,6 +104,9 @@ const CtaBlock = ({
               </a>
             </Button>
           </div>
+          {/* The last reassurance before the decision, under the button
+              rather than above it so the ask stays the first thing read. */}
+          <GoogleRating href={GOOGLE_MAPS_URL} />
         </div>
 
         {/* The other ways to reach me, then the hand off to a phone. */}
