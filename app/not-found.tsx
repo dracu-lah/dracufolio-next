@@ -13,6 +13,8 @@ import Footer from "@/components/common/Footer";
  * take the recovery links back into the site rather than stop at the 404.
  */
 export const metadata: Metadata = {
+  // The layout's canonical points at the home page; a 404 claims no URL.
+  alternates: { canonical: null },
   robots: {
     index: false,
     follow: true,

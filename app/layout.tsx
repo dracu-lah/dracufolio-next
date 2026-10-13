@@ -15,6 +15,7 @@ import {
   COUNTRY_CODE,
   GEO,
   LOCALITY,
+  PHONE_DISPLAY,
   PHONE_E164,
   REGION,
   REGION_CODE,
@@ -25,7 +26,7 @@ import "./globals.css";
 const title = `${AUTHOR} | Full Stack Developer in Thrissur, Kerala`;
 
 const description =
-  "Nevil Krishna K is a full stack developer in Thrissur, Kerala with 3 years of React, Next.js and TypeScript experience, plus Kotlin and React Native on mobile. Available for jobs, freelance projects and remote contracts across India. WhatsApp +91 92079 32070.";
+  `Nevil Krishna K is a full stack developer in Thrissur, Kerala with 3 years of React, Next.js and TypeScript experience, plus Kotlin and React Native on mobile. Available for jobs, freelance projects and remote contracts across India. WhatsApp ${PHONE_DISPLAY}.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

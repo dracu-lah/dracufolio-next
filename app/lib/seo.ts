@@ -63,7 +63,16 @@ export const pageMetadata = ({
     title,
     description,
     ...(keywords?.length ? { keywords } : {}),
-    alternates: { canonical: path },
+    /*
+     * Setting alternates here replaces the root layout's, so the feed link is
+     * repeated or it only appears on the home page. A noindexed page declares
+     * no canonical: pointing one at a page you also ask not to index is two
+     * signals that disagree.
+     */
+    alternates: {
+      ...(noindex ? { canonical: null } : { canonical: path }),
+      types: { "application/rss+xml": "/feed.xml" },
+    },
     ...(noindex ? { robots: { index: false, follow: true } } : {}),
     openGraph: {
       title: `${title} | ${AUTHOR}`,

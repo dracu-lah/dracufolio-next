@@ -24,7 +24,6 @@ const AI_AGENTS = [
   "ClaudeBot",
   "Claude-User",
   "Claude-SearchBot",
-  "anthropic-ai",
   "PerplexityBot",
   "Perplexity-User",
   "Google-Extended",
@@ -40,7 +39,12 @@ const AI_AGENTS = [
   "Googlebot",
 ];
 
-const BLOCKED_PATHS = ["/api/", "/_next/", "/404", "/500"];
+/*
+ * Only the API. /_next/ used to be here too, which hid the JS, CSS and every
+ * /_next/image the site serves, so Google rendered the pages without them and
+ * could not index a single screenshot.
+ */
+const BLOCKED_PATHS = ["/api/"];
 
 const robots = (): MetadataRoute.Robots => ({
   rules: [
@@ -60,7 +64,6 @@ const robots = (): MetadataRoute.Robots => ({
     },
   ],
   sitemap: `${SITE_URL}/sitemap.xml`,
-  host: SITE_URL,
 });
 
 export default robots;

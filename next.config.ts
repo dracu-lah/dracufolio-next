@@ -53,7 +53,9 @@ const nextConfig: NextConfig = {
       // the list. The rule is built from projects.json rather than a list of
       // slugs, so a removed project is not named again in this file.
       {
-        source: `/projects/:slug((?!(?:${PUBLISHED_SLUGS})$)[^/]+)`,
+        // The list page's own share image lives under the same prefix and must
+        // not be caught, or /projects ships an og:image that redirects to HTML.
+        source: `/projects/:slug((?!(?:${PUBLISHED_SLUGS}|opengraph-image|twitter-image)$)[^/]+)`,
         destination: "/projects",
         statusCode: 308,
       },

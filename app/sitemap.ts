@@ -46,7 +46,13 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     },
     {
       url: `${SITE_URL}/blog`,
-      lastModified: asDate(CONTENT_DATES.blog),
+      // A new post changes the index, so the newest post date wins over the
+      // hand-kept one when it is later.
+      lastModified: asDate(
+        [CONTENT_DATES.blog, publishedPosts[0]?.date ?? CONTENT_DATES.blog]
+          .sort()
+          .at(-1)!,
+      ),
       changeFrequency: "weekly",
       priority: 0.8,
     },

@@ -120,6 +120,27 @@ notes.push(
   `llms.txt ${llms.body.length} bytes, llms-full.txt ${llmsFull.body.length} bytes`,
 );
 
+// A registry entry without its MDX folder ships a 404 into the sitemap, the
+// feed and llms.txt; a folder without an entry renders a post with no header.
+{
+  const { readFileSync, readdirSync, existsSync } = await import("node:fs");
+  const registry = readFileSync(new URL("../app/data/posts.ts", import.meta.url), "utf8");
+  const slugs = [...registry.matchAll(/^\s+slug: "([^"]+)"/gm)].map((m) => m[1]);
+  const postsDir = new URL("../app/blog/(posts)/", import.meta.url);
+  const folders = readdirSync(postsDir, { withFileTypes: true })
+    .filter((d) => d.isDirectory())
+    .map((d) => d.name);
+  for (const slug of slugs) {
+    if (!existsSync(new URL(`${slug}/page.mdx`, postsDir)))
+      fail(`posts.ts: "${slug}" has no app/blog/(posts)/${slug}/page.mdx`);
+    if (!existsSync(new URL(`${slug}/opengraph-image.tsx`, postsDir)))
+      fail(`posts.ts: "${slug}" has no opengraph-image.tsx`);
+  }
+  for (const folder of folders)
+    if (!slugs.includes(folder)) fail(`app/blog/(posts)/${folder}: not in posts.ts`);
+  notes.push(`${slugs.length} posts, each with its folder`);
+}
+
 const feed = await get("/feed.xml");
 if (!feed.body.startsWith("<?xml")) fail("feed.xml: not XML");
 const items = [...feed.body.matchAll(/<item>/g)].length;

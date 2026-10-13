@@ -224,7 +224,9 @@ type WebPageInput = {
   name: string;
   description: string;
   /** Overrides the default WebPage type for collections, contact pages, etc. */
-  type?: string;
+  type?: string | string[];
+  /** The node the page is about, for a ProfilePage whose subject is the Person. */
+  mainEntity?: { "@id": string };
   datePublished?: string;
   dateModified?: string;
   breadcrumb?: { name: string; path: string }[];
@@ -236,6 +238,7 @@ const webPageNode = ({
   name,
   description,
   type = "WebPage",
+  mainEntity,
   datePublished,
   dateModified,
   breadcrumb,
@@ -250,6 +253,7 @@ const webPageNode = ({
     description,
     isPartOf: ref(ID.website),
     about: ref(ID.person),
+    ...(mainEntity ? { mainEntity } : {}),
     inLanguage: "en",
     ...(primaryImage
       ? {

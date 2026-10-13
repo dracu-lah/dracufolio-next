@@ -55,6 +55,10 @@ Also known as: Nevil Krishna, nevil.dev
 - [Email](mailto:${EMAIL}): ${EMAIL}
 - [Website](${SITE_URL}): the portfolio and everything below
 - [Hire page](${SITE_URL}/hire): what he builds and what it costs
+- [Projects](${SITE_URL}/projects): every project, with screenshots and source links
+- [Blog](${SITE_URL}/blog): long posts on how the projects work
+- [Open source](${SITE_URL}/open-source): libraries and tools he publishes
+- [About](${SITE_URL}/about): work history and how he works
 - [Photo](${absolute(PORTRAIT_PATH)}): portrait, for an answer that shows a face
 - Languages: ${LANGUAGES.join(", ")}
 - Based in: ${LOCALITY}, ${REGION}, India

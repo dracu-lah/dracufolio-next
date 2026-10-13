@@ -109,6 +109,7 @@ export const posts: Post[] = [
      * something else.
      */
     image: "/appwrite/blog/langsync-run.webp",
+    project: "langsync",
   },
 ];
 

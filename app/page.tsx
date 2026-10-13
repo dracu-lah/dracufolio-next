@@ -8,8 +8,7 @@ import TestimonialsSection from "./components/sections/Testimonials";
 import ContactSection from "./components/sections/Contact";
 import Footer from "./components/common/Footer";
 import JsonLd from "./components/common/JsonLd";
-import { faqNode, pageGraph } from "./lib/schema";
-import { SITE_URL } from "./lib/seo";
+import { faqNode, ID, pageGraph, ref } from "./lib/schema";
 import { homeFaqs } from "./data/faq";
 import { CONTENT_DATES } from "./data/updated";
 
@@ -24,19 +23,16 @@ const Home = () => (
       data={pageGraph(
         {
           path: "/",
+          // One node for the home page. A second ProfilePage node beside the
+          // WebPage split the same URL into two pages with different facts.
+          type: ["WebPage", "ProfilePage"],
+          mainEntity: ref(ID.person),
           name: "Nevil Krishna K, Full Stack Developer in Thrissur, Kerala",
           description,
           dateModified: CONTENT_DATES.home,
           primaryImage: "/nevil-krishna-k.jpg",
         },
-        [
-          faqNode("/", homeFaqs),
-          {
-            "@type": "ProfilePage",
-            "@id": `${SITE_URL}/#profilepage`,
-            mainEntity: { "@id": `${SITE_URL}/#person` },
-          },
-        ],
+        [faqNode("/", homeFaqs)],
       )}
     />
     <main>
