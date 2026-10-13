@@ -3,6 +3,12 @@
 Personal site for Nevil Krishna K. Next.js 16 App Router, Tailwind v4, framer-motion,
 content in `app/data/*.json`, served through the thin wrappers in `app/services/api.ts`.
 
+@AGENTS.md
+
+`AGENTS.md` sets the priorities every change follows: search visibility first, then UX and
+speed, then looks. It also says to search the web for vulnerabilities after every change and to
+run the audits before every push.
+
 ## Golden rules
 
 - **No em dashes.** Anywhere: copy, comments, commit messages, JSON content. Use a comma,
