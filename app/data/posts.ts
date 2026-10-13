@@ -29,6 +29,25 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "sway-setup-i-work-in",
+    title: "The Sway setup I work in every day",
+    description:
+      "What a tiling Wayland desktop needs that GNOME does for you: power without TLP, battery limits at 50 and 80 percent, idle timeouts that follow the charger, clipboard history and screen recording, all in swaydots.",
+    date: "2026-10-13",
+    tags: ["Linux", "Sway", "Wayland", "Fedora", "Shell"],
+    readingMinutes: 7,
+    image: "/appwrite/blog/swaydots-desktop.png",
+  },
+  {
+    slug: "nextjs-on-cloudflare-workers-with-opennext",
+    title: "Next.js on Cloudflare Workers with OpenNext",
+    description:
+      "Moving a Next.js app from Vercel to Cloudflare Workers: the R2, D1 and Durable Object caches OpenNext needs, the Wrangler bindings, image optimisation, static headers, and what my own guide got wrong.",
+    date: "2026-10-13",
+    tags: ["Next.js", "Cloudflare Workers", "OpenNext", "R2", "D1"],
+    readingMinutes: 7,
+  },
+  {
     slug: "translating-game-menus-on-android-without-root",
     title: "Translating game menus on Android without root",
     description:

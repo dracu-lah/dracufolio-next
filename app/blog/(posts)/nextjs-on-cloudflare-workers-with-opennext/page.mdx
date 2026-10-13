@@ -1,0 +1,145 @@
+import { PostHeader, PostFooter } from "@/components/blog/PostChrome";
+import { postMetadata } from "@/lib/blog";
+
+export const slug = "nextjs-on-cloudflare-workers-with-opennext";
+export const metadata = postMetadata(slug);
+
+<PostHeader slug={slug} />
+
+In January I wrote [a guide](https://github.com/dracu-lah/opennext-cloudflare-implementation) to moving a Next.js app from Vercel to Cloudflare Workers with [OpenNext](https://opennext.js.org/cloudflare). It is a checklist: the resources to create, the two config files, the dashboard rules for images, and the deploy step. Before writing this post I read it again against the current OpenNext docs. Most of it holds. A few parts were wrong, or are now, and those are marked below as they come up.
+
+Everything here uses the guide's placeholders: `my-next-app` for the Worker and `example.com` for the domain.
+
+## What OpenNext actually changes
+
+Vercel runs a Next.js build on infrastructure made for it. A Worker is a single JavaScript entry point with a set of bindings, and it has no file system to keep a cache in. `@opennextjs/cloudflare` closes that gap. `opennextjs-cloudflare build` runs `next build`, then turns the output into a Worker at `.open-next/worker.js` and a folder of static files at `.open-next/assets`. Both go in `.gitignore`.
+
+It runs on the Node.js runtime through Cloudflare's `nodejs_compat` flag. The edge runtime is not supported, so any `export const runtime = "edge"` in the app has to go, which is the opposite of what the older `@cloudflare/next-on-pages` setup required.
+
+The work, then, is giving the Worker somewhere to keep what Next.js would normally keep on disk.
+
+## Three places to keep a cache
+
+ISR, `fetch` caching and `revalidatePath` all need storage, and OpenNext splits that into three jobs, each on its own Cloudflare product:
+
+- **The incremental cache, in R2.** The rendered pages and cached data themselves.
+- **The tag cache, in D1.** Which tags and paths were revalidated and when, so `revalidateTag` and `revalidatePath` work.
+- **The queue, in a Durable Object.** It sends time-based revalidations and removes duplicates, so a popular page going stale does not trigger a hundred rebuilds at once.
+
+```bash
+pnpx wrangler r2 bucket create my-next-app-next-cache
+pnpx wrangler d1 create my-next-app_next_d1_next_cache
+```
+
+The D1 command prints a `database_id` that goes into the Wrangler config. Then `open-next.config.ts` wires the three together:
+
+```ts
+import { defineCloudflareConfig } from "@opennextjs/cloudflare";
+import r2IncrementalCache from "@opennextjs/cloudflare/overrides/incremental-cache/r2-incremental-cache";
+import d1NextTagCache from "@opennextjs/cloudflare/overrides/tag-cache/d1-next-tag-cache";
+import doQueue from "@opennextjs/cloudflare/overrides/queue/do-queue";
+
+export default defineCloudflareConfig({
+  incrementalCache: r2IncrementalCache,
+  queue: doQueue,
+  tagCache: d1NextTagCache,
+  enableCacheInterception: true,
+});
+```
+
+Not every app needs all three. A site that is fully static needs neither the queue nor the tag cache. An app that never calls `revalidateTag` or `revalidatePath` can skip the tag cache. The queue is only for time-based revalidation, meaning a `revalidate` number on a page or a fetch. The guide set up all three without saying any of this. That is the safe default, but it is also three more things to create, bind and pay for.
+
+Two more choices the guide did not mention:
+
+- **D1 is the docs' pick for a small site.** For a large one, or one that revalidates often, they recommend a sharded Durable Object tag cache instead, which takes more load.
+- **R2 keeps its data in one region**, so a visitor far from it waits longer for a cached page. The docs suggest wrapping the R2 cache in `withRegionalCache`, which keeps a copy close to the visitor.
+
+`enableCacheInterception` serves a cached ISR or SSG page without starting the Next.js server, which makes a cold start slightly faster. It does not work with Partial Prerendering, so it stays off for an app that uses PPR.
+
+## The Wrangler file
+
+`wrangler.jsonc` declares the Worker and every binding the config above refers to:
+
+```jsonc
+{
+  "name": "my-next-app",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2024-12-30",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
+  "r2_buckets": [
+    { "binding": "NEXT_INC_CACHE_R2_BUCKET", "bucket_name": "my-next-app-next-cache" }
+  ],
+  "d1_databases": [
+    {
+      "binding": "NEXT_TAG_CACHE_D1",
+      "database_name": "my-next-app_next_d1_next_cache",
+      "database_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [{ "name": "NEXT_CACHE_DO_QUEUE", "class_name": "DOQueueHandler" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["DOQueueHandler"] }],
+  "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "my-next-app" }],
+  "images": { "binding": "IMAGES" }
+}
+```
+
+The binding names are the ones OpenNext looks for, so they are not yours to rename. Three lines catch people out:
+
+- **The compatibility date** has to be `2024-09-23` or later. That is the adapter's stated minimum.
+- **`global_fetch_strictly_public`** is what the docs add so the app can `fetch` URLs on the public internet.
+- **`WORKER_SELF_REFERENCE`** is a service binding from the Worker to itself, and its `service` must match `name` exactly. Rename the Worker and forget this line, and the self reference points at a Worker that does not exist.
+
+## Images
+
+`next/image` sends every image through `/_next/image`, and on a Worker that endpoint needs something to do the resizing. My guide said the Worker did it with a WebAssembly build of `sharp`, at a real CPU cost. The current docs describe something else, and I cannot find that claim in them anywhere. The `IMAGES` binding in the config above hands the work to Cloudflare Images, and the docs say the binding is required for image optimisation to work. The other route is a custom loader that points `next/image` at Cloudflare's `/cdn-cgi/image/` URLs. That one skips `remotePatterns`, so the allowed origins move into the dashboard.
+
+Either way, Cloudflare Images is a paid feature past its free allowance, and the docs say plainly that image optimisation can cost extra. The guide's dashboard rule still helps: caching `example.com/_next/image?*` with Cache Everything and a seven day edge TTL means each size of each image is made once rather than on every visit.
+
+The binding supports PNG, JPEG, WebP, AVIF, GIF and SVG, and returns anything else untouched. It does not support `minimumCacheTTL`.
+
+The guide also added a rewrite rule that appends `webp=false` for browsers that do not send `image/webp` in their `Accept` header. It was written for the old setup, so check whether you still need it before copying it.
+
+## Static files and their headers
+
+This one is missing from the guide entirely. The Worker does not run in front of static assets, so a `headers()` block in `next.config.ts` never reaches `/_next/static` or anything in `public/`. Those files are hashed and never change, so they should be cached forever, and the way to say so on Workers is a `public/_headers` file:
+
+```
+/_next/static/*
+  Cache-Control: public,max-age=31536000,immutable
+```
+
+Without it, they go out with the platform's default caching instead of being marked immutable.
+
+## Deploying
+
+The scripts in `package.json`:
+
+```json
+{
+  "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+  "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+  "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+  "secrets:upload": "wrangler secret bulk .env"
+}
+```
+
+`preview` runs the built app locally in the Workers runtime, which is the closest thing to production you get on a laptop and the first place a missing binding shows up. `deploy` builds and ships at once. `upload` builds and uploads a new version of the Worker, to be deployed later.
+
+My guide had `upload` without the build step in front. That uploads whatever is left in `.open-next` from the last build, so after a code change it ships the old code.
+
+`deploy` and `upload` also fill the cache with the build's prerendered pages, and `preview` does the same locally. If you deploy with plain `wrangler deploy`, the cache starts empty.
+
+For continuous deploys, create an application in the Cloudflare dashboard from the GitHub repo, add the environment variables there, and set the build command to `pnpm run deploy`. Secrets go in once with `secrets:upload`, which reads a local `.env` and stores each line as a Worker secret.
+
+## What I would do differently
+
+I would start from `npx @opennextjs/cloudflare migrate` instead of writing the config by hand. It creates `wrangler.jsonc` and `open-next.config.ts`, adds the scripts, and gets the binding names right, which is most of what my guide does manually.
+
+I would also decide which caches the app needs before creating any of them. A blog with no ISR does not need a Durable Object queue or a D1 database, and every binding is something to monitor, migrate and pay for.
+
+And I would date the guide. Its image section described something the current docs do not, and nothing on the page told a reader it was written in January. An undated guide to a fast-moving tool is wrong without anyone noticing.
+
+<PostFooter slug={slug} />

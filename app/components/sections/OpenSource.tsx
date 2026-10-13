@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { GithubLogo } from "@/components/common/icons";
-import { GITHUB_URL, githubRepo } from "@/data/contact";
+import { GITHUB_HANDLE, GITHUB_URL, githubRepo } from "@/data/contact";
 
 import Badge from "@/components/common/Badge";
 import Reveal from "@/components/common/Reveal";
@@ -48,8 +48,8 @@ const items: Item[] = [
     href: "/projects/langsync",
     internal: true,
     description:
-      "Parallel i18n sync engine that keeps translation files in step with one source of truth.",
-    meta: "CLI · Node.js",
+      "Keeps every locale file in step with one source file, translating only the keys that changed and keeping ICU plurals valid.",
+    meta: "CLI · Python · MIT",
   },
   {
     name: "Image Cropper",
@@ -64,15 +64,50 @@ const items: Item[] = [
     href: "/projects/email-sender",
     internal: true,
     description:
-      "Next.js app for personalised job outreach from your own Gmail account.",
-    meta: "Next.js · Gmail API",
+      "Next.js app for personalised job outreach from your own Gmail account, sent over SMTP with an app password.",
+    meta: "Next.js · Nodemailer",
   },
   {
     name: "swaydots and hyprdots",
     href: githubRepo("swaydots"),
     description:
-      "My desktop setup published in full: Sway and Hyprland configs, scripts and theming.",
+      "The Sway setup I work in every day, one branch per laptop: power management that keeps the battery between 50 and 80 percent, lid and idle scripts, clipboard history and screen recording. Hyprland lives in hyprdots.",
     meta: "Shell · Sway · Hyprland",
+  },
+  {
+    name: "Next.js on Cloudflare Workers",
+    href: githubRepo("opennext-cloudflare-implementation"),
+    description:
+      "Step by step guide to moving a Next.js app from Vercel to Cloudflare Workers with OpenNext: the R2, D1 and Durable Object bindings, image caching rules and the deploy pipeline.",
+    meta: "Next.js · OpenNext · Cloudflare",
+  },
+  {
+    name: "Gmail Cleaner",
+    href: githubRepo("email_cleaner"),
+    description:
+      "Interactive CLI that clears old mail, spam, drafts and trash from a Gmail account over IMAP. Shows the plan and waits for a typed yes, and has a dry run. Standard library only.",
+    meta: "Python · IMAP",
+  },
+  {
+    name: "Nuxt Learning Lab",
+    href: githubRepo("nuxt-learning-lab"),
+    description:
+      "A Nuxt starter written for Next.js developers. Every file explains what it maps to in Next.js: routing, layouts, server routes, auth middleware, Pinia, i18n with RTL, and a Cloudflare deploy.",
+    meta: "Nuxt · Vue · Cloudflare",
+  },
+  {
+    name: "IKEv2 VPN on Linux",
+    href: githubRepo("IKEv2-VPN-Setup-Guide"),
+    description:
+      "Connecting to a certificate based IKEv2 VPN from Linux with NetworkManager and strongSwan: pulling the certificates out of a .p12, the cipher proposals, split tunnelling and DNS, plus a script that does it all.",
+    meta: "Shell · strongSwan · NetworkManager",
+  },
+  {
+    name: "Refurbished laptop checklist",
+    href: githubRepo("refurbished-laptops-buying-guide"),
+    description:
+      "What to check before paying for a used laptop: hinges, ports, battery wear from powercfg, dead pixels, every key, disk health, and a BIOS password or MDM lock left by the last owner.",
+    meta: "Checklist",
   },
   {
     name: "Community contributions",
@@ -83,8 +118,28 @@ const items: Item[] = [
   },
 ];
 
-const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
+/**
+ * The public repo count, read from GitHub once a day. It was typed in by hand
+ * and was fifteen repos behind when anyone looked. If the API is down or rate
+ * limited, the sentence drops the number rather than guess one.
+ */
+const publicRepoCount = async (): Promise<number | null> => {
+  try {
+    const res = await fetch(`https://api.github.com/users/${GITHUB_HANDLE}`, {
+      next: { revalidate: 86400 },
+      headers: { Accept: "application/vnd.github+json" },
+    });
+    if (!res.ok) return null;
+    const { public_repos } = (await res.json()) as { public_repos?: number };
+    return typeof public_repos === "number" ? public_repos : null;
+  } catch {
+    return null;
+  }
+};
+
+const OpenSourceSection = async ({ asPage = false }: { asPage?: boolean }) => {
   const Heading = asPage ? "h1" : "h2";
+  const repoCount = await publicRepoCount();
   return (
     <section
       id="open-source"
@@ -99,7 +154,7 @@ const OpenSourceSection = ({ asPage = false }: { asPage?: boolean }) => {
           </Reveal>
           <Reveal delay={0.16}>
             <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-              163 public repos on{" "}
+              {repoCount ? `${repoCount} public repos` : "Public repos"} on{" "}
               <a
                 className="underline underline-offset-4 transition-colors duration-300 hover:text-accent"
                 href={GITHUB_URL}

@@ -1,6 +1,6 @@
 # 07. Blog topics and calendar
 
-Two posts a month for five months. October 2026 to February 2027.
+Two posts a month. Nine are out as of October 2026; five more run to January 2027.
 
 Every topic below comes from work already done, so none of it needs research. That is the only
 reason a two-a-month cadence is realistic. Writing about something already built takes two to
@@ -12,175 +12,81 @@ Each post needs: the `pageMetadata()` call, an `opengraph-image.tsx`, `BlogPosti
 published date. That contract is in the project's `CLAUDE.md`, and a post missing any of it is
 a bug.
 
-## The 10 topics
+## The topics
 
-### 1. Keeping translation files in sync without losing your mind
+Rewritten 13 Oct 2026. The first version planned six posts from company work, with the
+employer named as the source. Company work is never named on this site (see `CLAUDE.md`), so
+every topic now comes from a public repo of my own, and a post links the repo it came from.
+
+### Published
+
+| Post | Source |
+| --- | --- |
+| [Translation sync without breaking ICU](https://nevil.dev/blog/translation-sync-without-breaking-icu) | LangSync |
+| [Telegram video before it finishes downloading](https://nevil.dev/blog/telegram-video-before-it-finishes-downloading) | TMPlayer |
+| [Publishing a React component through the shadcn registry](https://nevil.dev/blog/shadcn-registry-image-cropper) | Image Cropper |
+| [A PDF resume back into editable JSON](https://nevil.dev/blog/pdf-resume-back-into-editable-json) | Resume Builder |
+| [Job outreach from your own Gmail](https://nevil.dev/blog/job-outreach-from-your-own-gmail) | Email Sender |
+| [Translating game menus on Android without root](https://nevil.dev/blog/translating-game-menus-on-android-without-root) | TapTL |
+| [TMPlayer on Windows and Linux](https://nevil.dev/blog/tmplayer-on-windows-and-linux) | TMPlayer |
+| [Next.js on Cloudflare Workers with OpenNext](https://nevil.dev/blog/nextjs-on-cloudflare-workers-with-opennext) | opennext-cloudflare-implementation |
+| [The Sway setup I work in](https://nevil.dev/blog/sway-setup-i-work-in) | swaydots |
+
+### Still to write
+
+#### 1. Cleaning out a Gmail account with nothing but Python's standard library
 
 | Field | Value |
 | --- | --- |
-| Angle | You wrote a CLI because manually diffing `en.json` against seven other locales is how keys go missing in production. What the tool does, and what it taught you about how i18n files rot. |
-| Target keyword | `keep i18n translation files in sync` |
-| Source | LangSync repo |
-| Cross-post | Dev.to, Hashnode, r/webdev, r/reactjs |
+| Angle | IMAP is old and awkward, and it is still the one way to bulk delete from Gmail without an OAuth app. How Gmail maps labels to IMAP folders, why a delete is a move to Trash, and why the tool shows its plan and waits for a typed yes. |
+| Target keyword | `delete old emails gmail imap python` |
+| Source | `email_cleaner` |
+| Cross-post | Dev.to, Hashnode, r/Python, r/selfhosted |
 
-H2 questions:
-
-1. Why do translation files drift apart in the first place?
-2. What does LangSync actually check, key by key?
-3. How do you wire it into CI so a missing key fails the build?
-4. What should you do about keys that exist but are still in English?
-
-### 2. Rendering a large interactive SVG in the browser without dropping frames
+#### 2. Nuxt for people who already know Next.js
 
 | Field | Value |
 | --- | --- |
-| Angle | A real engineering story from the day job. SVG versus canvas, why the first version stuttered, and the specific changes that fixed it. Include real before and after numbers. |
-| Target keyword | `render large svg react performance` |
-| Source | Work at Lascade (describe the technique only, no company code or product names) |
-| Cross-post | Dev.to, Hashnode, r/reactjs, r/webdev, X thread |
+| Angle | The file by file map from one framework to the other: routing, layouts, `useFetch` against server components, Nitro routes against route handlers, middleware, Pinia against Zustand. Where Nuxt is nicer, and where it is not. |
+| Target keyword | `nuxt for next.js developers` |
+| Source | `nuxt-learning-lab`, live at nuxt.nevil.dev |
+| Cross-post | Dev.to, Hashnode, r/Nuxt, r/vuejs |
 
-H2 questions:
-
-1. Why did the naive version get slow?
-2. SVG or canvas for thousands of interactive shapes?
-3. How do you do hit testing and hover state without re-rendering everything?
-4. How do zoom and pan work when every shape has to stay clickable?
-
-### 3. Zoom and pan that feels right on a phone
+#### 3. Connecting to an IKEv2 VPN from Linux
 
 | Field | Value |
 | --- | --- |
-| Angle | The follow-up to post 2, narrower and more practical. Pinch, double tap, momentum, clamping to bounds, and why the browser's own gesture handling gets in the way. |
-| Target keyword | `pinch zoom pan react svg touch` |
-| Source | Work at Lascade, technique only |
-| Cross-post | Dev.to, Hashnode, r/reactjs |
+| Angle | Windows connects in two clicks and Linux gives you a blank NetworkManager dialog. Pulling the certificates out of a `.p12`, the cipher proposals Windows uses by default, split tunnelling, and the DNS fix when it connects but nothing resolves. |
+| Target keyword | `ikev2 vpn linux networkmanager strongswan p12` |
+| Source | `IKEv2-VPN-Setup-Guide` (generic hosts only, never a real gateway) |
+| Cross-post | Dev.to, r/linux, r/Fedora, r/archlinux |
 
-H2 questions:
-
-1. What does a good pinch-to-zoom actually have to do?
-2. Which browser defaults have to be turned off, and how?
-3. How do you keep the content inside its bounds while it is being dragged?
-4. How do you test this without a real device farm?
-
-### 4. Running next-intl on Cloudflare Workers with OpenNext
+#### 4. Building a resume builder that never sends your data anywhere
 
 | Field | Value |
 | --- | --- |
-| Angle | This combination is rare and barely documented, which makes it the highest-value post on the list. What OpenNext does to a Next.js build, what next-intl assumes, where the two disagree, and the fix. |
-| Target keyword | `next-intl cloudflare workers opennext` |
-| Source | Cloudflare deployment work at Lascade |
-| Cross-post | Dev.to, Hashnode, r/nextjs, r/CloudFlare, the Next.js and Cloudflare Discords |
-
-H2 questions:
-
-1. What does OpenNext change about how a Next.js app runs?
-2. Why does middleware-based locale routing behave differently on Workers?
-3. How do you load message files at the edge without bundling all of them?
-4. What does this cost compared to running the same app on Vercel?
-
-### 5. Cloudflare D1 migrations on a project that is already live
-
-| Field | Value |
-| --- | --- |
-| Angle | D1 migrations are simple until there is real data behind them. The workflow that works, the commands, and how to not lock yourself out of production. |
-| Target keyword | `cloudflare d1 migrations production` |
-| Source | Cloudflare infrastructure work at Lascade |
-| Cross-post | Dev.to, Hashnode, r/CloudFlare, the Cloudflare Discord |
-
-H2 questions:
-
-1. How do D1 migrations work, and what do they not do?
-2. How do you test a migration before it touches production data?
-3. What is the safe order for a rename or a column drop?
-4. How do you take and restore a backup when something goes wrong?
-
-### 6. Zustand stores that survive a growing app
-
-| Field | Value |
-| --- | --- |
-| Angle | Not a tutorial. The patterns that held up across three production apps and the two that had to be undone: slicing, selectors, when persistence causes more problems than it solves, and where TanStack Query takes over. |
-| Target keyword | `zustand patterns large react app` |
-| Source | Patterns from the Lascade and Udyata work and the resume builder |
-| Cross-post | Dev.to, Hashnode, r/reactjs, X thread |
-
-H2 questions:
-
-1. What belongs in Zustand and what belongs in TanStack Query?
-2. How do you split one store into slices without a circular import mess?
-3. Why do selectors matter more than the store shape?
-4. When does `persist` hurt, and what do you do instead?
-
-### 7. Self-hosting Nominatim and OSRM so you stop paying per map request
-
-| Field | Value |
-| --- | --- |
-| Angle | A real cost story from Udyata. Geocoding and routing bills against a Docker setup on your own box: what it takes to import a region, what RAM and disk it needs, and what breaks. |
-| Target keyword | `self host nominatim osrm docker` |
-| Source | Udyata OpenStreetMap work |
-| Cross-post | Dev.to, Hashnode, r/gis, r/selfhosted, r/openstreetmap |
-
-H2 questions:
-
-1. What do Nominatim and OSRM each do, and when do you need both?
-2. What does it take to import an India or Kerala extract?
-3. How do you keep the data updated without re-importing everything?
-4. What does this actually save compared to a paid geocoding API?
-
-### 8. Streaming video from Telegram with a custom Media3 DataSource
-
-| Field | Value |
-| --- | --- |
-| Angle | The hardest part of TMPlayer. How a Media3 `DataSource` works, how to hand it bytes that arrive from TDLib instead of from a URL, and how seeking works when the file is still downloading. |
-| Target keyword | `media3 custom datasource android` |
-| Source | TMPlayer repo |
-| Cross-post | Dev.to, Hashnode, r/androiddev, r/androidtv, XDA |
-
-H2 questions:
-
-1. What is a Media3 DataSource responsible for?
-2. How do you feed it a file that TDLib is still downloading?
-3. How do you make seeking work on a partially downloaded file?
-4. What does the Android TV D-pad add to all of this?
-
-### 9. Building a resume builder that never sends your data anywhere
-
-| Field | Value |
-| --- | --- |
-| Angle | Resume Builder runs entirely in the browser. Why that decision shaped everything, how the PDF gets generated client-side, and how a static app gets hosted for free on `js.org`. |
+| Angle | Resume Builder runs entirely in the browser. Why that decision shaped everything, how the PDF gets generated client side, and how a static app gets hosted for free on `js.org`. |
 | Target keyword | `generate pdf in browser react resume builder` |
 | Source | Resume Builder repo and `resumebuilder.js.org` |
 | Cross-post | Dev.to, Hashnode, r/webdev, r/reactjs, r/developersIndia |
 
-H2 questions:
-
-1. Why keep a resume tool entirely client-side?
-2. What are the real options for making a PDF in the browser, and what do they cost in bundle size?
-3. How do you get print and PDF output to match what is on screen?
-4. How do you get a free `js.org` subdomain and host it?
-
-### 10. My Fedora and Sway setup, and why I left the desktop environments
+#### 5. What to check before paying for a refurbished laptop
 
 | Field | Value |
 | --- | --- |
-| Angle | A working developer's setup, not a ricing showcase. What Sway fixed, what it broke, the actual config, and the parts that still need a workaround. Links the dotfiles repos. |
-| Target keyword | `fedora sway setup developer` |
-| Source | swaydots and hyprdots repos |
-| Cross-post | Dev.to, Hashnode, r/swaywm, r/Fedora, r/unixporn |
-
-H2 questions:
-
-1. What made a tiling compositor worth the switch on a work machine?
-2. What does a Fedora and Sway setup need on day one?
-3. What still does not work properly, and what is the workaround?
-4. Sway or Hyprland, and does it matter?
+| Angle | Not a tech post, and the one most likely to be found by someone who is not a developer. The checklist, the `powercfg /batteryreport` numbers that matter, and the BIOS and MDM locks that make a cheap laptop worthless. |
+| Target keyword | `refurbished laptop checklist india` |
+| Source | `refurbished-laptops-buying-guide` |
+| Cross-post | r/IndianGaming, r/developersIndia, LinkedIn |
 
 ### Bonus, when the moment arrives
 
-**Next.js 16 upgrade notes.** Write this the week after any real upgrade, while the pain is
-fresh. Target keyword `next.js 16 upgrade notes`. Source: the day job and dracufolio upgrades.
-H2 questions: what actually broke, which codemods helped and which did not, what changed about
-caching and `use cache`, and whether it was worth doing early. Upgrade posts rank hard for a
-few months and then fade, so publish it within two weeks of the upgrade or not at all.
+**Next.js 16 upgrade notes.** Write this the week after a real upgrade, while the pain is
+fresh. Target keyword `next.js 16 upgrade notes`. Source: this site's own upgrade, which is in
+its public git history. H2 questions: what actually broke, which codemods helped and which did
+not, what changed about caching and `use cache`, and whether it was worth doing early. Upgrade
+posts rank hard for a few months and then fade, so publish it within two weeks of the upgrade
+or not at all.
 
 ## The cross-posting routine
 
@@ -262,33 +168,24 @@ change the visible "updated on" date, and share it once more with what changed.
 Publish day is Saturday morning, cross-post Sunday. The first Saturday of each month is also
 the monthly checklist day (`11-monthly-checklist.md`), so that day is the busy one.
 
-| Date | Post | Topic | Cross-post day |
-| --- | --- | --- | --- |
-| Sat 3 Oct 2026 | 1 | 4. next-intl on Cloudflare Workers with OpenNext | Sun 4 Oct |
-| Sat 17 Oct 2026 | 2 | 2. Rendering a large interactive SVG without dropping frames | Sun 18 Oct |
-| Sat 7 Nov 2026 | 3 | 8. Streaming video from Telegram with a custom Media3 DataSource | Sun 8 Nov |
-| Sat 21 Nov 2026 | 4 | 1. Keeping translation files in sync | Sun 22 Nov |
-| Sat 5 Dec 2026 | 5 | 5. Cloudflare D1 migrations on a live project | Sun 6 Dec |
-| Sat 19 Dec 2026 | 6 | 6. Zustand stores that survive a growing app | Sun 20 Dec |
-| Sat 9 Jan 2027 | 7 | 7. Self-hosting Nominatim and OSRM | Sun 10 Jan |
-| Sat 23 Jan 2027 | 8 | 9. Building a resume builder that never sends your data anywhere | Sun 24 Jan |
-| Sat 6 Feb 2027 | 9 | 3. Zoom and pan that feels right on a phone | Sun 7 Feb |
-| Sat 20 Feb 2027 | 10 | 10. My Fedora and Sway setup | Sun 21 Feb |
+| Date | Topic | Cross-post day |
+| --- | --- | --- |
+| Sat 7 Nov 2026 | 1. Cleaning out a Gmail account | Sun 8 Nov |
+| Sat 21 Nov 2026 | 2. Nuxt for people who already know Next.js | Sun 22 Nov |
+| Sat 5 Dec 2026 | 3. Connecting to an IKEv2 VPN from Linux | Sun 6 Dec |
+| Sat 19 Dec 2026 | 4. A resume builder that never sends your data anywhere | Sun 20 Dec |
+| Sat 9 Jan 2027 | 5. What to check before paying for a refurbished laptop | Sun 10 Jan |
 
-Why that order: post 1 is the rarest topic, so it goes first while the search results for it are
-still thin. Post 2 is the most impressive piece of engineering, so it lands while the blog is
-getting its first readers. Posts 3 and 4 open two new audiences (Android and i18n). The
-personal setup post is last, because it brings traffic but not clients.
+Nine posts went out between September and October, so the rest of October is for
+cross-posting those rather than writing more. After that, one post every two weeks.
 
-If a post slips, move it to the next slot and drop the last one. Ten posts published late beats
-six posts and a guilty conscience. Do not publish two thin posts to stay on schedule, one good
-post a month is worth more.
+If a post slips, move it to the next slot. Do not publish two thin posts to stay on schedule,
+one good post a month is worth more.
 
 ## Done when
 
-- [ ] All 10 topics on the calendar, in the site's own drafts
-- [ ] Post 1 live, cross-posted with canonical links, shared in all 6 places
-- [ ] Posts 2 to 10 shipped on their dates
+- [ ] The nine published posts cross-posted with canonical links
+- [ ] Topics 1 to 5 shipped on their dates
 - [ ] Every post has a byline, a real date, the schema and a sitemap entry
 - [ ] Every cross-post carries the canonical URL back to `nevil.dev`
 - [ ] Every post pinged through IndexNow and submitted in Search Console

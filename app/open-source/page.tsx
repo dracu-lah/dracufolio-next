@@ -8,7 +8,7 @@ import { AUTHOR, pageMetadata } from "@/lib/seo";
 import { CONTENT_DATES } from "@/data/updated";
 
 const description =
-  "Open-source work by Nevil Krishna K: Resume Builder on js.org, LangSync, a shadcn/ui image cropper registry component, Sway and Hyprland dotfiles, and community contributions.";
+  "Open source by Nevil Krishna K: TMPlayer, TapTL, LangSync, Resume Builder, Sway dotfiles, a Gmail cleanup CLI, and guides to Next.js on Cloudflare Workers and IKEv2 VPN on Linux.";
 
 export const metadata = pageMetadata({
   title: "Open Source",
@@ -19,6 +19,9 @@ export const metadata = pageMetadata({
     "Kotlin Android TV app",
     "shadcn/ui registry component",
     "i18n CLI",
+    "Sway dotfiles",
+    "Next.js Cloudflare Workers OpenNext guide",
+    "IKEv2 VPN Linux NetworkManager",
   ],
 });
 

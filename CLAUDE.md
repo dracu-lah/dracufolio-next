@@ -1,6 +1,6 @@
 # dracufolio
 
-Personal site for Nevil Krishna K. Next.js 15 App Router, Tailwind v4, framer-motion,
+Personal site for Nevil Krishna K. Next.js 16 App Router, Tailwind v4, framer-motion,
 content in `app/data/*.json`, served through the thin wrappers in `app/services/api.ts`.
 
 ## Golden rules
@@ -196,8 +196,10 @@ pnpm check:dashes   # em dash guard, same check the pre-push hook runs
 
 ## Images
 
-Screenshots live in `public/appwrite/projects/`. Compress before committing: WebP files are
-left alone, PNG and JPEG go through `magick <file> -strip -quality 82`.
+Screenshots live in `public/appwrite/projects/`. They are committed at source quality: no
+lower `quality`, no downscaling, no extra optimiser pass over a file that is already
+compressed, unless Nevil asks. A screenshot that looks soft needs a larger export (twice the
+widest CSS width it fills), not more compression. `next/image` already serves smaller copies.
 
 <!-- BEGIN:nextjs-agent-rules -->
 
