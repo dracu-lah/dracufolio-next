@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { X_HANDLE } from "@/data/contact";
+import { PHONE_DISPLAY, X_HANDLE } from "@/data/contact";
 
 /**
  * The canonical origin, in one place. nevil.dev stays canonical: it is the
@@ -16,6 +16,10 @@ export const SITE_NAME = "Nevil Krishna K";
 export const AUTHOR = "Nevil Krishna K";
 export const TITLE_TEMPLATE = "%s | Nevil Krishna K";
 
+/** The home page's title and description, also the root layout's defaults. */
+export const HOME_TITLE = `${AUTHOR} | Full Stack Developer in Thrissur, Kerala`;
+export const HOME_DESCRIPTION = `Nevil Krishna K is a full stack developer in Thrissur, Kerala with 3 years of React, Next.js and TypeScript experience, plus Kotlin and React Native on mobile. Available for jobs, freelance projects and remote contracts across India. WhatsApp ${PHONE_DISPLAY}.`;
+
 export const absolute = (path: string) =>
   path.startsWith("http") ? path : `${SITE_URL}${path}`;
 
@@ -31,6 +35,11 @@ type PageMetaInput = {
   modifiedTime?: string;
   /** Set for pages that exist for people, not for an index. */
   noindex?: boolean;
+  /**
+   * Use `title` as written instead of through the "| Nevil Krishna K"
+   * template. Only the home page, whose title already leads with the name.
+   */
+  absoluteTitle?: boolean;
 };
 
 /**
@@ -47,8 +56,10 @@ export const pageMetadata = ({
   publishedTime,
   modifiedTime,
   noindex,
+  absoluteTitle,
 }: PageMetaInput): Metadata => {
   const url = absolute(path);
+  const fullTitle = absoluteTitle ? title : `${title} | ${AUTHOR}`;
   /*
    * alt travels with the image. A route that passes its own `image` opts out
    * of the opengraph-image file convention, and that convention was the only
@@ -60,7 +71,7 @@ export const pageMetadata = ({
     : undefined;
 
   return {
-    title,
+    title: absoluteTitle ? { absolute: title } : title,
     description,
     ...(keywords?.length ? { keywords } : {}),
     /*
@@ -75,7 +86,7 @@ export const pageMetadata = ({
     },
     ...(noindex ? { robots: { index: false, follow: true } } : {}),
     openGraph: {
-      title: `${title} | ${AUTHOR}`,
+      title: fullTitle,
       description,
       url,
       siteName: SITE_NAME,
@@ -87,7 +98,7 @@ export const pageMetadata = ({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | ${AUTHOR}`,
+      title: fullTitle,
       description,
       creator: X_HANDLE,
       ...(images ? { images } : {}),

@@ -1,0 +1,19 @@
+# After Vercel finishes a production deploy, tell the IndexNow engines which
+# URLs have new content. The script reads the live sitemap, so it sees exactly
+# what was just deployed, and pings nothing when no content date moved.
+name: IndexNow
+
+on: deployment_status
+
+jobs:
+  ping:
+    if: >-
+      github.event.deployment_status.state == 'success' &&
+      github.event.deployment.environment == 'Production'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/indexnow.mjs

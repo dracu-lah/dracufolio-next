@@ -98,7 +98,13 @@
         "width": 1170,
         "height": 2532
       }
-    ]
+    ],
+    "app": {
+      "category": "MultimediaApplication",
+      "operatingSystem": "Android TV, Android, Windows, Linux",
+      "downloadUrl": "https://github.com/dracu-lah/TMPlayer/releases/latest",
+      "license": "https://www.gnu.org/licenses/gpl-3.0.html"
+    }
   },
   {
     "id": "b71e3d09c45a2f8e6d10",
@@ -187,7 +193,13 @@
         "width": 1170,
         "height": 2532
       }
-    ]
+    ],
+    "app": {
+      "category": "UtilitiesApplication",
+      "operatingSystem": "Android",
+      "downloadUrl": "https://github.com/dracu-lah/taptl/releases/latest",
+      "license": "https://opensource.org/licenses/MIT"
+    }
   },
   {
     "id": "c2d8a41f7e93b05d6a28",
@@ -230,7 +242,13 @@
     "githubUrl": "https://github.com/dracu-lah/langsync-cli",
     "year": "2026",
     "published": true,
-    "order": 2
+    "order": 2,
+    "app": {
+      "category": "DeveloperApplication",
+      "operatingSystem": "Linux, macOS, Windows",
+      "downloadUrl": "https://github.com/dracu-lah/langsync-cli",
+      "license": "https://opensource.org/licenses/MIT"
+    }
   },
   {
     "id": "68569f390004aa238746",

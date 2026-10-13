@@ -72,8 +72,21 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
   const writeUp = writeUps[0];
 
   const path = `/projects/${project.slug}`;
+  // Installable software is a SoftwareApplication; a website or a concept
+  // stays a CreativeWork. Google only shows an app rich result with a rating,
+  // which these do not have, but the node still says what the thing is.
   const creativeWork = {
-    "@type": "CreativeWork",
+    "@type": project.app ? "SoftwareApplication" : "CreativeWork",
+    ...(project.app
+      ? {
+          applicationCategory: project.app.category,
+          operatingSystem: project.app.operatingSystem,
+          downloadUrl: project.app.downloadUrl,
+          license: project.app.license,
+          isAccessibleForFree: true,
+          offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+        }
+      : {}),
     "@id": `${absolute(path)}#work`,
     name: project.title,
     description: project.tagline ?? project.description,

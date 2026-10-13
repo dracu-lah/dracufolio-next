@@ -57,7 +57,7 @@ if (priorities.size < 4)
   fail(`sitemap: priorities are not differentiated (${[...priorities]})`);
 notes.push(`sitemap priorities: ${[...priorities].sort().join(", ")}`);
 
-// The 29 location pages must not read as one page with the name swapped.
+// The location pages must not read as one page with the name swapped.
 const locationPaths = paths.filter(
   (p) => p.startsWith("/hire/") && p !== "/hire",
 );
@@ -163,6 +163,16 @@ for (const [path, target] of Object.entries(shortLinks)) {
   if (location && /[ "<>]/.test(location))
     fail(`${path}: Location header has an unescaped character`);
 }
+
+// The swaydots README tells people to pipe this into bash. swaydots dropped
+// tlp because it fights auto-cpufreq over the governor, and the served copy
+// once kept installing it for months after the repo moved on.
+const sway = await get("/sway.sh");
+if (sway.status !== 200) fail(`/sway.sh: HTTP ${sway.status}`);
+const tlpLines = sway.body
+  .split("\n")
+  .filter((l) => !l.trim().startsWith("#") && /\btlp\b/.test(l) && !/mask tlp/.test(l));
+if (tlpLines.length) fail(`/sway.sh still installs tlp: ${tlpLines[0].trim()}`);
 
 // The 404 must be a real 404 and must not be indexable.
 const missing = await get("/this-page-does-not-exist");

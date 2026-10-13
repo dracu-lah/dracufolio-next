@@ -9,13 +9,19 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { fontVariables } from "./lib/fonts";
 import { token } from "./lib/palette";
-import { AUTHOR, SITE_NAME, SITE_URL, TITLE_TEMPLATE } from "./lib/seo";
+import {
+  AUTHOR,
+  HOME_DESCRIPTION,
+  HOME_TITLE,
+  SITE_NAME,
+  SITE_URL,
+  TITLE_TEMPLATE,
+} from "./lib/seo";
 import { metaKeywords } from "./data/keywords";
 import {
   COUNTRY_CODE,
   GEO,
   LOCALITY,
-  PHONE_DISPLAY,
   PHONE_E164,
   REGION,
   REGION_CODE,
@@ -23,10 +29,9 @@ import {
 } from "./data/contact";
 import "./globals.css";
 
-const title = `${AUTHOR} | Full Stack Developer in Thrissur, Kerala`;
+const title = HOME_TITLE;
 
-const description =
-  `Nevil Krishna K is a full stack developer in Thrissur, Kerala with 3 years of React, Next.js and TypeScript experience, plus Kotlin and React Native on mobile. Available for jobs, freelance projects and remote contracts across India. WhatsApp ${PHONE_DISPLAY}.`;
+const description = HOME_DESCRIPTION;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

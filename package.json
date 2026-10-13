@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "resume": "node scripts/build-resume.mjs",
     "check:dashes": "node scripts/check-dashes.mjs",
+    "indexnow": "node scripts/indexnow.mjs",
     "icons": "node scripts/build-icons.mjs"
   },
   "dependencies": {

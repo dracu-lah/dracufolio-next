@@ -29,6 +29,18 @@ export type Project = {
    * reads it as client work.
    */
   concept?: boolean;
+  /**
+   * Set for software people install, so the project page describes it as a
+   * SoftwareApplication rather than a CreativeWork. No version number: the
+   * releases move faster than this file does.
+   */
+  app?: {
+    /** A schema.org applicationCategory, e.g. "MultimediaApplication". */
+    category: string;
+    operatingSystem: string;
+    downloadUrl: string;
+    license: string;
+  };
   /** Small square mark, usually the live site favicon */
   logo?: string;
   published: boolean;
