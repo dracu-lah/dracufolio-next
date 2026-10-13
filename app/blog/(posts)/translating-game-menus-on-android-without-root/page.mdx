@@ -1,0 +1,118 @@
+import { PostHeader, PostFooter } from "@/components/blog/PostChrome";
+import { postMetadata } from "@/lib/blog";
+
+export const slug = "translating-game-menus-on-android-without-root";
+export const metadata = postMetadata(slug);
+
+<PostHeader slug={slug} />
+
+The Chinese release of Valorant Mobile has no English option. The settings alone run to seven tabs of sensitivity sliders, crosshair options and audio toggles, and I was not going to learn the Chinese for "aim assist" to play it. So I wrote [TapTL](https://github.com/dracu-lah/taptl): it records the screen, reads the text on the phone, and draws English over the original. No root, no Accessibility service, no account, and nothing goes online after a one-time language download.
+
+It is Kotlin and Jetpack Compose, MIT licensed, and the whole app is about 3,100 lines. More than a fifth of that is one class, `Pipeline`, and almost all of it is about deciding when not to read the screen.
+
+<Figure
+  src="/appwrite/projects/taptl-before.webp"
+  alt="Valorant Mobile's settings screen in Chinese, before TapTL"
+  width={2400}
+  height={1080}
+  caption="The basic settings tab as the game ships it. Captured on a Poco F5."
+/>
+
+<Figure
+  src="/appwrite/projects/taptl-after.webp"
+  alt="The same settings screen with TapTL on, every label drawn over in English"
+  width={2400}
+  height={1080}
+  caption="The same screen with TapTL on. Each English box is filled with the colour sampled around the original text, so it reads as part of the menu."
+/>
+
+## The obvious version is the wrong one
+
+The first version anyone would write grabs a frame every second, runs OCR over the whole screen and draws whatever comes back. It works for a minute. Then the phone gets warm, the boxes flicker on every animated background, and OCR starts reading its own English back as text to translate.
+
+In my early measurements, ML Kit took 300 to 370 ms to read a whole screen and 50 to 150 ms for a small region. A game menu sits still most of the time. So the question the app answers on every frame is not "what does the screen say" but "has anything changed that is worth reading".
+
+## Diffing a tiny copy of the frame
+
+Frames come from Android's normal screen sharing (`MediaProjection` into an `ImageReader` at `RGBA_8888`). `FrameDiffer` does not look at the frame. It samples one pixel in every 8 each way, turns it into a brightness value, and compares it with the same sample from the last frame. A change of more than 24 on a 0 to 255 scale counts. The samples are grouped into tiles of 16 by 16, which is 128 real pixels a side, and the rest of the app thinks in tiles.
+
+```kotlin
+for (y in 0 until rows) {
+    // One bulk copy per sampled row is far cheaper than a get() per byte.
+    buf.position((y * STEP + STEP / 2) * rowStride)
+    buf.get(row, 0, len)
+    val i0 = y * cols
+    for (x in 0 until cols) {
+        val p = (x * STEP + STEP / 2) * 4
+        val r = row[p].toInt() and 0xFF
+        val g = row[p + 1].toInt() and 0xFF
+        val b = row[p + 2].toInt() and 0xFF
+        val l = (r * 77 + g * 150 + b * 29) shr 8
+        ...
+    }
+}
+```
+
+That comment is there because the first version read the `ByteBuffer` one byte at a time and the diff took 32 ms a frame, which is longer than a frame lasts at 60 Hz, let alone at the 120 Hz of the phone I tested on. Copying each sampled row in one call brought it to between 2.1 and 3.5 ms. Every array in the class is allocated once when the screen size changes and reused after that, so a frame allocates nothing.
+
+On a still screen this is the only work the app does. I left it on a still list for 60 seconds while logging: zero OCR calls, and CPU between 0 and 3.5 percent.
+
+## When a changed area gets read
+
+A tile that changed is marked pending. It is read once it has been still for 250 ms, which is long enough for a menu to finish sliding in and short enough that the English appears about half a second after you stop scrolling. Pending tiles that touch each other are joined into one group, the largest group is cropped out of the frame with some padding to the sides (labels run sideways), and that crop is the only thing OCR sees.
+
+OCR and translation run on one low-priority worker thread, one job at a time. If the area moved again while the job was running, the result is dropped and the area is queued again. A box drawn from a frame the screen has already left behind is worse than no box.
+
+Three other things fall out of the same tile data:
+
+- **Gameplay.** If at least 40 percent of the tiles keep changing for more than 1.5 seconds, that is a match or a big animation. The overlay hides and nothing is read until the screen has been calm for a second.
+- **Scrolling.** A box whose own area changed is wrong now, so it disappears on that frame rather than sliding out of step with the list under it.
+- **A blocked app.** If the brightest sample stays near black for 10 seconds, the app is almost certainly blocking capture with `FLAG_SECURE`. TapTL says so in a notification and turns itself off.
+
+## Menus with video behind them
+
+Valorant Mobile's lobby plays character art and video behind the menu, so some tiles never go still. Under the rule above they would never be read, and the boxes over them would be removed on every frame.
+
+`Pipeline` keeps a heat value per tile: each change adds one, and it halves every two seconds. A tile that has stayed hot for 1.5 seconds counts as animated. Inside an animated tile, only a sample that had been still for four seconds and then changed means the menu itself moved, and it takes two of those before a box is pulled. Animated tiles are read on a timer instead of on stillness, and the timer backs off while the reads find nothing new: 1, 2, 4, 8, then 10 seconds.
+
+```kotlin
+private fun readyAt(t: Int, now: Long) = if (animated(t, now)) {
+    maxOf(activeSince[t] + ANIM_MS, lastRead[t] + minOf(ANIM_READ_MS shl emptyStreak[t], MAX_WAIT_MS))
+} else {
+    lastChange[t] + SETTLE_MS
+}
+```
+
+The same back-off covers anything that changes but has no text in the chosen language, like a countdown timer or a carousel in a search box. Without it, a ticking clock in the corner would cost an OCR call every quarter of a second forever.
+
+## Not reading your own English
+
+The overlay is drawn on the screen, and the screen is what gets captured. So every box TapTL draws shows up in the next frame as a change, and if OCR ever saw it, it would try to translate English or the faint Chinese showing through it.
+
+Two things stop that. Every rectangle the overlay just drew is ignored by the differ for 300 ms. And before a crop goes to OCR, each existing box is painted over in the crop with the background colour it was drawn on, so the recognizer sees an empty patch of menu where the English is. The first plan was to hide the overlay for a frame or two while capturing, which would have made every box flicker; masking the crop costs nothing visible.
+
+That background colour is the median of eight pixels sampled just outside the text box. A median rather than an average, because one of those points often lands on an icon or the edge of a button. The English is drawn in black or white depending on how light that colour is.
+
+## An overlay that never takes a tap
+
+The overlay is one `TYPE_APPLICATION_OVERLAY` window with `FLAG_NOT_TOUCHABLE`. Since Android 12 that flag alone is not enough: the system blocks touches through an overlay from another app unless the window's alpha is at or below 0.8, and it logs "Untrusted touch due to occlusion" when it does. So the window alpha is exactly 0.8, the pixels inside it are fully opaque, and there is only ever one window, because several overlays from one app combine their opacity and cross the limit together.
+
+The result is that every tap lands on the game. TapTL never reads game memory and never sends input, which is also the honest answer to the anti-cheat question: it behaves like a screen recorder with a drawing on top. The README still says to try it on a second account first.
+
+## The word list comes before the translator
+
+On-device ML Kit translation is good at sentences and bad at names. It turns agent names and weapon names into literal Chinese-to-English, which is useless when every guide online uses the official English. So for Chinese, `Translator` checks a word list first: 228 hand-written settings terms and 241 official Valorant names, built by a small Kotlin script that pulls the same items from valorant-api.com in `zh-CN` and `en-US` and joins them by id.
+
+OCR gets in the way of exact matching more than you would think. It reads one character wrong (辅助瞄准 as 辅助喵准), picks up an icon next to a label as an extra character, or returns the traditional form of a character the game writes in simplified. So the lookup goes in steps: an exact match after normalising, then a term of the same length with one wrong character (two for seven characters and up) as long as exactly one term is that close, then the line with its first or last character dropped. Only if nothing in the list matches does the line go to ML Kit, at 50 to 80 ms per new line, and those results go into a SQLite cache that answers in about a millisecond the next time. On the reference settings screen, 39 of 42 lines come straight from the word list.
+
+`OcrEngine` has one more fix of its own. ML Kit joins a row of separate buttons into one line, so 商城 · 英雄 · 武器 would come back as one string and one box. It walks the characters and cuts wherever the gap to the next one is wider than 0.6 times the line height, so each button gets its own translation.
+
+## What I would do differently
+
+I would write the timing constants down as measurements before writing them as code. `Pipeline` has 28 of them and most were tuned by watching the overlay on one phone. They hold up on the Poco F5 I tested on and on the Poco M2 Pro I started with, but I could not tell you which ones matter on a 60 Hz screen.
+
+`Pipeline` should also be three classes. Deciding which tiles are ready, running OCR, and deciding which boxes are stale are separate jobs that share state only because they started in one file, and none of the three has a test. `FrameDiffer` is already pure arithmetic over arrays, and it would be the place to start.
+
+The thing I would keep is reading less. Every improvement in this app came from looking at fewer pixels less often, and the one that mattered most was the 250 ms of waiting before reading anything at all.
+
+<PostFooter slug={slug} />

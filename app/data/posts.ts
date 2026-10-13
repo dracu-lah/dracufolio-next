@@ -29,6 +29,28 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "translating-game-menus-on-android-without-root",
+    title: "Translating game menus on Android without root",
+    description:
+      "How TapTL draws live English over a Chinese game menu: a tiny brightness diff decides when to read, ML Kit reads and translates on the phone, and an overlay at 0.8 alpha lets every tap through.",
+    date: "2026-10-13",
+    tags: ["Kotlin", "Android", "ML Kit", "MediaProjection", "OCR"],
+    readingMinutes: 8,
+    image: "/appwrite/projects/taptl-after.webp",
+    project: "taptl",
+  },
+  {
+    slug: "tmplayer-on-windows-and-linux",
+    title: "Taking a Telegram video player from Android TV to Windows and Linux",
+    description:
+      "Eleven TMPlayer releases in three weeks: one streaming core shared by Media3 and libmpv, a Windows file lock that stopped downloads, a crash only televisions had, and a download cut in half.",
+    date: "2026-10-13",
+    tags: ["Kotlin", "Compose Desktop", "libmpv", "TDLib", "Android TV"],
+    readingMinutes: 7,
+    image: "/appwrite/projects/tmplayer-desktop.webp",
+    project: "tmplayer",
+  },
+  {
     slug: "telegram-video-before-it-finishes-downloading",
     title: "Play a Telegram video before it finishes downloading",
     description:

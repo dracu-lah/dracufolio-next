@@ -66,7 +66,10 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
   const currentIndex = projects.findIndex((p) => p.slug === project.slug);
   const prev = projects[currentIndex - 1] ?? null;
   const next = projects[currentIndex + 1] ?? null;
-  const writeUp = publishedPosts.find((post) => post.project === project.slug);
+  // Newest first, so the header button reads the latest post and the list
+  // below keeps the older ones linked instead of orphaning them.
+  const writeUps = publishedPosts.filter((post) => post.project === project.slug);
+  const writeUp = writeUps[0];
 
   const path = `/projects/${project.slug}`;
   const creativeWork = {
@@ -220,6 +223,26 @@ const ProjectPage = async ({ params }: { params: Promise<Params> }) => {
                         className="mt-2.5 size-1.5 shrink-0 rounded-full bg-accent"
                       />
                       {feature}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+
+            {writeUps.length > 0 && (
+              <>
+                <h2 className="pt-4 text-base text-muted-foreground">
+                  Write-ups
+                </h2>
+                <ul className="flex flex-col gap-3">
+                  {writeUps.map((post) => (
+                    <li key={post.slug}>
+                      <Link
+                        href={`/blog/${post.slug}`}
+                        className="text-base leading-relaxed underline decoration-border underline-offset-4 transition-colors hover:text-accent hover:decoration-accent md:text-lg"
+                      >
+                        {post.title}
+                      </Link>
                     </li>
                   ))}
                 </ul>
