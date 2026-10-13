@@ -42,7 +42,14 @@ const ReviewCard = ({ review }: { review: GoogleReview }) => (
         />
       ))}
     </span>
-    <blockquote className="text-base leading-relaxed whitespace-pre-line text-foreground">
+    {/* A fixed text box, so every card in a row is the same height and the
+        names line up. Seven lines on a phone and five from md fit the three
+        strongest reviews whole; a longer one ends in an ellipsis. The clamp
+        is visual only: the full review stays in the HTML for search engines
+        and screen readers, and "Read all on Google" has every word. A "Read
+        more" button would mean expanding a card in a moving row, which
+        pushes the whole row around. */}
+    <blockquote className="line-clamp-7 h-[calc(1.625em*7)] text-base leading-relaxed whitespace-pre-line text-foreground md:line-clamp-5 md:h-[calc(1.625em*5)]">
       {review.text}
     </blockquote>
     <figcaption className="mt-auto flex items-center gap-3 pt-2">
