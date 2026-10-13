@@ -3,7 +3,12 @@ import ReviewerAvatar from "@/components/common/ReviewerAvatar";
 import GoogleRating from "@/components/common/GoogleRating";
 import { ArrowRight, StarIcon } from "@/components/common/icons";
 import { Squircle } from "@/components/ui/squircle";
-import { featuredReviews, googleRating, hasReviews } from "@/data/reviews";
+import {
+  featuredReviews,
+  googleRating,
+  hasReviews,
+  reviewerStanding,
+} from "@/data/reviews";
 import { GOOGLE_MAPS_URL } from "@/data/contact";
 
 /**
@@ -11,22 +16,24 @@ import { GOOGLE_MAPS_URL } from "@/data/contact";
  * on the home page and under the hero on the hire pages.
  *
  * A static grid, not the scrolling marquee most review blocks use. A marquee
- * is a second perpetual animation (CLAUDE.md allows one), a quote that moves
- * cannot be read, and the cards sit in the server HTML either way. On a phone
- * the grid becomes a row you swipe, the same pattern as the location pills.
+ * is a second perpetual animation (CLAUDE.md allows one), and a quote that
+ * moves cannot be read. Every review with words is shown, stacked on a phone:
+ * it was a sideways swipe row at first, and people saw one card and assumed
+ * that was all of them.
  *
  * Every card links to the profile, because a review someone can check is the
  * only kind worth showing.
  */
 const Reviews = ({
   heading = "What people say",
-  limit = 3,
+  limit,
 }: {
   heading?: string;
+  /** Leave unset to show every review that has text. */
   limit?: number;
 }) => {
   if (!hasReviews) return null;
-  const reviews = featuredReviews.slice(0, limit);
+  const reviews = limit ? featuredReviews.slice(0, limit) : featuredReviews;
 
   return (
     <section
@@ -54,13 +61,10 @@ const Reviews = ({
           </div>
         </Reveal>
 
-        <ul className="scrollbar-visible -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 md:mx-0 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0 md:pb-0">
+        <ul className="grid gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
           {reviews.map((review, index) => (
-            <li
-              key={review.id}
-              className="w-[85%] shrink-0 snap-start md:w-auto"
-            >
-              <Reveal delay={index * 0.06} className="h-full">
+            <li key={review.id}>
+              <Reveal delay={Math.min(index, 3) * 0.06} className="h-full">
                 <Squircle
                   as="figure"
                   borderWidth={1}
@@ -92,7 +96,7 @@ const Reviews = ({
                         {review.author}
                       </span>
                       <span className="text-base text-muted-foreground">
-                        Google review
+                        {reviewerStanding(review)}
                       </span>
                     </span>
                   </figcaption>

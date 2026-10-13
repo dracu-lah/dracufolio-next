@@ -1,16 +1,38 @@
 {
   "profileUrl": "https://www.google.com/maps?cid=14537750488451498062",
   "rating": 5,
-  "count": 7,
+  "count": 8,
   "checked": "2026-10-13",
   "reviews": [
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2xRMGNWRklNWE5XT0VkYVUxVjFaRUl6YW1Gc2IyYxAB",
+      "author": "Aкѕнαу",
+      "rating": 5,
+      "text": "He is a brilliant Full Stack Developer who helped me fix stubborn Linux/Ubuntu issues on my PC. He is also a great OSS developer who builds and maintains highly usable applications. Excellent technical expertise!",
+      "date": "2026-10-13",
+      "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjWSVIDjPTiyetFkDcTY9jwBF5yKygfOjQRAcFR18RywetbVyNU",
+      "localGuide": false,
+      "reviewerReviews": 1
+    },
     {
       "id": "Ci9DQUlRQUNvZENodHljRjlvT2tKamQzaHlhVEoxVGxoVlkzUkVUMDFxTW01UFpVRRAB",
       "author": "Aby Varghese",
       "rating": 5,
       "text": "Skilled Developer!\nDelivered my work even before deadline and was helpful throughout the project",
       "date": "2026-10-13",
-      "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjW6Cn2nVlAXJGDcuzpGrgUuQNJw8p2XXNBrkFRo6jdVugazD2l2"
+      "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjW6Cn2nVlAXJGDcuzpGrgUuQNJw8p2XXNBrkFRo6jdVugazD2l2",
+      "localGuide": true,
+      "reviewerReviews": 7
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2pSMGQwZ3RTVTlTVUZSUlZUTm1PWE4xU1hobWQzYxAB",
+      "author": "Domain Computers",
+      "rating": 5,
+      "text": "Nevil did a great job setting up our WhatsApp channel. He explained everything clearly and made it very easy for us to manage. Thanks for the help from Domain computers",
+      "date": "2026-10-13",
+      "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjUBKNb6KA5PQ7-Bo2FxqMFMBFffOm1wsKcPbVT8mowzP3LmA-58",
+      "localGuide": true,
+      "reviewerReviews": 9
     },
     {
       "id": "Ci9DQUlRQUNvZENodHljRjlvT2xobk0ySk5SV2wwUXpsRE4ySjJOVVZyVkZSVFYyYxAB",
@@ -18,7 +40,9 @@
       "rating": 5,
       "text": "Professional, skilled, and dedicated, with great attention to detail. Delivered quality work and ensured everything ran smoothly. Highly recommended for anyone looking for a reliable developer.",
       "date": "2026-10-13",
-      "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjWlcVSo94I5HnKHPN6AD0TWHcO6GfIZJp6IQNm5RGzm1ndq3a0v"
+      "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjWlcVSo94I5HnKHPN6AD0TWHcO6GfIZJp6IQNm5RGzm1ndq3a0v",
+      "localGuide": true,
+      "reviewerReviews": 9
     },
     {
       "id": "Ci9DQUlRQUNvZENodHljRjlvT21KQ04ycDFOVGN3VjJ0R1IwOUhhbTV2VG5GeFZYYxAB",
@@ -26,7 +50,9 @@
       "rating": 5,
       "text": "He is a highly skilled engineer and a great person to work with. I really enjoyed working with him!",
       "date": "2026-10-13",
-      "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjUT--AmnIQYA-wdFvsakGb_IjQ6igEkeo80jGMrqwb1_79NCMO3"
+      "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjUT--AmnIQYA-wdFvsakGb_IjQ6igEkeo80jGMrqwb1_79NCMO3",
+      "localGuide": false,
+      "reviewerReviews": 1
     },
     {
       "id": "Ci9DQUlRQUNvZENodHljRjlvT2tWV2NtTTBRbkpQUzBaWlJYZFlYelZtYkhOdmFWRRAB",
@@ -34,7 +60,9 @@
       "rating": 5,
       "text": "Helped with my linux setup and it's configuration wayback  in 2019 and the person who made me a linux pureist, helped me on setting up custom roms on all of my android devices to this date and  also has supported me when I had doubts in frontend also helped me understand react",
       "date": "2026-10-13",
-      "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjX95fcIDPflqGsesnIiCXzZJrhnBvrHAqtXsF7l1X08ACSuWlc_Cg"
+      "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjX95fcIDPflqGsesnIiCXzZJrhnBvrHAqtXsF7l1X08ACSuWlc_Cg",
+      "localGuide": false,
+      "reviewerReviews": 6
     },
     {
       "id": "Ci9DQUlRQUNvZENodHljRjlvT2xoNldqQnZWR1JXY1RSRWNUQTBWRmN3YmpaeGRsRRAB",
@@ -42,7 +70,9 @@
       "rating": 5,
       "text": "Awesome work 🤌🏻",
       "date": "2026-10-13",
-      "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjVsFnFE_HuyYcSPZuG6vSpvYAksAAFF7Sa6agV8plU_6iJ7AypUJg"
+      "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjVsFnFE_HuyYcSPZuG6vSpvYAksAAFF7Sa6agV8plU_6iJ7AypUJg",
+      "localGuide": false,
+      "reviewerReviews": 2
     },
     {
       "id": "Ci9DQUlRQUNvZENodHljRjlvT2tWblRsazRTbGxEU1VFMVpVdHBjM2xyYlVoVlZrRRAB",
@@ -50,7 +80,9 @@
       "rating": 5,
       "text": "",
       "date": "2026-10-13",
-      "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjVzjHYEj5F5gwmyOVvA-Jd60WbTCwks7REq3bcxdxIi6hOspo_iBw"
+      "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjVzjHYEj5F5gwmyOVvA-Jd60WbTCwks7REq3bcxdxIi6hOspo_iBw",
+      "localGuide": true,
+      "reviewerReviews": 4
     }
   ]
 }

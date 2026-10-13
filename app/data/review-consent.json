@@ -1,0 +1,29 @@
+{
+  "_readme": "Reviews shown on the site, by Google review id. consent is the date the reviewer agreed to their name, photo and words appearing on nevil.dev (confirmed by Nevil). A review with no entry here counts in the rating but is never shown, and the import keeps only its id. priority is optional: 1 shows first, and reviews without one follow in the automatic order.",
+  "reviews": {
+    "Ci9DQUlRQUNvZENodHljRjlvT2xRMGNWRklNWE5XT0VkYVUxVjFaRUl6YW1Gc2IyYxAB": {
+      "consent": "2026-10-13"
+    },
+    "Ci9DQUlRQUNvZENodHljRjlvT2tKamQzaHlhVEoxVGxoVlkzUkVUMDFxTW01UFpVRRAB": {
+      "consent": "2026-10-13"
+    },
+    "Ci9DQUlRQUNvZENodHljRjlvT2pSMGQwZ3RTVTlTVUZSUlZUTm1PWE4xU1hobWQzYxAB": {
+      "consent": "2026-10-13"
+    },
+    "Ci9DQUlRQUNvZENodHljRjlvT2xobk0ySk5SV2wwUXpsRE4ySjJOVVZyVkZSVFYyYxAB": {
+      "consent": "2026-10-13"
+    },
+    "Ci9DQUlRQUNvZENodHljRjlvT21KQ04ycDFOVGN3VjJ0R1IwOUhhbTV2VG5GeFZYYxAB": {
+      "consent": "2026-10-13"
+    },
+    "Ci9DQUlRQUNvZENodHljRjlvT2tWV2NtTTBRbkpQUzBaWlJYZFlYelZtYkhOdmFWRRAB": {
+      "consent": "2026-10-13"
+    },
+    "Ci9DQUlRQUNvZENodHljRjlvT2xoNldqQnZWR1JXY1RSRWNUQTBWRmN3YmpaeGRsRRAB": {
+      "consent": "2026-10-13"
+    },
+    "Ci9DQUlRQUNvZENodHljRjlvT2tWblRsazRTbGxEU1VFMVpVdHBjM2xyYlVoVlZrRRAB": {
+      "consent": "2026-10-13"
+    }
+  }
+}

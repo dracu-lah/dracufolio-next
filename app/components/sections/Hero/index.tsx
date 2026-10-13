@@ -6,6 +6,7 @@ import Spotlight from "@/components/motion/Spotlight";
 import { Button } from "@/components/ui/button";
 import { BriefcaseIcon, SquaresFour } from "@/components/common/icons";
 import GoogleRating from "@/components/common/GoogleRating";
+import { googleRating, hasReviews } from "@/data/reviews";
 
 /**
  * Two text elements and two buttons, and it has to fit the first screen at
@@ -120,7 +121,7 @@ const HeroSection = () => (
             themselves rather than off to Google, so the visitor who checks
             is still one scroll from the WhatsApp button. */}
         <Reveal delay={0.16}>
-          <GoogleRating href="#reviews" />
+          <GoogleRating href={hasReviews ? "#reviews" : googleRating.url} />
         </Reveal>
       </div>
 

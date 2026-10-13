@@ -17,6 +17,11 @@
  * Maps renames its CSS classes from time to time. When the import finds no
  * reviews, the selectors below are the first thing to check.
  *
+ * Nothing about a reviewer is stored until they have agreed to appear on the
+ * site and their review id is in app/data/review-consent.json. Until then the
+ * import keeps the id, the stars and the date, so the review counts in the
+ * rating, and it prints the id so you know who to ask.
+ *
  * Existing reviews keep the date they were first imported, because Maps only
  * says "3 weeks ago" and that gets less precise every week.
  */
@@ -26,6 +31,7 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 
 const FILE = "app/data/google-reviews.json";
+const CONSENT = "app/data/review-consent.json";
 const PROFILE = join(homedir(), ".config", "dracufolio-reviews");
 const PORT = 9366;
 
@@ -122,13 +128,14 @@ await evaluate(`(async () => {
 })()`);
 
 const scraped = await evaluate(`(() => {
-  const header = document.querySelector('div.F7nice')?.textContent ?? '';
+  const header = (document.querySelector('div.F7nice') ?? document.querySelector('.jANrlb'))?.textContent ?? '';
   const reviews = [...document.querySelectorAll('div[data-review-id][aria-label]')].map((el) => ({
     id: el.getAttribute('data-review-id'),
     author: el.getAttribute('aria-label'),
     stars: el.querySelector('[role="img"][aria-label*="star"]')?.getAttribute('aria-label') ?? '',
     when: el.querySelector('.rsqaWe')?.textContent ?? '',
     text: el.querySelector('.wiI7pd')?.textContent ?? '',
+    standing: (el.querySelector('.RfnDt')?.textContent ?? '').replace(/\\s+/g, ' '),
     avatar: (el.querySelector('button img, img[src*="googleusercontent"]')?.src ?? '').replace(/=w\\d+-h\\d+.*$/, ''),
   }));
   return { header, reviews };
@@ -154,9 +161,23 @@ const toDate = (when) => {
   return now.toISOString().slice(0, 10);
 };
 
-const known = new Map(current.reviews.map((r) => [r.author, r]));
+// Consent decides what gets stored. A reviewer who has not agreed to appear
+// on the site is kept as an id, a rating and a date, which is enough to count
+// them and to notice they are new, and nothing that identifies them lands in
+// this public repo.
+const consent = JSON.parse(readFileSync(CONSENT, "utf8")).reviews;
+const known = new Map(current.reviews.map((r) => [r.id, r]));
 const reviews = scraped.reviews.map((r) => {
-  const before = known.get(r.author);
+  const before = known.get(r.id);
+  if (!consent[r.id]?.consent) {
+    return {
+      id: r.id,
+      author: "",
+      rating: Number(r.stars.match(/\d/)?.[0] ?? 5),
+      text: "",
+      date: before?.date ?? toDate(r.when),
+    };
+  }
   return {
     id: r.id,
     author: r.author,
@@ -165,10 +186,13 @@ const reviews = scraped.reviews.map((r) => {
     text: r.text.replace(/\s*…\s*$/, "").trim(),
     date: before?.date ?? toDate(r.when),
     ...(r.avatar ? { avatar: r.avatar } : {}),
+    localGuide: /Local Guide/.test(r.standing),
+    reviewerReviews: Number(r.standing.match(/(\d+) reviews?/)?.[1] ?? 0) || undefined,
   };
 });
 
-const header = scraped.header.match(/(\d[.,]\d)\s*\(?\s*([\d,]+)/);
+// The header reads "5.0(7)" in one layout and "5.0 8 reviews" in another.
+const header = scraped.header.replace(/\s+/g, " ").match(/(\d[.,]\d)\s*\(?\s*([\d,]+)/);
 const next = {
   profileUrl: current.profileUrl,
   rating: header ? Number(header[1].replace(",", ".")) : current.rating,
@@ -178,9 +202,13 @@ const next = {
 };
 
 writeFileSync(FILE, JSON.stringify(next, null, 2) + "\n");
-const added = reviews.filter((r) => !known.has(r.author)).map((r) => r.author);
+const added = reviews.filter((r) => !known.has(r.id));
+const waiting = reviews.filter((r) => !consent[r.id]?.consent).map((r) => r.id);
 console.log(
   `${reviews.length} reviews read, ${next.rating.toFixed(1)} from ${next.count}. ` +
-    (added.length ? `New: ${added.join(", ")}.` : "No new reviews.") +
+    (added.length ? `${added.length} new.` : "No new reviews.") +
+    (waiting.length
+      ? `\nNot shown until the reviewer agrees, then add their id to ${CONSENT}:\n  ${waiting.join("\n  ")}`
+      : "") +
     `\nCheck the diff of ${FILE}, then commit it.`,
 );

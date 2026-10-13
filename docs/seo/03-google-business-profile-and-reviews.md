@@ -263,6 +263,11 @@ name a real service and a real place beat fifty vague ones.
 Added 13 Oct 2026. The site shows the profile's rating and the reviews themselves under the
 hero, on the hire pages and in the closing card, from `app/data/google-reviews.json`.
 
+- **Nobody is shown without saying yes.** Ask the reviewer if their name, photo and review
+  can go on nevil.dev. When they agree, add their review id with the date to
+  `app/data/review-consent.json`, then import again. All 8 reviewers as of 13 Oct 2026
+  agreed (confirmed by Nevil). An optional `priority` there pins the order (1 shows first);
+  otherwise Local Guides and reviewers with more Google reviews come first.
 - After a new review comes in, run `pnpm reviews:import`. It opens Chromium, waits for you to
   sign in to Google the first time, reads the profile and updates the JSON. Check the diff and
   commit it.
