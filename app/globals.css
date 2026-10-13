@@ -354,6 +354,77 @@ details[open]::details-content {
   }
 }
 
+/*
+ * The review rows: the second perpetual animation on the site, asked for by
+ * Nevil so every review is in view without a tall stack of cards.
+ *
+ * Each track holds the same group of cards twice, and slides by exactly one
+ * group (-50%), so the loop has no seam. Transform only, so it runs on the
+ * compositor: no layout, no paint, nothing for INP to wait on. It stops while
+ * a pointer is over it or a card has focus, so a review can actually be read,
+ * and it does not run at all under reduced motion, where the row becomes a
+ * plain strip you scroll yourself.
+ */
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.marquee-track {
+  animation: marquee-left var(--marquee-duration, 60s) linear infinite;
+}
+
+.marquee-track[data-direction="right"] {
+  animation-name: marquee-right;
+}
+
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Soft edges, so cards slide in and out instead of being cut by the gutter. */
+.marquee {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 4%,
+    #000 96%,
+    transparent
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+    mask-image: none;
+  }
+
+  /* Both selectors, or the direction rule outranks this and the second row
+     keeps its keyframes. */
+  .marquee-track,
+  .marquee-track[data-direction="right"] {
+    animation: none;
+  }
+
+  .marquee-copy {
+    display: none;
+  }
+}
+
 /* Keyboard users get the accent ring, pointer users get nothing extra. */
 :where(a, button, summary, input, textarea):focus-visible {
   outline: 2px solid var(--accent);

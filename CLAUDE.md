@@ -109,9 +109,11 @@ run the audits before every push.
   ship. Pointer and scroll values go through motion values (`useMotionValue`,
   `useScroll`, `useMotionValueEvent`), never `useState` and never a raw
   `window.addEventListener("scroll")`. Pointer-driven effects gate on
-  `usePointerEffects()` so nothing hover-shaped reaches a touch screen. There is one
-  perpetual animation on the site (the hero role cycle); adding a second needs a reason
-  better than the first. Everything collapses to static under `prefers-reduced-motion`.
+  `usePointerEffects()` so nothing hover-shaped reaches a touch screen. There are two
+  perpetual animations on the site: the hero role cycle, and the looping review rows
+  (`.marquee` in `globals.css`), which Nevil asked for so every review passes through view
+  in the height of two cards. The rows pause on hover and focus and are transform only. A
+  third needs a reason better than either. Everything collapses to static under `prefers-reduced-motion`.
 - **One label per intent.** Contact is always "WhatsApp". Portfolio is always
   "Projects". Hiring is always "Hire me". No "Get in touch" or "Let's talk" variants.
 - **QR codes are for the desktop-to-phone hand-off only.** `QrPanel` is `hidden md:flex`
