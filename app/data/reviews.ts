@@ -22,6 +22,8 @@ export type GoogleReview = {
   text: string;
   /** First seen. Maps only shows "2 weeks ago", so this is when the import met it. */
   date: string;
+  /** Google profile photo, without the size suffix. The card adds `=s96-c`. */
+  avatar?: string;
 };
 
 export const googleRating = {

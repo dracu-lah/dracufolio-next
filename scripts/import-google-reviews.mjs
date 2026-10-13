@@ -129,6 +129,7 @@ const scraped = await evaluate(`(() => {
     stars: el.querySelector('[role="img"][aria-label*="star"]')?.getAttribute('aria-label') ?? '',
     when: el.querySelector('.rsqaWe')?.textContent ?? '',
     text: el.querySelector('.wiI7pd')?.textContent ?? '',
+    avatar: (el.querySelector('button img, img[src*="googleusercontent"]')?.src ?? '').replace(/=w\\d+-h\\d+.*$/, ''),
   }));
   return { header, reviews };
 })()`);
@@ -163,6 +164,7 @@ const reviews = scraped.reviews.map((r) => {
     // Maps marks text it cut short with a trailing ellipsis even after "More".
     text: r.text.replace(/\s*…\s*$/, "").trim(),
     date: before?.date ?? toDate(r.when),
+    ...(r.avatar ? { avatar: r.avatar } : {}),
   };
 });
 

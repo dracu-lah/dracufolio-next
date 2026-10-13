@@ -1,17 +1,10 @@
 import Reveal from "@/components/common/Reveal";
+import ReviewerAvatar from "@/components/common/ReviewerAvatar";
 import GoogleRating from "@/components/common/GoogleRating";
 import { ArrowRight, StarIcon } from "@/components/common/icons";
 import { Squircle } from "@/components/ui/squircle";
 import { featuredReviews, googleRating, hasReviews } from "@/data/reviews";
 import { GOOGLE_MAPS_URL } from "@/data/contact";
-
-const initials = (name: string) =>
-  name
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase())
-    .join("");
 
 /**
  * Google reviews as proof, placed where a visitor is deciding: after the work
@@ -90,12 +83,10 @@ const Reviews = ({
                     {review.text}
                   </blockquote>
                   <figcaption className="mt-auto flex items-center gap-3 pt-2">
-                    <span
-                      aria-hidden
-                      className="flex size-10 shrink-0 items-center justify-center rounded-full border border-border bg-secondary text-base font-medium text-muted-foreground"
-                    >
-                      {initials(review.author)}
-                    </span>
+                    <ReviewerAvatar
+                      name={review.author}
+                      src={review.avatar}
+                    />
                     <span className="flex flex-col">
                       <span className="text-base font-medium text-foreground">
                         {review.author}
