@@ -19,7 +19,11 @@ import { MapPin } from "@/components/common/icons";
 import { Button } from "@/components/ui/button";
 import { faqNode, pageGraph, ref, ID } from "@/lib/schema";
 import { absolute, pageMetadata } from "@/lib/seo";
-import { locationBySlug, locations } from "@/data/locations";
+import {
+  locationBySlug,
+  locations,
+  remoteDistricts,
+} from "@/data/locations";
 import { locationFaqs } from "@/data/faq";
 import { locationKeywords } from "@/data/keywords";
 import { mlLocationSubline } from "@/data/ml";
@@ -180,6 +184,49 @@ const LocationPage = async ({ params }: { params: Promise<Params> }) => {
           </Reveal>
         </div>
       </main>
+
+      {/* The districts that used to have a page each. One list here keeps
+          the text that was specific to each of them without thirteen copies
+          of the same template around it. */}
+      {location.kind === "state" && (
+        <section className="mx-auto max-w-7xl px-6 py-8 md:px-10 md:py-12 lg:px-14">
+          <div className="flex flex-col gap-5 md:gap-7">
+            <Reveal className="flex flex-col gap-4">
+              <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
+                The other districts
+              </h2>
+              <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
+                Thrissur and the towns around it have their own pages, because
+                that is where I meet people most. The rest of Kerala mostly
+                runs remotely, with a trip when a project needs one. This is
+                what I know about each district.
+              </p>
+            </Reveal>
+            <ul className="grid divide-y divide-border border-t border-b border-border md:grid-cols-2 md:divide-y-0">
+              {remoteDistricts.map((district) => (
+                <li
+                  key={district.slug}
+                  id={district.slug}
+                  className="flex flex-col gap-2 py-6 md:border-b md:border-border md:odd:pr-8 md:even:pl-8"
+                >
+                  <h3 className="font-display text-xl font-bold tracking-tight">
+                    {district.name}{" "}
+                    <span
+                      lang="ml"
+                      className="font-sans text-lg font-normal text-muted-foreground"
+                    >
+                      {district.nameMl}
+                    </span>
+                  </h3>
+                  <p className="text-base leading-relaxed text-muted-foreground">
+                    {district.blurb}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
 
       <Services heading={`What I build for people in ${location.name}`} />
 

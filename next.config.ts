@@ -9,6 +9,7 @@ import {
   X_URL,
 } from "./app/data/contact";
 import projects from "./app/data/projects.json";
+import { remoteDistricts } from "./app/data/locations";
 
 // No prefilled text here on purpose. Next decodes percent-escapes in a
 // redirect destination, which would put raw spaces in the Location header and
@@ -22,6 +23,8 @@ const PUBLISHED_SLUGS = projects
   .filter((p) => p.published)
   .map((p) => p.slug.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
   .join("|");
+
+const REMOTE_DISTRICTS = remoteDistricts.map((d) => d.slug).join("|");
 
 const nextConfig: NextConfig = {
   // Blog posts are .mdx page files, so the router has to look for them.
@@ -59,10 +62,18 @@ const nextConfig: NextConfig = {
         destination: "/projects",
         statusCode: 308,
       },
-      // Retired posts land on the blog index rather than a 404.
+      // Districts I serve remotely are one list on /hire/kerala now, not a
+      // page each. Their old URLs, and their share images, land on that list.
+      {
+        source: `/hire/:district(${REMOTE_DISTRICTS})/:rest*`,
+        destination: "/hire/kerala",
+        statusCode: 308,
+      },
+      // The retired OpenNext post was about a product that is not mine to
+      // name. Its URL goes to the post written from my own guide instead.
       {
         source: "/blog/nextjs-16-cloudflare-workers-opennext",
-        destination: "/blog",
+        destination: "/blog/nextjs-on-cloudflare-workers-with-opennext",
         statusCode: 308,
       },
       {

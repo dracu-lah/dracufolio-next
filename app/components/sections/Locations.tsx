@@ -1,22 +1,19 @@
 import Link from "next/link";
 import Reveal from "@/components/common/Reveal";
 import { ArrowRight, MapPin } from "@/components/common/icons";
-import { locations } from "@/data/locations";
+import { locations, townLocations } from "@/data/locations";
 import { LOCALITY, REGION } from "@/data/contact";
 
 /**
- * Where the work happens, as three rows of links rather than one long bullet
- * list. Each pill is a real page with its own text, so this doubles as the
- * internal link map that gets those 29 pages crawled.
+ * Where the work happens, as rows of links rather than one long bullet list.
+ * Each pill is a real page with its own text, so this doubles as the internal
+ * link map that gets those pages crawled. Districts outside Thrissur have no
+ * page of their own; /hire/kerala lists them.
  */
 const GROUPS = [
   {
-    label: "Around Thrissur",
-    match: (kind: string) => kind === "town",
-  },
-  {
-    label: "Kerala districts",
-    match: (kind: string) => kind === "district",
+    label: "Thrissur district",
+    match: (kind: string) => kind === "district" || kind === "town",
   },
   {
     label: "Statewide and remote",
@@ -26,10 +23,10 @@ const GROUPS = [
 
 /**
  * `compact` is the home page. A visitor who came to judge a developer does not
- * need thirty one place names, so the home page shows the districts and the
- * statewide rows and sends the towns to /hire, where somebody searching for a
- * developer in their town actually lands. The town pages keep every internal
- * link they had, from /hire, from the footer and from each other.
+ * need every town name, so the home page shows Thrissur and the statewide row
+ * and sends the towns to /hire, where somebody searching for a developer in
+ * their town actually lands. The town pages keep every internal link they had,
+ * from /hire, from the footer and from each other.
  */
 const Locations = ({
   currentSlug,
@@ -55,10 +52,10 @@ const Locations = ({
       </Reveal>
 
       <div className="flex flex-col gap-7">
-        {GROUPS.filter(
-          (group) => !compact || group.label !== "Around Thrissur",
-        ).map((group) => {
-          const items = locations.filter((l) => group.match(l.kind));
+        {GROUPS.map((group) => {
+          const items = locations.filter(
+            (l) => group.match(l.kind) && !(compact && l.kind === "town"),
+          );
           return (
             <Reveal key={group.label} className="flex flex-col gap-3">
               <h3 className="text-base text-muted-foreground">{group.label}</h3>
@@ -91,7 +88,7 @@ const Locations = ({
             href="/hire"
             className="group inline-flex items-center gap-2 text-base text-muted-foreground transition-colors duration-200 hover:text-accent"
           >
-            And 13 towns around Thrissur
+            And {townLocations.length} towns around Thrissur
             <ArrowRight className="size-5 transition-transform duration-200 group-hover:translate-x-0.5" />
           </Link>
         )}

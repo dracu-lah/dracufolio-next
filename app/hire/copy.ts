@@ -2,7 +2,7 @@ import type { Location } from "@/data/locations";
 import { LOCALITY } from "@/data/contact";
 
 /**
- * Per-location copy. This module exists so the difference between the 29 hire
+ * Per-location copy. This module exists so the difference between the hire
  * pages is written down in one auditable place instead of being buried in JSX.
  *
  * The rule the pages follow: a page that only swaps a town name into a

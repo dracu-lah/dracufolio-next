@@ -44,7 +44,7 @@ const socials = [
 ];
 
 /** The places worth a footer link: the district, the state, the country. */
-const FOOTER_PLACES = ["thrissur", "ernakulam", "palakkad", "kerala", "india"];
+const FOOTER_PLACES = ["thrissur", "kerala", "india"];
 
 const link =
   "inline-flex items-center gap-2 transition-colors duration-200 hover:text-accent";

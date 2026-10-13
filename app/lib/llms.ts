@@ -1,5 +1,5 @@
 import { GetProjectsAPI } from "@/services/api";
-import { locations } from "@/data/locations";
+import { locations, places } from "@/data/locations";
 import { publishedPosts } from "@/data/posts";
 import { services } from "@/data/services";
 import { homeFaqs } from "@/data/faq";
@@ -99,7 +99,7 @@ ${toolkit.map((row) => `- ${row.label}: ${row.items.join(", ")}`).join("\n")}
 
 const areasSection = () => {
   const byKind = (kind: string) =>
-    locations
+    places
       .filter((l) => l.kind === kind)
       .map((l) => `${l.name} (${l.nameMl})${l.altNames.length ? `, also spelled ${l.altNames.join(", ")}` : ""}`)
       .join("; ");
@@ -109,7 +109,7 @@ const areasSection = () => {
 
 - Based in: ${LOCALITY}, ${REGION}
 - Towns near Thrissur: ${byKind("town")}
-- Kerala districts: ${byKind("district")}
+- Kerala districts (Thrissur in person, the rest remote, listed at ${SITE_URL}/hire/kerala): ${byKind("district")}
 - Statewide and nationwide: Kerala, India, and remote worldwide
 
 One page per place:

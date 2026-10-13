@@ -20,7 +20,7 @@ export type Location = {
 
 // Malayalam names follow ml.wikipedia so the lang="ml" text renders the way a
 // reader here would write it (Ollur is ഒല്ലൂർ, not ഒള്ളൂർ).
-export const locations: Location[] = [
+export const places: Location[] = [
   {
     slug: "poonkunnam",
     name: "Poonkunnam",
@@ -90,7 +90,7 @@ export const locations: Location[] = [
     district: "Thrissur",
     blurb:
       "Anyone heading to Athirappilly or Vazhachal passes through Chalakudy first, which has given the town a steady tourism and transport trade alongside its riverside market. It lies thirty kilometres down NH 544 from Thrissur. A thirty minute run down the highway is nothing, so meetings there happen in person.",
-    nearby: ["irinjalakuda", "kodungallur", "thrissur", "ernakulam"],
+    nearby: ["irinjalakuda", "kodungallur", "ollur", "thrissur"],
   },
   {
     slug: "irinjalakuda",
@@ -123,7 +123,7 @@ export const locations: Location[] = [
     district: "Thrissur",
     blurb:
       "Old Muziris stood here, and Kodungallur still keeps the Cheraman Juma Masjid, dated to AD 629 and claimed as India's first mosque. The town lies where the Periyar reaches the backwaters, forty kilometres south west of Thrissur. It is a forty five minute drive, which I make for a first meeting and then keep things remote.",
-    nearby: ["irinjalakuda", "chalakudy", "ernakulam", "thrissur"],
+    nearby: ["irinjalakuda", "chalakudy", "chavakkad", "thrissur"],
   },
   {
     slug: "ollur",
@@ -156,7 +156,7 @@ export const locations: Location[] = [
     district: "Thrissur",
     blurb:
       "Fishing and the beach shape Chavakkad, a coastal municipality twenty six kilometres north west of Thrissur and five from the Guruvayur temple. Its taluk is the one part of Thrissur district that lay entirely in British Malabar. Thirty minutes on the coast road and I am on site, which happens when it helps.",
-    nearby: ["guruvayur", "kunnamkulam", "thrissur", "malappuram"],
+    nearby: ["guruvayur", "kunnamkulam", "kodungallur", "thrissur"],
   },
   {
     slug: "shoranur",
@@ -167,7 +167,7 @@ export const locations: Location[] = [
     district: "Palakkad",
     blurb:
       "Shoranur belongs to Palakkad district, not Thrissur, though it is a bridge away from Cheruthuruthy on the far bank of the Bharathapuzha. Its junction is the largest railway station in Kerala by area, with lines leaving in four directions. Thirty kilometres north on the same road, and I treat it like the Thrissur towns next door.",
-    nearby: ["cheruthuruthy", "palakkad", "wadakkanchery", "thrissur"],
+    nearby: ["cheruthuruthy", "wadakkanchery", "vazhakode", "thrissur"],
   },
   {
     slug: "thiruvananthapuram",
@@ -247,7 +247,7 @@ export const locations: Location[] = [
     kind: "district",
     blurb:
       "This one is home. Thrissur city is the district headquarters, holds the Pooram in April or May, and is where South Indian Bank, CSB Bank and Dhanlaxmi Bank keep their head offices, which accounts for a lot of the local software work. Anywhere in the district is a short ride from my desk.",
-    nearby: ["ernakulam", "palakkad", "malappuram"],
+    nearby: ["poonkunnam", "ollur", "mannuthy", "kerala"],
   },
   {
     slug: "palakkad",
@@ -317,7 +317,7 @@ export const locations: Location[] = [
     kind: "state",
     blurb:
       "Kerala is about 600 kilometres from end to end, and I have worked with people from Kasaragod down to Thiruvananthapuram without moving from Thrissur. Being roughly in the middle helps, since most district headquarters are a few hours away by train or road. Anything past that runs on video and a shared repo.",
-    nearby: ["ernakulam", "thiruvananthapuram", "thrissur", "kozhikode"],
+    nearby: ["thrissur", "india"],
   },
   {
     slug: "india",
@@ -327,15 +327,33 @@ export const locations: Location[] = [
     kind: "country",
     blurb:
       "India has one timezone, so a standup at ten in the morning works the same for a team in Gurgaon, Bengaluru or Guwahati. My base stays Thrissur and always has. Work happens over video, pull requests and whatever tracker the client already uses, with travel only when there is a reason for it.",
-    nearby: ["kerala", "ernakulam", "thiruvananthapuram"],
+    nearby: ["kerala", "thrissur"],
   },
 ];
+
+/**
+ * Places that get their own /hire page: Thrissur district, the towns around
+ * it, the state and the country. Those are the places I can meet someone in
+ * person, so each page says something true that the others do not.
+ *
+ * The other thirteen districts used to have a page each. The blurbs were real,
+ * but the rest of every page was the same template with the name swapped, which
+ * is what Google's doorway page rule describes. They now live on /hire/kerala as
+ * one list, and their old URLs redirect there (see next.config.ts).
+ */
+export const locations = places.filter(
+  (l) => l.kind !== "district" || l.slug === "thrissur",
+);
+
+/** Districts served remotely, listed on /hire/kerala rather than paged. */
+export const remoteDistricts = places.filter(
+  (l) => l.kind === "district" && l.slug !== "thrissur",
+);
 
 export const locationBySlug = (slug: string) =>
   locations.find((l) => l.slug === slug);
 
 export const townLocations = locations.filter((l) => l.kind === "town");
-export const districtLocations = locations.filter((l) => l.kind === "district");
 export const wideLocations = locations.filter(
   (l) => l.kind === "state" || l.kind === "country",
 );

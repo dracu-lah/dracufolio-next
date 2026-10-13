@@ -17,7 +17,7 @@ import {
 } from "@/data/contact";
 import { occupations, skills } from "@/data/keywords";
 import { serviceTypes, services } from "@/data/services";
-import { locations } from "@/data/locations";
+import { places } from "@/data/locations";
 import { testimonials } from "@/data/testimonials";
 import type { Faq } from "@/data/faq";
 import { AUTHOR, SITE_NAME, SITE_URL, absolute } from "./seo";
@@ -126,7 +126,8 @@ const personNode = {
   sameAs,
 };
 
-const areaServed = locations.map((location) => ({
+// Every place, paged or not: a district without a page is still served.
+const areaServed = places.map((location) => ({
   "@type": location.kind === "country" ? "Country" : "AdministrativeArea",
   name: location.name,
   ...(location.altNames.length ? { alternateName: location.altNames } : {}),
