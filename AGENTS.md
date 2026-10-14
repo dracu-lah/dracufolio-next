@@ -67,15 +67,35 @@ Search the web for vulnerabilities after every change, and always before a push:
 
    ```bash
    pnpm audit --prod
+   pnpm audit                    # dev tooling too, reported separately
    gh api "repos/dracu-lah/dracufolio-next/dependabot/alerts?state=open" \
      --jq '.[] | [.security_advisory.severity, .dependency.package.name, .security_vulnerability.first_patched_version.identifier] | @tsv'
+   # Next.js publishes its advisories here first, before pnpm audit picks them up
+   gh api repos/vercel/next.js/security-advisories \
+     --jq '.[:10][] | [.published_at[:10], .severity, .summary, ([.vulnerabilities[].patched_versions] | join(" "))] | @tsv'
+   # the GitHub advisory database, for each direct dependency and for sharp
+   for p in next react react-dom sharp; do
+     gh api "advisories?ecosystem=npm&affects=$p&per_page=5&sort=published" \
+       --jq '.[] | [.published_at[:10], .severity, .summary] | @tsv'
+   done
+   npm view next dist-tags.latest  # a newer patch on our minor usually means a security fix
    ```
+
+   On 15 Oct 2026, `pnpm audit --prod` said "no known vulnerabilities" and the Dependabot API
+   came back empty while 16.3.8 had two critical RCE advisories published the day before.
+   The audit database lags and the Dependabot API can return nothing for this token, so a
+   clean audit is not a clean bill. The Next.js advisory list and the advisory database are
+   the checks that caught it.
 
 3. **Fix critical and high before pushing.** A patch or minor upgrade inside the current major
    version goes in without asking, as long as `pnpm build` and both checks pass on it. A major
-   version upgrade, or anything that changes behaviour, is asked first. A transitive package
+   version upgrade, or anything that changes behaviour, is asked first. `next` and
+   `eslint-config-next` move together, on the same version. A transitive package
    that can't be lifted gets a scoped override in `pnpm-workspace.yaml`, still inside its
-   major.
+   major, and only once `npm view <pkg> versions` shows the patched version is published
+   (an advisory can name a fix that is not on npm yet, and the install then fails).
+   A Dependabot email that names a package already patched in the lockfile is stale: check
+   the lockfile before touching anything.
 4. **Report what was found,** with links, in the reply. That includes "nothing new".
 
 ## Before every push
