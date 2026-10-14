@@ -3,13 +3,13 @@
     "id": "38df7b4803b2a64f18aa",
     "slug": "tmplayer",
     "title": "TMPlayer",
-    "description": "Telegram video player for Android TV, phones, Windows and Linux. Playback starts while the file is still downloading.",
+    "description": "Telegram video player for Android TV, phones, Windows, Linux and macOS. Playback starts while the file is still downloading.",
     "tagline": "Your Telegram videos, on the TV, in your hand and on your computer. Start watching before the download finishes.",
     "longDescription": [
       "Videos shared through your own Telegram chats are awkward to watch on a television: download to a phone, copy the file across, then find somewhere to keep it. TMPlayer removes that detour. Scan a QR code with the phone that holds your Telegram account, open a chat, pick a video, and playback starts while the file continues downloading. On a phone the same app signs in by number and redraws itself as a Material 3 phone app rather than a TV grid.",
-      "The interesting part is the streaming layer. A custom Media3 DataSource maps ExoPlayer's reads onto TDLib's offset-based partial downloads, so seeking to the ninety-minute mark re-aims the download at that byte instead of grinding through everything before it. The window arithmetic lives in one pure class with the awkward cases pinned down by unit tests, because that is where a streaming player either works or does not. The project carries about 1,100 tests in all.",
-      "It also runs on a computer now. The desktop app is Compose Multiplatform over the same shared core as the Android app, plays through libmpv, and ships as an MSI installer for Windows and an AppImage for Linux, with an AUR recipe for Arch.",
-      "Everything is shaped by the hardware it targets, a TV stick with a gigabyte of RAM and under 5 GB of usable storage. One video is cached at a time, previews come straight from Telegram, and a single universal APK covers every architecture. There is no catalogue and no server: the app talks to Telegram with your own credentials, and nothing else.",
+      "The interesting part is the streaming layer. A custom Media3 DataSource maps ExoPlayer's reads onto TDLib's offset-based partial downloads, so seeking to the ninety-minute mark re-aims the download at that byte instead of grinding through everything before it. The window arithmetic lives in one pure class with the awkward cases pinned down by unit tests, because that is where a streaming player either works or does not. The project carries about 1,400 tests in all.",
+      "It also runs on a computer. The desktop app is Compose Multiplatform over the same shared core as the Android app, plays through libmpv, and ships as an MSI installer for Windows and an AppImage for Linux, with an AUR recipe for Arch. Since 1.26.0 there is a macOS preview for Apple Silicon, built, signed and self-tested on CI.",
+      "Everything is shaped by the hardware it targets, a TV stick with a gigabyte of RAM and under 5 GB of usable storage. One video is cached at a time, and Low storage mode keeps only a rolling 200 MB window of a stream on disk, so a film larger than the free space still plays. Previews come straight from Telegram, and a single universal APK covers every architecture. There is no catalogue and no server: the app talks to Telegram with your own credentials, and to the poster lookups while they are on, and nothing else.",
       "It ships with its own site at tmplayer.org, in 21 languages, covering features, install steps for each platform, a changelog with an RSS feed, an FAQ, privacy and lawful use, so a stranger can decide whether to install it before downloading anything."
     ],
     "features": [
@@ -19,8 +19,12 @@
       "Software decoding for DTS, TrueHD and E-AC3 when the device lacks the silicon",
       "Episode filenames parsed locally, with previous, next and autoplay across a series",
       "One video cached at a time, with continue watching positions that survive a power cut",
+      "Low storage mode, which streams a film larger than the free space",
       "The same APK draws a D-pad TV interface or a Material 3 phone app",
-      "A desktop app for Windows and Linux, as an MSI installer and an AppImage"
+      "A desktop app for Windows, Linux and macOS, as an MSI installer, an AppImage and a DMG preview",
+      "Posters, overviews and episode names from TMDB, TVmaze and AniList, and rows on the Android TV home screen",
+      "Skip intro and credits, speed per series, preferred languages, watch later and season downloads",
+      "Backups, an app PIN and a kids lock with allowed chats"
     ],
     "skills": [
       "Kotlin",
@@ -49,6 +53,18 @@
         "alt": "The tmplayer.org home page, with the app's chat screen below the download button",
         "width": 1920,
         "height": 1080
+      },
+      {
+        "src": "/appwrite/projects/tmplayer-tv-home.webp",
+        "alt": "Home on a TV: Continue watching with time left on each card, and posters from starred chats",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "src": "/appwrite/projects/tmplayer-tv-home-screen.webp",
+        "alt": "TMPlayer's Recently added row on the Android TV home screen",
+        "width": 1440,
+        "height": 420
       },
       {
         "src": "/appwrite/projects/tmplayer-tv.webp",
@@ -93,6 +109,12 @@
         "height": 2400
       },
       {
+        "src": "/appwrite/projects/tmplayer-phone-show.webp",
+        "alt": "A show's page on a phone, with its poster, progress and overview",
+        "width": 1080,
+        "height": 2400
+      },
+      {
         "src": "/appwrite/projects/tmplayer-site-mobile.webp",
         "alt": "tmplayer.org on a phone",
         "width": 1170,
@@ -101,7 +123,7 @@
     ],
     "app": {
       "category": "MultimediaApplication",
-      "operatingSystem": "Android TV, Android, Windows, Linux",
+      "operatingSystem": "Android TV, Android, Windows, Linux, macOS",
       "downloadUrl": "https://github.com/dracu-lah/TMPlayer/releases/latest",
       "license": "https://www.gnu.org/licenses/gpl-3.0.html"
     }

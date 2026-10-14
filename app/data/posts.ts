@@ -29,6 +29,17 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "tmplayer-1-26-low-storage-mode",
+    title: "TMPlayer 1.26.0: streaming a film bigger than the free space",
+    description:
+      "What went into TMPlayer 1.26.0: a rolling download window that streams a film larger than the free space, Save mobile data, rows on the Android TV home screen, posters, a setup that reads the device, and a Mac build made on CI.",
+    date: "2026-10-15",
+    tags: ["Kotlin", "Android TV", "TDLib", "Compose Desktop", "macOS"],
+    readingMinutes: 12,
+    image: "/appwrite/projects/tmplayer-tv-home.webp",
+    project: "tmplayer",
+  },
+  {
     slug: "sway-setup-i-work-in",
     title: "The Sway setup I work in every day",
     description:
