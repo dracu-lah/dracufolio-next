@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import Reveal from "@/components/common/Reveal";
 import ReviewerAvatar from "@/components/common/ReviewerAvatar";
 import GoogleRating from "@/components/common/GoogleRating";
+import ReviewDialog from "@/components/sections/ReviewDialog";
 import { ArrowRight, StarIcon } from "@/components/common/icons";
 import { Squircle } from "@/components/ui/squircle";
 import {
@@ -21,46 +22,71 @@ const MIN_CARDS = 8;
 /** Seconds per card, which keeps the speed the same however long a row is. */
 const SECONDS_PER_CARD = 8;
 
-const ReviewCard = ({ review }: { review: GoogleReview }) => (
+const Stars = ({ rating }: { rating: number }) => (
+  <span
+    className="flex items-center gap-0.5 text-foreground"
+    role="img"
+    aria-label={`${rating} out of 5 stars`}
+  >
+    {Array.from({ length: 5 }, (_, i) => (
+      <StarIcon
+        key={i}
+        className={`size-5 ${i < rating ? "" : "text-border"}`}
+      />
+    ))}
+  </span>
+);
+
+const Byline = ({ review }: { review: GoogleReview }) => (
+  <span className="flex items-center gap-3">
+    <ReviewerAvatar name={review.author} src={review.avatar} />
+    <span className="flex flex-col">
+      <span className="text-base font-medium text-foreground">
+        {review.author}
+      </span>
+      <span className="text-base text-muted-foreground">
+        {reviewerStanding(review)}
+      </span>
+    </span>
+  </span>
+);
+
+const ReviewCard = ({
+  review,
+  hidden,
+}: {
+  review: GoogleReview;
+  hidden: boolean;
+}) => (
   <Squircle
     as="figure"
     borderWidth={1}
     fillClassName="bg-card"
-    className="flex h-full w-[18rem] shrink-0 flex-col gap-4 bg-border p-5 md:w-[22rem] md:p-6"
+    className="relative flex h-full w-[18rem] shrink-0 flex-col gap-4 bg-border p-5 transition-colors duration-200 hover:bg-accent-edge md:w-[22rem] md:p-6"
   >
-    <span
-      className="flex items-center gap-0.5 text-foreground"
-      role="img"
-      aria-label={`${review.rating} out of 5 stars`}
-    >
-      {Array.from({ length: 5 }, (_, i) => (
-        <StarIcon
-          key={i}
-          className={`size-5 ${i < review.rating ? "" : "text-border"}`}
-        />
-      ))}
-    </span>
+    <Stars rating={review.rating} />
     {/* A fixed text box, so every card in a row is the same height and the
         names line up. Seven lines on a phone and five from md fit the three
-        strongest reviews whole; a longer one ends in an ellipsis. The clamp
-        is visual only: the full review stays in the HTML for search engines
-        and screen readers, and "Read all on Google" has every word. A "Read
-        more" button would mean expanding a card in a moving row, which
-        pushes the whole row around. */}
+        strongest reviews whole; a longer one ends in an ellipsis and the
+        card opens the whole review in a dialog. The clamp is visual only:
+        the full review stays in the HTML for search engines and screen
+        readers. Expanding the card in place would push the moving row
+        around, which is why it is a dialog. */}
     <blockquote className="line-clamp-7 h-[calc(1.625em*7)] text-base leading-relaxed whitespace-pre-line text-foreground md:line-clamp-5 md:h-[calc(1.625em*5)]">
       {review.text}
     </blockquote>
-    <figcaption className="mt-auto flex items-center gap-3 pt-2">
-      <ReviewerAvatar name={review.author} src={review.avatar} />
-      <span className="flex flex-col">
-        <span className="text-base font-medium text-foreground">
-          {review.author}
-        </span>
-        <span className="text-base text-muted-foreground">
-          {reviewerStanding(review)}
-        </span>
-      </span>
+    <figcaption className="mt-auto pt-2">
+      <Byline review={review} />
     </figcaption>
+    <ReviewDialog author={review.author} hidden={hidden}>
+      <Stars rating={review.rating} />
+      {/* Scrolls on its own, so a very long review never pushes the byline
+          off a short phone screen. */}
+      <blockquote className="max-h-[60dvh] overflow-y-auto text-base leading-relaxed whitespace-pre-line text-foreground md:text-lg">
+        {review.text}
+      </blockquote>
+      <Byline review={review} />
+    </ReviewDialog>
   </Squircle>
 );
 
@@ -70,8 +96,10 @@ const ReviewCard = ({ review }: { review: GoogleReview }) => (
  * lands exactly where it started.
  *
  * Only the first appearance of each review is exposed. Repeats inside the
- * group and the whole second copy are aria-hidden and inert: a screen reader
- * hears each review once and focus never lands on a duplicate. Under reduced
+ * group and the whole second copy are aria-hidden, and their dialog button
+ * is out of the tab order: a screen reader hears each review once and focus
+ * never lands on a duplicate. They are not inert, because inert also blocks
+ * the click that opens the review, and most cards on screen are repeats. Under reduced
  * motion the copy is not drawn at all (see .marquee-copy in globals.css).
  */
 const MarqueeRow = ({ reviews }: { reviews: GoogleReview[] }) => {
@@ -88,9 +116,9 @@ const MarqueeRow = ({ reviews }: { reviews: GoogleReview[] }) => {
         <li
           key={`${review.id}-${i}`}
           className="flex"
-          {...(repeat ? { "aria-hidden": true, inert: true } : {})}
+          {...(repeat ? { "aria-hidden": true } : {})}
         >
-          <ReviewCard review={review} />
+          <ReviewCard review={review} hidden={repeat} />
         </li>
       );
     });
