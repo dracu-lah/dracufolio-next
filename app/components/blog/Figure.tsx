@@ -27,15 +27,29 @@ type FigureImage = FigureBase & {
   width: number;
   height: number;
   children?: never;
+  images?: never;
+};
+
+type Shot = { src: string; alt: string; width: number; height: number };
+
+type FigureRow = FigureBase & {
+  /**
+   * Phone screenshots shown side by side. One tall portrait shot at the full
+   * column width runs several screens long; a row keeps each at phone size.
+   */
+  images: Shot[];
+  src?: never;
+  children?: never;
 };
 
 type FigureDiagram = FigureBase & {
   /** An inline SVG drawn in the MDX. */
   children: ReactNode;
   src?: never;
+  images?: never;
 };
 
-export default function Figure(props: FigureImage | FigureDiagram) {
+export default function Figure(props: FigureImage | FigureRow | FigureDiagram) {
   const { caption, className } = props;
 
   return (
@@ -63,6 +77,28 @@ export default function Figure(props: FigureImage | FigureDiagram) {
               className="h-auto w-full"
             />
           </Squircle>
+        </div>
+      ) : props.images ? (
+        <div
+          className="grid gap-1.5 p-1.5"
+          style={{ gridTemplateColumns: `repeat(${props.images.length}, minmax(0, 1fr))` }}
+        >
+          {props.images.map((shot) => (
+            <Squircle
+              key={shot.src}
+              cornerRadius={SQUIRCLE.card}
+              className="overflow-hidden bg-muted"
+            >
+              <Image
+                src={shot.src}
+                alt={shot.alt}
+                width={shot.width}
+                height={shot.height}
+                sizes={`(min-width: 768px) ${Math.ceil(720 / props.images.length)}px, ${Math.ceil(100 / props.images.length)}vw`}
+                className="h-auto w-full"
+              />
+            </Squircle>
+          ))}
         </div>
       ) : (
         <div className="px-4 py-6 sm:px-6">{props.children}</div>
