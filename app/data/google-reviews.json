@@ -5,6 +5,32 @@
   "checked": "2026-10-15",
   "reviews": [
     {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2tWSFRXMDVjV2d4YlV4Mk4xa3dSREZoZG5aRGFtYxAB",
+      "author": "",
+      "rating": 5,
+      "text": "",
+      "date": "2026-10-15"
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2tKNmNWbHNXSGN3V21sd1dGWjJVbU5uTjFWblZrRRAB",
+      "author": "Haritha NR",
+      "rating": 5,
+      "text": "I had a really fantastic experience! He was extremely helpful, supportive, and knowledgeable. He understood my concern and guided me in the best possible way. I truly appreciate his willingness to help and the positive experience he provided. Highly recommended to anyone looking for a skilled and helpful full-stack developer!",
+      "date": "2026-10-14",
+      "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjXIS2j8aBtbE2fGYwBke6_oduHG1dUJoXfGmWM91FQyNMY9yx7C",
+      "localGuide": false
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT21KU1FXdE9URzVvWlUxQlpqbE1ZakZ2YzJkVk5FRRAB",
+      "author": "PRANAV RAYIRATH",
+      "rating": 5,
+      "text": "Been using TMplayer for weeks now and love it soo much. I personally use the Windows and the Android TV version and so far everything is perfect. Nevil has done a great job in developing such an intuitive UI for the app and now my parents can watch any movies easily on the TV. It was a nightmare to even try to teach my parents to download movies from telegram and copy it to the TV to watch it, but now they are watching any movies they want to over this app. Nevil was also very responsive towards some suggestions I had over the app. Thank you Nevil. Keep up the good work. - Pranav",
+      "date": "2026-10-14",
+      "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjVlyt5wtKdZmCvfp30TUJMzG-ei_8eLNm1Ep_PGmlyQBrlS2goY",
+      "localGuide": true,
+      "reviewerReviews": 17
+    },
+    {
       "id": "Ci9DQUlRQUNvZENodHljRjlvT2xRMGNWRklNWE5XT0VkYVUxVjFaRUl6YW1Gc2IyYxAB",
       "author": "Aкѕнαу",
       "rating": 5,
@@ -83,27 +109,6 @@
       "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjVzjHYEj5F5gwmyOVvA-Jd60WbTCwks7REq3bcxdxIi6hOspo_iBw",
       "localGuide": true,
       "reviewerReviews": 4
-    },
-    {
-      "id": "Ci9DQUlRQUNvZENodHljRjlvT2tWSFRXMDVjV2d4YlV4Mk4xa3dSREZoZG5aRGFtYxAB",
-      "author": "",
-      "rating": 5,
-      "text": "",
-      "date": "2026-10-15"
-    },
-    {
-      "id": "Ci9DQUlRQUNvZENodHljRjlvT2tKNmNWbHNXSGN3V21sd1dGWjJVbU5uTjFWblZrRRAB",
-      "author": "",
-      "rating": 5,
-      "text": "",
-      "date": "2026-10-14"
-    },
-    {
-      "id": "Ci9DQUlRQUNvZENodHljRjlvT21KU1FXdE9URzVvWlUxQlpqbE1ZakZ2YzJkVk5FRRAB",
-      "author": "",
-      "rating": 5,
-      "text": "",
-      "date": "2026-10-14"
     }
   ]
 }
