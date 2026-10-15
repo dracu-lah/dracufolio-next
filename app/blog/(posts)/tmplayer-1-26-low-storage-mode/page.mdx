@@ -96,13 +96,13 @@ Home now opens on what you were watching, with the time left on each card, then 
       height: 2400,
     },
     {
-      src: "/appwrite/projects/tmplayer-phone-grid.webp",
-      alt: "One chat's videos on a phone as a three column grid of thumbnails with length, size and quality",
+      src: "/appwrite/projects/tmplayer-phone-cinema-lounge.webp",
+      alt: "One chat's films on a phone as a grid of posters, with year, size and how many versions of each",
       width: 1080,
       height: 2400,
     },
   ]}
-  caption="On a phone: a show's page, whose overview says where it came from, the player on an episode, and one chat's videos."
+  caption="On a phone: a show's page, whose overview says where it came from, the player on an episode, and one chat's films as posters."
 />
 
 Choosing the poster turned out to be the fiddly part. In Arabic, searches for films like Amelie found nothing, because TMDB answers an Arabic search with the untranslated original title, and the tile fell back to the video's Telegram thumbnail, which for one film was an uploader's logo. A search with no result in the interface language is now asked again in English, and the match is then fetched in the interface language with its images in one call. The poster comes from that list in a fixed order: the interface language, then English or no language at all, then the title's original language. Anything not shaped like a poster is dropped first, which keeps out banners and channel badges:
