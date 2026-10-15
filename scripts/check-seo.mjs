@@ -37,6 +37,17 @@ for (const path of paths) {
   if (!/property="og:image"/.test(page.body)) fail(`${path}: no og:image`);
   const h1 = [...page.body.matchAll(/<h1[^>]*>([\s\S]*?)<\/h1>/g)];
   if (h1.length !== 1) fail(`${path}: ${h1.length} h1 elements, expected 1`);
+  // Where Google cuts a result off. Kept in step with TITLE_MAX and
+  // DESCRIPTION_MAX in app/lib/seo.ts. A post title longer than 60 on its own
+  // is allowed up to 70, since the suffix already came off.
+  const title = page.body.match(/<title>([^<]*)<\/title>/)?.[1] ?? "";
+  const description =
+    page.body.match(/<meta name="description" content="([^"]*)"/)?.[1] ?? "";
+  const plain = (s) => s.replace(/&amp;/g, "&").replace(/&#x27;|&#39;/g, "'");
+  if (plain(title).length > 70)
+    fail(`${path}: title is ${plain(title).length} characters`);
+  if (plain(description).length > 160)
+    fail(`${path}: description is ${plain(description).length} characters`);
 }
 
 // Sitemap hygiene.

@@ -28,7 +28,7 @@ const STEPS = [
   {
     title: "Talk",
     icon: CallTimer,
-    body: "A free twenty minute call, Malayalam or English. If I am wrong for it, I say so.",
+    body: "A free twenty minute call in Malayalam, English, Hindi or Tamil. If I am wrong for it, I say so.",
   },
   {
     title: "Quote",

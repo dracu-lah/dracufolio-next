@@ -30,9 +30,9 @@ import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL } from "@/data/contact";
 
 export const revalidate = 86400;
 
-const title = "Hire a Full Stack Developer in Thrissur";
+const title = "Freelance React and Next.js Developer";
 const description =
-  "Hire Nevil Krishna K, a full stack developer in Thrissur, Kerala. React, Next.js and TypeScript websites and web apps, React Native and Kotlin mobile apps, dashboards and Cloudflare deployment. Freelance and remote work across Kerala and India. WhatsApp +91 92079 32070 for a written quote.";
+  "Hire Nevil Krishna K, a freelance React and Next.js developer in Thrissur, Kerala. Websites, web apps and mobile apps. WhatsApp +91 92079 32070 for a quote.";
 
 export const metadata = pageMetadata({
   title,
@@ -67,7 +67,7 @@ const HirePage = async () => {
             <BackLink />
             <Reveal>
               <h1 className="font-display text-4xl leading-[1.05] font-bold tracking-tight md:text-5xl">
-                Hire a full stack developer in Thrissur, Kerala
+                Hire a freelance React and Next.js developer in Kerala
               </h1>
             </Reveal>
             <Reveal delay={0.06}>

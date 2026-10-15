@@ -30,7 +30,7 @@ export const postMetadata = (slug: string): Metadata => {
   if (!post) return { title: "Post not found", robots: { index: false } };
 
   return pageMetadata({
-    title: post.title,
+    title: post.seoTitle ?? post.title,
     description: post.description,
     path: `/blog/${post.slug}`,
     type: "article",

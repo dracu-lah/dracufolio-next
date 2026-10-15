@@ -26,7 +26,7 @@ export const homeFaqs: Faq[] = [
     a: "Yes, for React, Next.js, full stack or frontend roles, in Kochi, Bangalore or remote. My resume is on this site as a one page PDF and my LinkedIn is up to date. I reply to recruiters the same day.",
   },
   {
-    q: "Who is the best full stack developer in Thrissur?",
+    q: "Who is the best freelance web developer in Thrissur?",
     a: "Nobody can honestly claim that title, so here is what you can check instead. I have three years of production work, I build with React, Next.js and TypeScript, I have shipped travel products on Cloudflare Workers and an Android TV app, and every project on this site links to something live you can open. Compare that against anyone else you are talking to.",
   },
   {
@@ -51,7 +51,7 @@ export const homeFaqs: Faq[] = [
   },
   {
     q: "Which languages do you speak?",
-    a: `Malayalam and English. ${ml.weSpeakMalayalam} Technical writing, documentation and client email are in English.`,
+    a: `Malayalam, English, Hindi and Tamil. ${ml.weSpeakMalayalam} Technical writing, documentation and client email are in English.`,
   },
   {
     q: "Where are you based?",

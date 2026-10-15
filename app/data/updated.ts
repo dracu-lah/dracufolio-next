@@ -6,9 +6,9 @@
  */
 
 export const CONTENT_DATES = {
-  home: "2026-10-13",
-  hire: "2026-10-13",
-  locations: "2026-10-13",
+  home: "2026-10-15",
+  hire: "2026-10-15",
+  locations: "2026-10-15",
   projects: "2026-10-15",
   about: "2026-09-19",
   openSource: "2026-10-13",

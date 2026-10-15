@@ -4,9 +4,8 @@ import { PHONE_DISPLAY, X_HANDLE } from "@/data/contact";
 /**
  * The canonical origin, in one place. nevil.dev stays canonical: it is the
  * indexed domain, and .dev is on the HSTS preload list so it can only ever be
- * served over HTTPS. nevilkrishna.com redirects here rather than duplicating
- * the site. If that ever flips, set NEXT_PUBLIC_SITE_URL and nothing else in
- * the codebase needs to change.
+ * served over HTTPS. If the site ever moves to another domain, set
+ * NEXT_PUBLIC_SITE_URL and nothing else in the codebase needs to change.
  */
 export const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://nevil.dev"
@@ -16,9 +15,13 @@ export const SITE_NAME = "Nevil Krishna K";
 export const AUTHOR = "Nevil Krishna K";
 export const TITLE_TEMPLATE = "%s | Nevil Krishna K";
 
+/** Where Google truncates in results. `check-seo.mjs` holds pages to these. */
+export const TITLE_MAX = 60;
+export const DESCRIPTION_MAX = 160;
+
 /** The home page's title and description, also the root layout's defaults. */
 export const HOME_TITLE = `${AUTHOR} | Full Stack Developer in Thrissur, Kerala`;
-export const HOME_DESCRIPTION = `Nevil Krishna K is a full stack developer in Thrissur, Kerala with 3 years of React, Next.js and TypeScript experience, plus Kotlin and React Native on mobile. Available for jobs, freelance projects and remote contracts across India. WhatsApp ${PHONE_DISPLAY}.`;
+export const HOME_DESCRIPTION = `Nevil Krishna K, full stack developer in Thrissur, Kerala. React, Next.js, TypeScript and Kotlin. Freelance or full time. WhatsApp ${PHONE_DISPLAY}.`;
 
 export const absolute = (path: string) =>
   path.startsWith("http") ? path : `${SITE_URL}${path}`;
@@ -59,7 +62,14 @@ export const pageMetadata = ({
   absoluteTitle,
 }: PageMetaInput): Metadata => {
   const url = absolute(path);
-  const fullTitle = absoluteTitle ? title : `${title} | ${AUTHOR}`;
+  /*
+   * Google cuts a title at about 60 characters. A long post title keeps its
+   * words and loses the name instead, since the name is in og:site_name and
+   * the byline anyway, and a cut-off suffix only reads as "| Nevil Kri...".
+   */
+  const fitsSuffix = `${title} | ${AUTHOR}`.length <= TITLE_MAX;
+  const bare = absoluteTitle || !fitsSuffix;
+  const fullTitle = bare ? title : `${title} | ${AUTHOR}`;
   /*
    * alt travels with the image. A route that passes its own `image` opts out
    * of the opengraph-image file convention, and that convention was the only
@@ -71,7 +81,7 @@ export const pageMetadata = ({
     : undefined;
 
   return {
-    title: absoluteTitle ? { absolute: title } : title,
+    title: bare ? { absolute: title } : title,
     description,
     ...(keywords?.length ? { keywords } : {}),
     /*

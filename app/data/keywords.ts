@@ -9,14 +9,14 @@ import { mlKeywords } from "./ml";
 /** Title and H1 level phrases. One page owns each of these. */
 export const primaryPhrases = [
   "full stack developer in Thrissur",
-  "full stack developer Kerala",
-  "React developer Thrissur",
-  "Next.js developer Kerala",
-  "freelance web developer Thrissur",
-  "software developer Thrissur",
-  "hire a developer in Kerala",
+  "Next.js and React developer Kerala",
+  "freelance web developer in Thrissur",
+  "freelance web developer Kerala",
   "web developer in Thrissur",
+  "website developer Thrissur",
+  "freelance Next.js developer India",
   "mobile app developer Thrissur",
+  "hire a developer in Kerala",
   "Nevil Krishna K",
 ];
 
@@ -65,6 +65,7 @@ export const roleWords = [
 /** The short ones that read fine in a list on the page. */
 export const roleShortlist = [
   "Full stack developer",
+  "Freelance web developer",
   "Frontend developer",
   "Software engineer (SDE/SWE)",
   "React and Next.js developer",
@@ -75,6 +76,7 @@ export const roleShortlist = [
 /** Occupations for schema.org hasOccupation. */
 export const occupations = [
   "Full Stack Developer",
+  "Freelance Web Developer",
   "Frontend Developer",
   "Software Engineer",
   "React Developer",
@@ -132,8 +134,10 @@ export const metaKeywords = [
 export const locationKeywords = (name: string, altNames: string[] = []) => {
   const places = [name, ...altNames];
   return places.flatMap((place) => [
-    `full stack developer in ${place}`,
+    `freelance web developer in ${place}`,
     `web developer in ${place}`,
+    `website developer ${place}`,
+    `full stack developer in ${place}`,
     `React developer ${place}`,
     `software developer ${place}`,
     `freelance developer ${place}`,

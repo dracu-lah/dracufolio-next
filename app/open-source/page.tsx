@@ -8,7 +8,7 @@ import { AUTHOR, pageMetadata } from "@/lib/seo";
 import { CONTENT_DATES } from "@/data/updated";
 
 const description =
-  "Open source by Nevil Krishna K: TMPlayer, TapTL, LangSync, Resume Builder, Sway dotfiles, a Gmail cleanup CLI, and guides to Next.js on Cloudflare Workers and IKEv2 VPN on Linux.";
+  "Open source by Nevil Krishna K: TMPlayer, TapTL, LangSync, Resume Builder, Sway dotfiles, a Gmail cleanup CLI and a Next.js on Cloudflare guide.";
 
 export const metadata = pageMetadata({
   title: "Open Source",

@@ -42,10 +42,11 @@ import { AUTHOR, SITE_URL, absolute } from "./seo";
 
 const heading = () => `# ${AUTHOR}
 
-> Full stack developer in ${LOCALITY}, ${REGION}, India. React, Next.js and
-> TypeScript for the web, Kotlin and React Native for mobile. Three years of
-> production work. Available for full time roles, freelance projects and remote
-> contracts across India.
+> Full stack developer in ${LOCALITY}, ${REGION}, India, and a freelance web
+> developer for businesses across Kerala. React, Next.js and TypeScript for
+> the web, Kotlin and React Native for mobile. Three years of production work.
+> Available for full time roles, freelance projects and remote contracts across
+> India.
 
 Malayalam name: ${ml.name}
 Also known as: Nevil Krishna, nevil.dev

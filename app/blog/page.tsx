@@ -16,7 +16,7 @@ import { publishedPosts } from "@/data/posts";
 import { hasNotes } from "@/data/notes";
 
 const description =
-  "Notes from real work by Nevil Krishna K, a full stack developer in Thrissur, Kerala: Android and Media3, Next.js on Cloudflare Workers, React patterns and the SEO that comes with them.";
+  "Notes from real work by Nevil Krishna K, a full stack developer in Thrissur: Android and Media3, Next.js on Cloudflare Workers, React and SEO.";
 
 export const metadata = pageMetadata({
   title: "Blog",

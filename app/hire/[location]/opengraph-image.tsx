@@ -2,7 +2,7 @@ import { ogImage, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/og";
 import { locationBySlug, locations } from "@/data/locations";
 import { headline } from "../copy";
 
-export const alt = "Hire Nevil Krishna K, full stack developer";
+export const alt = "Hire Nevil Krishna K, freelance web developer";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 
@@ -20,7 +20,7 @@ const Image = async ({ params }: { params: Promise<{ location: string }> }) => {
     title: location ? location.name : "Hire me",
     description: location
       ? headline(location)
-      : "Full stack developer, Thrissur, Kerala.",
+      : "Freelance web developer, Thrissur, Kerala.",
   });
 };
 

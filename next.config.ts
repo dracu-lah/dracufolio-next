@@ -108,6 +108,30 @@ const nextConfig: NextConfig = {
       { source: "/blog/feed", destination: "/feed.xml", statusCode: 308 },
       { source: "/rss", destination: "/feed.xml", statusCode: 308 },
       { source: "/rss.xml", destination: "/feed.xml", statusCode: 308 },
+      // Paths people and old link checkers guess. Each one 404'd on 15 Oct.
+      { source: "/feed", destination: "/feed.xml", statusCode: 308 },
+      { source: "/atom.xml", destination: "/feed.xml", statusCode: 308 },
+      { source: "/sitemap", destination: "/sitemap.xml", statusCode: 308 },
+      { source: "/home", destination: "/", statusCode: 308 },
+      { source: "/index.html", destination: "/", statusCode: 308 },
+      { source: "/resume.pdf", destination: RESUME, statusCode: 308 },
+      { source: "/about-me", destination: "/about", statusCode: 308 },
+      { source: "/skills", destination: "/about", statusCode: 308 },
+      { source: "/contact-me", destination: "/#contact", statusCode: 308 },
+      { source: "/works", destination: "/projects", statusCode: 308 },
+      { source: "/project", destination: "/projects", statusCode: 308 },
+      { source: "/blogs/:slug*", destination: "/blog/:slug*", statusCode: 308 },
+      { source: "/posts/:slug*", destination: "/blog/:slug*", statusCode: 308 },
+      { source: "/post/:slug*", destination: "/blog/:slug*", statusCode: 308 },
+      { source: "/tags/:rest*", destination: "/blog", statusCode: 308 },
+      { source: "/tag/:rest*", destination: "/blog", statusCode: 308 },
+      // Old and English names for places, so a guessed town still lands.
+      { source: "/hire/trichur/:rest*", destination: "/hire/thrissur", statusCode: 308 },
+      {
+        source: "/hire/:city(kochi|cochin|trivandrum|calicut)/:rest*",
+        destination: "/hire/kerala",
+        statusCode: 308,
+      },
     ];
   },
 

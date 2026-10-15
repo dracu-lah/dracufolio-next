@@ -7,6 +7,7 @@ import {
   GOOGLE_MAPS_URL,
   HOURS,
   LANGUAGE_CODES,
+  LANGUAGES,
   LINKEDIN_URL,
   LOCALITY,
   PHONE_E164,
@@ -80,6 +81,13 @@ export const sameAs = [
   "https://resumebuilder.js.org",
 ];
 
+const LANGUAGE_NAMES: Record<string, string> = {
+  ml: "Malayalam",
+  en: "English",
+  hi: "Hindi",
+  ta: "Tamil",
+};
+
 const personNode = {
   "@type": "Person",
   "@id": ID.person,
@@ -87,6 +95,7 @@ const personNode = {
   alternateName: ["Nevil Krishna", "Nevil"],
   givenName: "Nevil",
   familyName: "Krishna",
+  description: `Full stack developer in ${LOCALITY}, ${REGION}, working in React, Next.js and TypeScript on the web and Kotlin on Android. Takes freelance web projects across Kerala and India.`,
   url: `${SITE_URL}/`,
   image: portrait,
   telephone: PHONE_E164,
@@ -104,7 +113,7 @@ const personNode = {
   knowsLanguage: LANGUAGE_CODES.map((code) => ({
     "@type": "Language",
     alternateName: code,
-    name: code === "ml" ? "Malayalam" : "English",
+    name: LANGUAGE_NAMES[code],
   })),
   address: postalAddress,
   homeLocation: {
@@ -138,7 +147,8 @@ const serviceNode = {
   "@type": "ProfessionalService",
   "@id": ID.service,
   name: `${AUTHOR}, web and app development`,
-  alternateName: `Full stack developer in ${LOCALITY}`,
+  alternateName: `Freelance web developer in ${LOCALITY}`,
+  description: `Freelance web development from ${LOCALITY}, ${REGION}: websites, web apps, dashboards and mobile apps in React, Next.js, React Native and Kotlin, quoted per project.`,
   url: `${SITE_URL}/hire`,
   founder: ref(ID.person),
   employee: ref(ID.person),
@@ -170,7 +180,7 @@ const serviceNode = {
       contactType: "sales",
       telephone: PHONE_E164,
       email: EMAIL,
-      availableLanguage: ["Malayalam", "English"],
+      availableLanguage: LANGUAGES,
       url: WHATSAPP_URL,
     },
   ],

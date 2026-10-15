@@ -35,6 +35,7 @@ import {
   inPersonAnswer,
   intro,
   metaDescription,
+  metaTitle,
   reasons,
   whatsappMessage,
 } from "../copy";
@@ -56,7 +57,7 @@ export const generateMetadata = async ({
   if (!location) return { title: "Not found", robots: { index: false } };
 
   return pageMetadata({
-    title: headline(location),
+    title: metaTitle(location),
     description: metaDescription(location),
     path: `/hire/${location.slug}`,
     keywords: locationKeywords(location.name, location.altNames),

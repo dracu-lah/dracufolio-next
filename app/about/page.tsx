@@ -9,7 +9,7 @@ import { CONTENT_DATES } from "@/data/updated";
 import { roleWords } from "@/data/keywords";
 
 const description =
-  "Nevil Krishna K is a full stack developer in Thrissur, Kerala, working with React, Next.js and TypeScript on travel products at Lascade, Kotlin on Android, and open source the rest of the time. Available for jobs, freelance and remote work across India.";
+  "Nevil Krishna K is a full stack developer in Thrissur, Kerala: React, Next.js and TypeScript at Lascade, Kotlin on Android, and open source in between.";
 
 export const metadata = pageMetadata({
   title: "About: full stack developer in Thrissur",

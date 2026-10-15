@@ -1,5 +1,5 @@
 import type { Location } from "@/data/locations";
-import { LOCALITY } from "@/data/contact";
+import { LOCALITY, PHONE_DISPLAY } from "@/data/contact";
 
 /**
  * Per-location copy. This module exists so the difference between the hire
@@ -16,17 +16,26 @@ import { LOCALITY } from "@/data/contact";
 const DRIVABLE = new Set(["thrissur", "palakkad", "ernakulam", "malappuram"]);
 
 export const headline = (location: Location) => {
-  if (location.kind === "country") return "Hire a full stack developer in India";
+  if (location.kind === "country") return "Hire a freelance web developer in India";
   if (location.kind === "state")
-    return "Full stack developer in Kerala, available across all 14 districts";
+    return "Freelance web developer in Kerala, all 14 districts";
   if (location.kind === "town")
-    return `Full stack developer in ${location.name}, ${location.district}`;
-  return `Full stack developer in ${location.name}, Kerala`;
+    return `Freelance web developer in ${location.name}, ${location.district}`;
+  return `Freelance web developer in ${location.name}, Kerala`;
+};
+
+/**
+ * The <title>, kept apart from the h1 so it fits in a search result. The
+ * district stays in the h1 and the description, where there is room for it.
+ */
+export const metaTitle = (location: Location) => {
+  if (location.kind === "country") return "Hire a freelance web developer in India";
+  return `Freelance web developer in ${location.name}`;
 };
 
 export const intro = (location: Location) => {
   if (location.kind === "country")
-    return "I work with teams and businesses across India from Thrissur, Kerala. Web apps, websites, dashboards and mobile apps, on Indian hours, in English or Malayalam.";
+    return "I work with teams and businesses across India from Thrissur, Kerala. Web apps, websites, dashboards and mobile apps, on Indian hours, in English, Hindi, Tamil or Malayalam.";
   if (location.kind === "state")
     return "I am based in Thrissur and take work from every district in Kerala. Some of it in person, most of it remote, all of it with the same written scope and weekly demos.";
   if (location.kind === "town")
@@ -116,11 +125,9 @@ export const whatsappMessage = (location: Location) =>
   }. I would like to talk about a project.`;
 
 export const metaDescription = (location: Location) => {
-  const roles =
-    "Full stack, React, Next.js and mobile app developer";
   if (location.kind === "country")
-    return `${roles} available across India, based in ${LOCALITY}, Kerala. Websites, web apps, dashboards and Android apps. WhatsApp +91 92079 32070 for a quote.`;
-  return `${roles} for ${location.name}${
-    location.kind === "town" ? `, ${location.district} district` : ""
-  }. Websites, web apps, dashboards and mobile apps built in ${LOCALITY}, Kerala. WhatsApp +91 92079 32070 for a written quote.`;
+    return `Freelance web developer for all of India, based in ${LOCALITY}, Kerala. React and Next.js websites, web apps and Android apps. WhatsApp ${PHONE_DISPLAY}.`;
+  return `Freelance web developer for ${location.name}${
+    location.kind === "town" ? `, ${location.district}` : ""
+  }. React and Next.js websites, web apps and mobile apps. WhatsApp ${PHONE_DISPLAY} for a quote.`;
 };

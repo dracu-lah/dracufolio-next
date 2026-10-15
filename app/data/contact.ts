@@ -65,9 +65,9 @@ export const GOOGLE_REVIEW_URL = GOOGLE_MAPS_URL;
 export const RESUME_PATH = "/appwrite/resume/Nevil-3-Years-Frontend-Resume.pdf";
 export const PORTRAIT_PATH = "/nevil-krishna-k.jpg";
 
-export const LANGUAGES = ["Malayalam", "English"];
+export const LANGUAGES = ["Malayalam", "English", "Hindi", "Tamil"];
 /** Schema.org language codes for knowsLanguage. */
-export const LANGUAGE_CODES = ["ml", "en"];
+export const LANGUAGE_CODES = ["ml", "en", "hi", "ta"];
 
 export const LOCALITY = "Thrissur";
 export const REGION = "Kerala";
