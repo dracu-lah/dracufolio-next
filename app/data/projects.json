@@ -39,7 +39,7 @@
       "GPL-3.0"
     ],
     "images": [
-      "/appwrite/projects/tmplayer.webp"
+      "/appwrite/projects/tmplayer-site-home.webp"
     ],
     "liveUrl": "https://tmplayer.org",
     "githubUrl": "https://github.com/dracu-lah/TMPlayer",
@@ -49,8 +49,8 @@
     "logo": "/logos/tmplayer.png",
     "gallery": [
       {
-        "src": "/appwrite/projects/tmplayer.webp",
-        "alt": "The tmplayer.org home page, with the app's chat screen below the download button",
+        "src": "/appwrite/projects/tmplayer-site-home.webp",
+        "alt": "The tmplayer.org home page, offering v1.26.0, with the app's Home screen below the download button",
         "width": 1920,
         "height": 1080
       },
@@ -67,38 +67,38 @@
         "height": 420
       },
       {
-        "src": "/appwrite/projects/tmplayer-tv.webp",
-        "alt": "Browsing Telegram chats on a television",
+        "src": "/appwrite/projects/tmplayer-tv-chats.webp",
+        "alt": "Browsing Telegram chats on a television, with Jump back in and starred chats first",
         "width": 1920,
         "height": 1080
       },
       {
-        "src": "/appwrite/projects/tmplayer-tv-grid.webp",
-        "alt": "One chat's videos as a grid on the TV, each tile with its quality, running time and size",
+        "src": "/appwrite/projects/tmplayer-tv-chat-posters.webp",
+        "alt": "One chat's films as posters on the TV, each with its quality, year and size",
         "width": 1920,
         "height": 1080
       },
       {
-        "src": "/appwrite/projects/tmplayer-desktop.webp",
-        "alt": "The desktop app, a sidebar of chat sections beside a grid of videos",
+        "src": "/appwrite/projects/tmplayer-desktop-grid.webp",
+        "alt": "The desktop app, a sidebar of sections beside one chat's films as posters",
         "width": 1920,
         "height": 1200
       },
       {
-        "src": "/appwrite/projects/tmplayer-desktop-player.webp",
+        "src": "/appwrite/projects/tmplayer-desktop-player-orbit.webp",
         "alt": "The desktop player, its title, timebar and controls over a playing video",
         "width": 1920,
         "height": 1200
       },
       {
-        "src": "/appwrite/projects/tmplayer-phone-chats.webp",
-        "alt": "The phone app's chat list",
+        "src": "/appwrite/projects/tmplayer-phone-chats-list.webp",
+        "alt": "The phone app's chat list, with Jump back in and starred chats first",
         "width": 1080,
         "height": 2400
       },
       {
-        "src": "/appwrite/projects/tmplayer-phone-grid.webp",
-        "alt": "One chat's videos on a phone",
+        "src": "/appwrite/projects/tmplayer-phone-cinema-lounge.webp",
+        "alt": "One chat's films on a phone as a grid of posters",
         "width": 1080,
         "height": 2400
       },
