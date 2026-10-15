@@ -120,9 +120,10 @@ const nextConfig: NextConfig = {
       { source: "/contact-me", destination: "/#contact", statusCode: 308 },
       { source: "/works", destination: "/projects", statusCode: 308 },
       { source: "/project", destination: "/projects", statusCode: 308 },
-      { source: "/blogs/:slug*", destination: "/blog/:slug*", statusCode: 308 },
-      { source: "/posts/:slug*", destination: "/blog/:slug*", statusCode: 308 },
-      { source: "/post/:slug*", destination: "/blog/:slug*", statusCode: 308 },
+      // The bare paths get their own rule: on Vercel an empty `:slug*` left a
+      // trailing slash, and /blog/ then took a second hop to /blog.
+      { source: "/:old(blogs|posts|post)", destination: "/blog", statusCode: 308 },
+      { source: "/:old(blogs|posts|post)/:slug+", destination: "/blog/:slug+", statusCode: 308 },
       { source: "/tags/:rest*", destination: "/blog", statusCode: 308 },
       { source: "/tag/:rest*", destination: "/blog", statusCode: 308 },
       // Old and English names for places, so a guessed town still lands.
