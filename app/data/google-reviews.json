@@ -1,8 +1,8 @@
 {
   "profileUrl": "https://www.google.com/maps?cid=14537750488451498062",
   "rating": 5,
-  "count": 8,
-  "checked": "2026-10-13",
+  "count": 13,
+  "checked": "2026-10-15",
   "reviews": [
     {
       "id": "Ci9DQUlRQUNvZENodHljRjlvT2xRMGNWRklNWE5XT0VkYVUxVjFaRUl6YW1Gc2IyYxAB",
@@ -83,6 +83,27 @@
       "avatar": "https://lh3.googleusercontent.com/a-/ALV-UjVzjHYEj5F5gwmyOVvA-Jd60WbTCwks7REq3bcxdxIi6hOspo_iBw",
       "localGuide": true,
       "reviewerReviews": 4
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2tWSFRXMDVjV2d4YlV4Mk4xa3dSREZoZG5aRGFtYxAB",
+      "author": "",
+      "rating": 5,
+      "text": "",
+      "date": "2026-10-15"
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT2tKNmNWbHNXSGN3V21sd1dGWjJVbU5uTjFWblZrRRAB",
+      "author": "",
+      "rating": 5,
+      "text": "",
+      "date": "2026-10-14"
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT21KU1FXdE9URzVvWlUxQlpqbE1ZakZ2YzJkVk5FRRAB",
+      "author": "",
+      "rating": 5,
+      "text": "",
+      "date": "2026-10-14"
     }
   ]
 }

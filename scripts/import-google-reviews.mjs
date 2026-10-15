@@ -191,6 +191,12 @@ const reviews = scraped.reviews.map((r) => {
   };
 });
 
+// Maps loads reviews as the list scrolls, and a slow load can stop the scroll
+// early. On 15 Oct a run read 3 of 13 and the file lost all 8 reviews the site
+// showed. A review already in the file stays unless this run read it again.
+const seenIds = new Set(reviews.map((r) => r.id));
+for (const r of current.reviews) if (!seenIds.has(r.id)) reviews.push(r);
+
 // The header reads "5.0(7)" in one layout and "5.0 8 reviews" in another.
 const header = scraped.header.replace(/\s+/g, " ").match(/(\d[.,]\d)\s*\(?\s*([\d,]+)/);
 const next = {
@@ -203,9 +209,16 @@ const next = {
 
 writeFileSync(FILE, JSON.stringify(next, null, 2) + "\n");
 const added = reviews.filter((r) => !known.has(r.id));
-const waiting = reviews.filter((r) => !consent[r.id]?.consent).map((r) => r.id);
+// The name and words go to the terminal only, so you can tell who to ask and
+// whether the review is worth showing. They are never written to the file.
+const waiting = scraped.reviews
+  .filter((r) => !consent[r.id]?.consent)
+  .map((r) => {
+    const text = r.text.replace(/\s*…\s*$/, "").replace(/\s+/g, " ").trim();
+    return `${r.id}\n    ${r.author}, ${r.stars.match(/\d/)?.[0] ?? "?"} stars, ${r.when}\n    ${text || "(no text)"}`;
+  });
 console.log(
-  `${reviews.length} reviews read, ${next.rating.toFixed(1)} from ${next.count}. ` +
+  `${scraped.reviews.length} reviews read, ${reviews.length} kept, ${next.rating.toFixed(1)} from ${next.count}. ` +
     (added.length ? `${added.length} new.` : "No new reviews.") +
     (waiting.length
       ? `\nNot shown until the reviewer agrees, then add their id to ${CONSENT}:\n  ${waiting.join("\n  ")}`
