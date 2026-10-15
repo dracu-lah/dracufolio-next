@@ -121,6 +121,15 @@ run the audits before every push.
   generated at build time in `app/lib/qr.ts`, never in the browser, and always dark on a
   white tile because scanners cope badly with inverted codes.
 
+- **TMPlayer never reads like a piracy tool.** It plays the videos already in your own
+  Telegram chats and hosts or finds no media. Name no real film, show or anime (the demo
+  library's invented titles only), and never write "uploader", "movie channel", "a film
+  sitting in a channel" or "watch any movie". Copy that leaves the repo (social posts,
+  slides, store and directory listings) says "video", not "film" or "movie"; in a post,
+  "film" is fine for a file size. Every TMPlayer post links
+  [lawful use](https://tmplayer.org/legal/) near the top. A review that says otherwise is
+  the reviewer's words: never edit it, hide it with `hidden` in `review-consent.json` and
+  tell Nevil.
 - **Company work is never named.** Products built for an employer or a client belong to
   them, and they may not want it known who built them. No product name, URL, logo,
   screenshot or identifying detail of company or client work goes anywhere in this repo:

@@ -167,9 +167,10 @@ const toDate = (when) => {
 // this public repo.
 const consent = JSON.parse(readFileSync(CONSENT, "utf8")).reviews;
 const known = new Map(current.reviews.map((r) => [r.id, r]));
+const shown = (id) => Boolean(consent[id]?.consent) && !consent[id]?.hidden;
 const reviews = scraped.reviews.map((r) => {
   const before = known.get(r.id);
-  if (!consent[r.id]?.consent) {
+  if (!shown(r.id)) {
     return {
       id: r.id,
       author: "",
@@ -212,7 +213,7 @@ const added = reviews.filter((r) => !known.has(r.id));
 // The name and words go to the terminal only, so you can tell who to ask and
 // whether the review is worth showing. They are never written to the file.
 const waiting = scraped.reviews
-  .filter((r) => !consent[r.id]?.consent)
+  .filter((r) => !consent[r.id]?.consent && !consent[r.id]?.hidden)
   .map((r) => {
     const text = r.text.replace(/\s*…\s*$/, "").replace(/\s+/g, " ").trim();
     return `${r.id}\n    ${r.author}, ${r.stars.match(/\d/)?.[0] ?? "?"} stars, ${r.when}\n    ${text || "(no text)"}`;

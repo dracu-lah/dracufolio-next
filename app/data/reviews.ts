@@ -40,7 +40,7 @@ export const googleRating = {
 
 export const googleReviews: GoogleReview[] = data.reviews;
 
-type ReviewSettings = { consent?: string; priority?: number };
+type ReviewSettings = { consent?: string; hidden?: string; priority?: number };
 
 /**
  * Consent and order live in review-consent.json, not here and not in the
@@ -51,7 +51,9 @@ type ReviewSettings = { consent?: string; priority?: number };
  */
 const settings: Record<string, ReviewSettings> = consentFile.reviews;
 
-const consented = (review: GoogleReview) => Boolean(settings[review.id]?.consent);
+// A hidden review keeps its consent on record but is not shown again.
+const consented = (review: GoogleReview) =>
+  Boolean(settings[review.id]?.consent) && !settings[review.id]?.hidden;
 const priorityOf = (review: GoogleReview) =>
   settings[review.id]?.priority ?? Number.POSITIVE_INFINITY;
 

@@ -1,5 +1,5 @@
 {
-  "_readme": "Reviews shown on the site, by Google review id. consent is the date the reviewer agreed to their name, photo and words appearing on nevil.dev (confirmed by Nevil). A review with no entry here counts in the rating but is never shown, and the import keeps only its id. priority is optional: 1 shows first, and reviews without one follow in the automatic order.",
+  "_readme": "Reviews shown on the site, by Google review id. consent is the date the reviewer agreed to their name, photo and words appearing on nevil.dev (confirmed by Nevil). A review with no entry here counts in the rating but is never shown, and the import keeps only its id. priority is optional: 1 shows first, and reviews without one follow in the automatic order. hidden takes a consented review off the site again (the date and why); it still counts in the rating, and the import stores it as an id only, like a review without consent.",
   "reviews": {
     "Ci9DQUlRQUNvZENodHljRjlvT2xRMGNWRklNWE5XT0VkYVUxVjFaRUl6YW1Gc2IyYxAB": {
       "consent": "2026-10-13"
@@ -29,7 +29,8 @@
       "consent": "2026-10-15"
     },
     "Ci9DQUlRQUNvZENodHljRjlvT21KU1FXdE9URzVvWlUxQlpqbE1ZakZ2YzJkVk5FRRAB": {
-      "consent": "2026-10-15"
+      "consent": "2026-10-15",
+      "hidden": "2026-10-15: it describes watching any movies from Telegram, which reads as piracy next to TMPlayer"
     }
   }
 }
