@@ -8,9 +8,9 @@ export const metadata = postMetadata(slug);
 
 [The last TMPlayer post](/blog/tmplayer-on-windows-and-linux) ended with "I would ship fewer releases". TMPlayer 1.26.0 came out on 14 October, five days after 1.25.0, and it is one release instead of five. It is also the biggest one yet: 199 commits, 288 new strings in each of 21 languages, and about 340 new tests.
 
-This post goes through what is in it. Most of the space goes to the parts with a mechanism worth explaining: streaming a film larger than the free space, the rows on the Android TV home screen, and a Mac build made without a Mac. The smaller features get a paragraph each.
+This post goes through what is in it. Most of the space goes to the parts with a mechanism worth explaining: streaming a video larger than the free space, the rows on the Android TV home screen, and a Mac build made without a Mac. The smaller features get a paragraph each.
 
-Everything here is from [TMPlayer](https://github.com/dracu-lah/TMPlayer), which is GPL-3.0. It plays the videos already in your own Telegram chats and hosts or finds no media of its own, so it is for videos you own or have the right to watch ([lawful use](https://tmplayer.org/legal/)).
+Everything here is from [TMPlayer](https://tmplayer.org/), a Telegram video player for Android TV, phones and computers. It is GPL-3.0, with the [source on GitHub](https://github.com/dracu-lah/TMPlayer), and the short list of changes is in the [1.26.0 release notes](https://tmplayer.org/changelog/1.26.0). It plays the videos already in your own Telegram chats and hosts or finds no media of its own, so it is for videos you own or have the right to watch ([lawful use](https://tmplayer.org/legal/)).
 
 <Figure
   src="/appwrite/projects/tmplayer-tv-home.webp"
@@ -20,9 +20,9 @@ Everything here is from [TMPlayer](https://github.com/dracu-lah/TMPlayer), which
   caption="The new Home on Android TV, from the demo library the screenshots are taken with."
 />
 
-## A film bigger than the free space
+## A video bigger than the free space
 
-TMPlayer was built for a TV stick with a gigabyte of RAM and under 5 GB of usable storage. Streaming a video from Telegram means TDLib downloads it to disk while the player reads it, so a 6 GB film on a stick with 3 GB free could not play at all. Low storage mode fixes that by keeping only a window of the film on disk.
+TMPlayer was built for a TV stick with a gigabyte of RAM and under 5 GB of usable storage. Streaming a video from Telegram means TDLib downloads it to disk while the player reads it, so a 6 GB video on a stick with 3 GB free could not play at all. Low storage mode fixes that by keeping only a window of the video on disk.
 
 The constraint that shaped it is that TDLib can only delete a whole file. There is no call to drop the first hour and keep the rest. What it does have is a bounded download: `downloadFile` takes an offset and a limit, fetches only that range, and leaves the rest of the file as a sparse hole that takes no disk space. On the desktop TDLib, a 549 MB file restarted at 509 MB took 40 MB on disk.
 
@@ -44,17 +44,17 @@ fun plan(ranges: List<Range>, offset: Long, size: Long, window: Long, roll: Bool
 
 The first version passed every unit test and then misbehaved on the TV emulator in three ways.
 
-- **A limit of 0 means "no limit" to TDLib.** Near the end of a file the computed limit could reach 0, and TDLib took that as permission to carry on from the start until it had the whole film. After a seek into the last third of a 369 MB film, it had filled 332 MB. That is what the `coerceAtLeast(1)` above is for.
+- **A limit of 0 means "no limit" to TDLib.** Near the end of a file the computed limit could reach 0, and TDLib took that as permission to carry on from the start until it had the whole video. After a seek into the last third of a 369 MB video, it had filled 332 MB. That is what the `coerceAtLeast(1)` above is for.
 - **A seek inside the window deleted the bytes it was about to read.** MKV and MP4 files keep their index near the end, so the player reads the far end and then jumps back. If that jump went over budget, the plan deleted the file and refetched what was already there. A request from inside what is on disk now grows that stretch instead.
-- **The mode was switched off too early.** It was revoked when the screen closed, before the player's last reads had finished, and a late read could then ask TDLib for the rest of the film with no limit. It is now revoked only after `player.release()`.
+- **The mode was switched off too early.** It was revoked when the screen closed, before the player's last reads had finished, and a late read could then ask TDLib for the rest of the video with no limit. It is now revoked only after `player.release()`.
 
-The free space check measures the window instead of the file. When a video does not fit and the mode is off, TMPlayer asks "Not enough room for this video. Switch to Low storage mode and stream it?" rather than refusing. A video being downloaded to keep is never put through the window, and the check runs before every request, so a film you start downloading halfway through is never deleted again.
+The free space check measures the window instead of the file. When a video does not fit and the mode is off, TMPlayer asks "Not enough room for this video. Switch to Low storage mode and stream it?" rather than refusing. A video being downloaded to keep is never put through the window, and the check runs before every request, so a video you start downloading halfway through is never deleted again.
 
-On the emulator, a 2.7 GB film on 1.1 GB free held 200 MB, rolled on time and played through. A test harness against a real TDLib read 150 MB through a 40 MB window, peaked at 32 MB on disk, and matched the SHA-256 of a plain read, including a seek back.
+On the emulator, a 2.7 GB video on 1.1 GB free held 200 MB, rolled on time and played through. A test harness against a real TDLib read 150 MB through a 40 MB window, peaked at 32 MB on disk, and matched the SHA-256 of a plain read, including a seek back.
 
 ## Save mobile data
 
-Before this release, streaming asked TDLib for the whole rest of the file. On Wi-Fi that is what you want. On mobile data, a film you stopped after 20 minutes could have cost most of its size.
+Before this release, streaming asked TDLib for the whole rest of the file. On Wi-Fi that is what you want. On mobile data, a video you stopped after 20 minutes could have cost most of its size.
 
 Save mobile data uses the same range tracking with nothing deleted. On a metered connection, a request reaches 100 MB past the read position and is extended once reading comes within 16 MB of its end. The connection is checked at every request, so walking out of Wi-Fi bounds the next read and walking back in unbounds it.
 
@@ -97,12 +97,12 @@ Home now opens on what you were watching, with the time left on each card, then 
     },
     {
       src: "/appwrite/projects/tmplayer-phone-cinema-lounge.webp",
-      alt: "One chat's films on a phone as a grid of posters, with year, size and how many versions of each",
+      alt: "One chat's videos on a phone as a grid of posters, with year, size and how many versions of each",
       width: 1080,
       height: 2400,
     },
   ]}
-  caption="On a phone: a show's page, whose overview says where it came from, the player on an episode, and one chat's films as posters."
+  caption="On a phone: a show's page, whose overview says where it came from, the player on an episode, and one chat's videos as posters."
 />
 
 Choosing the poster turned out to be the fiddly part. In Arabic, searches for some well known foreign titles found nothing, because TMDB answers an Arabic search with the untranslated original title, and the tile fell back to the video's Telegram thumbnail, which is often not a poster at all. A search with no result in the interface language is now asked again in English, and the match is then fetched in the interface language with its images in one call. The poster comes from that list in a fixed order: the interface language, then English or no language at all, then the title's original language. Anything not shaped like a poster is dropped first, which keeps out banners and logos:
@@ -121,7 +121,7 @@ On Android TV, TMPlayer now puts a row on the launcher itself, built from Home's
 
 <Figure
   src="/appwrite/projects/tmplayer-tv-home-screen.webp"
-  alt="The Android TV home screen with a row labelled TMPlayer: Recently added, showing film posters"
+  alt="The Android TV home screen with a row labelled TMPlayer: Recently added, showing video posters"
   width={1440}
   height={420}
   caption="TMPlayer's row on the Android TV home screen."
@@ -169,7 +169,7 @@ fun assess(probe: DeviceProbe): DeviceFit {
 }
 ```
 
-The lines are 2 GB of memory on a phone, 1.5 GB on a TV, Android 8 or newer, and 3 GB free, which is about three films. A device short of storage is pointed at Low storage mode. A device short of memory is offered Lighter pictures (images decoded smaller, a smaller picture cache) and Reduce motion. The same advice shows up later if the player drops 30 or more frames, or Android says memory is running low.
+The lines are 2 GB of memory on a phone, 1.5 GB on a TV, Android 8 or newer, and 3 GB free, which is about three videos. A device short of storage is pointed at Low storage mode. A device short of memory is offered Lighter pictures (images decoded smaller, a smaller picture cache) and Reduce motion. The same advice shows up later if the player drops 30 or more frames, or Android says memory is running low.
 
 ## In the player
 
@@ -194,10 +194,10 @@ On Windows, the window is now undecorated and TMPlayer draws its own minimise, m
 
 <Figure
   src="/appwrite/projects/tmplayer-desktop-grid.webp"
-  alt="The desktop app showing one chat's films as a grid of posters, with the sidebar on the left"
+  alt="The desktop app showing one chat's videos as a grid of posters, with the sidebar on the left"
   width={1920}
   height={1200}
-  caption="One chat on the desktop, its films shown as posters."
+  caption="One chat on the desktop, its videos shown as posters."
 />
 
 1.26.0 also has a macOS preview for Apple Silicon. I do not own a Mac, so it is built and tested on GitHub's macOS 26 runners. The job runs the desktop tests, builds the app, signs it ad hoc, runs the app's own self-test, packs the DMG, then mounts the DMG read-only and runs the self-test again from inside it.

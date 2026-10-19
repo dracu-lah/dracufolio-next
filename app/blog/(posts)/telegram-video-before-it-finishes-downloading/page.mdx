@@ -16,7 +16,7 @@ export const svgText = "text-[30px] min-[560px]:text-[19px]";
 
 A video in one of your own Telegram chats starts playing in TMPlayer within a few seconds, and nothing has been downloaded when it starts. Seeking to minute 90 does not wait for minutes 1 to 89 either. The part that makes that work is one Media3 `DataSource` of 394 lines and one arithmetic class of 61, and the second one is where I got it wrong.
 
-Everything below is from my own app, [TMPlayer](https://github.com/dracu-lah/TMPlayer), which is GPL-3.0 and built on Media3 1.10.1 and tdl-coroutines 9.0.0. It plays what is already in your chats and hosts or finds no media of its own ([lawful use](https://tmplayer.org/legal/)).
+Everything below is from my own app, [TMPlayer](https://tmplayer.org/features/), which is GPL-3.0 ([source on GitHub](https://github.com/dracu-lah/TMPlayer)) and built on Media3 1.10.1 and tdl-coroutines 9.0.0. It plays what is already in your chats and hosts or finds no media of its own ([lawful use](https://tmplayer.org/legal/)).
 
 <Figure
   src="/appwrite/projects/tmplayer.webp"
@@ -60,7 +60,7 @@ A limit of 0 means keep going to the end of the file, which is exactly what play
 
 The important constraint is that TDLib holds one contiguous stretch of the file per download and frees what falls outside it. Asking for a new offset moves that stretch, it does not add a second one.
 
-<Figure caption={<>One window, and the player reads inside it. <code className="font-mono text-foreground">open</code> answers with the distance from the position to the end of the window, which is why a film plays before it has finished downloading and why a byte behind the window is worth nothing.</>}>
+<Figure caption={<>One window, and the player reads inside it. <code className="font-mono text-foreground">open</code> answers with the distance from the position to the end of the window, which is why a video plays before it has finished downloading and why a byte behind the window is worth nothing.</>}>
   <svg
     viewBox="0 0 560 372"
     role="img"
@@ -132,7 +132,7 @@ The `completed` flag it takes is not TDLib's own. `LocalFilePolicy.evaluate` in 
 
 ## Seeking into a hole
 
-The bug that taught me the near end of the window matters shipped in commit `a6de327`. Seek forward, watch for a while, seek back, and playback died with "No valid varint length mask found"; the only way out was Back, which destroys the activity and builds a fresh source. It was reproducible on any partially downloaded film.
+The bug that taught me the near end of the window matters shipped in commit `a6de327`. Seek forward, watch for a while, seek back, and playback died with "No valid varint length mask found"; the only way out was Back, which destroys the activity and builds a fresh source. It was reproducible on any partially downloaded video.
 
 The cause was the fast path. `TdDataSource` cached the window so that small reads cost nothing, but it remembered only the far end. After a forward seek, TDLib had moved its stretch ahead and freed what was behind it, while the cached far end was still a long way past the byte the player now wanted. The subtraction happily reported half a megabyte available. The partial file keeps its full length on disk, so the `RandomAccessFile` read succeeded and handed the extractor a hole full of zeroes.
 
@@ -181,7 +181,7 @@ The cause was the fast path. `TdDataSource` cached the window so that small read
   </svg>
 </Figure>
 
-`DownloadWindow.availableAt` had the correct check the whole time and was simply never reached. The fix was to hold the window as one value with both ends, so a reader can never catch a new start against an old end, and to route every question through that function. About two hundred seek events on a real film, most of them forward and then back, with no source error.
+`DownloadWindow.availableAt` had the correct check the whole time and was simply never reached. The fix was to hold the window as one value with both ends, so a reader can never catch a new start against an old end, and to route every question through that function. About two hundred seek events on a real video, most of them forward and then back, with no source error.
 
 Re-aiming the download is the other half, and it is deliberately reluctant:
 

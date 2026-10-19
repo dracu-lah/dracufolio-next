@@ -46,10 +46,11 @@ export const posts: Post[] = [
   },
   {
     slug: "tmplayer-1-26-low-storage-mode",
-    title: "TMPlayer 1.26.0: streaming a film bigger than the free space",
+    title: "TMPlayer 1.26.0: streaming a video bigger than the free space",
     description:
-      "TMPlayer 1.26.0 streams a film bigger than the free space through a rolling download window, adds Android TV home rows and posters, and a Mac build from CI.",
+      "TMPlayer 1.26.0 streams a video bigger than the free space through a rolling download window, adds Android TV home rows and posters, and a Mac build from CI.",
     date: "2026-10-15",
+    updated: "2026-10-19",
     tags: ["Kotlin", "Android TV", "TDLib", "Compose Desktop", "macOS"],
     readingMinutes: 12,
     image: "/appwrite/projects/tmplayer-tv-home.webp",
@@ -92,6 +93,7 @@ export const posts: Post[] = [
     description:
       "Eleven TMPlayer releases in three weeks: one streaming core for Media3 and libmpv, a Windows file lock, a crash only TVs had, and a download cut in half.",
     date: "2026-10-13",
+    updated: "2026-10-19",
     tags: ["Kotlin", "Compose Desktop", "libmpv", "TDLib", "Android TV"],
     readingMinutes: 7,
     image: "/appwrite/projects/tmplayer-desktop.webp",
@@ -103,6 +105,7 @@ export const posts: Post[] = [
     description:
       "How TMPlayer plays a Telegram video on Android TV while it downloads: a custom Media3 DataSource over TDLib, partial downloads, and seeking ahead of them.",
     date: "2026-09-18",
+    updated: "2026-10-19",
     tags: ["Kotlin", "Android", "Media3", "TDLib", "Jetpack Compose"],
     readingMinutes: 8,
     image: "/appwrite/projects/tmplayer.webp",
