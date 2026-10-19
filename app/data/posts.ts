@@ -34,6 +34,17 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "tmplayer-1-27-cast-proxies-tv-bar",
+    title: "TMPlayer 1.27.0: casting, proxies and a top bar on the TV",
+    description:
+      "TMPlayer 1.27.0 casts MKV to a Chromecast as HLS cut at its cues, connects through proxies where Telegram is blocked, and moves the TV to a top bar.",
+    date: "2026-10-19",
+    tags: ["Kotlin", "Android TV", "Chromecast", "TDLib", "HLS"],
+    readingMinutes: 13,
+    image: "/appwrite/projects/tmplayer-127-tv-home.webp",
+    project: "tmplayer",
+  },
+  {
     slug: "tmplayer-1-26-low-storage-mode",
     title: "TMPlayer 1.26.0: streaming a film bigger than the free space",
     description:

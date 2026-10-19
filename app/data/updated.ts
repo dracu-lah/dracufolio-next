@@ -9,10 +9,10 @@ export const CONTENT_DATES = {
   home: "2026-10-15",
   hire: "2026-10-15",
   locations: "2026-10-15",
-  projects: "2026-10-15",
+  projects: "2026-10-19",
   about: "2026-09-19",
   openSource: "2026-10-13",
-  blog: "2026-10-15",
+  blog: "2026-10-19",
 } as const;
 
 export const asDate = (iso: string) => new Date(`${iso}T00:00:00Z`);

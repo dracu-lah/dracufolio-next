@@ -1977,3 +1977,72 @@ commit. This adds a 390px shot of each site only if you want one (open question 
 - LangSync has no site, so its image is the GitHub repository page.
 - Wide shots in the grid keep their own ratio instead of a 16:9 crop, because the TapTL
   captures are 2.2:1 and lost their sides.
+
+---
+
+# task.md: TMPlayer 1.27 post, 19 Oct 2026
+
+Status: BUILT and pushed, 19 Oct 2026.
+
+## Sources
+
+- The 1.27.0 release notes (GitHub, 19 Oct 2026) and the TMPlayer repo, for every fact.
+- Two infoek.cz articles by Adolf Pupík, both 19 Oct 2026: an install and update guide, and
+  a look at the new interface. The post links them as press coverage and credits them in a
+  sentence each. Their text is not translated into the post: the post is written in my own
+  words, from the release notes, and they are a reference for what a reader new to TMPlayer
+  wants explained (sideloading on a TV, how updates arrive).
+- One correction to carry: infoek says the titles and posters come from IMDb. They come from
+  TMDB (THIRD_PARTY_NOTICES.md), so the post says TMDB and does not repeat the IMDb claim.
+
+## Tasks
+
+- **T1. Post.** `app/blog/(posts)/tmplayer-1-27-cast-proxies-tv-bar/page.mdx`, same chrome as
+  the 1.26 post. Outline:
+  1. Intro: 1.27.0 on 19 Oct, four days after 1.26; link the 1.26 post; the lawful use line
+     and link near the top.
+  2. The TV top bar, and why the side rail went (full width pages, Up/Down/Back model).
+  3. Casting to Chromecast and Google TV with the controls staying on the device: MKV,
+     audio tracks, position handed back.
+  4. Connecting when Telegram is blocked: the status line, Retry/Use a proxy/Send logs,
+     MTProto, SOCKS5, HTTP and t.me/proxy links; email code sign in.
+  5. Search across chats, one result per video; t.me links opening in TMPlayer.
+  6. Telegram's lighter copies (720p, 480p), duplicate posts as one card, .part001 joining.
+  7. Player and appearance in short paragraphs: chapters, Night mode, Pure black, accents.
+  8. Installing and updating: short section on sideloading to a TV and in-app updates,
+     linking tmplayer.org install pages and infoek's guide for a Czech reader.
+  9. "Written about elsewhere": infoek's two articles.
+  Mechanism sections (2, 3, 4, 6) read from the TMPlayer repo, with a short code excerpt
+  where it explains something, as the 1.26 post does.
+- **T2. Registry.** Entry in `app/data/posts.ts` (`project: "tmplayer"`, `image`, tags,
+  reading time, seoTitle if the title passes 60 characters). Bump `blog` and `projects` in
+  `app/data/updated.ts`. The TMPlayer project page then links to it through `project`.
+- **T3. Images.** New 1.27 captures from the demo library (TV top bar, cast controls,
+  proxy/connecting screen, search), at source quality. Not infoek's screenshots.
+- **T4. Wording pass.** "Video", not film or movie, outside file sizes; no real titles; no
+  "uploader" (the release notes say "the uploader's cover", the post says "the cover the
+  poster chose" or similar); no em dashes.
+- **T5. Check and push.** Build, check-jsonld, check-seo, check:dashes, 390px screenshot of
+  the post, security pass. Commit together with the dateModified fix, push, IndexNow.
+
+## Open
+
+1. Screenshots: will you send 1.27 captures, or should I run the TV and phone emulators
+   (headless, workspace 10) on the demo library and take them?
+2. Link infoek? Their articles open with a copyright disclaimer and are tagged "Filmy",
+   which sits uneasily with "never reads like a piracy tool". I would link them, since it is
+   real press, but you may prefer not to.
+
+## What shipped, and where it went a different way
+
+- Open question 2: the infoek articles are not linked or credited. They were background
+  reading only, mainly for what a new reader asks about installing on a TV. The post is
+  written from the release notes and the TMPlayer repo at the v1.27.0 tag.
+- Open question 1: the screenshots are the repo's own 1.27 captures from
+  `site/public/screenshots` (TV Home, TV Settings, TV search, desktop player), copied at
+  source quality as `tmplayer-127-*.webp`. There is no cast or proxy screenshot in the
+  repo, so those sections have none.
+- Slug `tmplayer-1-27-cast-proxies-tv-bar`. The post says casting ships with subtitles off
+  in 1.27.0 (`CAST_SUBTITLES = false` at the tag; it is on only in the uncommitted tree).
+- Added after the plan: BlogPosting dates also go through `dateTime()`, so every page on
+  the site sends date and time, not a bare date.
