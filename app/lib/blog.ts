@@ -3,7 +3,7 @@ import type { Post } from "@/data/posts";
 import { postBySlug } from "@/data/posts";
 import { AUTHOR, SITE_URL, absolute } from "./seo";
 import { pageMetadata } from "./seo";
-import { ID, ref } from "./schema";
+import { ID, dateTime, ref } from "./schema";
 
 /**
  * The picture that stands for a post, everywhere a picture is asked for.
@@ -58,8 +58,8 @@ export const blogPostingNode = (slug: string) => {
     // pointing back, so a post reached on its own resolves to the collection
     // it belongs to rather than floating loose in the graph.
     isPartOf: ref(ID.blog),
-    datePublished: post.date,
-    dateModified: post.updated ?? post.date,
+    datePublished: dateTime(post.date),
+    dateModified: dateTime(post.updated ?? post.date),
     author: ref(ID.person),
     publisher: ref(ID.person),
     inLanguage: "en",

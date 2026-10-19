@@ -249,6 +249,12 @@ type WebPageInput = {
   primaryImage?: string;
 };
 
+// Google's ProfilePage reads dateModified as a DateTime and rejects a bare
+// "2026-10-15" as invalid, so a date-only value gets midnight UTC, the same
+// instant the sitemap's asDate() gives it.
+export const dateTime = (value: string) =>
+  /^\d{4}-\d{2}-\d{2}$/.test(value) ? `${value}T00:00:00Z` : value;
+
 const webPageNode = ({
   path,
   name,
@@ -279,8 +285,8 @@ const webPageNode = ({
           },
         }
       : {}),
-    ...(datePublished ? { datePublished } : {}),
-    ...(dateModified ? { dateModified } : {}),
+    ...(datePublished ? { datePublished: dateTime(datePublished) } : {}),
+    ...(dateModified ? { dateModified: dateTime(dateModified) } : {}),
     ...(breadcrumb ? { breadcrumb: { "@id": `${url}#breadcrumb` } } : {}),
   };
 };
