@@ -12,7 +12,7 @@ export const CONTENT_DATES = {
   projects: "2026-10-19",
   about: "2026-09-19",
   openSource: "2026-10-13",
-  blog: "2026-10-19",
+  blog: "2026-10-28",
 } as const;
 
 export const asDate = (iso: string) => new Date(`${iso}T00:00:00Z`);

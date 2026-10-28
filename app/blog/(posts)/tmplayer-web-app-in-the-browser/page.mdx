@@ -1,0 +1,82 @@
+import { PostHeader, PostFooter } from "@/components/blog/PostChrome";
+import { postMetadata } from "@/lib/blog";
+
+export const slug = "tmplayer-web-app-in-the-browser";
+export const metadata = postMetadata(slug);
+
+<PostHeader slug={slug} />
+
+[web.tmplayer.org](https://web.tmplayer.org/) plays the videos in your own Telegram chats in a browser, with nothing to install. I built it mainly for iPhone owners, since TMPlayer has no iOS app, but the same page lays itself out for a phone, a computer or a TV, and it is what TMPlayer's LG and Samsung TV packages open.
+
+This post covers how a Telegram video gets from your chat into Safari's own video player, what the browser can't do and what happens then, how one page picks a phone, desktop or TV layout, and how to add it to an iPhone's Home Screen.
+
+[TMPlayer](https://tmplayer.org/) is a GPL-3.0 video player for the videos already in your Telegram chats, with the [source on GitHub](https://github.com/dracu-lah/TMPlayer). It hosts and finds no media of its own, so it is for videos you own or have the right to watch ([lawful use](https://tmplayer.org/legal/)). It is an unofficial app that uses the Telegram API and is not made by Telegram.
+
+<Figure
+  src="/appwrite/projects/tmplayer-web-iphone-sign-in.webp"
+  alt="The web.tmplayer.org sign in page at iPhone width: a phone number field with a country picker, Send me a code, Scan a QR code instead, and a note that TMPlayer is an unofficial app that uses the Telegram API"
+  width={780}
+  height={1688}
+  caption="Signing in at iPhone width. You can use a code sent to your Telegram account, or scan a QR code from Telegram on another device."
+/>
+
+## Your account stays in your browser
+
+There is no TMPlayer server between you and Telegram. The page runs a Telegram client, [mtcute](https://github.com/mtcute/mtcute), inside a Web Worker, and it talks to Telegram directly. The session is stored in the browser's own storage on your device. Signing out clears it.
+
+The worker matters for speed as much as for structure. Telegram's protocol, the encryption and the paging of chat lists all run off the page's main thread, so scrolling a chat with thousands of videos stays smooth. The page itself never imports the Telegram library: it sends small requests to the worker and gets plain data back. That keeps the first load small.
+
+The rules for what counts as a video, which copies of a video are the same one, and how episodes group into a show come from TMPlayer's shared Kotlin core, compiled to JavaScript. A chat groups its videos the same way in the browser as it does on the TV.
+
+## How a Telegram video plays in Safari
+
+Safari's own `<video>` element is the player I wanted on the iPhone. It brings full screen, picture in picture, AirPlay, lock screen controls and sound that keeps playing in the background. A canvas player gives up most of that. The work is getting each file into a form that element accepts, without ever holding a whole video in memory.
+
+The page picks one of three routes for each file:
+
+1. **Play it as it is.** MP4 and MOV files with H.264 or HEVC go straight to the `<video>` element. A Service Worker answers the element's byte range requests with real `206` responses, reading each range from Telegram in chunks of up to 2 MiB, so seeking works the way it does on any website.
+2. **Repack it in the page.** MKV and MPEG-TS files can't play natively, but the picture inside usually can. [mediabunny](https://mediabunny.dev/) rewraps them as fragmented MP4 on the fly and feeds them to `ManagedMediaSource` on the iPhone (`MediaSource` elsewhere). The picture is copied, never re-encoded. Sound the browser can't play (AC-3, E-AC-3, DTS) is decoded in the page and encoded to AAC, which keeps AirPlay and background sound working.
+3. **Say it needs the app.** If the browser can't decode the picture at all, the page says so and why, rather than failing with a black screen. A few of those cases have a software fallback: libav.js handles AVI, and HEVC can be converted to H.264 where a browser can't decode HEVC.
+
+There were some iPhone surprises:
+
+- **AirPlay.** Safari offers `ManagedMediaSource` only with remote playback turned off, so a repacked video has no AirPlay button. Files that play natively keep it.
+- **HEVC naming.** Safari refuses HEVC tagged `hev1` in an MP4 header and accepts the same stream tagged `hvc1`. The repacker writes `hvc1`.
+- **Subtitles in full screen.** iPhone's native full screen shows only text subtitles. Text subtitles become `VTTCue`s, and picture or styled subtitles switch the player to an in-page full screen.
+- **Holding back data.** `ManagedMediaSource` tells the page when it wants data, and may hold off on battery or a slow connection. The feeder waits for that instead of pushing, and always gets the first frames in.
+
+## One page, three layouts
+
+The same address serves a phone, a desktop and a TV layout. The choice is made in a few lines of inline script before the first paint, so the page never draws one layout and then jumps to another. It goes by the screen, the pointer and the browser, and Settings, Layout can override it (Auto, Phone, Desktop or TV).
+
+The TV layout is built for a remote. Every screen works with the arrow keys, OK and Back, focus comes back to where you were after a dialog, and sign in leads with a QR code, so you scan it with Telegram on your phone instead of typing with the remote. When a TV's browser opens web.tmplayer.org, it gets the TV build automatically. Adding `?tv=1` shows it in any browser, and `?tv=0` goes back.
+
+TMPlayer releases now include an LG webOS package and a Samsung Tizen package. Each is a thin wrapper: a small page that checks web.tmplayer.org can be reached and then opens it, with a Try again screen if it can't. Android TV and Google TV should still use the [Android app](https://tmplayer.org/android-tv/), which plays more formats.
+
+## Posters without exposing a key
+
+The apps show posters and overviews from TMDB. A browser can't keep an API key secret, so the web app asks a small Cloudflare function in front of TMDB instead. The function holds the key and applies the same matching rules as the apps, so a card shows the same poster in the browser as on the TV. Posters can be turned off in Settings, and a card falls back to the video's own thumbnail when a lookup fails.
+
+The site itself is static files on Cloudflare Pages. Each production deploy runs end to end tests in Chromium and WebKit first, against a fake Telegram account with small test files.
+
+## Adding it to an iPhone's Home Screen
+
+1. Open [web.tmplayer.org](https://web.tmplayer.org/) in Safari and sign in.
+2. Tap the Share button, then **Add to Home Screen**.
+3. Open TMPlayer from the Home Screen icon.
+
+It then opens in its own window without Safari's address bar, and sound keeps playing when you lock the phone. A Home Screen app is rarely closed, so it checks for a new version when you come back to it after an hour away and offers the update.
+
+## What the browser can't do
+
+The browser version is lighter than the apps. These stay app only:
+
+- Downloads for watching offline.
+- Formats the browser can't decode at all. The page names the codec and points to the app.
+- Casting to a Chromecast, which the [phone and desktop apps](https://tmplayer.org/download/) do.
+
+If you have an Android phone, an Android TV or a computer, the app is still the better choice. The web app is for the iPhone, for a computer you can't install things on, and for a TV that can't run Android apps.
+
+For what changed in the apps at the same time, see [TMPlayer 1.28: a new Home, editable history and test versions first](/blog/tmplayer-1-28-new-home-test-versions).
+
+<PostFooter slug={slug} />

@@ -34,6 +34,29 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "tmplayer-web-app-in-the-browser",
+    title: "TMPlayer in the browser, built for the iPhone first",
+    seoTitle: "Play Telegram videos in the browser on iPhone: TMPlayer",
+    description:
+      "How web.tmplayer.org plays the videos in your Telegram chats in Safari's own player: a Service Worker, MKV repacked in the page, and one layout per device.",
+    date: "2026-10-28",
+    tags: ["SolidJS", "iOS Safari", "PWA", "Service Worker", "MediaSource", "Telegram"],
+    readingMinutes: 7,
+    project: "tmplayer",
+  },
+  {
+    slug: "tmplayer-1-28-new-home-test-versions",
+    title: "TMPlayer 1.28: a new Home, editable history and test versions first",
+    seoTitle: "TMPlayer 1.28: new Home, editable history, test versions",
+    description:
+      "TMPlayer 1.28 rebuilds Home on every device, lets you edit watch history, and ships each release as a test version first, with version codes that make room.",
+    date: "2026-10-28",
+    tags: ["Kotlin", "Android TV", "TDLib", "Compose", "Release engineering"],
+    readingMinutes: 8,
+    image: "/appwrite/projects/tmplayer-128-tv-home.webp",
+    project: "tmplayer",
+  },
+  {
     slug: "tmplayer-1-27-cast-proxies-tv-bar",
     title: "TMPlayer 1.27.0: casting, proxies and a top bar on the TV",
     description:
