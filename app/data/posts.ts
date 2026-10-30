@@ -34,6 +34,18 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "tmplayer-music-telegram-audio-player",
+    title: "Building TMPlayer Music, a player for the audio in your Telegram chats",
+    seoTitle: "TMPlayer Music: play Telegram audio files on Android",
+    description:
+      "How TMPlayer Music streams the audio files in your own Telegram chats, folds the same track in five files into one row, and stays cheap on a low-end phone.",
+    date: "2026-10-30",
+    tags: ["Kotlin", "Android", "TDLib", "Media3", "Jetpack Compose"],
+    readingMinutes: 8,
+    image: "/appwrite/projects/tmplayer-music-site-home.webp",
+    project: "tmplayer-music",
+  },
+  {
     slug: "tmplayer-web-app-in-the-browser",
     title: "TMPlayer in the browser, built for the iPhone first",
     seoTitle: "Play Telegram videos in the browser on iPhone: TMPlayer",

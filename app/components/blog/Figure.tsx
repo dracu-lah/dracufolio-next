@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { SQUIRCLE, Squircle } from "@/components/ui/squircle";
 import { cn } from "@/lib/utils";
 
@@ -51,6 +51,8 @@ type FigureDiagram = FigureBase & {
 
 export default function Figure(props: FigureImage | FigureRow | FigureDiagram) {
   const { caption, className } = props;
+  const cols = props.images?.length ?? 1;
+  const narrowCols = cols > 3 ? 2 : cols;
 
   return (
     <Squircle
@@ -79,9 +81,16 @@ export default function Figure(props: FigureImage | FigureRow | FigureDiagram) {
           </Squircle>
         </div>
       ) : props.images ? (
+        // Four phones across a 390px screen are under 90px each, too small
+        // to read, so a row of four or more wraps to two columns below `sm`.
         <div
-          className="grid gap-1.5 p-1.5"
-          style={{ gridTemplateColumns: `repeat(${props.images.length}, minmax(0, 1fr))` }}
+          className="grid grid-cols-(--cols-narrow) gap-1.5 p-1.5 sm:grid-cols-(--cols)"
+          style={
+            {
+              "--cols": `repeat(${cols}, minmax(0, 1fr))`,
+              "--cols-narrow": `repeat(${narrowCols}, minmax(0, 1fr))`,
+            } as CSSProperties
+          }
         >
           {props.images.map((shot) => (
             <Squircle
@@ -94,7 +103,7 @@ export default function Figure(props: FigureImage | FigureRow | FigureDiagram) {
                 alt={shot.alt}
                 width={shot.width}
                 height={shot.height}
-                sizes={`(min-width: 768px) ${Math.ceil(720 / props.images.length)}px, ${Math.ceil(100 / props.images.length)}vw`}
+                sizes={`(min-width: 768px) ${Math.ceil(720 / cols)}px, (min-width: 640px) ${Math.ceil(100 / cols)}vw, ${Math.ceil(100 / narrowCols)}vw`}
                 className="h-auto w-full"
               />
             </Squircle>
