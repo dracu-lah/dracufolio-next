@@ -8,7 +8,7 @@ export const metadata = postMetadata(slug);
 
 The question I ask a calendar most is whether I work that day. Waybar's clock can show a month in its tooltip, but the tooltip is static text: no holidays, nothing to hover, nothing to click. So the 2nd Saturdays, the four days of Onam and the gazette holidays lived on the paper calendar by the door. I built a popup that does that job from the status bar: Kerala government holidays, the Malayalam (Kollavarsham) date for every day, and a layout taken from the wall calendars that hang in most Kerala homes.
 
-It is about 1,200 lines of Python and GTK 3 with no pip packages, and it lives in my dotfiles, [swaydots](https://github.com/dracu-lah/swaydots). The [install steps](#install-it) are below.
+It is about 1,300 lines of Python and GTK 3 with no pip packages, and it lives in my dotfiles, [swaydots](https://github.com/dracu-lah/swaydots). It was made for Sway, but it runs on other Linux desktops too, X11 and GNOME included. The [install steps](#install-it) are below.
 
 <Figure
   src="/appwrite/blog/kerala-calendar-november-2026.webp"
@@ -64,69 +64,93 @@ One date is still open. For Vishu 2026 (Medam 1), my code says 14 April: the sun
 
 Sway tiles every normal window, so a GTK window opened from Waybar lands in the layout next to the browser. The popup uses gtk-layer-shell instead, the same protocol Waybar uses for itself. It sits on the overlay layer, anchored to the top right 6 px under the bar, and takes keyboard focus only when it needs it, so Esc works without stealing focus from the window you were in.
 
+<Figure
+  src="/appwrite/blog/kerala-calendar-on-sway.webp"
+  alt="The Kerala calendar popup open on Sway, hanging under the Waybar clock module at the top right of the screen, over a dark wallpaper with red streaks"
+  width={1280}
+  height={1010}
+  caption="On Sway, the popup hangs under Waybar's clock as a layer-shell overlay, so it never joins the tiling layout."
+/>
+
 Closing it took two tries. The first version closed when it lost focus, and with focus following the mouse, moving the pointer toward the popup took focus away and shut it at once. The version I kept puts an invisible full screen layer under the popup, and a click anywhere on it closes both. A pid file makes the clock a toggle, so a second click closes the popup instead of opening another one.
+
+Some desktops have no layer-shell: GNOME, and anything on X11, such as i3, Openbox or XFCE. There the popup falls back to a plain undecorated window that stays on top. On X11 it opens at the pointer; on GNOME the desktop chooses where. It closes when it loses focus, but stays open while the month or year menu has focus. With focus-follows-mouse, moving the pointer off the window closes it, which is the problem layer-shell avoids on Sway.
 
 ## Install it
 
-You need a Wayland compositor with layer-shell: Sway, Hyprland, river, niri, labwc and KDE Plasma all have it. GNOME and X11 do not, and the popup will not open there. I run it on Fedora 43 with Waybar; the Arch line below is untested.
+The calendar has its own branch in swaydots, `kcal`, which holds only the calendar folder. Its README has the details for each desktop. Clone it and run the installer:
 
-Install the dependencies. The Malayalam text needs a Malayalam font: the screenshots use Rachana, and Noto Sans Malayalam (in Arch's `noto-fonts`) works too.
+```bash
+git clone -b kcal --single-branch https://github.com/dracu-lah/swaydots.git ~/.local/share/kcal
+~/.local/share/kcal/install.sh
+```
+
+`install.sh` installs the packages with dnf, pacman or apt, writes a starter config to `~/.config/kcal/config.json` and renders one test frame. Add `--no-deps` to skip the packages. I run it on Fedora 43; the Arch and Debian lines are untested. The Malayalam text needs a Malayalam font: the screenshots use Rachana, and Noto Sans Malayalam works too.
 
 ```bash
 # Fedora
-sudo dnf install python3-gobject gtk3 gtk-layer-shell jq wl-clipboard adwaita-sans-fonts rit-rachana-fonts
+sudo dnf install python3-gobject python3-cairo gtk3 gtk-layer-shell jq wl-clipboard rit-rachana-fonts
 # Arch
-sudo pacman -S python-gobject gtk3 gtk-layer-shell jq wl-clipboard adwaita-fonts noto-fonts
+sudo pacman -S python-gobject python-cairo gtk3 gtk-layer-shell jq wl-clipboard noto-fonts
+# Debian, Ubuntu
+sudo apt install python3-gi python3-gi-cairo gir1.2-gtk-3.0 gir1.2-gtklayershell-0.1 jq wl-clipboard fonts-smc-rachana
 ```
 
-Copy the calendar out of swaydots. A sparse clone fetches only that folder and the files beside it:
-
-```bash
-git clone --depth 1 --filter=blob:none --sparse https://github.com/dracu-lah/swaydots.git
-cd swaydots
-git sparse-checkout set .config/waybar/scripts/kcal
-mkdir -p ~/.config/waybar/scripts
-cp -r .config/waybar/scripts/kcal .config/waybar/scripts/clock.sh ~/.config/waybar/scripts/
-```
+gtk-layer-shell is optional: without it the popup opens as a plain window.
 
 In `~/.config/waybar/config`, replace `"clock"` with `"custom/clock"` in your modules list and add the module:
 
 ```json
 "custom/clock": {
-  "exec": "~/.config/waybar/scripts/clock.sh",
+  "exec": "~/.local/share/kcal/clock.sh",
   "return-type": "json",
   "interval": 30,
-  "on-click": "~/.config/waybar/scripts/kcal/kcal.py --toggle"
+  "on-click": "~/.local/share/kcal/kcal.py --toggle"
 }
 ```
 
-It shows the time and date, and its tooltip names today's holiday. Your old `#clock` CSS rules do not reach it, so add `#custom-clock` next to them. For a key in Sway, add this to `~/.config/sway/config`:
+It shows the time and date, and its tooltip names today's holiday. Your old `#clock` CSS rules do not reach it, so add `#custom-clock` next to them. Then reload Waybar with `pkill -SIGUSR2 waybar`.
 
-```
-bindsym $mod+Shift+d exec ~/.config/waybar/scripts/kcal/kcal.py --toggle
-```
+To open it from a key, bind `~/.local/share/kcal/kcal.py --toggle`:
 
-Then reload Waybar with `pkill -SIGUSR2 waybar` and Sway with `swaymsg reload`.
+- **Sway or i3:** `bindsym $mod+Shift+d exec ~/.local/share/kcal/kcal.py --toggle`
+- **Hyprland:** `bind = SUPER SHIFT, D, exec, ~/.local/share/kcal/kcal.py --toggle`
+- **GNOME or KDE Plasma:** add a custom shortcut in the keyboard settings with that command.
 
 To check the popup renders before wiring anything up, draw a month to a PNG:
 
 ```bash
-~/.config/waybar/scripts/kcal/kcal.py --screenshot aug.png --month 2026-08 --scale 2
+~/.local/share/kcal/kcal.py --screenshot aug.png --month 2026-08 --scale 2
 ```
 
-The screenshots in this post came from that command, with `--masthead` for the title and `--hover 2026-08-28` for the card, placed over my wallpaper.
+The calendar screenshots in this post came from that command, with `--hover 2026-08-28` for the card, placed over my wallpaper. The Sway one is a grim capture of my screen.
+
+If you use swaydots itself, the calendar is already in place at `.config/waybar/scripts/kcal`, and the `kcal` branch is that folder split out.
 
 ## Make it yours
 
-- **Title:** add `--masthead "Your title"` to the toggle command to put your own title in the masthead.
+`~/.config/kcal/config.json` holds the settings, and every key is optional:
+
+```json
+{
+  "masthead_text": "കേരള കലണ്ടർ",
+  "masthead_image": "",
+  "masthead_height": 88,
+  "search_command": [],
+  "search_url": "https://www.google.com/search?q={query}"
+}
+```
+
+- **Title:** `masthead_text` is the big title. For a logo, set `masthead_image` to a PNG, SVG or JPEG. A relative path is read from `~/.config/kcal/`, and the text comes back if the image fails to load. No newspaper branding ships with the calendar, so the default is the plain Malayalam for "Kerala calendar". `--masthead "Title"` and `--masthead-image logo.png` override the config for one run.
+- **Browser:** clicking a holiday opens a search in your default browser. Set `search_command`, for example `["firefox", "--search", "{query}"]`, to choose the browser.
+- **Colours and fonts:** a `style.css` in `~/.config/kcal/` loads after the built-in one, so you only copy the rules you change.
 - **Red days:** edit `it_set.json` to match the holidays you get.
 - **One-off fixes:** add a day your office gives, or correct one the feed gets wrong, in `holidays-custom.json`.
-- **Browser:** a click on a holiday opens a search in Zen when it is at `~/.local/opt/zen/zen`, and in your default browser through `xdg-open` when it is not. Change `ZEN` at the top of `kcal.py` to use another browser's search.
 
 ## What it does not do
 
-It only knows Kerala. Another state needs its own feed in `data.py`, though the Saturday rule and the custom file would carry over. It speaks English and Malayalam only. Moon dependent holidays are as good as the feed until the gazette confirms them. And it needs layer-shell, so GNOME and X11 users are out for now; a plain window fallback is the next thing I would add.
+It only knows Kerala. Another state needs its own feed in `data.py`, though the Saturday rule and the custom file would carry over. It speaks English and Malayalam only. Moon dependent holidays are as good as the feed until the gazette confirms them. Outside Sway I have tested it only under XWayland and as a plain Wayland window on Sway, not on a real GNOME, KDE or X11 session, so reports from those are welcome.
 
-The code is in [swaydots](https://github.com/dracu-lah/swaydots/tree/main/.config/waybar/scripts/kcal), under `.config/waybar/scripts/kcal`. Bug reports and fixes are welcome there.
+The code is in [swaydots](https://github.com/dracu-lah/swaydots/tree/main/.config/waybar/scripts/kcal), under `.config/waybar/scripts/kcal`, and on its own in the [`kcal` branch](https://github.com/dracu-lah/swaydots/tree/kcal). Bug reports and fixes are welcome there.
 
 <PostFooter slug={slug} />

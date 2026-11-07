@@ -38,10 +38,10 @@ export const posts: Post[] = [
     title: "A Kerala calendar for Waybar, with gazette holidays and Malayalam dates",
     seoTitle: "Kerala holiday calendar for Waybar and Sway on Linux",
     description:
-      "A Waybar popup for Sway with Kerala's gazette holidays, 2nd and 4th Saturdays and the Malayalam date for every day, worked out in Python, with install steps.",
+      "A Waybar popup for Sway, X11 and GNOME with Kerala's gazette holidays, 2nd and 4th Saturdays and the Malayalam date for every day, worked out in Python.",
     date: "2026-11-07",
     tags: ["Linux", "Sway", "Waybar", "Python", "GTK", "Malayalam"],
-    readingMinutes: 7,
+    readingMinutes: 8,
     image: "/appwrite/blog/kerala-calendar-november-2026.webp",
   },
   {
