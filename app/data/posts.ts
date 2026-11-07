@@ -42,7 +42,7 @@ export const posts: Post[] = [
     date: "2026-11-07",
     tags: ["Linux", "Sway", "Waybar", "Python", "GTK", "Malayalam"],
     readingMinutes: 7,
-    image: "/appwrite/blog/kerala-calendar-november.webp",
+    image: "/appwrite/blog/kerala-calendar-november-2026.webp",
   },
   {
     slug: "tmplayer-music-telegram-audio-player",
