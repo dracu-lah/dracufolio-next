@@ -75,6 +75,13 @@ const items: Item[] = [
     meta: "Shell · Sway · Hyprland",
   },
   {
+    name: "Kerala Calendar",
+    href: githubRepo("kerala-calendar"),
+    description:
+      "A paper wall-calendar popup for Linux desktops with Kerala's gazette holidays and the Malayalam date for every day. A layer-shell overlay on Sway and Hyprland, a plain window on X11 and GNOME.",
+    meta: "Python · GTK · Waybar",
+  },
+  {
     name: "Next.js on Cloudflare Workers",
     href: githubRepo("opennext-cloudflare-implementation"),
     description:

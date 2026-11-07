@@ -8,7 +8,7 @@ export const metadata = postMetadata(slug);
 
 The question I ask a calendar most is whether I work that day. Waybar's clock can show a month in its tooltip, but the tooltip is static text: no holidays, nothing to hover, nothing to click. So the 2nd Saturdays, the four days of Onam and the gazette holidays lived on the paper calendar by the door. I built a popup that does that job from the status bar: Kerala government holidays, the Malayalam (Kollavarsham) date for every day, and a layout taken from the wall calendars that hang in most Kerala homes.
 
-It is about 1,300 lines of Python and GTK 3 with no pip packages, and it lives in my dotfiles, [swaydots](https://github.com/dracu-lah/swaydots). It was made for Sway, but it runs on other Linux desktops too, X11 and GNOME included. The [install steps](#install-it) are below.
+It is about 1,300 lines of Python and GTK 3 with no pip packages, and it has its own repo, [kerala-calendar](https://github.com/dracu-lah/kerala-calendar), besides living in my dotfiles, [swaydots](https://github.com/dracu-lah/swaydots). It was made for Sway, but it runs on other Linux desktops too, X11 and GNOME included. The [install steps](#install-it) are below.
 
 <Figure
   src="/appwrite/blog/kerala-calendar-november-2026.webp"
@@ -151,6 +151,6 @@ If you use swaydots itself, the calendar is already in place at `.config/waybar/
 
 It only knows Kerala. Another state needs its own feed in `data.py`, though the Saturday rule and the custom file would carry over. It speaks English and Malayalam only. Moon dependent holidays are as good as the feed until the gazette confirms them. Outside Sway I have tested it only under XWayland and as a plain Wayland window on Sway, not on a real GNOME, KDE or X11 session, so reports from those are welcome.
 
-The code is in [swaydots](https://github.com/dracu-lah/swaydots/tree/main/.config/waybar/scripts/kcal), under `.config/waybar/scripts/kcal`, and on its own in [kerala-calendar](https://github.com/dracu-lah/kerala-calendar). Bug reports, fixes and stars are welcome there.
+The code is in [kerala-calendar](https://github.com/dracu-lah/kerala-calendar). Bug reports, fixes and stars are welcome there. It is also part of [swaydots](https://github.com/dracu-lah/swaydots/tree/main/.config/waybar/scripts/kcal), under `.config/waybar/scripts/kcal`.
 
 <PostFooter slug={slug} />
