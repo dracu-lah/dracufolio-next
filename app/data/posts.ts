@@ -34,6 +34,17 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "kerala-calendar-for-waybar",
+    title: "A Kerala calendar for Waybar, with gazette holidays and Malayalam dates",
+    seoTitle: "Kerala holiday calendar for Waybar and Sway on Linux",
+    description:
+      "A Waybar popup for Sway with Kerala's gazette holidays, 2nd and 4th Saturdays and the Malayalam date for every day, worked out in Python, with install steps.",
+    date: "2026-11-07",
+    tags: ["Linux", "Sway", "Waybar", "Python", "GTK", "Malayalam"],
+    readingMinutes: 7,
+    image: "/appwrite/blog/kerala-calendar-november.webp",
+  },
+  {
     slug: "tmplayer-music-telegram-audio-player",
     title: "Building TMPlayer Music, a player for the audio in your Telegram chats",
     seoTitle: "TMPlayer Music: play Telegram audio files on Android",
