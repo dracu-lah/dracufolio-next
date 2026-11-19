@@ -102,17 +102,17 @@ export const reasons = (location: Location) => {
           }
         : {
             title: "Remote, properly",
-            body: `Working with ${location.kind === "state" ? "clients across Kerala" : location.name} means the process has to carry itself: written scope, a repository you own, a demo every week, and Malayalam or English on the call.`,
+            body: `Working with ${location.kind === "state" ? "clients across Kerala" : location.name} means the process has to carry itself: written scope, a repository you own (an online folder for the code), a demo every week, and Malayalam or English on the call.`,
           };
 
   return [
     {
       title: "Production work, not a portfolio",
-      body: "Three years of it, mostly travel products on Next.js and Cloudflare Workers at my day job, plus an Android TV app of my own with real users filing real issues. My own projects are all linked on this site.",
+      body: "Three years of it, mostly travel products on Next.js (a framework for fast React websites) and Cloudflare Workers (hosting that runs your code near each visitor) at my day job, plus an Android TV app of my own with real users filing real issues. My own projects are all linked on this site.",
     },
     {
       title: "Built to be found",
-      body: "Most sites are handed over and then quietly never appear in search. I set up server rendered pages, structured data, a real sitemap and your Google Business Profile as part of the job, not as an upsell.",
+      body: "Most sites are handed over and then quietly never appear in search. I set up server rendered pages (the text is in the page when it loads, so Google can read it), structured data (labels that tell search engines what a page is), a real sitemap and your Google Business Profile as part of the job, not as an upsell.",
     },
     local,
   ];

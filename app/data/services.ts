@@ -26,7 +26,7 @@ export const services: Service[] = [
     title: "Web apps",
     icon: "Browsers",
     blurb:
-      "Logins, payments and the parts that get hard after the demo, built to handle real users.",
+      "Logins, payments and the parts that get hard after the demo, built to handle real users. A web app is a site you sign in to and use, like a booking or ordering system.",
     serviceType: "Web application development",
   },
   {
@@ -34,7 +34,7 @@ export const services: Service[] = [
     title: "Websites that rank",
     icon: "Ranking",
     blurb:
-      "Built to be found on Google from day one, and fast enough to keep the people who arrive.",
+      "Built to appear high in Google results from day one, and fast enough to keep the people who arrive.",
     serviceType: "Website design and SEO",
   },
   {
@@ -42,7 +42,7 @@ export const services: Service[] = [
     title: "Mobile apps",
     icon: "DeviceMobile",
     blurb:
-      "React Native for both stores, or Kotlin when it has to be native. Android TV included.",
+      "One app for both the Play Store and the App Store with React Native, or Kotlin when it has to be a true Android app. Android TV included.",
     serviceType: "Mobile app development",
   },
   {
@@ -50,7 +50,7 @@ export const services: Service[] = [
     title: "Dashboards and admin panels",
     icon: "SquaresFour",
     blurb:
-      "The screen your team uses all day. Big lists stay fast and nobody loses their place.",
+      "The screen your team uses all day to see and manage its data. Big lists stay fast and nobody loses their place.",
     serviceType: "Admin dashboard development",
   },
   {
@@ -58,7 +58,7 @@ export const services: Service[] = [
     title: "Cloudflare and deployment",
     icon: "CloudArrowUp",
     blurb:
-      "Getting it live and keeping it live, on hosting that costs a few hundred rupees a month.",
+      "Getting it live and keeping it live on Cloudflare, hosting that serves your site from a server near each visitor, for a few hundred rupees a month.",
     serviceType: "Cloud deployment and DevOps",
   },
   {
@@ -66,7 +66,7 @@ export const services: Service[] = [
     title: "Performance fixes and rescues",
     icon: "Gauge",
     blurb:
-      "A slow site, or a project the last developer left half finished. I read it and fix it.",
+      "Making a slow site fast, or taking over a project the last developer left half finished. I read the code and fix it.",
     serviceType: "Website performance optimisation",
   },
 ];

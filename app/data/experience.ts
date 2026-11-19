@@ -14,10 +14,9 @@ export const experience = [
     site: "https://lascade.com",
     period: "Nov 2025 - Present",
     points: [
-      "Ships travel products on Next.js 16 and Cloudflare Workers, D1, R2 and Durable Objects",
-      "Owns the core interactive view end to end, from rendering and zoom to the import pipeline behind it",
-      "Runs the i18n sync engine and the SEO baseline, plus Mixpanel tagging on every outbound link",
-      "Wired the Resend SDK into Django for transactional email",
+      "Builds and runs travel products on Next.js 16, deployed to Cloudflare Workers with OpenNext, D1 and R2",
+      "Owns the core interactive view end to end, from the rendering and zoom to the data pipeline behind it",
+      "Took the product multilingual with next-intl and a sync tool I wrote, and set up SEO and analytics",
     ],
     stack: [
       "Next.js",
@@ -32,7 +31,6 @@ export const experience = [
       "next-intl",
       "Auth.js",
       "Django",
-      "Docker",
     ],
   },
   {
@@ -42,10 +40,9 @@ export const experience = [
     site: "https://udyata.com",
     period: "Jun 2023 - Aug 2025",
     points: [
-      "Built and maintained 20+ reusable React components, cutting build time by 30 percent",
-      "Cut first load through code splitting, lazy loading and memoization",
-      "Cut API overhead by 20 percent and deploy errors by 15 percent with GitHub Actions CI/CD",
-      "Built an admin panel and self-hosted OpenStreetMap services (Nominatim, OSRM)",
+      "Built a shared library of 20+ React components that took roughly 30 percent off the team's build time",
+      "Sped up first load with code splitting, lazy loading and memoization, and cut network calls by 20 percent",
+      "Handled state in Zustand and Redux for B2B and healthcare apps, with responsive, accessible UIs",
     ],
     stack: [
       "React",
@@ -53,6 +50,9 @@ export const experience = [
       "Flutter",
       "Next.js",
       "Tailwind",
+      "Redux",
+      "Zustand",
+      "GitHub Actions",
       "Docker",
     ],
   },
@@ -107,3 +107,19 @@ export const toolkit = [
     ],
   },
 ];
+
+/**
+ * Facts that sit beside the jobs, from the resume's Achievements and Leadership
+ * block and from the project's own public numbers. The about page and the
+ * answers in `faq.ts` read these so a number is written down once.
+ */
+export const leadership = [
+  "Kept client projects shipping through festival and election season peaks with no reported downtime",
+  "Mentored juniors on React patterns, wiring up backends and running servers",
+];
+
+/** TMPlayer's public numbers: GitHub stars, and the download count on tmplayer.org. */
+export const tmplayerProof = {
+  stars: "240+",
+  downloads: "24k+",
+};

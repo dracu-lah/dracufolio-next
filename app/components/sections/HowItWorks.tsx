@@ -38,7 +38,7 @@ const STEPS = [
   {
     title: "Build",
     icon: ShipFlash,
-    body: "A demo you can click every week, in a repository you own.",
+    body: "A demo you can click every week, and all the code in a repository you own (an online folder for the code, in your account).",
   },
 ];
 

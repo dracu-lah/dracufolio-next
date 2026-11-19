@@ -115,6 +115,7 @@ export const posts: Post[] = [
   {
     slug: "nextjs-on-cloudflare-workers-with-opennext",
     title: "Next.js on Cloudflare Workers with OpenNext",
+    seoTitle: "Move Next.js from Vercel to Cloudflare Workers (OpenNext)",
     description:
       "Moving a Next.js app from Vercel to Cloudflare Workers with OpenNext: the R2, D1 and Durable Object caches, Wrangler bindings, images and static headers.",
     date: "2026-10-13",

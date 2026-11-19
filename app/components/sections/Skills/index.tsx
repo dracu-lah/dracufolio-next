@@ -21,8 +21,16 @@ const SkillsSection = () => {
           </Reveal>
           <Reveal delay={0.16}>
             <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-              Three years of <b>React</b> work across product teams, from design
-              handoff to production. The full work history is on{" "}
+              Three years of <b>React</b> work (the most widely used tool for
+              building web interfaces) across product teams, from design
+              handoff to production. Hiring for a team? Read the{" "}
+              <Link
+                className="text-foreground underline underline-offset-4 transition-colors duration-300 hover:text-accent"
+                href="/about#for-hiring-teams"
+              >
+                section for hiring teams
+              </Link>
+              . The full work history is on{" "}
               <a
                 className="underline underline-offset-4 transition-colors duration-300 hover:text-accent"
                 href={LINKEDIN_URL}
