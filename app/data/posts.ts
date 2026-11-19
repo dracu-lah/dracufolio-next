@@ -34,6 +34,16 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "nextjs-to-nuxt-file-by-file",
+    title: "From Next.js to Nuxt 4, file by file",
+    seoTitle: "Next.js to Nuxt 4: what maps one to one and what does not",
+    description:
+      "A Next.js developer built a Nuxt 4 lab: routing, data fetching, auth, i18n with RTL, charts, Cloudflare Workers. What maps one to one and what does not.",
+    date: "2026-11-20",
+    tags: ["Nuxt", "Next.js", "Vue", "i18n", "Cloudflare Workers"],
+    readingMinutes: 11,
+  },
+  {
     slug: "kerala-calendar-for-waybar",
     title: "A Kerala calendar for Waybar, with gazette holidays and Malayalam dates",
     seoTitle: "Kerala holiday calendar for Waybar and Sway on Linux",
