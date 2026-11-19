@@ -11,7 +11,7 @@ export const CONTENT_DATES = {
   locations: "2026-11-20",
   projects: "2026-10-30",
   about: "2026-11-20",
-  openSource: "2026-10-13",
+  openSource: "2026-11-20",
   blog: "2026-11-07",
 } as const;
 

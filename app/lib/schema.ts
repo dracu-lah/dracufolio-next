@@ -78,7 +78,11 @@ export const sameAs = [
   X_URL,
   YOUTUBE_URL,
   "https://tmplayer.org",
+  "https://music.tmplayer.org",
   "https://resumebuilder.js.org",
+  "https://langsync.pages.dev",
+  "https://taptl.pages.dev",
+  "https://nuxt.nevil.dev",
 ];
 
 const LANGUAGE_NAMES: Record<string, string> = {

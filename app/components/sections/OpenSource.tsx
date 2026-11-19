@@ -100,7 +100,14 @@ const items: Item[] = [
     href: githubRepo("nuxt-learning-lab"),
     description:
       "A Nuxt starter written for Next.js developers. Every file explains what it maps to in Next.js: routing, layouts, server routes, auth middleware, Pinia, i18n with RTL, and a Cloudflare deploy.",
-    meta: "Nuxt · Vue · Cloudflare",
+    meta: "Nuxt · Vue · Cloudflare · live at nuxt.nevil.dev",
+  },
+  {
+    name: "claude-on-a-diet",
+    href: githubRepo("claude-on-a-diet"),
+    description:
+      "My Claude Code setup packed into one repo: global rules, a token budget hook with a model gate, settings and my own skills. Clone it, run claude, say \"start configuring\", and a fresh machine gets the lot.",
+    meta: "Claude Code · Node.js · Python",
   },
   {
     name: "IKEv2 VPN on Linux",
