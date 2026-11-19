@@ -34,6 +34,16 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "opennext-vs-vinext-on-cloudflare-workers",
+    title: "OpenNext or vinext for a Next.js site on Cloudflare Workers",
+    seoTitle: "OpenNext vs vinext on Cloudflare Workers (tested)",
+    description:
+      "I ran this Next.js 16 site on Cloudflare Workers with OpenNext and with vinext: build times, bundle sizes, what broke, and which one I would use.",
+    date: "2026-11-20",
+    tags: ["Next.js", "Cloudflare Workers", "OpenNext", "vinext", "Vite"],
+    readingMinutes: 8,
+  },
+  {
     slug: "nextjs-to-nuxt-file-by-file",
     title: "From Next.js to Nuxt 4, file by file",
     seoTitle: "Next.js to Nuxt 4: what maps one to one and what does not",
