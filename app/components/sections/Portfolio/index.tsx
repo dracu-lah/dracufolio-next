@@ -56,7 +56,7 @@ const PortfolioSection = async ({
               {hasMore && (
                 <Link
                   href="/projects"
-                  className="group flex items-center gap-2 text-base text-muted-foreground transition-colors duration-200 hover:text-accent"
+                  className="group flex items-center gap-2 py-3 text-base text-muted-foreground transition-colors duration-200 hover:text-accent"
                 >
                   All {projects.length} projects
                   <ArrowRight className="size-5 transition-transform duration-200 group-hover:translate-x-0.5" />

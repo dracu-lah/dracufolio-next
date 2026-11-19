@@ -186,7 +186,7 @@ const Reviews = ({
               href={GOOGLE_MAPS_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-2 text-base text-muted-foreground transition-colors duration-200 hover:text-accent"
+              className="group flex items-center gap-2 py-3 text-base text-muted-foreground transition-colors duration-200 hover:text-accent"
             >
               Read all on Google
               <ArrowRight className="size-5 transition-transform duration-200 group-hover:translate-x-0.5" />
