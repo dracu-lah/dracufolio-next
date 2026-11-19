@@ -54,7 +54,7 @@ const ContactForm = () => {
             className="flex items-center justify-center gap-2 rounded-lg border border-accent-edge bg-accent-tint p-3 text-center text-base tracking-wide text-accent"
           >
             <CheckCircle className="size-5" />
-            Message sent. I will reply the same day.
+            Message sent. I will reply within a day.
           </p>
         )}
         {status === "error" && (

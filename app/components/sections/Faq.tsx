@@ -58,7 +58,7 @@ const Faq = ({
           <div className="hidden max-w-xs flex-col gap-3 border-t border-border pt-5 lg:flex">
             <p className="text-lg leading-relaxed text-muted-foreground">
               Something not answered here? Ask it directly, and you get an
-              answer the same day.
+              answer within a day.
             </p>
             <a
               href={WHATSAPP_URL}
