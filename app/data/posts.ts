@@ -214,10 +214,10 @@ export const posts: Post[] = [
   },
   {
     slug: "job-outreach-from-your-own-gmail",
-    title: "Sending job outreach from your own Gmail, one email at a time",
-    seoTitle: "Job outreach from your own Gmail, one email at a time",
+    title: "Sending bulk email from your own Gmail, one email at a time",
+    seoTitle: "Bulk email from your own Gmail, one email at a time",
     description:
-      "Bulk job outreach without a marketing tool: one send per person instead of BCC, a Gmail app password that stays in the browser, and what matters at 200 emails.",
+      "Bulk email without a marketing tool: one send per person instead of BCC, a Gmail app password that stays in the browser, and what matters at 200 emails.",
     date: "2026-09-18",
     tags: ["Next.js", "Gmail", "SMTP", "Open Source"],
     readingMinutes: 5,
