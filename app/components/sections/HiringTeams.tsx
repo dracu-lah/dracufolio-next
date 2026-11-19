@@ -135,7 +135,15 @@ const howIWork: { title: string; body: string }[] = [
   },
   {
     title: "With other people",
-    body: `${first(leadership[1])}. ${first(leadership[0])}. I use AI coding tools such as Claude Code, Codex and Cursor for refactors and review.`,
+    body: `At work my pull requests are reviewed and I review other people's, I build from a designer's files, and scope is agreed with the team lead. ${first(leadership[1])}. ${first(leadership[0])}. Clients' reviews mention clear explanations and work delivered before the deadline. I use AI coding tools such as Claude Code, Codex and Cursor for refactors and review.`,
+  },
+  {
+    title: "When we disagree",
+    body: "I write the trade-offs down: a short note with the options and what each one costs, so the decision is about the facts and not about who argues better.",
+  },
+  {
+    title: "Under a deadline",
+    body: "I cut scope and ship the core, and I say early when a date is at risk instead of on the last day. Live issues get fixed first, then explained.",
   },
 ];
 
