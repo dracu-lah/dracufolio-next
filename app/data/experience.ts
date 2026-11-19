@@ -120,8 +120,23 @@ export const leadership = [
   "Mentored juniors on React patterns, wiring up backends and running servers",
 ];
 
-/** TMPlayer's public numbers: GitHub stars, and the download count on tmplayer.org. */
+/**
+ * TMPlayer's public numbers, as of 20 Nov 2026. Stars, forks and releases come
+ * from the GitHub repo, downloads from the counter on tmplayer.org. They are
+ * strings so a sentence can print them as written, and they are the only copy:
+ * the home page, the hiring section, the FAQ and llms.txt all read from here.
+ * Update them together when the numbers are re-checked.
+ */
 export const tmplayerProof = {
-  stars: "240+",
-  downloads: "24k+",
+  stars: "241",
+  downloads: "24.4K",
+  forks: "33",
+  languages: "22",
+  releases: "18",
+  /** The 18 releases landed in about this many weeks. */
+  releaseWeeks: "12",
+  checked: "2026-11-20",
 };
+
+/** Years in the React and Next.js ecosystem, as the resume and about page state it. */
+export const yearsInReact = "3+";
