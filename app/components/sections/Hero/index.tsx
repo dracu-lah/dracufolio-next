@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { BriefcaseIcon, SquaresFour } from "@/components/common/icons";
 import GoogleRating from "@/components/common/GoogleRating";
 import { googleRating, hasReviews } from "@/data/reviews";
+import { RESUME_PATH } from "@/data/contact";
+import { tmplayerProof } from "@/data/experience";
 
 /**
  * Two text elements and two buttons, and it has to fit the first screen at
@@ -80,12 +82,18 @@ const HeroSection = () => (
 
         <Reveal delay={0.06}>
           <p className="max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-            Three years building web apps, websites and Android apps people
-            actually use. At{" "}
+            <span className="text-foreground">
+              Websites, web apps and Android apps that people use, built by the
+              person you talk to.
+            </span>{" "}
+            TMPlayer, my open source Android TV app, has {tmplayerProof.stars}{" "}
+            GitHub stars and {tmplayerProof.downloads} downloads. Three years in
+            React and Next.js, now at{" "}
             <span className="text-foreground">
               <InlineLogo src="/logos/lascade.png">Lascade</InlineLogo>
             </span>{" "}
-            in Thrissur, Kerala, remote across India.
+            in Thrissur. Open to full time roles and freelance work, and I reply
+            the same day.
           </p>
         </Reveal>
 
@@ -93,9 +101,10 @@ const HeroSection = () => (
           Two doors, not the WhatsApp button that the header and the docked bar
           are already carrying: somebody with a project or a role goes to
           /hire, somebody judging the work goes to /projects. The resume is
-          deliberately not a third button here, it is already in the header
-          from `lg` up and in the mobile menu below it. WhatsApp stays the one
-          accent-filled button in view, so neither of these is solid.
+          deliberately not a third button here: it is a text link beside them,
+          so a recruiter who wants the PDF does not have to open the menu.
+          WhatsApp stays the one accent-filled button in view, so neither of
+          these is solid.
         */}
         <Reveal delay={0.12} className="w-full">
           <div className="flex w-full max-w-xl flex-wrap items-center gap-3 md:gap-4">
@@ -114,6 +123,14 @@ const HeroSection = () => (
                 Projects
               </Link>
             </Button>
+            <a
+              href={RESUME_PATH}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-base font-medium text-foreground underline underline-offset-4 transition-colors duration-200 hover:text-accent"
+            >
+              Resume
+            </a>
           </div>
         </Reveal>
 
