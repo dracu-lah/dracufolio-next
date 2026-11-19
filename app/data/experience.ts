@@ -14,9 +14,10 @@ export const experience = [
     site: "https://lascade.com",
     period: "Nov 2025 - Present",
     points: [
-      "Main developer of a travel product's web app (Next.js 16, Cloudflare Workers, D1, R2). Moved it to vinext, the Vite based Next.js runtime, and ran a TanStack Start spike to compare the two",
-      "Own the core interactive view end to end, from rendering and zoom to the data pipeline behind it",
-      "Added multilingual support with next-intl and LangSync, a sync tool I wrote, and set up the SEO baseline and analytics tagging",
+      "Full stack developer on a Next.js and TypeScript web app deployed on Cloudflare Workers",
+      "Own front end features from UI to API integration, including performance work",
+      "Added multilingual support with next-intl, and set up the SEO baseline and analytics tagging",
+      "Work with a designer and a team lead, with reviewed pull requests, and fix production issues",
     ],
     stack: [
       "Next.js",
@@ -25,13 +26,7 @@ export const experience = [
       "Zustand",
       "TanStack Query",
       "Cloudflare Workers",
-      "D1",
-      "R2",
-      "OpenNext",
-      "vinext",
       "next-intl",
-      "Auth.js",
-      "Django",
     ],
   },
   {
@@ -102,10 +97,8 @@ export const toolkit = [
       "React Server Components",
       "REST APIs",
       "i18n with next-intl",
-      "Product analytics",
       "SEO",
       "CI/CD",
-      "Agile",
     ],
   },
 ];
@@ -116,8 +109,7 @@ export const toolkit = [
  * answers in `faq.ts` read these so a number is written down once.
  */
 export const leadership = [
-  "Kept client projects shipping through festival and election season peaks with no reported downtime",
-  "Mentored juniors on React patterns, wiring up backends and running servers",
+  "Mentored junior developers on React patterns, wiring up backends and running servers",
 ];
 
 /**
@@ -133,6 +125,8 @@ export const tmplayerProof = {
   forks: "33",
   languages: "22",
   releases: "18",
+  /** How many of those releases are stable, not pre-releases. */
+  stableReleases: "15",
   /** The 18 releases landed in about this many weeks. */
   releaseWeeks: "12",
   checked: "2026-11-20",
