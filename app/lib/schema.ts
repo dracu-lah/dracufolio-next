@@ -5,7 +5,6 @@ import {
   GEO,
   GITHUB_URL,
   GOOGLE_MAPS_URL,
-  HOURS,
   LANGUAGE_CODES,
   LANGUAGES,
   LINKEDIN_URL,
@@ -20,7 +19,6 @@ import {
 import { occupations, skills } from "@/data/keywords";
 import { serviceTypes, services } from "@/data/services";
 import { places } from "@/data/locations";
-import { testimonials } from "@/data/testimonials";
 import type { Faq } from "@/data/faq";
 import { AUTHOR, SITE_NAME, SITE_URL, absolute } from "./seo";
 
@@ -72,18 +70,7 @@ const portrait = {
  * account gets added here and nowhere else: llms.txt and the footer read the
  * same list, so the entity stays consistent across the whole site.
  */
-export const sameAs = [
-  GITHUB_URL,
-  LINKEDIN_URL,
-  X_URL,
-  YOUTUBE_URL,
-  "https://tmplayer.org",
-  "https://music.tmplayer.org",
-  "https://resumebuilder.js.org",
-  "https://langsync.pages.dev",
-  "https://taptl.pages.dev",
-  "https://nuxt.nevil.dev",
-];
+export const sameAs = [GITHUB_URL, LINKEDIN_URL, X_URL, YOUTUBE_URL];
 
 const LANGUAGE_NAMES: Record<string, string> = {
   ml: "Malayalam",
@@ -188,14 +175,6 @@ const serviceNode = {
       url: WHATSAPP_URL,
     },
   ],
-  openingHoursSpecification: [
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: HOURS.days,
-      opens: HOURS.opens,
-      closes: HOURS.closes,
-    },
-  ],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Development services",
@@ -215,17 +194,6 @@ const serviceNode = {
   // documents for a local business's map URL.
   sameAs: [...sameAs, GOOGLE_MAPS_URL],
   hasMap: GOOGLE_MAPS_URL,
-  // Only ever rendered when there are real reviews in the data file.
-  ...(testimonials.length
-    ? {
-        review: testimonials.map((t) => ({
-          "@type": "Review",
-          author: { "@type": "Person", name: t.name },
-          reviewBody: t.quote,
-          datePublished: t.date,
-        })),
-      }
-    : {}),
 };
 
 const websiteNode = {
