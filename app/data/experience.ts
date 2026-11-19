@@ -14,9 +14,9 @@ export const experience = [
     site: "https://lascade.com",
     period: "Nov 2025 - Present",
     points: [
-      "Builds and runs travel products on Next.js 16, deployed to Cloudflare Workers with OpenNext, D1 and R2",
-      "Owns the core interactive view end to end, from the rendering and zoom to the data pipeline behind it",
-      "Took the product multilingual with next-intl and a sync tool I wrote, and set up SEO and analytics",
+      "Lead developer on a travel product's web app (Next.js 16, Cloudflare Workers, D1, R2). Moved it to vinext, the Vite based Next.js runtime, and ran a TanStack Start spike to compare the two",
+      "Own the core interactive view end to end, from rendering and zoom to the data pipeline behind it",
+      "Added multilingual support with next-intl and LangSync, a sync tool I wrote, and set up the SEO baseline and analytics tagging",
     ],
     stack: [
       "Next.js",
@@ -28,6 +28,7 @@ export const experience = [
       "D1",
       "R2",
       "OpenNext",
+      "vinext",
       "next-intl",
       "Auth.js",
       "Django",

@@ -151,7 +151,7 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
             <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
               Full stack developer with{" "}
               <b>3 years in the React and Next.js ecosystem</b>, currently
-              building high-traffic travel products at{" "}
+              building travel products at{" "}
               <b>
                 <InlineLogo src="/logos/lascade.png">Lascade</InlineLogo>
               </b>
