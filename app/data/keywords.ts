@@ -67,7 +67,7 @@ export const roleShortlist = [
   "Full stack developer",
   "Freelance web developer",
   "Frontend developer",
-  "Software engineer (SDE/SWE)",
+  "Software engineer (SDE or SWE, the usual job title at product companies)",
   "React and Next.js developer",
   "Web developer",
   "React Native and Android developer",

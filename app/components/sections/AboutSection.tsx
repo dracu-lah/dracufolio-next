@@ -23,6 +23,7 @@ import {
   YOUTUBE_URL,
 } from "@/data/contact";
 import { roleShortlist } from "@/data/keywords";
+import Link from "next/link";
 
 const profile = [
   { key: "Role", value: "Full Stack Developer" },
@@ -40,10 +41,18 @@ const profile = [
   { key: "Experience", value: "3+ years" },
   { key: "Focus", value: "React, Next.js, TypeScript" },
   { key: "Backend", value: "Django, Node.js, REST APIs" },
-  { key: "Infra", value: "Cloudflare Workers, D1, R2, OpenNext, Docker" },
+  {
+    key: "Infra",
+    value:
+      "Cloudflare Workers (hosting that runs your code close to each visitor), D1, R2, OpenNext, Docker",
+  },
   { key: "Also", value: "Kotlin and Jetpack Compose on Android" },
   { key: "Environment", value: "Fedora, Neovim" },
-  { key: "Availability", value: "Open to new work" },
+  {
+    key: "Availability",
+    value:
+      "Full time roles in Kochi, Bangalore or remote, and freelance projects",
+  },
 ];
 
 const socialLinks = [
@@ -158,6 +167,21 @@ const AboutSection = async ({ asPage = false }: { asPage?: boolean }) => {
               <b>FOSS community</b>.
             </p>
           </Reveal>
+
+          {asPage && (
+            <Reveal delay={0.22}>
+              <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
+                Hiring for a team? The{" "}
+                <Link
+                  href="#for-hiring-teams"
+                  className="text-foreground underline underline-offset-4 transition-colors duration-300 hover:text-accent"
+                >
+                  section for hiring teams
+                </Link>{" "}
+                says which roles I want, what I am best at and how I work.
+              </p>
+            </Reveal>
+          )}
 
           <Reveal delay={0.24} className="w-full pt-2">
             <dl className="w-full divide-y divide-border border-t border-b border-border">
