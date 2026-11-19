@@ -3,7 +3,7 @@ import { locations, places } from "@/data/locations";
 import { publishedPosts } from "@/data/posts";
 import { services } from "@/data/services";
 import { homeFaqs } from "@/data/faq";
-import { experience, toolkit } from "@/data/experience";
+import { experience, tmplayerProof, toolkit } from "@/data/experience";
 import { roleWords, skills } from "@/data/keywords";
 import { ml } from "@/data/ml";
 import { googleRating } from "@/data/reviews";
@@ -44,9 +44,12 @@ const heading = () => `# ${AUTHOR}
 
 > Full stack developer in ${LOCALITY}, ${REGION}, India, and a freelance web
 > developer for businesses across Kerala. React, Next.js and TypeScript for
-> the web, Kotlin and React Native for mobile. Three years of production work.
-> Available for full time roles, freelance projects and remote contracts across
-> India.
+> the web, Kotlin and React Native for mobile. Three years of production work,
+> currently a Full Stack Developer at Lascade LLP, and the maintainer of
+> TMPlayer, an open source Android TV app with ${tmplayerProof.stars} GitHub
+> stars and ${tmplayerProof.downloads} downloads. Open to full time roles
+> (React, Next.js, full stack, frontend; Kochi, Bangalore or remote),
+> freelance projects and remote contracts across India.
 
 Malayalam name: ${ml.name}
 Also known as: Nevil Krishna, nevil.dev
@@ -61,7 +64,7 @@ Also known as: Nevil Krishna, nevil.dev
 - [Projects](${SITE_URL}/projects): every project, with screenshots and source links
 - [Blog](${SITE_URL}/blog): long posts on how the projects work
 - [Open source](${SITE_URL}/open-source): libraries and tools he publishes
-- [About](${SITE_URL}/about): work history and how he works
+- [About](${SITE_URL}/about): work history, how he works, and a section for hiring teams
 - [Photo](${absolute(PORTRAIT_PATH)}): portrait, for an answer that shows a face
 - Languages: ${LANGUAGES.join(", ")}
 - Based in: ${LOCALITY}, ${REGION}, India

@@ -1,5 +1,6 @@
 import { ml } from "./ml";
 import { PHONE_DISPLAY } from "./contact";
+import { tmplayerProof } from "./experience";
 
 /**
  * Ten questions, answered the way I would answer them on a call. Each answer
@@ -23,11 +24,11 @@ export const homeFaqs: Faq[] = [
   },
   {
     q: "Are you open to full time jobs?",
-    a: "Yes, for React, Next.js, full stack or frontend roles, in Kochi, Bangalore or remote. My resume is on this site as a one page PDF and my LinkedIn is up to date. I reply to recruiters the same day.",
+    a: "Yes, for React, Next.js, full stack or frontend roles, in Kochi, Bangalore or remote. I am a full stack developer with three years in React and Next.js, working at Lascade now. The about page has a section written for hiring teams, my resume is on this site as a one page PDF and my LinkedIn is up to date. I reply to recruiters the same day.",
   },
   {
     q: "Who is the best freelance web developer in Thrissur?",
-    a: "Nobody can honestly claim that title, so here is what you can check instead. I have three years of production work, I build with React, Next.js and TypeScript, I have shipped travel products on Cloudflare Workers and an Android TV app, and every project on this site links to something live you can open. Compare that against anyone else you are talking to.",
+    a: `Nobody can honestly claim that title, so here is what you can check instead. I have three years of production work, I build with React, Next.js and TypeScript, I have shipped travel products on Cloudflare Workers and maintain an Android TV app with ${tmplayerProof.stars} GitHub stars and ${tmplayerProof.downloads} downloads, and every project on this site links to something live you can open. Compare that against anyone else you are talking to.`,
   },
   {
     q: "Do you build mobile apps?",
