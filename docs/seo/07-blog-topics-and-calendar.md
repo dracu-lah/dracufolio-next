@@ -1,6 +1,6 @@
 # 07. Blog topics and calendar
 
-Two posts a month. Nine are out as of October 2026; five more run to January 2027.
+Two posts a month. Fifteen are out as of 20 November 2026; five more run to January 2027.
 
 Every topic below comes from work already done, so none of it needs research. That is the only
 reason a two-a-month cadence is realistic. Writing about something already built takes two to
@@ -31,6 +31,12 @@ every topic now comes from a public repo of my own, and a post links the repo it
 | [TMPlayer on Windows and Linux](https://nevil.dev/blog/tmplayer-on-windows-and-linux) | TMPlayer |
 | [Next.js on Cloudflare Workers with OpenNext](https://nevil.dev/blog/nextjs-on-cloudflare-workers-with-opennext) | opennext-cloudflare-implementation |
 | [The Sway setup I work in](https://nevil.dev/blog/sway-setup-i-work-in) | swaydots |
+| [TMPlayer 1.26.0: streaming a video bigger than the free space](https://nevil.dev/blog/tmplayer-1-26-low-storage-mode) | TMPlayer |
+| [TMPlayer 1.27.0: casting, proxies and a top bar on the TV](https://nevil.dev/blog/tmplayer-1-27-cast-proxies-tv-bar) | TMPlayer |
+| [TMPlayer 1.28: a new Home, editable history and test versions first](https://nevil.dev/blog/tmplayer-1-28-new-home-test-versions) | TMPlayer |
+| [TMPlayer in the browser, built for the iPhone first](https://nevil.dev/blog/tmplayer-web-app-in-the-browser) | TMPlayer web app |
+| [Building TMPlayer Music](https://nevil.dev/blog/tmplayer-music-telegram-audio-player) | TMPlayer Music |
+| [A Kerala calendar for Waybar](https://nevil.dev/blog/kerala-calendar-for-waybar) | kerala-calendar, swaydots |
 
 ### Still to write
 
@@ -176,15 +182,16 @@ the monthly checklist day (`11-monthly-checklist.md`), so that day is the busy o
 | Sat 19 Dec 2026 | 4. A resume builder that never sends your data anywhere | Sun 20 Dec |
 | Sat 9 Jan 2027 | 5. What to check before paying for a refurbished laptop | Sun 10 Jan |
 
-Nine posts went out between September and October, so the rest of October is for
-cross-posting those rather than writing more. After that, one post every two weeks.
+Fifteen posts went out between 18 September and 7 November. The 7 Nov slot went to the Kerala calendar post, so topic 1 is still unwritten and the
+dates below have not moved. Cross-posting the published ones comes before writing more, then one
+post every two weeks.
 
 If a post slips, move it to the next slot. Do not publish two thin posts to stay on schedule,
 one good post a month is worth more.
 
 ## Done when
 
-- [ ] The nine published posts cross-posted with canonical links
+- [ ] The fifteen published posts cross-posted with canonical links
 - [ ] Topics 1 to 5 shipped on their dates
 - [ ] Every post has a byline, a real date, the schema and a sitemap entry
 - [ ] Every cross-post carries the canonical URL back to `nevil.dev`
