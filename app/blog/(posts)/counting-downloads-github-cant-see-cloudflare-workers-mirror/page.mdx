@@ -1,0 +1,156 @@
+import { PostHeader, PostFooter } from "@/components/blog/PostChrome";
+import { postMetadata } from "@/lib/blog";
+
+export const slug = "counting-downloads-github-cant-see-cloudflare-workers-mirror";
+export const metadata = postMetadata(slug);
+
+<PostHeader slug={slug} />
+
+TMPlayer's installers are GitHub release assets, and for some people GitHub's download servers were slow. So I put a Cloudflare Worker in front that keeps each file in Cloudflare's cache. Downloads got faster, and the download counter stopped telling the truth, because GitHub only counts the requests it serves itself. This post is about the Worker that counts the rest, and the two times it broke.
+
+It is one 180-line file, `workers/download-mirror/src/index.ts`, in [TMPlayer](https://tmplayer.org/features/), my GPL-3.0 app for playing the videos in your own Telegram chats ([source on GitHub](https://github.com/dracu-lah/TMPlayer)). A second Worker sits next to it in `workers/log-inbox`, and I cover it near the end. That one is written and tested but not deployed. I say so again where it matters.
+
+## The problem: a cache that hides the traffic
+
+The commit that wired the site's download buttons through the mirror (`2e8897b`, 1 November) gives the reason in one line: GitHub's asset CDN "was slow for some readers". I never timed it. I have no before and after numbers, and the last section says what I would measure.
+
+A cache has a side effect. GitHub's own `download_count` goes up when GitHub serves the file. Once Cloudflare answers from its cache, GitHub sees nothing. The first download of a file at each Cloudflare location still reaches github.com and is counted there. Every one after that is invisible to it. The home page shows a downloads figure, and without a second count it would have frozen near the number of cache misses.
+
+So the Worker has two jobs. Serve the files, and count the ones GitHub cannot.
+
+## The design
+
+I will go through it in the order a request meets the code.
+
+### Only my own release files
+
+A Worker that proxies whatever URL it is handed is an open relay. This one accepts a single path shape, pinned to my file names:
+
+```ts
+const PATH =
+  /^\/download\/(v\d+\.\d+\.\d+(?:-beta\.\d+)?)\/(TMPlayer-[A-Za-z0-9._-]+\.(?:apk|msi|dmg|AppImage|tar\.xz|ipk|wgt))$/
+```
+
+The repository name is a constant in the file, so a request only chooses the tag and the file. Any other path is a 404, and any method except GET and HEAD is a 405, both before a request to GitHub is made. The extension list includes `.ipk` and `.wgt`, the LG and Samsung TV packages (commit `9b40dd5` added them).
+
+### Cache a good answer for a year
+
+Release files carry their version in the name, such as `TMPlayer-1.28.3-universal.apk`, so a URL never changes what it serves. That allows a one-year cache. The Worker asks Cloudflare to cache even though the request goes to another origin:
+
+```ts
+fetch(origin, {
+  method: request.method,
+  headers,
+  redirect: 'follow',
+  cf: { cacheEverything: true, cacheTtlByStatus: { '200-299': 31536000, '300-599': -1 } },
+})
+```
+
+The `-1` for 300 to 599 means do not store. I come back to why that line looks the way it does. `Range` and `If-Range` headers are copied through, so a download that was cut off can resume from the cache.
+
+### The count rule
+
+The response of a `fetch` with `cacheEverything` carries a `cf-cache-status` header. `HIT` means Cloudflare answered from its cache and github.com was never asked. That is the traffic GitHub cannot see, so the rule is that header plus one more condition:
+
+```ts
+const startsAtZero = !range || /^bytes=0-/.test(range.trim())
+if (request.method === 'GET' && startsAtZero && upstream.headers.get('cf-cache-status') === 'HIT') {
+  ctx.waitUntil(bumpCounter(env))
+}
+```
+
+The `startsAtZero` line came later (`b7519e8`, 11 November). A resumed or split download sends several ranged requests for one file, and the first version counted each of them. Now only a request with no `Range`, or one that starts at byte 0, is a download. HEAD requests are never counted. `ctx.waitUntil` lets the visitor's response go out first and finishes the count afterwards.
+
+### One number for the home page
+
+`/stats` answers the mirror's own count. `/total` adds it to GitHub's, which the Worker reads from the GitHub API: every non-draft release, every asset whose name matches the app-file pattern, the sum of `download_count`. The answer is cached for 900 seconds (`TOTAL_TTL`), because the unauthenticated GitHub API allows 60 calls an hour and a busy home page would use them up. If GitHub does not answer, `/total` returns a 503 with `no-store`, and the page keeps the figure it was built with. The page only ever raises its figure to the live one and never lowers it (commit `114b1a8`).
+
+I read both at 21:50 UTC on 19 November 2026. `/stats` answered `{"hits":9424}` and `/total` answered `{"downloads":24911}`, served from cache with an age of 92 seconds. If the two reads are close enough in time, that leaves roughly 15,500 downloads on GitHub's side and 9,400 that only the mirror saw. It is one reading, and it says nothing about how the numbers moved.
+
+## Incident one: the counter that ran out of puts
+
+The first counter was the obvious one. Workers KV is a key-value store, so each cached download did a read, added one, and wrote the result back. The commit that replaced it shows the removed code and its own warning:
+
+```ts
+// Not atomic (a read, then a write), so a handful of requests landing in the same millisecond on
+// the same colo can lose a count to each other. Fine here: ...
+async function bumpCounter(env: Env): Promise<void> {
+  const current = Number(await env.DOWNLOADS.get(COUNTER_KEY)) || 0
+  await env.DOWNLOADS.put(COUNTER_KEY, String(current + 1))
+}
+```
+
+I had thought about the race and accepted it. I had not thought about the quota. KV on the free plan allows 1,000 puts a day, as the later `wrangler.toml` comment says, and one put per cached download is a counter that stops on the first busy day. On 2 November, the day after the site was pointed at the mirror, it stopped. The git log shows the repair as two commits, two minutes apart:
+
+1. `fa9aee4` (08:08) moved the count to Analytics Engine, one data point per hit. Writes there are not capped like KV puts. But reading the total back needs Cloudflare's SQL API, which means an account id and an API token stored as Worker secrets, and a 10-minute cache in front of it.
+2. `7c2c7ab` (08:10) replaced that with a Durable Object, and its message ends "no API token needed".
+
+I cannot tell from git whether the Analytics Engine version was ever deployed, so I will not claim it was. What the history shows is that I wrote it, met the token requirement, and changed course within two minutes.
+
+A Durable Object is a small stateful object that Cloudflare runs in one place, with its own storage, and it handles its requests one at a time. That is the property the KV version lacked. The whole counter is this:
+
+```ts
+export class HitCounter {
+  constructor(private state: DurableObjectState) {}
+  async fetch(request: Request): Promise<Response> {
+    const n = (await this.state.storage.get<number>('n')) ?? 0
+    if (new URL(request.url).pathname === '/hit') {
+      await this.state.storage.put('n', n + 1)
+      return new Response(String(n + 1))
+    }
+    return new Response(String(n))
+  }
+}
+```
+
+Two hits cannot overwrite each other, and the Worker reads the count with a plain request to the same object, so no token is involved. The object uses SQLite-backed storage (`new_sqlite_classes` in the migration in `wrangler.toml`).
+
+The old KV key is not deleted. It holds the total up to the day the cap hit, and `/stats` returns that frozen number plus the object's count. Hits between the cap and the deploy were never counted, and I cannot get them back.
+
+## Incident two: a cached error that lasted a year
+
+The 1.28.4 AppImage would not download, and the fix landed on 8 November. The cause is in the comment on `CACHE_GEN` and in the commit (`43a3633`). The original request used `cacheTtl: 31536000`, and a plain `cacheTtl` applies to every status code. One failed first fetch from GitHub, a hiccup or a rate limit, became that file's answer for a year. I did not record which status it was. The download page and the updater pointed at it until a person tried the download.
+
+The fix is one commit with five parts:
+
+- **Cache by status.** `cacheTtlByStatus` stores 200 to 299 for a year and refuses everything from 300 to 599.
+- **Retry once.** On a 5xx or a 429 the Worker cancels the body and asks again, so a passing GitHub error does not reach the visitor.
+- **Say what failed.** An answer that is still an error becomes a 404 or a 502 with `Cache-Control: no-store` and an `X-Upstream-Status` header carrying GitHub's real status, and the Worker writes one `console.log` line.
+- **A cache generation.** The request to GitHub carries `?gen=2`, built from `CACHE_GEN`. The Worker cannot purge a cached answer, but it can ask for a different URL, so bumping the constant abandons everything stored under the old key.
+- **A release gate.** `scripts/check-mirror.py` runs in `release.yml` after the feed is written and before it goes live.
+
+The gate reads every URL in `latest.json`, asks each one for its first byte (`Range: bytes=0-0`, so nothing big moves), and tries up to 4 times, 15 seconds apart, before it fails the release. It prints `ok` or `FAIL` per file. The step has `if: needs.version.outputs.prerelease != 'true'`, so a beta does not run it.
+
+One thing I only noticed while reading the code for this post: the gate's `bytes=0-0` request matches the count rule above. If a probe lands on a cached file, the mirror counts it as a download. I do not know how many that has added to the 9,424, and it is on the list at the end.
+
+## The sibling: a log inbox that is not deployed
+
+The same folder holds a second Worker, `workers/log-inbox`, for the app's "Send to developer" button. The viewer sees what a report contains, presses Send, and gets a short code such as `TMP-7K3Q` to say in the Telegram group or an issue. **Nothing here is deployed.** The README says the maintainer deploys it, I have not, and the app's button stays hidden until a build has its address. R2 is Cloudflare's object storage, and it is where the reports go. The tests below never touch a real bucket.
+
+What the code does, in the order a request meets it:
+
+- **A hashed address before the limiter.** `addressKey` in `src/inbox.ts` takes the `CF-Connecting-IP` header, hashes it with SHA-256 and passes 24 hex characters to the rate limiter. The address is never stored or logged, and `observability` is off in `wrangler.jsonc`. There are few IPv4 addresses, so a hash of one can be brute-forced. This keeps the address out of my own storage. It does not make the sender anonymous.
+- **Two rate limiters.** `LIMITER` allows 6 requests a minute per hashed address, and `GLOBAL` allows 60 a minute for everybody. On 15 November I fixed a bug (`7199640`): an address its own limiter had refused still spent the shared budget, so one noisy caller could lock everyone out. The global limiter now runs only after the per-address one lets a request through, and a test asserts it.
+- **Byte-counted body reads.** A `Content-Length` header is a claim. `readLimited` reads the stream and stops at the cap (2 MB for logs, 2 KB for title reports, 16 KB for feedback), whatever the header said. A test is named after it: refused "by its header and by what really arrives".
+- **A put that cannot overwrite.** Every write to R2 uses `onlyIf: { etagDoesNotMatch: '*' }`, which means "only if this key does not exist yet". A log report that draws a taken code tries another, up to 8 times. A feedback message takes its code from a SHA-256 of the draft's id, so a double press, a retry on a lost connection or an app killed halfway files one object, and the second send answers 200 with `duplicate: true`.
+- **30 days, twice.** A cron (`23 3 * * *`) calls `sweep`, which pages through the three prefixes and deletes anything older than 30 days. The README also lists three R2 lifecycle rules for the same prefixes, applied by hand with `wrangler`, so a failed cron does not keep anything longer than the rule says. Those rules are steps in the README, so I cannot say they exist on any bucket.
+
+The tests run with `node --test` and no Cloudflare runtime at all (`npm test` in that folder, which I ran for this post: 47 tests, 47 pass). The rules live in plain TypeScript, with the bucket and both limiters as small interfaces, so a test hands in a fake. That is also the limit of them. A fake bucket does not prove that `etagDoesNotMatch` behaves on real R2, a fake limiter does not prove the binding's window, and nothing tests the cron trigger. The first deploy is where those get checked, and the README ends its deploy steps with the `curl` calls I will use.
+
+## What I have not measured
+
+- **Latency.** The whole reason for the mirror was speed, and I have no timings. No time to first byte from GitHub, none from the mirror, none from the regions the viewers are in.
+- **Cache hit ratio.** I know the count of hits and not the count of misses, so I cannot say how much traffic the cache absorbs.
+- **The mirror has no tests.** `workers/download-mirror` has a source file and a `wrangler.toml`, and no test folder. The count rule, the one piece of logic that matters most, is checked by me reading it.
+- **Lost counts.** `bumpCounter` runs inside `ctx.waitUntil` with no retry. If the Durable Object call fails, that hit is not counted. Every hit also goes to one object in one place, and I have not looked at how that behaves under a burst.
+- **The probe overcount** above.
+
+## What I would measure next
+
+1. Time to first byte for the same file from GitHub and from the mirror, with `curl -w '%{time_starttransfer}'` from a few regions, cold and warm. Without that, "faster" is a belief.
+2. The split of `cf-cache-status` values, by logging the status on every request for a week, to get a hit ratio.
+3. The probe overcount: run `check-mirror.py` against a file whose cache state I know, and read `/stats` before and after.
+4. A quiet-window check of the counter against GitHub: the change in `/total` over an hour with no releases should match the downloads I can account for.
+5. The count rule as a pure function, the way `log-inbox` keeps its rules, tested with a table of methods, ranges and cache statuses, so the mirror stops being the one Worker in the folder with no tests.
+
+<PostFooter slug={slug} />

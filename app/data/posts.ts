@@ -34,6 +34,18 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "counting-downloads-github-cant-see-cloudflare-workers-mirror",
+    title:
+      "Counting downloads GitHub can't see: a Cloudflare Workers mirror, a Durable Object and what broke twice",
+    seoTitle: "Counting downloads with a Cloudflare Workers mirror",
+    description:
+      "A Cloudflare Workers download mirror for TMPlayer: how it counts cached downloads GitHub cannot see, and the two incidents that broke it.",
+    date: "2026-11-20",
+    tags: ["Cloudflare Workers", "Durable Objects", "R2", "TypeScript", "GitHub"],
+    readingMinutes: 10,
+    project: "tmplayer",
+  },
+  {
     slug: "opennext-vs-vinext-on-cloudflare-workers",
     title: "OpenNext or vinext for a Next.js site on Cloudflare Workers",
     seoTitle: "OpenNext vs vinext on Cloudflare Workers (tested)",
