@@ -30,6 +30,13 @@ export type Project = {
    */
   concept?: boolean;
   /**
+   * `"early"` marks the tutorial-era projects from the first years of
+   * learning. They keep their pages and sitemap entries, but they are listed
+   * in their own section on /projects and left out of the home page, the hire
+   * pages and every project count.
+   */
+  era?: "early";
+  /**
    * Set for software people install, so the project page describes it as a
    * SoftwareApplication rather than a CreativeWork. No version number: the
    * releases move faster than this file does.
