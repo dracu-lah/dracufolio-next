@@ -85,7 +85,10 @@ function Button({
    * button and still gets Next's prefetch.
    */
   if (asChild) {
-    const only = React.Children.only(children) as React.ReactElement<{
+    // `Children.only` rejects a child that React streamed in as a lazy
+    // reference (a <Link> passed down from a server component), while
+    // `toArray` resolves it. The slot still takes exactly one element.
+    const only = React.Children.toArray(children)[0] as React.ReactElement<{
       children?: React.ReactNode;
     }>;
 
