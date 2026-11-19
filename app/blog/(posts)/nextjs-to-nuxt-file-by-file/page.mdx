@@ -1,0 +1,252 @@
+import { PostHeader, PostFooter } from "@/components/blog/PostChrome";
+import { postMetadata } from "@/lib/blog";
+
+export const slug = "nextjs-to-nuxt-file-by-file";
+export const metadata = postMetadata(slug);
+
+<PostHeader slug={slug} />
+
+I write Next.js with the App Router most days. In April I wanted to know how much of that carries over to Nuxt, so I built a small project to find out, [nuxt-learning-lab](https://github.com/dracu-lah/nuxt-learning-lab), and put it on Cloudflare Workers at [nuxt.nevil.dev](https://nuxt.nevil.dev/). Every file has a comment saying which Next.js file it replaces. This post goes through it in that order, and every behaviour described below is one I ran: I cloned the repo, ran `pnpm install` and `pnpm build`, served the build locally in Cloudflare's `workerd` runtime with `wrangler dev`, and fetched pages from the live site with `curl` and headless Chromium. I did not deploy anything for this post.
+
+It is a learning lab, not a production app. The history is nine commits, from 2026-04-13 15:02 to 2026-04-14 11:03, and about 3,400 lines once the lockfile and one image are left out. The "database" is an array in a module, passwords are stored as plain text, the token is a hand-rolled HMAC and not a JWT, and the code says so in comments. Read what follows as notes from someone who built a demo in two days, not as advice from someone who ran this in production.
+
+## What is in it
+
+The first commit used Nuxt `3.15`, Nuxt UI `2.18` and `@nuxtjs/i18n` `8.5`. Eighty-four minutes later a commit called "nuxt 4 + ui v4 stack upgrade" moved it to the stack that is there now, and the lockfile resolves to:
+
+- Nuxt `4.4.2`, Nuxt UI `4.6.1`, `@nuxtjs/i18n` `10.2.4`
+- Tailwind CSS `4.2.2` through its Vite plugin, with no `tailwind.config` file
+- Pinia `3.0.4`, Zod `4.3.6`, Chart.js `4.5.1` with `vue-chartjs` `5.3.3`
+- Wrangler `4.81.1`, on Node `24.22.2` and pnpm `10.30.1` when I built it
+
+Those are April's versions. As I write this, npm says Nuxt is at `4.6.4`, Nuxt UI at `4.13.0` and `@nuxtjs/i18n` at `10.6.0`, so the lab is several minor releases behind and I have not tried the newer ones. The Next.js I compare against is `16.4.1`, the version this site runs.
+
+`pnpm build` passes on the committed lockfile and prints a 1.49 MB server and asset total (449 kB gzipped). There are no tests in the repo, so "it works" below means I clicked, curled and screenshotted it.
+
+## Routing and layouts
+
+`app/pages/` is the router, as `app/` is in Next.js, with one file per route and `[id]` for a dynamic segment: `pages/products/[id].vue`, `pages/fruits/[id]/edit.vue`. That part took no learning.
+
+Layouts are where the model differs. In Next.js a layout wraps whatever sits in its folder. In Nuxt, `app.vue` renders `<NuxtLayout>` around `<NuxtPage>`, and a page picks its layout by name:
+
+```ts
+// pages/auth/login.vue
+definePageMeta({ layout: 'auth' })
+```
+
+The lab has two, `layouts/default.vue` (header, footer) and `layouts/auth.vue` (a branded sidebar next to the form). Nothing about the folder structure decides which one a page gets. I like that for a login page that needs a different shell from the rest of the site, and I would miss nested layouts that follow the URL on a larger app. I did not test nested routes in the lab, so I will not say how Nuxt handles that.
+
+Metadata is the other small change: `export const metadata` becomes `useHead({ title })` inside the page. On the live site `/products/1` comes back with a server-rendered `<title>` of "Matte Black Headphones · Products", set from the product the page loaded.
+
+## Data fetching
+
+This is the biggest gap. In an App Router page I make the component `async`, await the data and render it on the server, and the component code never reaches the browser. Nuxt has no direct equivalent in the lab. The product list is loaded with `useFetch` inside `<script setup>`:
+
+```ts
+const { data, pending, error } = await useFetch<ProductList>('/api/products', {
+  query: computed(() => ({
+    q: q.value || undefined,
+    category: category.value || undefined,
+    sort: sort.value || undefined,
+    limit,
+    offset: (page.value - 1) * limit
+  })),
+  key: 'products-list'
+})
+```
+
+It runs on the server during the first render, so the live `/products` response already contains "Matte Black Headphones" in its HTML, and the [Nuxt docs](https://nuxt.com/docs/4.x/api/composables/use-fetch) say the result goes into the payload so the client does not fetch it again on hydration. The part I liked is the reactive `query`: change `q`, `category` or `page` and the request is made again without a line of effect code. In Next.js I would hold that state in the URL, read `searchParams` on the server, and navigate to change it.
+
+What stays different: the page component is still hydrated and runs in the browser. Nuxt does have server-only components, written as `.server.vue` files, and its docs describe them as running through `<NuxtIsland>`. The lab does not use any, so I cannot say how they compare to server components in practice. For this site's rule of "server components by default, `use client` only with a reason", Nuxt is a different mental model and I do not have a verdict.
+
+For mutations the README gives a rule: `useFetch` for reads when a page loads, `$fetch` for everything else. The Pinia auth store calls `$fetch('/api/auth/login', { method: 'POST', body })`. There is no equivalent of a server action here.
+
+## Server routes
+
+`app/api/*/route.ts` with an exported `GET` becomes `server/api/*.get.ts`, with the method in the file name:
+
+```
+server/api/products/index.get.ts   GET  /api/products
+server/api/products/[id].get.ts    GET  /api/products/:id
+server/api/auth/login.post.ts      POST /api/auth/login
+server/api/me.get.ts               GET  /api/me
+```
+
+A handler is `defineEventHandler`, and the helpers (`getQuery`, `readValidatedBody`, `getRouterParam`, `createError`) are auto-imported. This is the route I found most pleasant. The query validation is a Zod schema, and I got what I expected from the built Worker:
+
+- `GET /api/products?limit=0` returns `400` with the Zod error in `data.fieldErrors`
+- `GET /api/products/abc` returns `400 Invalid product id`
+- `GET /api/me` with no token returns `401 Missing token`
+- a token signed with the wrong secret returns `401 Invalid or expired token`
+
+`server/utils/` is auto-imported inside `server/`, which is how the handlers share `fakeDb` and the token helpers without an import line. The code still imports them with `~~/server/utils/...`, so both styles work.
+
+## Middleware and auth
+
+Next.js has one `middleware.ts`. Nuxt has a folder of named route middleware and a page opts in:
+
+```ts
+// app/middleware/auth.ts
+export default defineNuxtRouteMiddleware((to) => {
+  const auth = useAuthStore()
+  const localePath = useLocalePath()
+
+  if (import.meta.server) return
+
+  if (!auth.isAuthenticated) {
+    return navigateTo({
+      path: localePath('/auth/login'),
+      query: { redirect: to.fullPath }
+    })
+  }
+})
+```
+
+```ts
+// pages/dashboard.vue
+definePageMeta({ middleware: ['auth'] })
+```
+
+A file named `auth.global.ts` would run on every route, which is the closest thing to the Next.js model. The [docs](https://nuxt.com/docs/4.x/directory-structure/app/middleware) say middleware for the first page runs when the page is rendered on the server and again on the client, and that you can skip either side. The lab skips the server, because the token is in `localStorage`, which the server cannot read. A Pinia store holds the token, `plugins/auth.client.ts` calls `/api/me` on startup to restore the session, and `useApi()` wraps `$fetch.create` to attach the `Authorization` header and log out on a `401`.
+
+That design has a consequence I only saw by testing it. A signed-out visitor to a protected page gets the page's server-rendered HTML, then the client redirects them:
+
+- `/fruits` on the live site returns the full page with the seed data ("Valencia Orange") in the HTML
+- `/dashboard` returns a 3,479-byte empty shell, because `nuxt.config.ts` has `routeRules: { '/dashboard': { ssr: false } }`
+- `/ar/dashboard` returns 27,928 bytes with the dashboard heading in it, because the rule is written for `/dashboard` and the Arabic page lives at a different path
+- in headless Chromium all three end on the sign-in page, so a person never sees the protected view
+
+None of this leaks real data, because the data is local. The same layout on a real app would send protected markup to anyone who asks. The README warns about `localStorage` and recommends an HTTP-only cookie; I agree, and with a cookie the middleware could run on the server and the shell would not be sent at all. The sitemap also lists `/dashboard`, `/fruits` and `/cart`, three pages that redirect, which I would not ship.
+
+## i18n and RTL
+
+`next-intl` becomes `@nuxtjs/i18n`. The config is a list of locales with a `dir` on each:
+
+```ts
+i18n: {
+  locales: [
+    { code: 'en', name: 'English', language: 'en-US', file: 'en.json', dir: 'ltr' },
+    { code: 'es', name: 'Español', language: 'es-ES', file: 'es.json', dir: 'ltr' },
+    { code: 'ar', name: 'العربية', language: 'ar-SA', file: 'ar.json', dir: 'rtl' }
+  ],
+  defaultLocale: 'en',
+  strategy: 'prefix_except_default'
+}
+```
+
+`prefix_except_default` gives `/products` in English and `/ar/products` in Arabic. `<NuxtLink :to="localePath('/products')">` adds the prefix for you, and `$t('nav.home')` reads a key.
+
+RTL is four lines in `app.vue`, not a plugin:
+
+```ts
+const head = useLocaleHead({ dir: true, lang: true })
+
+useHead({
+  htmlAttrs: {
+    lang: () => head.value.htmlAttrs?.lang ?? 'en',
+    dir:  () => head.value.htmlAttrs?.dir  ?? 'ltr'
+  }
+})
+```
+
+The live responses confirm it: `/` is `lang="en-US" dir="ltr"`, `/es` is `lang="es-ES" dir="ltr"`, and `/ar` is `lang="ar-SA" dir="rtl"`, all in the server-rendered HTML. The page then mirrors because flex and grid follow `dir`, and the four places that name a side use Tailwind's logical utilities: `ms-1`, `end-3`, `-end-20` and `-start-20`, not `ml-1` or `right-3`. In a screenshot of `/ar/products` at 1280 px the navigation, the filter row and the card text all run right to left with no per-component RTL code. I found one miss by grepping: the price column on the fruits page has a physical `text-right`, which stays on the right in Arabic.
+
+What the lab does not get right, all visible in that same screenshot and in the files:
+
+- `es.json` has 87 of the 112 keys that `en.json` has. The missing 25 are the fruits and dashboard strings, so Spanish falls back to English there. `ar.json` has all 112, and I cannot judge how good the Arabic is.
+- Several strings are hard-coded English and never reach a translation file: "Reset", "Default", "Sort", "results · page", the home page cards, the product names.
+- The footer and the home badge still say "Nuxt 3", and so does the README title, after the move to Nuxt 4.
+- `<head>` has no `hreflang` links. The per-locale sitemaps carry 32 `xhtml:link` alternates, so search engines get them from there.
+
+The repo has a `langsync.json`, which is [LangSync](/blog/translation-sync-without-breaking-icu), my own tool, so the Spanish gap is a sync I did not run.
+
+## Charts
+
+Chart.js touches `window` and a `<canvas>`, so it cannot render on the server. In Next.js I would write `"use client"` and then load it with `dynamic` and `ssr: false`. In Nuxt the suffix does it:
+
+```vue
+<!-- components/charts/SalesChart.client.vue -->
+<template>
+  <Bar :data="data" :options="options" />
+</template>
+
+<script setup lang="ts">
+import { Bar } from 'vue-chartjs'
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js'
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
+</script>
+```
+
+The folder becomes part of the name, so the dashboard writes `<ChartsSalesChart>`, with no import. The component is 55 lines, most of them registering Chart.js parts and one `computed` that shapes the dataset. The server-rendered dashboard HTML contains no `<canvas>`; the chart appears after hydration. The [docs](https://nuxt.com/docs/4.x/directory-structure/app/components) add that `.client` only works through auto-imports, so a component imported by its file path is not client-only.
+
+The data is not interesting: the bars are fruit quantities per category, summed from a Pinia store that lives in `localStorage`. The chart is real, the numbers behind it are not.
+
+## CRUD
+
+The fruits page is a list with filters, a create dialog and an edit page. The filters live in the URL and are written with `router.replace`, so back does not step through every keystroke. One `FruitForm.vue` serves both the dialog and the edit page, with Nuxt UI's `UForm` validating a Zod schema and `UFormField` showing the errors.
+
+It is not server CRUD. The store holds the array and writes it to `localStorage`; there are no `POST` or `PUT` routes for fruits. That makes it a good test of the form components and a poor test of mutation, which is the part of Next.js (server actions, revalidation) I most wanted to compare. The README lists replacing the store with Cloudflare D1 as an exercise, and I have not done it.
+
+## Config and environment variables
+
+This is the one that would have cost me a deployment. `runtimeConfig` replaces `process.env` plus the `NEXT_PUBLIC_` prefix, with top-level keys server-only and `public` keys sent to the browser. The config reads the secret like this:
+
+```ts
+runtimeConfig: {
+  jwtSecret: process.env.JWT_SECRET || 'dev-only-super-secret-change-me',
+  public: { appName: 'Nuxt Learning Lab' }
+}
+```
+
+And the README tells you to set `JWT_SECRET` in the Cloudflare dashboard. The [docs](https://nuxt.com/docs/4.x/guide/going-further/runtime-config) say a runtime override must be named `NUXT_` plus the key in upper snake case, here `NUXT_JWT_SECRET`, and warn that a default pointing at a differently named variable "will only work during build-time". I checked both halves. The built Worker has the fallback string baked into its bundle. I ran it with `wrangler dev` and both `JWT_SECRET` and `NUXT_JWT_SECRET` set, logged in as the demo user, and recomputed the HMAC of the token: it matched `NUXT_JWT_SECRET` and neither the plain variable nor the default.
+
+So on Workers the variable should be `NUXT_JWT_SECRET`, and the README and `.env.example` name the wrong one. I cannot see the secrets on the live site, so I do not know which one it uses, and I did not try to find out.
+
+Next.js has a similar trap in the other direction: `NEXT_PUBLIC_` values are inlined when you build. Nuxt's `public` runtime config is read at runtime, which is the part I prefer.
+
+## Cloudflare
+
+My [OpenNext post](/blog/nextjs-on-cloudflare-workers-with-opennext) needs an R2 bucket, a D1 database, a Durable Object queue, a `WORKER_SELF_REFERENCE` binding and an images binding before a Next.js app runs on Workers. The Nuxt lab needs this:
+
+```jsonc
+{
+  "name": "nuxt-learning-lab",
+  "main": "./.output/server/index.mjs",
+  "compatibility_date": "2026-04-13",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": { "directory": "./.output/public/", "binding": "ASSETS" }
+}
+```
+
+plus `nitro: { preset: 'cloudflare_module' }` in `nuxt.config.ts`. Nitro, Nuxt's server engine, builds the Worker and the static folder itself, and `wrangler deploy` ships them. The project began with the `cloudflare_pages` preset and moved to Workers at 17:34 on the first day; the Nitro docs say "Cloudflare Workers is the new recommended preset".
+
+Three details from running it:
+
+- `.output/public/_headers` is generated, and it marks `/_nuxt/*` as `cache-control: public, max-age=31536000, immutable`. With OpenNext I wrote that file by hand.
+- `routeRules: { '/api/products': { swr: 60 } }` shows up as `cache-control: s-maxage=60, stale-while-revalidate` on the live API response. I checked the header, not how Cloudflare stores the entry behind it.
+- The API routes, the server-rendered pages and the locale prefixes all worked under `wrangler dev`, in the same runtime as production.
+
+The comparison is not like for like. The OpenNext setup exists to give a Next.js app ISR and `revalidateTag`, and this lab uses neither. It has no cache to configure because it does not do the thing that needs one. I would not read "Nuxt deploys in eight lines" as a verdict on either framework.
+
+Two smaller things on the live site. Its `robots.txt` has a Cloudflare managed block ahead of the one `@nuxtjs/robots` writes, which is a dashboard setting and not in the repo. And the Open Graph image tags are `content="/og-image.png"`, a relative path, although the comment in `app.vue` says it is resolved to an absolute URL. Social scrapers want an absolute one, so I would set it explicitly.
+
+## What I would pick for which job
+
+- **A content or marketing site, or a page that has to be found in search:** Next.js, because I already know how to ship every part of the SEO contract on this site in it, and a server component sends no component code to the browser. Nuxt can do it, and I did not measure either.
+- **A dashboard or tool behind a login, with forms and charts:** Nuxt is easier to start. Auto-imports, Nuxt UI's forms and the `.client` suffix removed boilerplate that I rewrite in every React project.
+- **A small API plus pages on Workers:** Nuxt, for the single preset and the eight-line config.
+- **Anything with ISR, tag revalidation or server actions:** Next.js. The lab does not touch any of them, and I will not guess that Nuxt's `routeRules` covers the same ground.
+- **A team that writes React:** Next.js. Vue's `ref`, `.value` and `watch` are small, but they are a second mental model on top of the framework.
+
+## What I would do differently
+
+I would use a cookie from the start. `localStorage` forced the middleware to skip the server, the redirect to happen after the HTML was sent, and a `routeRules` entry per locale to hide pages that should have been gated. One `setCookie` in `login.post.ts` and a `getCookie` in `me.get.ts` would remove all of that, and the README already says so.
+
+I would write the `routeRules` for the prefixed paths too, and check `/ar/dashboard` the first time instead of finding it from curl a few months later.
+
+I would fix the README. It says Nuxt 3, Cloudflare Pages and `JWT_SECRET`, and the code is Nuxt 4, Workers and `NUXT_JWT_SECRET`. A learning repo with stale instructions teaches the wrong thing, and I wrote it for that purpose.
+
+And I would run the translation sync before calling the i18n part done. Twenty-five missing Spanish strings is a gap the same tool I wrote would have closed.
+
+<PostFooter slug={slug} />
