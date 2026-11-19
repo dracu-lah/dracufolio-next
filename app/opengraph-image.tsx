@@ -9,7 +9,7 @@ const Image = () =>
     eyebrow: "Full stack developer, Thrissur, Kerala",
     title: "Nevil Krishna K",
     description:
-      "React, Next.js and TypeScript on the web, Kotlin on Android. Freelance, remote and full time.",
+      "React, Next.js and TypeScript on the web, Kotlin on Android. Freelance and remote projects.",
   });
 
 export default Image;
