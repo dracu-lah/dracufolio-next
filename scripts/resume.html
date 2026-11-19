@@ -10,7 +10,7 @@
      0.5in on all four sides: inside every desktop printer's unprintable edge. */
   @page { size: 210mm 297mm; margin: 0.5in; }
   * { box-sizing: border-box; }
-  body { font-family: Calibri, Carlito, sans-serif; font-size: 11pt; color: #000; margin: 0; line-height: 14pt; }
+  body { font-family: Calibri, Carlito, sans-serif; font-size: 10.5pt; color: #000; margin: 0; line-height: 13pt; }
   a { color: #1155cc; text-decoration: underline; }
   .head { position: relative; display: flex; align-items: flex-start; justify-content: space-between; }
   .head .side { font-size: 10pt; line-height: 12.2pt; }
@@ -18,16 +18,16 @@
   .name { position: absolute; left: 0; right: 0; text-align: center; top: 2.5pt; font-family: "Times New Roman", Liberation Serif, serif; font-size: 18pt; line-height: 18pt;
           font-variant: small-caps; letter-spacing: .3pt; }
   h2 { font-family: "Times New Roman", Liberation Serif, serif; font-variant: small-caps; font-size: 11pt; font-weight: normal;
-       line-height: 11pt; letter-spacing: .3pt; margin: 14pt 0 0; padding-bottom: 3pt; border-bottom: 1pt solid #000; }
-  h2 + p, h2 + .skills, h2 + ul, h2 + .job { margin-top: 10pt; }
+       line-height: 11pt; letter-spacing: .3pt; margin: 10pt 0 0; padding-bottom: 3pt; border-bottom: 1pt solid #000; }
+  h2 + p, h2 + .skills, h2 + ul, h2 + .job { margin-top: 7pt; }
   p { margin: 0; }
-  ul { margin: 6pt 0 0; padding-left: 18pt; }
-  li { margin: 0 0 3pt; }
-  .skills { margin-top: 8pt; display: grid; grid-template-columns: 120pt 1fr; row-gap: 3pt; }
-  .job { display: flex; justify-content: space-between; font-weight: bold; margin-top: 14pt; }
+  ul { margin: 4pt 0 0; padding-left: 18pt; }
+  li { margin: 0 0 2pt; }
+  .skills { margin-top: 8pt; display: grid; grid-template-columns: 124pt 1fr; row-gap: 2pt; }
+  .job { display: flex; justify-content: space-between; font-weight: bold; margin-top: 9pt; }
   .job .co { flex: 1; text-align: center; }
   .stack { margin-top: 3pt; color: #333; }
-  .proj { margin-bottom: 6pt; }
+  .proj { margin-bottom: 3pt; }
   .proj:last-child { margin-bottom: 0; }
 </style>
 </head>
@@ -42,47 +42,54 @@
 </div>
 
 <h2>Summary</h2>
-<p>Full stack developer who ships real products. My open source video player, TMPlayer, has <b>240+ GitHub stars and 24k+ downloads</b>,
-and at work I run a travel product's web app on Next.js and Cloudflare Workers. <b>3 years</b> in React and Next.js.
-Open to React, Next.js or full stack roles in Kochi, Bangalore or remote.</p>
+<p>Full stack developer with <b>3+ years</b> building production web applications in <b>React, Next.js and TypeScript</b>, deployed on Cloudflare Workers.
+I take features from design handoff to production: UI, REST APIs, i18n, SEO and release. I also maintain <b>TMPlayer</b>, an open source video player
+with <b>240+ GitHub stars and 24k+ downloads</b>. Open to full time roles in Kochi, Bangalore or remote.</p>
 
+<h2>Skills</h2>
 <div class="skills">
-  <b>Web:</b><span>TypeScript, React, Next.js, Astro, TanStack Query, Tailwind CSS, shadcn/ui, Zustand</span>
-  <b>Edge &amp; backend:</b><span>Cloudflare Workers (D1, R2), OpenNext, vinext, Node.js, Django</span>
-  <b>Also:</b><span>Kotlin and Jetpack Compose, React Native, Vitest, Playwright, GitHub Actions</span>
+  <b>Languages:</b><span>TypeScript, JavaScript, Kotlin, Python, SQL, HTML, CSS</span>
+  <b>Frontend:</b><span>React, Next.js (App Router, SSR, SSG), Astro, TanStack Query, Zustand, Redux, Tailwind CSS, shadcn/ui, responsive and accessible UI</span>
+  <b>Backend &amp; Cloud:</b><span>Node.js, Django, REST APIs, Cloudflare Workers (D1, R2), OpenNext, vinext, Docker, Vercel</span>
+  <b>Mobile:</b><span>React Native, Kotlin, Jetpack Compose</span>
+  <b>Testing &amp; Workflow:</b><span>Vitest, Playwright, Git, GitHub Actions (CI/CD), code review, Agile</span>
+  <b>AI Tools:</b><span>Claude Code, Codex, Cursor</span>
 </div>
 
-<h2>Experience</h2>
+<h2>Work Experience</h2>
 
 <div class="job"><span>Full Stack Developer</span><span class="co">Lascade LLP</span><span>Nov 2025 - Present</span></div>
 <ul>
   <li>Lead developer on a travel product's web app (Next.js 16, Cloudflare Workers, D1, R2). Moved it to <b>vinext</b>, the Vite based Next.js runtime, and ran a TanStack Start spike to compare the two.</li>
   <li>Own the core interactive view end to end, from rendering and zoom to the data pipeline behind it.</li>
-  <li>Added multilingual support with next-intl and LangSync, a sync tool I wrote, and set up the SEO baseline and analytics tagging.</li>
+  <li>Added multilingual support (i18n) with next-intl and LangSync, a sync tool I wrote, and set up the SEO baseline and analytics tagging.</li>
+  <li>Work with a designer and a team lead, get my pull requests reviewed, and fix production issues as they come up.</li>
 </ul>
 
 <div class="job"><span>Frontend Developer</span><span class="co">Udyata Information Systems Pvt. Ltd</span><span>Jun 2023 - Aug 2025</span></div>
 <ul>
-  <li>Built a shared library of 20+ React components that cut the team's build time by about <b>30%</b>.</li>
-  <li>Cut first load with code splitting and lazy loading, and cut network calls by <b>20%</b>.</li>
+  <li>Built a shared component library of 20+ React components that cut the team's build time by about <b>30%</b>.</li>
+  <li>Improved performance with code splitting and lazy loading, and cut network calls by <b>20%</b>.</li>
   <li>Set up GitHub Actions CI/CD, which cut deploy errors by <b>15%</b>.</li>
   <li>Shipped B2B and healthcare apps in React and React Native, plus an admin panel and a self hosted OpenStreetMap stack (Nominatim, OSRM).</li>
 </ul>
 
-<h2>Projects</h2>
+<div class="job"><span>Freelance Web Developer</span><span class="co">Self-employed, Kerala</span><span>2024 - Present</span></div>
 <ul>
-  <li class="proj"><a href="https://tmplayer.org"><b>TMPlayer</b></a> (2026): plays Telegram videos before the download finishes. Runs on Android TV, phones, Windows, macOS, Linux and the web. <b>240+ stars, 24k+ downloads, 18 releases.</b> Built with Kotlin Multiplatform and Compose, with an Astro site and a SolidJS web player on Cloudflare.</li>
-  <li class="proj"><a href="https://github.com/dracu-lah/tmplayer-music"><b>TMPlayer Music</b></a> (2026): the same idea for the audio in your own Telegram chats, with a lyrics gateway on Workers.</li>
-  <li class="proj"><a href="https://taptl.pages.dev"><b>TapTL</b></a> (2026): a live translator for Android games. It reads the text on screen with ML Kit and draws English over it, <b>offline</b> and without root. Kotlin and Compose.</li>
-  <li class="proj"><a href="https://langsync.pages.dev"><b>LangSync</b></a> (2026): a Python CLI that keeps every locale file in step with one source and only translates what changed.</li>
-  <li class="proj"><a href="https://resumebuilder.js.org/"><b>Resume Builder</b></a> (2025): a free resume builder for developers with live editing and PDF import, accepted into js.org. React and TypeScript.</li>
-  <li class="proj"><a href="https://nevil.dev"><b>nevil.dev</b></a> (2026): this portfolio and blog on Next.js 16, with 17 posts and automated SEO and JSON-LD checks.</li>
+  <li>Built websites and web apps for Kerala businesses in Next.js and Astro, deployed on Cloudflare and Vercel. Rated <b>5.0 across 13 Google reviews</b>.</li>
 </ul>
 
-<h2>Freelance &amp; Community</h2>
+<h2>Projects</h2>
 <ul>
-  <li>Freelance since 2024: websites and web apps for Kerala businesses on Next.js and Astro, rated <b>5.0 across 13 Google reviews</b>.</li>
-  <li>I write up the hard parts on nevil.dev (17 posts) and mentor juniors on React patterns, backends and running servers.</li>
+  <li class="proj"><a href="https://tmplayer.org"><b>TMPlayer</b></a> (2026): plays Telegram videos before the download finishes, on Android TV, phones, Windows, macOS, Linux and the web. <b>240+ stars, 24k+ downloads, 18 releases.</b> Kotlin Multiplatform, Compose, Media3, TDLib, an Astro site and a SolidJS web player. Also <a href="https://github.com/dracu-lah/tmplayer-music">TMPlayer Music</a> for audio.</li>
+  <li class="proj"><a href="https://taptl.pages.dev"><b>TapTL</b></a> (2026): live translator for Android games. Reads on-screen text with ML Kit and draws English over it, <b>offline</b>, no root.</li>
+  <li class="proj"><a href="https://langsync.pages.dev"><b>LangSync</b></a> (2026): Python CLI that keeps locale files in step with one source and only translates what changed.</li>
+  <li class="proj"><a href="https://resumebuilder.js.org/"><b>Resume Builder</b></a> (2025): free developer resume builder with live editing and PDF import, on js.org. React, TypeScript.</li>
+</ul>
+
+<h2>Additional Information</h2>
+<ul>
+  <li>Wrote 17 technical posts on <a href="https://nevil.dev">nevil.dev</a> (a Next.js 16 site with automated SEO checks). Mentored junior developers on React patterns, backends and running servers.</li>
 </ul>
 
 </body>
