@@ -170,7 +170,7 @@
     "githubUrl": "https://github.com/dracu-lah/tmplayer-music",
     "year": "2026",
     "published": true,
-    "order": 1,
+    "order": 2,
     "logo": "/logos/tmplayer-music.png",
     "gallery": [
       {
@@ -259,7 +259,7 @@
     "githubUrl": "https://github.com/dracu-lah/taptl",
     "year": "2026",
     "published": true,
-    "order": 2,
+    "order": 3,
     "logo": "/logos/taptl.png",
     "gallery": [
       {
@@ -359,7 +359,7 @@
     "githubUrl": "https://github.com/dracu-lah/langsync-cli",
     "year": "2026",
     "published": true,
-    "order": 3,
+    "order": 4,
     "app": {
       "category": "DeveloperApplication",
       "operatingSystem": "Linux, macOS, Windows",
@@ -398,7 +398,7 @@
     "githubUrl": "https://github.com/dracu-lah/resumebuilder",
     "year": "2025",
     "published": true,
-    "order": 4,
+    "order": 1,
     "logo": "/logos/resume-builder.png"
   },
   {
