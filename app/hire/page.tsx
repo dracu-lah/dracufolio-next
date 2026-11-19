@@ -23,7 +23,7 @@ import Badge from "@/components/common/Badge";
 import { ml } from "@/data/ml";
 import { locationKeywords, primaryPhrases } from "@/data/keywords";
 import { PHONE_DISPLAY, WHATSAPP_URL } from "@/data/contact";
-import { yearsInReact } from "@/data/experience";
+import { freelanceSince, yearsInReact } from "@/data/experience";
 
 export const revalidate = 86400;
 
@@ -75,7 +75,7 @@ const HirePage = async () => {
               <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
                 I am Nevil Krishna K. I build websites, web apps, dashboards and
                 mobile apps, and I have spent {yearsInReact} years shipping them
-                to real users. You brief the person who writes the code.
+                to real users, and I have taken freelance projects since {freelanceSince}. You brief the person who writes the code.
               </p>
             </Reveal>
             <Reveal delay={0.12}>

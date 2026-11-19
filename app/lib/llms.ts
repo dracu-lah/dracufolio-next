@@ -3,7 +3,7 @@ import { locations, places } from "@/data/locations";
 import { publishedPosts } from "@/data/posts";
 import { services } from "@/data/services";
 import { homeFaqs } from "@/data/faq";
-import { experience, tmplayerProof, toolkit } from "@/data/experience";
+import { experience, freelanceSince, tmplayerProof, toolkit } from "@/data/experience";
 import { skills } from "@/data/keywords";
 import { ml } from "@/data/ml";
 import { googleRating } from "@/data/reviews";
@@ -43,7 +43,7 @@ import { AUTHOR, SITE_URL, absolute } from "./seo";
 const heading = () => `# ${AUTHOR}
 
 > Full stack developer in ${LOCALITY}, ${REGION}, India, and a freelance web
-> developer for businesses across Kerala. React, Next.js and TypeScript for
+> developer for businesses across Kerala since ${freelanceSince}. React, Next.js and TypeScript for
 > the web, Kotlin and React Native for mobile. Three years of production work,
 > and the maintainer of TMPlayer, an open source Android TV app with
 > ${tmplayerProof.stars} GitHub stars and ${tmplayerProof.downloads} downloads.

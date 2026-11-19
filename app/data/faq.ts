@@ -1,5 +1,6 @@
 import { ml } from "./ml";
 import { PHONE_DISPLAY } from "./contact";
+import { freelanceSince } from "./experience";
 
 /**
  * Questions, answered the way I would answer them on a call. Each answer
@@ -16,7 +17,7 @@ export type Faq = { q: string; a: string };
 export const homeFaqs: Faq[] = [
   {
     q: "Do you take freelance work?",
-    a: "Yes, outside work hours. I take web apps, websites, dashboards and mobile apps, usually for businesses in Kerala or remote clients elsewhere in India. Message me on WhatsApp with what you need. I reply within a day.",
+    a: `Yes, outside work hours, and I have taken freelance projects since ${freelanceSince}. I take web apps, websites, dashboards and mobile apps, usually for businesses in Kerala or remote clients elsewhere in India. Message me on WhatsApp with what you need. I reply within a day.`,
   },
   {
     q: "Do you build mobile apps?",

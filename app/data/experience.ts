@@ -132,5 +132,8 @@ export const tmplayerProof = {
   checked: "2026-11-20",
 };
 
+/** The year the freelance work started. The resume, FAQ, hire page and llms.txt read this. */
+export const freelanceSince = "2022";
+
 /** Years in the React and Next.js ecosystem, as the resume and about page state it. */
 export const yearsInReact = "3+";
