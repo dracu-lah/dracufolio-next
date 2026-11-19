@@ -11,94 +11,89 @@
   @page { size: 210mm 297mm; margin: 0.5in; }
   * { box-sizing: border-box; }
   body { font-family: Calibri, Carlito, sans-serif; font-size: 10.5pt; color: #000; margin: 0; line-height: 13pt; }
-  a { color: #1155cc; text-decoration: underline; }
-  .head { position: relative; display: flex; align-items: flex-start; justify-content: space-between; }
-  .head .side { font-size: 10pt; line-height: 12.2pt; }
-  .head .right { text-align: right; }
-  .links { text-align: center; font-size: 10pt; line-height: 12.2pt; margin-top: 3pt; }
-  .name { position: absolute; left: 0; right: 0; text-align: center; top: 2.5pt; font-family: "Times New Roman", Liberation Serif, serif; font-size: 18pt; line-height: 18pt;
+  a { color: inherit; text-decoration: none; }
+  .proj > a { color: #1155cc; }
+  li::marker { color: #000; }
+  li, p, .skills span { text-wrap: pretty; }
+  .links { text-align: center; font-size: 10pt; line-height: 12.2pt; margin-top: 2pt; }
+  .name { text-align: center; font-family: "Times New Roman", Liberation Serif, serif; font-size: 20pt; line-height: 22pt;
           font-variant: small-caps; letter-spacing: .3pt; }
-  h2 { font-family: "Times New Roman", Liberation Serif, serif; font-variant: small-caps; font-size: 11pt; font-weight: normal;
-       line-height: 11pt; letter-spacing: .3pt; margin: 10pt 0 0; padding-bottom: 3pt; border-bottom: 1pt solid #000; }
+  h2 { font-family: "Times New Roman", Liberation Serif, serif; text-transform: uppercase; font-size: 10.5pt; font-weight: bold;
+       line-height: 11pt; letter-spacing: .9pt; margin: 15pt 0 0; padding-bottom: 3pt; border-bottom: 1pt solid #000; }
   h2 + p, h2 + .skills, h2 + ul, h2 + .job { margin-top: 7pt; }
   p { margin: 0; }
-  ul { margin: 4pt 0 0; padding-left: 18pt; }
+  ul { margin: 4pt 0 0; padding-left: 15pt; }
   li { margin: 0 0 2pt; }
-  .skills { margin-top: 8pt; display: grid; grid-template-columns: 124pt 1fr; row-gap: 2pt; }
-  .job { display: flex; justify-content: space-between; font-weight: bold; margin-top: 9pt; }
-  .job .co { flex: 1; text-align: center; }
+  .skills { margin-top: 8pt; display: grid; grid-template-columns: 100pt 1fr; row-gap: 2pt; }
+  .job { display: grid; grid-template-columns: 1fr auto 1fr; column-gap: 8pt; margin-top: 8pt; }
+  .job > :first-child { font-weight: bold; }
+  .job .co { text-align: center; }
+  .job > :last-child { text-align: right; }
   .stack { margin-top: 3pt; color: #333; }
-  .edu { margin-top: 7pt; }
+  .edu { margin-top: 7pt; grid-template-columns: 1fr auto; }
+  .edu > :first-child { font-weight: normal; }
   .proj { margin-bottom: 3pt; }
   .proj:last-child { margin-bottom: 0; }
 </style>
 </head>
 <body>
 
-<div class="head">
-  <div class="name">Nevil Krishna</div>
-  <div class="side">Thrissur, Kerala</div>
-  <div class="side right">
-    <a href="https://wa.me/919207932070">(+91) 9207932070</a><br><a href="mailto:nevilkrishna@gmail.com">nevilkrishna@gmail.com</a>
-  </div>
-</div>
-<div class="links"><a href="https://www.linkedin.com/in/nevilkrishnak/">linkedin.com/in/nevilkrishnak</a> | <a href="https://github.com/dracu-lah">github.com/dracu-lah</a> | <a href="https://nevil.dev">nevil.dev</a></div>
+<div class="name">Nevil Krishna</div>
+<div class="links">Thrissur, Kerala | <a href="https://wa.me/919207932070">(+91) 9207932070</a> | <a href="mailto:nevilkrishna@gmail.com">nevilkrishna@gmail.com</a><br><a href="https://www.linkedin.com/in/nevilkrishnak/">linkedin.com/in/nevilkrishnak</a> | <a href="https://github.com/dracu-lah">github.com/dracu-lah</a> | <a href="https://nevil.dev">nevil.dev</a></div>
 
 <h2>Summary</h2>
-<p>Full stack developer with <b>3+ years</b> building production web apps in <b>React</b>, <b>Next.js</b> and <b>TypeScript</b>, deployed on <b>Cloudflare Workers</b>.
-I maintain <a href="https://tmplayer.org">TMPlayer</a>, an open source video player with <b>240+ GitHub stars</b> and <b>24k+ downloads</b>.
-I take features from design to production: UI, REST APIs, i18n, SEO and release.</p>
+<p>Full stack developer with <b>3+ years</b> building production web apps in React, Next.js and TypeScript, deployed on Cloudflare Workers.
+Maintainer of <a href="https://tmplayer.org">TMPlayer</a>, an open source video player with <b>240+ GitHub stars</b> and <b>24k+ downloads</b>.
+Takes features from design to production: UI, REST APIs, i18n, SEO and release.</p>
 
 <h2>Skills</h2>
 <div class="skills">
-  <b>Languages:</b><span>TypeScript, JavaScript, Python, Kotlin (Jetpack Compose), SQL, HTML, CSS</span>
+  <b>Languages:</b><span>TypeScript, JavaScript, Python, Kotlin, SQL, HTML, CSS</span>
   <b>Frontend:</b><span>React, Next.js (App Router, SSR, SSG), Astro, Vite, Tailwind CSS, shadcn/ui, React Native; state management with TanStack Query, Zustand and Redux</span>
-  <b>Backend &amp; Cloud:</b><span>Node.js, Express, Django, REST APIs, Cloudflare Workers (D1, R2), OpenNext, vinext, AWS, Docker, Vercel</span>
+  <b>Backend &amp; Cloud:</b><span>Node.js, Express, Django, REST APIs, Cloudflare Workers (D1, R2), OpenNext, vinext, AWS, Docker</span>
   <b>Testing &amp; Workflow:</b><span>Vitest (unit), Playwright (E2E), Git, GitHub Actions (CI/CD), Agile, Claude Code, Cursor</span>
   <b>Familiar with:</b><span>PostgreSQL, MongoDB, MySQL, Redis, NestJS</span>
-  <b>Also explored:</b><span>TanStack Start, SolidJS, Nuxt, Kotlin Multiplatform</span>
+  <b>Also explored:</b><span>TanStack Start, Nuxt</span>
 </div>
 
 <h2>Work Experience</h2>
 
 <div class="job"><span>Full Stack Developer</span><span class="co">Lascade LLP</span><span>Nov 2025 - Present</span></div>
 <ul>
-  <li>Full stack developer on a <b>Next.js</b> and <b>TypeScript</b> web app deployed on <b>Cloudflare Workers</b>.</li>
-  <li>Own front end features from UI to API integration, including <b>performance</b> work.</li>
-  <li>Added <b>multilingual support</b> with next-intl, and set up the <b>SEO</b> baseline and analytics tagging.</li>
-  <li>Work with a designer and a team lead, with reviewed pull requests, and fix production issues.</li>
+  <li>Build and ship features on a Next.js and TypeScript app deployed on Cloudflare Workers.</li>
+  <li>Own frontend features from UI to API integration, including performance work.</li>
+  <li>Added multilingual support (i18n) with next-intl, and set up the SEO baseline and analytics tagging.</li>
+  <li>Work with a designer and a team lead; ship through reviewed pull requests and fix production issues.</li>
 </ul>
 
 <div class="job"><span>Frontend Developer</span><span class="co">Udyata Information Systems Pvt. Ltd</span><span>Jun 2023 - Aug 2025</span></div>
 <ul>
   <li>Built a shared component library of 20+ React components that cut the team's build time by about <b>30%</b>.</li>
-  <li>Performance optimization with code splitting and lazy loading, cut network calls by <b>20%</b>.</li>
+  <li>Cut network calls by <b>20%</b> with code splitting and lazy loading.</li>
   <li>Set up GitHub Actions CI/CD, which cut deploy errors by <b>15%</b>.</li>
-  <li>Shipped B2B and healthcare apps in React and React Native, plus an admin panel and a self hosted OpenStreetMap stack (Nominatim, OSRM).</li>
+  <li>Shipped B2B and healthcare apps (React, React Native), an admin panel and self-hosted OpenStreetMap (Nominatim, OSRM).</li>
 </ul>
 
-<div class="job"><span>Freelance Web Developer (part time)</span><span class="co">Self-employed, Kerala</span><span>2024 - Present</span></div>
+<div class="job"><span>Freelance Web Developer</span><span class="co">Self-employed, Kerala (part time)</span><span>2022 - Present</span></div>
 <ul>
-  <li>Websites and web apps for Kerala businesses in <b>Next.js</b> and <b>Astro</b>, hosted on Cloudflare and Vercel. Rated <b>5.0 on Google</b> (13 client reviews).</li>
-  <li>Hand over domain, hosting and code; fix bugs free for 2 weeks; offer paid maintenance.</li>
+  <li>Build websites and web apps for Kerala businesses in Next.js and Astro, hosted on Cloudflare and Vercel.</li>
+  <li>Own delivery end to end: domain, hosting, handover, and 2 weeks of free bug fixes.</li>
 </ul>
 
 <h2>Projects</h2>
 <ul>
-  <li class="proj"><a href="https://tmplayer.org"><b>TMPlayer</b></a> (2026): plays Telegram videos before the download finishes, on Android TV, phones, desktop and the web. <b>240+ stars, 24k+ downloads</b>, 18 releases (15 stable) in 12 weeks. Kotlin Multiplatform, Compose, Media3, TDLib, Astro and SolidJS. Also: <a href="https://github.com/dracu-lah/tmplayer-music">TMPlayer Music</a>.</li>
-  <li class="proj"><a href="https://nevil.dev/blog/counting-downloads-github-cant-see-cloudflare-workers-mirror"><b>TMPlayer download mirror</b></a> (2026): live Cloudflare Workers backend with an edge cache and a Durable Object counter for cached downloads GitHub cannot see. TypeScript.</li>
-  <li class="proj"><a href="https://taptl.pages.dev"><b>TapTL</b></a> (2026): offline live translator for Android games, reading on-screen text with ML Kit.</li>
+  <li class="proj"><a href="https://tmplayer.org"><b>TMPlayer</b></a> (2026): plays Telegram videos before the download finishes, on Android TV, phones, desktop and the web. <b>240+ stars, 24k+ downloads</b>, 18 releases in 12 weeks. Kotlin Multiplatform, Compose, Media3, TDLib.</li>
+  <li class="proj"><a href="https://nevil.dev/blog/counting-downloads-github-cant-see-cloudflare-workers-mirror"><b>TMPlayer download mirror</b></a> (2026): Cloudflare Workers service that caches release downloads at the edge and counts downloads that GitHub's own stats miss. TypeScript.</li>
+  <li class="proj"><a href="https://taptl.pages.dev"><b>TapTL</b></a> (2026): offline live translator for Android games (Kotlin), reading on-screen text with ML Kit.</li>
   <li class="proj"><a href="https://langsync.pages.dev"><b>LangSync</b></a> (2026): Python CLI that translates only changed locale strings, with up to <b>98% fewer</b> API calls.</li>
   <li class="proj"><a href="https://resumebuilder.js.org/"><b>Resume Builder</b></a> (2025): free developer resume builder with live editing and PDF import, on js.org. React, TypeScript.</li>
 </ul>
 
 <h2>Education</h2>
-<div class="job edu"><span>Diploma, Computer Engineering</span><span class="co">Maharaja&rsquo;s Technological Institute (MTI), Thrissur</span><span>2020 - 2023</span></div>
+<div class="job edu"><span><b>Diploma, Computer Engineering</b>, Maharaja&rsquo;s Technological Institute (MTI), Thrissur</span><span>2020 - 2023</span></div>
 
 <h2>Additional Information</h2>
-<ul>
-  <li>17 technical posts on <a href="https://nevil.dev">nevil.dev</a>. Mentored junior developers. Languages: Malayalam, English, Hindi, Tamil.</li>
-</ul>
+<p class="edu">17 technical posts on <a href="https://nevil.dev">nevil.dev</a>. Mentored junior developers. Languages: Malayalam, English, Hindi, Tamil.</p>
 
 </body>
 </html>
