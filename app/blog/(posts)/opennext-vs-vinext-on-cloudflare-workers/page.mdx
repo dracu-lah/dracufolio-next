@@ -12,7 +12,7 @@ Nothing was deployed. Every command below is a local build or a local preview, i
 
 ## The site I used
 
-This is nevil.dev: Next.js 16 App Router, 126 prerendered pages, 15 blog posts written as MDX files, share images drawn at build time with `next/og`, `next/font` for DM Sans and a local code font, and 48 redirect and header rules in `next.config.ts`. There is no middleware or `proxy.ts` file and no Server Actions, so I can say nothing about either. Most pages carry `revalidate = 86400`.
+This is nevil.dev: Next.js 16 App Router, 126 prerendered pages as Next.js counts them, 15 blog posts at the time written as MDX files, share images drawn at build time with `next/og`, `next/font` for DM Sans and a local code font, and 48 redirect and header rules in `next.config.ts`. There is no middleware or `proxy.ts` file and no Server Actions, so I can say nothing about either. Most pages carry `revalidate = 86400`.
 
 Two repo scripts check the result against a running server: one parses the JSON-LD on every URL in the sitemap, the other checks canonicals, one `h1` per page and the crawl files. I ran both against both previews.
 
@@ -87,7 +87,7 @@ plugins: [
 ],
 ```
 
-**3. A file read at startup.** The build then passed with 52 routes prerendered, but `vite preview` died before serving anything: `no such file or directory, readAll '/bundle/app/globals.css'`. `app/lib/palette.ts` reads `globals.css` with `readFileSync` when the module loads, so the share-image cards use the real accent colour. In a Next.js build that read happens during the build and the file is traced into the output. In the Worker there is no `app/globals.css`, and the layout imports the same file, so nothing could start. I replaced the read with a Vite import, which is a change to my own source:
+**3. A file read at startup.** The build then passed with 52 routes prerendered (I did not check why vinext reports 52 where `next build` reports 126; they may count different things, so the gap is not proof of lost pages), but `vite preview` died before serving anything: `no such file or directory, readAll '/bundle/app/globals.css'`. `app/lib/palette.ts` reads `globals.css` with `readFileSync` when the module loads, so the share-image cards use the real accent colour. In a Next.js build that read happens during the build and the file is traced into the output. In the Worker there is no `app/globals.css`, and the layout imports the same file, so nothing could start. I replaced the read with a Vite import, which is a change to my own source:
 
 ```ts
 import globalsCss from "../globals.css?raw";
@@ -114,7 +114,7 @@ Build times are wall-clock for the whole command. Rows with a range are the fast
     </thead>
     <tbody>
       <tr>
-        <td className="border-b border-border py-3 pr-4 text-muted-foreground">Build time</td>
+        <td className="border-b border-border py-3 pr-4 text-muted-foreground">Build time (not comparable)</td>
         <td className="border-b border-border py-3 pr-4 text-muted-foreground">38 to 81 s</td>
         <td className="border-b border-border py-3 text-muted-foreground">61 to 96 s</td>
       </tr>
