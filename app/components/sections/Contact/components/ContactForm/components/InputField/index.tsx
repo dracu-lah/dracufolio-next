@@ -44,7 +44,7 @@ const InputField = ({
           type={type}
           placeholder={placeholder}
           {...register(name, contactRules[name])}
-          className="w-full bg-transparent p-3.5 text-base outline-none placeholder:text-muted-foreground/60"
+          className="w-full bg-transparent p-3.5 text-base outline-none placeholder:text-muted-foreground/75"
         />
       </Squircle>
       {errors[name] && (

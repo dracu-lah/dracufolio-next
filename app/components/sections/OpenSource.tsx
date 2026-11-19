@@ -64,7 +64,7 @@ const items: Item[] = [
     href: "/projects/email-sender",
     internal: true,
     description:
-      "Next.js app for personalised job outreach from your own Gmail account, sent over SMTP with an app password.",
+      "Next.js app for personalised bulk email from your own Gmail account, one delivery per recipient, sent over SMTP with an app password.",
     meta: "Next.js · Nodemailer",
   },
   {
@@ -153,6 +153,8 @@ const publicRepoCount = async (): Promise<number | null> => {
 
 const OpenSourceSection = async ({ asPage = false }: { asPage?: boolean }) => {
   const Heading = asPage ? "h1" : "h2";
+  // Cards sit one level under the heading, so the page has no skipped level.
+  const CardHeading = asPage ? "h2" : "h3";
   const repoCount = await publicRepoCount();
   return (
     <section
@@ -186,7 +188,7 @@ const OpenSourceSection = async ({ asPage = false }: { asPage?: boolean }) => {
           {items.map((item) => {
             const body = (
               <>
-                <h3 className="font-display flex items-center gap-3 text-xl font-bold tracking-tight transition-colors duration-300 group-hover:text-accent md:text-2xl">
+                <CardHeading className="font-display flex items-center gap-3 text-xl font-bold tracking-tight transition-colors duration-300 group-hover:text-accent md:text-2xl">
                   {item.logo ? (
                     <Image
                       src={item.logo}
@@ -200,7 +202,7 @@ const OpenSourceSection = async ({ asPage = false }: { asPage?: boolean }) => {
                     <GithubLogo className="size-6 shrink-0 md:size-7" />
                   )}
                   {item.name}
-                </h3>
+                </CardHeading>
                 <p className="pt-2 text-base leading-relaxed text-muted-foreground md:text-lg">
                   {item.description}
                 </p>

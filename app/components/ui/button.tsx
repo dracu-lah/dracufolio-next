@@ -33,10 +33,10 @@ const buttonVariants = cva(
       },
       size: {
         default: "h-11 px-5 py-2 has-[>svg]:px-4",
-        sm: "h-9 gap-1.5 px-4 text-sm has-[>svg]:px-3",
+        sm: "h-11 gap-1.5 px-4 text-sm has-[>svg]:px-3 md:h-9",
         lg: "h-13 px-8 text-base has-[>svg]:px-6",
         icon: "size-11",
-        "icon-sm": "size-9",
+        "icon-sm": "size-11 md:size-9",
       },
     },
     defaultVariants: {

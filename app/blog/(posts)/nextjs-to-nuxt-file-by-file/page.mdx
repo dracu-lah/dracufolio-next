@@ -136,7 +136,7 @@ i18n: {
 
 `prefix_except_default` gives `/products` in English and `/ar/products` in Arabic. `<NuxtLink :to="localePath('/products')">` adds the prefix for you, and `$t('nav.home')` reads a key.
 
-RTL is four lines in `app.vue`, not a plugin:
+RTL is one composable and one `useHead` call in `app.vue`, not a plugin:
 
 ```ts
 const head = useLocaleHead({ dir: true, lang: true })

@@ -114,7 +114,7 @@ A music player runs for hours, much of it with the screen off, so every percent 
 
 **Work nobody could see.** The playback position kept ticking while the app was in the background, and the tag reader kept TDLib busy off screen. Both now stop when the screen is not showing them. Playing in the background went from 36.4 to 6.0 percent of one core, and the app paused in the background from 22.8 to 0.5 percent after a few minutes.
 
-The scale checks run on the desktop JVM against a synthetic account of 100,000 tracks. The first page of Songs, Albums or Artists comes back in 2 to 7 ms from the on-disk index, and a search in 41 ms. On the phone, scrolling the 35,865 track chat has a median frame of 19 ms.
+The scale checks run on the desktop JVM against a synthetic account of 100,000 tracks. The first page of Songs, Albums or Artists comes back in 2 to 7 ms from the on-disk index, and a search in 41 ms.
 
 ## What it does not do
 

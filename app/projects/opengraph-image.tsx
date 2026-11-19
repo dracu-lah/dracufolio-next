@@ -9,7 +9,7 @@ const Image = () =>
     eyebrow: "Projects",
     title: "All Projects",
     description:
-      "Travel products, open-source tools, and side projects built with React and Next.js.",
+      "Web apps, open-source tools, and side projects built with React and Next.js.",
   });
 
 export default Image;
