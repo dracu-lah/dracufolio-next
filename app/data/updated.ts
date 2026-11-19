@@ -6,10 +6,10 @@
  */
 
 export const CONTENT_DATES = {
-  home: "2026-10-15",
-  hire: "2026-10-15",
-  locations: "2026-10-15",
-  projects: "2026-10-30",
+  home: "2026-11-20",
+  hire: "2026-11-20",
+  locations: "2026-11-20",
+  projects: "2026-11-20",
   about: "2026-09-19",
   openSource: "2026-10-13",
   blog: "2026-11-07",

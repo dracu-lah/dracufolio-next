@@ -1,5 +1,6 @@
-import { GetProjectsAPI } from "@/services/api";
+import { GetEarlyProjectsAPI, GetMainProjectsAPI } from "@/services/api";
 import Projects from "@/components/sections/Portfolio/components/Projects";
+import EarlyProjects from "@/components/sections/Portfolio/components/EarlyProjects";
 import Footer from "@/components/common/Footer";
 import BackLink from "@/components/common/BackLink";
 import Badge from "@/components/common/Badge";
@@ -27,7 +28,10 @@ export const metadata = pageMetadata({
 });
 
 const ProjectsPage = async () => {
-  const projects = await GetProjectsAPI();
+  const projects = await GetMainProjectsAPI();
+  const early = await GetEarlyProjectsAPI();
+  // The list covers every page this one links to, early ones included.
+  const allProjects = [...projects, ...early];
 
   return (
     <>
@@ -48,8 +52,8 @@ const ProjectsPage = async () => {
             {
               "@type": "ItemList",
               "@id": `${SITE_URL}/projects#list`,
-              numberOfItems: projects.length,
-              itemListElement: projects.map((project, i) => ({
+              numberOfItems: allProjects.length,
+              itemListElement: allProjects.map((project, i) => ({
                 "@type": "ListItem",
                 position: i + 1,
                 name: project.title,
@@ -76,6 +80,29 @@ const ProjectsPage = async () => {
             </p>
           </div>
           <Projects projects={projects} />
+
+          {early.length > 0 && (
+            <section
+              aria-labelledby="early-heading"
+              className="flex flex-col gap-5 border-t border-border pt-10 md:gap-6 md:pt-12"
+            >
+              <div className="flex flex-col gap-3">
+                <h2
+                  id="early-heading"
+                  className="font-display text-2xl font-bold tracking-tight md:text-3xl"
+                >
+                  Where I started
+                </h2>
+                <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
+                  These are tutorial-era projects from my first years of
+                  learning, mostly built while following courses and copying
+                  apps I liked. I kept them because they show the path from
+                  there to the work above.
+                </p>
+              </div>
+              <EarlyProjects projects={early} />
+            </section>
+          )}
         </div>
       </main>
       <CtaBlock />
