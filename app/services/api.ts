@@ -30,8 +30,24 @@ export async function GetSkillsAPI() {
   ];
 }
 
+/** Every published project, early ones included. Pages, sitemap and llms.txt use this. */
 export async function GetProjectsAPI(): Promise<Project[]> {
   return projects.filter((p) => p.published).sort((a, b) => a.order - b.order);
+}
+
+/** The main grid: every published project except the early ones. */
+export async function GetMainProjectsAPI(): Promise<Project[]> {
+  return (await GetProjectsAPI()).filter((p) => p.era !== "early");
+}
+
+/** The early, tutorial-era projects, newest year first. */
+export async function GetEarlyProjectsAPI(): Promise<Project[]> {
+  return (await GetProjectsAPI())
+    .filter((p) => p.era === "early")
+    .sort(
+      (a, b) =>
+        Number(b.year ?? 0) - Number(a.year ?? 0) || a.order - b.order,
+    );
 }
 
 export async function GetProjectBySlugAPI(

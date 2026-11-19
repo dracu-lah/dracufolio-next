@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import ProjectsRail from "./components/ProjectsRail";
 import Reveal from "@/components/common/Reveal";
 import { ArrowRight } from "@/components/common/icons";
-import { GetProjectsAPI } from "@/services/api";
+import { GetMainProjectsAPI } from "@/services/api";
 import { type Project } from "@/types/portfolio";
 
 /**
@@ -26,7 +26,7 @@ const PortfolioSection = async ({
   let projects: Project[] = [];
 
   try {
-    projects = await GetProjectsAPI();
+    projects = await GetMainProjectsAPI();
   } catch (error) {
     console.error("Failed to load projects:", error);
   }

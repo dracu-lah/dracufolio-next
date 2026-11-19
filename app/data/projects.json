@@ -588,7 +588,8 @@
     "githubUrl": "https://github.com/dracu-lah/trello-appwrite-next",
     "year": "2023",
     "published": true,
-    "order": 10
+    "order": 10,
+    "era": "early"
   },
   {
     "id": "66ceeb590024c8530280",
@@ -620,7 +621,8 @@
     "year": "2024",
     "published": true,
     "order": 11,
-    "logo": "/logos/notes-app.png"
+    "logo": "/logos/notes-app.png",
+    "era": "early"
   },
   {
     "id": "648b9730061e85689f35",
@@ -651,7 +653,8 @@
     "year": "2022",
     "published": false,
     "order": 13,
-    "logo": "/logos/drum-kit.png"
+    "logo": "/logos/drum-kit.png",
+    "era": "early"
   },
   {
     "id": "648b97d53585e792fe9a",
@@ -681,7 +684,8 @@
     "githubUrl": "https://github.com/dracu-lah/Simon-Game",
     "year": "2022",
     "published": false,
-    "order": 14
+    "order": 14,
+    "era": "early"
   },
   {
     "id": "648c1cc9c2f15d66810b",
@@ -711,7 +715,8 @@
     "githubUrl": "https://github.com/dracu-lah/result-management-next",
     "year": "2023",
     "published": true,
-    "order": 12
+    "order": 12,
+    "era": "early"
   },
   {
     "id": "648c15eec2bb707738ba",
@@ -741,7 +746,8 @@
     "githubUrl": "https://github.com/dracu-lah/netflixclone-next",
     "year": "2023",
     "published": false,
-    "order": 15
+    "order": 15,
+    "era": "early"
   },
   {
     "id": "648b950a0b374b8d3b2g",
@@ -770,6 +776,7 @@
     "githubUrl": "https://github.com/dracu-lah/covid19-status-tracker",
     "year": "2022",
     "published": false,
-    "order": 16
+    "order": 16,
+    "era": "early"
   }
 ]
