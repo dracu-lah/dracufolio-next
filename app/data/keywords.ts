@@ -21,67 +21,40 @@ export const primaryPhrases = [
 ];
 
 /**
- * Every job title and shorthand that describes the same person. These go into
- * sentences and into hasOccupation, never into a hidden keyword block.
+ * The job titles that describe the same person. These go into sentences and
+ * into the keywords meta tag, never into a hidden keyword block. Kept short:
+ * a long list of near-duplicate titles reads as stuffing.
  */
 export const roleWords = [
   "full stack developer",
-  "full stack engineer",
   "frontend developer",
-  "front end developer",
-  "backend developer",
-  "software developer",
-  "software engineer",
-  "SDE",
-  "SWE",
   "web developer",
-  "website developer",
   "React developer",
-  "ReactJS developer",
   "Next.js developer",
-  "NextJS developer",
   "TypeScript developer",
-  "JavaScript developer",
-  "UI developer",
-  "UI engineer",
-  "MERN developer",
   "mobile app developer",
-  "React Native developer",
-  "Android developer",
-  "Kotlin developer",
-  "freelance developer",
-  "remote developer",
-  "contract developer",
-  "programmer",
-  "coder",
-  "dev",
-  "web dev",
-  "app dev",
-  "product engineer",
-  "Cloudflare developer",
-  "Tailwind developer",
+  "freelance web developer",
 ];
 
-/** The short ones that read fine in a list on the page. */
+/** The short list that reads fine on a page. */
 export const roleShortlist = [
   "Full stack developer",
-  "Freelance web developer",
   "Frontend developer",
-  "Software engineer (SDE or SWE, the usual job title at product companies)",
-  "React and Next.js developer",
-  "Web developer",
-  "React Native and Android developer",
+  "Android developer",
+];
+
+/** The About page's keywords meta: the name plus three role words. */
+export const aboutKeywords = [
+  "Nevil Krishna K",
+  "about Nevil Krishna",
+  ...roleWords.slice(0, 3),
 ];
 
 /** Occupations for schema.org hasOccupation. */
 export const occupations = [
   "Full Stack Developer",
-  "Freelance Web Developer",
   "Frontend Developer",
-  "Software Engineer",
-  "React Developer",
-  "Next.js Developer",
-  "Mobile App Developer",
+  "Freelance Web Developer",
 ];
 
 export const skills = [
@@ -125,7 +98,7 @@ export const metaKeywords = [
   "Nevil Krishna",
   "nevil.dev",
   ...primaryPhrases,
-  ...roleWords.slice(0, 20),
+  ...roleWords,
   ...skills.slice(0, 12),
   ...mlKeywords,
 ];

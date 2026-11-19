@@ -21,7 +21,7 @@ export const DESCRIPTION_MAX = 160;
 
 /** The home page's title and description, also the root layout's defaults. */
 export const HOME_TITLE = `${AUTHOR} | Full Stack Developer in Thrissur, Kerala`;
-export const HOME_DESCRIPTION = `Nevil Krishna K, full stack developer in Thrissur, Kerala. React, Next.js, TypeScript and Kotlin. Freelance or full time. WhatsApp ${PHONE_DISPLAY}.`;
+export const HOME_DESCRIPTION = `Nevil Krishna K, full stack developer in Thrissur, Kerala. React, Next.js, TypeScript and Kotlin. Freelance projects: WhatsApp ${PHONE_DISPLAY}.`;
 
 export const absolute = (path: string) =>
   path.startsWith("http") ? path : `${SITE_URL}${path}`;

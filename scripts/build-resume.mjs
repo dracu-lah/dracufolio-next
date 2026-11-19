@@ -12,7 +12,7 @@ import { resolve } from "node:path";
 
 const SOURCE = resolve("scripts/resume.html");
 const OUTPUT = resolve(
-  "public/appwrite/resume/Nevil-3-Years-Frontend-Resume.pdf",
+  "public/appwrite/resume/Nevil-Krishna-Full-Stack-Developer-Resume.pdf",
 );
 
 // Chromium, per the house rule. Chrome is not used for rendering here.

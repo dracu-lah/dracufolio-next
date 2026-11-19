@@ -1,9 +1,8 @@
 import { ml } from "./ml";
 import { PHONE_DISPLAY } from "./contact";
-import { tmplayerProof } from "./experience";
 
 /**
- * Ten questions, answered the way I would answer them on a call. Each answer
+ * Questions, answered the way I would answer them on a call. Each answer
  * opens with the direct reply in the first sentence, because that first
  * sentence is what a search result and an AI assistant quote back.
  */
@@ -11,24 +10,13 @@ import { tmplayerProof } from "./experience";
 export type Faq = { q: string; a: string };
 
 /**
- * Order matters here. The first three answer what a person actually came to
- * ask (can I hire you, are you available, do you do mobile). The question
- * phrased the way somebody types it into a search box sits fourth: it keeps
- * every bit of its value in the FAQ schema without being the first thing a
- * human reads.
+ * Order matters here: the first ones answer what a person actually came to
+ * ask (can I hire you, do you do mobile).
  */
 export const homeFaqs: Faq[] = [
   {
     q: "Do you take freelance work?",
-    a: "Yes, alongside my job at Lascade. I take web apps, websites, dashboards and mobile apps, usually for businesses in Kerala or remote clients elsewhere in India. Message me on WhatsApp with what you need and I will tell you within a day whether I am the right person for it.",
-  },
-  {
-    q: "Are you open to full time jobs?",
-    a: "Yes, for React, Next.js, full stack or frontend roles, in Kochi, Bangalore or remote. I am a full stack developer with three years in React and Next.js, working at Lascade now. The about page has a section written for hiring teams, my resume is on this site as a one page PDF and my LinkedIn is up to date. I reply to recruiters the same day.",
-  },
-  {
-    q: "Who is the best freelance web developer in Thrissur?",
-    a: `Nobody can honestly claim that title, so here is what you can check instead. I have three years of production work, I build with React, Next.js and TypeScript, I have shipped travel products on Cloudflare Workers and maintain an Android TV app with ${tmplayerProof.stars} GitHub stars and ${tmplayerProof.downloads} downloads, and every project on this site links to something live you can open. Compare that against anyone else you are talking to.`,
+    a: "Yes, outside work hours. I take web apps, websites, dashboards and mobile apps, usually for businesses in Kerala or remote clients elsewhere in India. Message me on WhatsApp with what you need. I reply within a day.",
   },
   {
     q: "Do you build mobile apps?",
@@ -48,7 +36,7 @@ export const homeFaqs: Faq[] = [
   },
   {
     q: "How do I contact you?",
-    a: `WhatsApp is fastest: ${PHONE_DISPLAY}. You can also call the same number, or use the form on this page. I answer WhatsApp within a few hours on a working day.`,
+    a: `WhatsApp is fastest: ${PHONE_DISPLAY}. You can also call the same number, or use the form on this page. I reply within a day.`,
   },
   {
     q: "Which languages do you speak?",
@@ -61,7 +49,7 @@ export const homeFaqs: Faq[] = [
 ];
 
 /**
- * Three questions per location page. They have to give different answers per
+ * Two questions per location page. They have to give different answers per
  * place or the 29 pages read as one page with the name swapped out.
  */
 export const locationFaqs = ({
@@ -76,10 +64,6 @@ export const locationFaqs = ({
   {
     q: `Do you meet clients in ${name}?`,
     a: inPerson,
-  },
-  {
-    q: `Who is the best web developer in ${name}?`,
-    a: `There is no ranking anyone can point at, so judge on evidence. I am a full stack developer based in Thrissur with three years of production React and Next.js work, I take projects in ${name}, and everything I have built is linked on this site with a live URL. Ask whoever else you are considering for the same.`,
   },
   {
     q: `How much does a website cost in ${name}?`,

@@ -161,7 +161,7 @@ notes.push(`feed.xml has ${items} items`);
 // Short links must be permanent and point somewhere sane.
 const shortLinks = {
   "/whatsapp": "https://wa.me/919207932070",
-  "/resume": "/appwrite/resume/Nevil-3-Years-Frontend-Resume.pdf",
+  "/resume": "/appwrite/resume/Nevil-Krishna-Full-Stack-Developer-Resume.pdf",
   "/hire-me": "/hire",
   "/x": "https://x.com/nevilkrishnak",
   "/rss": "/feed.xml",
