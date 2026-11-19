@@ -1,4 +1,6 @@
 import HeroSection from "./components/sections/Hero";
+import ProofStrip from "./components/sections/ProofStrip";
+import TmplayerInPublic from "./components/sections/TmplayerInPublic";
 import PortfolioSection from "./components/sections/Portfolio";
 import ServicesSection from "./components/sections/Services";
 import LatestPosts from "./components/sections/LatestPosts";
@@ -44,7 +46,9 @@ const Home = () => (
     />
     <main>
       <HeroSection />
+      <ProofStrip />
       <PortfolioSection />
+      <TmplayerInPublic />
       <ReviewsSection />
       <LatestPosts />
       {/* The employment story comes before the services grid: a hiring

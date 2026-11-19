@@ -121,3 +121,12 @@ export const reviewerStanding = (review: GoogleReview) => {
 };
 
 export const hasReviews = googleRating.count > 0 && featuredReviews.length > 0;
+
+/**
+ * One short, consented review whole, for the line of proof above a closing
+ * call to action. Whole rather than clipped, so the words are exactly what the
+ * reviewer wrote; a line break inside it is shown as a space.
+ */
+export const quoteReview = featuredReviews.find(
+  (review) => review.text.trim().length >= SHORT && review.text.trim().length <= 140,
+);
