@@ -6,7 +6,7 @@
  *
  * No driver dependency: Node has a global WebSocket and Chromium speaks CDP.
  *
- * Usage: node scripts/browser-test.mjs [baseUrl]
+ * Usage: [CDP_PORT=9333] node scripts/browser-test.mjs [baseUrl]
  */
 import { spawn } from "node:child_process";
 import { mkdtempSync, rmSync } from "node:fs";
@@ -14,7 +14,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 
 const BASE = process.argv[2] ?? "http://localhost:3115";
-const PORT = 9333;
+const PORT = Number(process.env.CDP_PORT ?? 9333);
 const profile = mkdtempSync(join(tmpdir(), "cdp-"));
 
 const chromium = spawn(
@@ -170,6 +170,7 @@ const PAGES = [
   "/projects/tmplayer",
   "/blog",
   "/blog/telegram-video-before-it-finishes-downloading",
+  "/blog/translation-sync-without-breaking-icu",
   "/about",
   "/open-source",
   "/nope-404",
@@ -267,29 +268,40 @@ else
 await goto("/hire");
 const chips = await evaluate(`document.querySelectorAll('.icon-chip').length`);
 if (chips < 6) fails.push(`${chips} glossy icon chips on /hire, expected 6`);
+// The glass sits on the inset `.icon-chip-fill` layer: the chip element itself
+// only carries the edge colour (border mode, see Icon3D and useSquircle).
 const chipHasGradient = await evaluate(
-  `(() => { const c = document.querySelector('.icon-chip');
+  `(() => { const c = document.querySelector('.icon-chip-fill');
      return c ? /gradient/.test(getComputedStyle(c).backgroundImage) : false; })()`,
 );
 if (!chipHasGradient) fails.push("icon chip has no gradient applied");
 else notes.push(`${chips} glossy icon chips painted with a gradient`);
 
-/* 7. The four faces are all actually in use. */
+/* 7. The three faces are all actually in use: DM Sans for display and body,
+ * Google Sans Code for code only, Anek Malayalam for Malayalam. */
 await goto("/");
 const faces = await evaluate(`(() => {
   const pick = (sel) => { const el = document.querySelector(sel);
     return el ? getComputedStyle(el).fontFamily.split(',')[0].replace(/['"]/g,'') : null; };
-  return { h1: pick('h1'), body: pick('#hero p'), mono: pick('#hero .font-mono, nav a'),
-           ml: pick('[lang="ml"]') };
+  return { h1: pick('h1'), body: pick('#hero p'), ml: pick('[lang="ml"]') };
 })()`);
-notes.push(
-  `faces in use: h1 ${faces.h1}, body ${faces.body}, mono ${faces.mono}, malayalam ${faces.ml}`,
+await goto("/blog/telegram-video-before-it-finishes-downloading");
+const codeFace = await evaluate(
+  `(() => { const el = document.querySelector('code.font-mono, pre');
+     return el ? getComputedStyle(el).fontFamily.split(',')[0].replace(/['"]/g,'') : null; })()`,
 );
-const distinct = new Set(Object.values(faces).filter(Boolean));
-if (distinct.size < 3)
-  fails.push(`only ${distinct.size} distinct font families rendered, expected 4`);
+notes.push(
+  `faces in use: h1 ${faces.h1}, body ${faces.body}, code ${codeFace}, malayalam ${faces.ml}`,
+);
+if (faces.h1 !== faces.body)
+  fails.push(`h1 (${faces.h1}) and body (${faces.body}) should share one face`);
+const distinct = new Set([faces.h1, faces.body, codeFace, faces.ml].filter(Boolean));
+if (!codeFace) fails.push("no code element found on the blog post to check the code face");
+if (distinct.size !== 3)
+  fails.push(`${distinct.size} distinct font families rendered, expected 3`);
 
 /* 8. Malayalam renders with real glyphs rather than fallback boxes. */
+await goto("/");
 const mlWidth = await evaluate(
   `(() => { const el = document.querySelector('[lang="ml"]');
      return el ? Math.round(el.getBoundingClientRect().width) : 0; })()`,
@@ -299,7 +311,7 @@ else notes.push(`Malayalam line renders ${mlWidth}px wide`);
 
 ws.close();
 chromium.kill("SIGTERM");
-rmSync(profile, { recursive: true, force: true });
+rmSync(profile, { recursive: true, force: true, maxRetries: 10, retryDelay: 200 });
 
 console.log(notes.map((n) => "  " + n).join("\n"));
 if (fails.length) {
