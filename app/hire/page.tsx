@@ -22,13 +22,13 @@ import { homeFaqs } from "@/data/faq";
 import Badge from "@/components/common/Badge";
 import { ml } from "@/data/ml";
 import { locationKeywords, primaryPhrases } from "@/data/keywords";
-import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL } from "@/data/contact";
+import { PHONE_DISPLAY, WHATSAPP_URL } from "@/data/contact";
+import { yearsInReact } from "@/data/experience";
 
 export const revalidate = 86400;
 
 const title = "Freelance React and Next.js Developer";
-const description =
-  "Hire Nevil Krishna K, a freelance React and Next.js developer in Thrissur, Kerala. Websites, web apps and mobile apps. WhatsApp +91 92079 32070 for a quote.";
+const description = `Hire Nevil Krishna K, a freelance React and Next.js developer in Thrissur, Kerala. Websites, web apps and mobile apps. WhatsApp ${PHONE_DISPLAY} for a quote.`;
 
 export const metadata = pageMetadata({
   title,
@@ -74,22 +74,18 @@ const HirePage = async () => {
             <Reveal delay={0.1}>
               <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
                 I am Nevil Krishna K. I build websites, web apps, dashboards and
-                mobile apps, and I have spent three years shipping them to real
-                users. You brief the person who writes the code.
+                mobile apps, and I have spent {yearsInReact} years shipping them
+                to real users. You brief the person who writes the code.
               </p>
             </Reveal>
             <Reveal delay={0.12}>
               <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
-                React and Next.js are widely used tools for building websites
-                and web apps, so any developer you hire later can pick the code
-                up.
+                Widely used tools, so any developer can take over the code.
               </p>
             </Reveal>
             <Reveal delay={0.14}>
               <div className="flex flex-wrap items-center gap-2">
                 <Badge size="md">Freelance</Badge>
-                <Badge size="md">Contract</Badge>
-                <Badge size="md">Full time</Badge>
               </div>
             </Reveal>
             <Reveal delay={0.18} className="w-full">
@@ -105,36 +101,8 @@ const HirePage = async () => {
             </Reveal>
             <Reveal delay={0.24}>
               <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
-                Hired as a full stack developer (one person who builds both the
-                screens and the server behind them), frontend developer,
-                software engineer (SDE or SWE, the usual job title at product
-                companies), React and Next.js developer, React Native and
-                Android developer, or freelance web developer. Available in
-                Thrissur, anywhere in Kerala, and remote across India.
-              </p>
-            </Reveal>
-            <Reveal delay={0.26}>
-              <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
-                Hiring for a team rather than a project? Read the{" "}
-                <Link
-                  href="/about#for-hiring-teams"
-                  className="text-foreground underline underline-offset-4"
-                >
-                  section for hiring teams
-                </Link>
-                .
-              </p>
-            </Reveal>
-            <Reveal delay={0.22}>
-              <p className="text-base text-muted-foreground">
-                Or call{" "}
-                <a
-                  href={PHONE_TEL}
-                  className="text-foreground underline underline-offset-4"
-                >
-                  {PHONE_DISPLAY}
-                </a>
-                .
+                Full stack, frontend and Android work. Thrissur, Kerala, or
+                remote across India.
               </p>
             </Reveal>
           </div>
@@ -179,6 +147,7 @@ const HirePage = async () => {
       />
       <CtaBlock
         quote
+        rating={false}
         message="Hi Nevil, I found your hire page. I would like to talk about a project."
       />
       <Footer />

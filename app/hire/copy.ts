@@ -93,7 +93,7 @@ export const reasons = (location: Location) => {
     location.kind === "country"
       ? {
           title: "Indian hours, no agency layer",
-          body: "I am in IST, I reply on WhatsApp the same day, and the person you brief is the person who writes the code. Nothing gets lost on the way to a developer you never meet.",
+          body: "I am in IST, I reply within a day, and the person you brief is the person who writes the code. Nothing gets lost on the way to a developer you never meet.",
         }
       : location.district === "Thrissur" || DRIVABLE.has(location.slug)
         ? {
@@ -108,7 +108,7 @@ export const reasons = (location: Location) => {
   return [
     {
       title: "Production work, not a portfolio",
-      body: "Three years of it, mostly travel products on Next.js (a framework for fast React websites) and Cloudflare Workers (hosting that runs your code near each visitor) at my day job, plus an Android TV app of my own with real users filing real issues. My own projects are all linked on this site.",
+      body: "Three years of it, building web products on Next.js (a framework for fast React websites) and Cloudflare Workers (hosting that runs your code near each visitor), plus an Android TV app of my own with real users filing real issues. My own projects are all linked on this site.",
     },
     {
       title: "Built to be found",

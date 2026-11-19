@@ -26,10 +26,11 @@ import {
  * supposed to resolve.
  */
 const CtaBlock = ({
-  heading = "Have a project or a role in mind?",
+  heading = "Have a project in mind?",
   message,
   bare = false,
   quote = false,
+  rating = true,
   className = "",
 }: {
   heading?: string;
@@ -44,6 +45,11 @@ const CtaBlock = ({
   bare?: boolean;
   /** Adds one short review under the rating, for pages that ask for a decision. */
   quote?: boolean;
+  /**
+   * The Google rating line under the button. A page that already shows the
+   * rating elsewhere turns it off, so the number appears once per page.
+   */
+  rating?: boolean;
   className?: string;
 }) => {
   const rows = [
@@ -110,7 +116,7 @@ const CtaBlock = ({
           </div>
           {/* The last reassurance before the decision, under the button
               rather than above it so the ask stays the first thing read. */}
-          <GoogleRating href={GOOGLE_MAPS_URL} />
+          {rating && <GoogleRating href={GOOGLE_MAPS_URL} />}
           {quote && quoteReview && (
             <figure className="flex max-w-md flex-col gap-1">
               <blockquote className="text-base leading-relaxed text-foreground">

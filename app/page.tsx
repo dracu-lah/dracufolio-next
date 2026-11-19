@@ -49,11 +49,11 @@ const Home = () => (
       <ProofStrip />
       <PortfolioSection />
       <TmplayerInPublic />
+      {/* Experience before the reviews: the work history is read first,
+          then what other people say about it. */}
+      <SkillsSection />
       <ReviewsSection />
       <LatestPosts />
-      {/* The employment story comes before the services grid: a hiring
-          person scrolling here should reach it before the client pitch. */}
-      <SkillsSection />
       <ServicesSection />
       <TestimonialsSection />
       <FaqSection faqs={homeFaqs} heading="Questions" />

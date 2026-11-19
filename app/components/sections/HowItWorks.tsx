@@ -38,7 +38,7 @@ const STEPS = [
   {
     title: "Build",
     icon: ShipFlash,
-    body: "A demo you can click every week. The code (kept in an online folder called a repository), the domain and the hosting are all in your name. I show you how to edit the text yourself, fix bugs free for two weeks after handover, and offer a paid plan for ongoing updates.",
+    body: "Weekly demos you can click. The code, domain and hosting are in your name. Bug fixes are free for two weeks after handover. Paid plans cover ongoing updates.",
   },
 ];
 

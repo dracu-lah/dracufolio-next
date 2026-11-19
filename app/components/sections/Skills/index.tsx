@@ -4,6 +4,7 @@ import ExperienceList from "./components/ExperienceList";
 import Toolkit from "./components/Toolkit";
 import Reveal from "@/components/common/Reveal";
 import { LINKEDIN_URL } from "@/data/contact";
+import { yearsInReact } from "@/data/experience";
 // import { GetSkillsAPI } from "@/services/api";
 
 const SkillsSection = () => {
@@ -21,16 +22,8 @@ const SkillsSection = () => {
           </Reveal>
           <Reveal delay={0.16}>
             <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-              Three years of <b>React</b> work (the most widely used tool for
-              building web interfaces) across product teams, from design
-              handoff to production. Hiring for a team? Read the{" "}
-              <Link
-                className="text-foreground underline underline-offset-4 transition-colors duration-300 hover:text-accent"
-                href="/about#for-hiring-teams"
-              >
-                section for hiring teams
-              </Link>
-              . The full work history is on{" "}
+              {yearsInReact} years of <b>React</b> work across product teams,
+              from design to production. The full work history is on{" "}
               <a
                 className="underline underline-offset-4 transition-colors duration-300 hover:text-accent"
                 href={LINKEDIN_URL}
@@ -53,7 +46,7 @@ const SkillsSection = () => {
           <Reveal>
             <Link
               href="/about"
-              className="text-base text-muted-foreground underline underline-offset-4 transition-colors duration-300 hover:text-accent"
+              className="inline-block py-3 text-base text-muted-foreground underline underline-offset-4 transition-colors duration-300 hover:text-accent"
             >
               Full profile
             </Link>
