@@ -40,9 +40,10 @@ export const experience = [
     site: "https://udyata.com",
     period: "Jun 2023 - Aug 2025",
     points: [
-      "Built a shared library of 20+ React components that took roughly 30 percent off the team's build time",
-      "Sped up first load with code splitting, lazy loading and memoization, and cut network calls by 20 percent",
-      "Handled state in Zustand and Redux for B2B and healthcare apps, with responsive, accessible UIs",
+      "Built a shared library of 20+ React components that cut the team's build time by about 30 percent",
+      "Cut first load with code splitting and lazy loading, and cut network calls by 20 percent",
+      "Set up GitHub Actions CI/CD, which cut deploy errors by 15 percent",
+      "Shipped B2B and healthcare apps in React and React Native, plus an admin panel and a self hosted OpenStreetMap stack (Nominatim, OSRM)",
     ],
     stack: [
       "React",
