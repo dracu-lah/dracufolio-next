@@ -1,0 +1,190 @@
+import { PostHeader, PostFooter } from "@/components/blog/PostChrome";
+import { postMetadata } from "@/lib/blog";
+
+export const slug = "opennext-vs-vinext-on-cloudflare-workers";
+export const metadata = postMetadata(slug);
+
+<PostHeader slug={slug} />
+
+In October I wrote about [moving a Next.js app to Cloudflare Workers with OpenNext](/blog/nextjs-on-cloudflare-workers-with-opennext). That post ended with "start from `npx @opennextjs/cloudflare migrate`". Since then I wanted to try vinext, the Vite-based Next.js runtime from Cloudflare, whose README claims faster builds and smaller bundles. So on 20 November 2026 I ran both against the code of this site and wrote down what happened.
+
+Nothing was deployed. Every command below is a local build or a local preview, in two scratch copies of the repo, with the Wrangler login on my machine hidden (more on that below). The numbers come from one laptop that was busy with other work, so read the build times as rough.
+
+## The site I used
+
+This is nevil.dev: Next.js 16 App Router, 126 prerendered pages, 15 blog posts written as MDX files, share images drawn at build time with `next/og`, `next/font` for DM Sans and a local code font, and 48 redirect and header rules in `next.config.ts`. There is no middleware or `proxy.ts` file and no Server Actions, so I can say nothing about either. Most pages carry `revalidate = 86400`.
+
+Two repo scripts check the result against a running server: one parses the JSON-LD on every URL in the sitemap, the other checks canonicals, one `h1` per page and the crawl files. I ran both against both previews.
+
+One thing before any Cloudflare work. The repo pins Next.js 16.4.1, and `next build` on it finished compiling and then failed with a security error saying the version has a known vulnerability. Both scratch copies therefore run 16.4.6, the newest patch release on npm that day.
+
+## Versions
+
+- Node.js 24.22.2 and pnpm 12.18.0.
+- Next.js 16.4.6.
+- OpenNext: `@opennextjs/cloudflare` 1.20.17 with Wrangler 4.164.0.
+- vinext: `vinext` 1.4.6, `@vinext/cloudflare` 1.4.0, Vite 8.3.0, the Cloudflare Vite plugin 2.0.0-rc.1 and `cf` 1.0.0-rc.1.
+- React 19.2.8 in the OpenNext copy and 19.3.1 in the vinext copy.
+
+vinext needs React 19.3.1 or newer, and `vinext init` bumped it for me.
+
+## Path A: OpenNext
+
+My machine has a Wrangler login, and the docs say `migrate` also creates an R2 bucket if R2 is enabled on the account. To make sure nothing could reach an account, I ran every Cloudflare command with `HOME` and `XDG_CONFIG_HOME` pointed at an empty folder.
+
+```bash
+pnpm install --frozen-lockfile
+npx @opennextjs/cloudflare@latest migrate
+npx opennextjs-cloudflare build
+npx opennextjs-cloudflare preview --port 8787
+```
+
+`migrate` failed the first time. It runs `pnpm add @opennextjs/cloudflare@latest`, and pnpm 12 stopped with `ERR_PNPM_IGNORED_BUILDS` because `esbuild` and `workerd` have install scripts that my `pnpm-workspace.yaml` had not allowed. I added both to `allowBuilds` there and ran `migrate` again, and it finished. It installed Wrangler, then wrote `wrangler.jsonc`, `open-next.config.ts`, `.dev.vars`, `public/_headers` and four scripts, and it appended one line to `next.config.ts`. The cache setup in `open-next.config.ts` is commented out, with a warning that it could not set up a cache without an account.
+
+I built and previewed it as generated. `/sitemap.xml`, `/feed.xml`, `/robots.txt`, redirects and `/_next/image` returned 200 or the right redirect. The home page, `/blog`, a blog post and the share images all returned `500 Internal Server Error`, with no detail in the log. I did not isolate which feature caused it, but the site's pages are prerendered with `revalidate`, and adding an incremental cache fixed all of them. I added the R2 cache to `open-next.config.ts` and an `r2_buckets` binding to `wrangler.jsonc`. `preview` filled a local, simulated R2 bucket with 130 entries, so no real bucket was created.
+
+```ts
+import { defineCloudflareConfig } from "@opennextjs/cloudflare";
+import r2IncrementalCache from "@opennextjs/cloudflare/overrides/incremental-cache/r2-incremental-cache";
+
+export default defineCloudflareConfig({
+  incrementalCache: r2IncrementalCache,
+});
+```
+
+After that, the home page, `/blog`, a blog post, `/opengraph-image`, the per-post `opengraph-image` route and the `/blog/card/<slug>` image all returned 200, and the home page's PNG share image included the portrait. No source file changed. Both repo checks passed, the JSON-LD one on all 50 sitemap URLs.
+
+## Path B: vinext
+
+```bash
+npx vinext@1.4.6 init --platform=cloudflare \
+  --cdn-cache=static-assets --data-cache=none --image-optimization=cloudflare-images
+pnpm add -D @mdx-js/rollup
+pnpm build:vinext    # runs vite build
+npx vite preview --port 8788
+```
+
+`vinext init` refuses to run non-interactively without the three cache and image flags, so I had to pick. I chose `static-assets`, which copies prerendered pages into the Worker's static assets and serves them read-only. It is the closest match to what I had on the OpenNext side that needs no extra Worker or storage, but it does not revalidate: the `revalidate = 86400` pages are fixed until the next deploy. The R2 cache in path A does revalidate, although I only checked that it serves, not that it refreshes.
+
+The compatibility report at the start of `init` said 98% compatible, with `next/og`, `next/font`, redirects and headers all supported. It did not change `next.config.ts` or any source file. It added `"type": "module"`, bumped React, wrote `vite.config.ts` and `cloudflare.config.ts` (the Worker config here is not `wrangler.jsonc`), and installed the beta tag of the Cloudflare Vite plugin. Three things then broke, one after another.
+
+**1. MDX.** The first `vite build` failed with 15 errors, one per MDX file, saying no MDX plugin was configured. The docs say init detects MDX and configures `@mdx-js/rollup`, but it did not install it. `pnpm add -D @mdx-js/rollup` fixed that, and vinext then injected it on its own.
+
+**2. The `Figure` component.** The next build finished with `Build complete.` and a line per post in the middle of the output: `Error prerendering route "/blog/...": Expected component Figure to be defined`. Fourteen of the 15 posts were broken, and the exit code was 0. My posts use `<Figure>` without an import, because `mdx-components.tsx` provides it. `@next/mdx` hands that file to the compiler as `providerImportSource`. vinext's injected plugin forwards only the remark, rehype and recma plugins, so the file was never used. I added my own MDX plugin in `vite.config.ts` and aliased the name `@next/mdx` uses:
+
+```ts
+resolve: {
+  alias: {
+    "next-mdx-import-source-file": fileURLToPath(
+      new URL("./mdx-components.tsx", import.meta.url),
+    ),
+  },
+},
+plugins: [
+  { enforce: "pre", ...mdx({ providerImportSource: "next-mdx-import-source-file" }) },
+  vinext({ /* as generated */ }),
+  cloudflare({ /* as generated */ }),
+],
+```
+
+**3. A file read at startup.** The build then passed with 52 routes prerendered, but `vite preview` died before serving anything: `no such file or directory, readAll '/bundle/app/globals.css'`. `app/lib/palette.ts` reads `globals.css` with `readFileSync` when the module loads, so the share-image cards use the real accent colour. In a Next.js build that read happens during the build and the file is traced into the output. In the Worker there is no `app/globals.css`, and the layout imports the same file, so nothing could start. I replaced the read with a Vite import, which is a change to my own source:
+
+```ts
+import globalsCss from "../globals.css?raw";
+```
+
+I expect Turbopack not to understand `?raw`, so this edit would need a second code path to keep `next build` working. I did not test that.
+
+With those three changes, every route I tried returned 200 or the same redirect as OpenNext, and both repo checks passed.
+
+One difference remains. `og.tsx` also reads the portrait with `readFileSync`, inside a `try` that falls back to text. On the Worker that read fails quietly, so the home share image comes out without my photo: 38 KB against 189 KB. The card works, and it is the wrong card.
+
+## The numbers
+
+Build times are wall-clock for the whole command. Rows with a range are the fastest and slowest of 5 or 6 runs, taken while the machine's load average sat between 20 and 32. Memory is the peak resident size reported by `/usr/bin/time`. For reference, a plain `next build` of the same copy took 20 to 48 s and peaked at 1.3 GB.
+
+<div className="mb-6 overflow-x-auto">
+  <table className="w-full border-collapse text-left text-base">
+    <thead>
+      <tr>
+        <th className="border-b border-border py-3 pr-4 font-semibold text-foreground">Measure</th>
+        <th className="border-b border-border py-3 pr-4 font-semibold text-foreground">OpenNext</th>
+        <th className="border-b border-border py-3 font-semibold text-foreground">vinext</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td className="border-b border-border py-3 pr-4 text-muted-foreground">Build time</td>
+        <td className="border-b border-border py-3 pr-4 text-muted-foreground">38 to 81 s</td>
+        <td className="border-b border-border py-3 text-muted-foreground">61 to 96 s</td>
+      </tr>
+      <tr>
+        <td className="border-b border-border py-3 pr-4 text-muted-foreground">Peak memory of the build</td>
+        <td className="border-b border-border py-3 pr-4 text-muted-foreground">2.5 GB</td>
+        <td className="border-b border-border py-3 text-muted-foreground">1.9 to 2.6 GB</td>
+      </tr>
+      <tr>
+        <td className="border-b border-border py-3 pr-4 text-muted-foreground">Worker code, raw (JS and wasm)</td>
+        <td className="border-b border-border py-3 pr-4 text-muted-foreground">10.7 MB</td>
+        <td className="border-b border-border py-3 text-muted-foreground">4.9 MB</td>
+      </tr>
+      <tr>
+        <td className="border-b border-border py-3 pr-4 text-muted-foreground">Worker code, gzip, summed per file</td>
+        <td className="border-b border-border py-3 pr-4 text-muted-foreground">2.48 MB</td>
+        <td className="border-b border-border py-3 text-muted-foreground">1.70 MB</td>
+      </tr>
+      <tr>
+        <td className="border-b border-border py-3 pr-4 text-muted-foreground">Static assets</td>
+        <td className="border-b border-border py-3 pr-4 text-muted-foreground">12.1 MB, 119 files</td>
+        <td className="border-b border-border py-3 text-muted-foreground">35.7 MB, 240 files, with the prerendered pages inside</td>
+      </tr>
+      <tr>
+        <td className="border-b border-border py-3 pr-4 text-muted-foreground">Prerendered pages, kept apart</td>
+        <td className="border-b border-border py-3 pr-4 text-muted-foreground">56.8 MB, goes to R2</td>
+        <td className="border-b border-border py-3 text-muted-foreground">n/a</td>
+      </tr>
+      <tr>
+        <td className="border-b border-border py-3 pr-4 text-muted-foreground">JS for the home page, gzip</td>
+        <td className="border-b border-border py-3 pr-4 text-muted-foreground">314 KB in 13 files</td>
+        <td className="border-b border-border py-3 text-muted-foreground">295 KB in 28 files</td>
+      </tr>
+      <tr>
+        <td className="py-3 pr-4 text-muted-foreground">Changes to my source or config</td>
+        <td className="py-3 pr-4 text-muted-foreground">R2 cache, in two config files</td>
+        <td className="py-3 text-muted-foreground">MDX plugin and alias, palette.ts, React bump</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+The Worker code figure is the bundle that `wrangler dev` wrote for OpenNext (a 9.1 MB `worker.js` plus two wasm files and a font) and the build output of `vite build` for vinext. I could not get a `wrangler deploy --dry-run` figure, which is the number Cloudflare reports at upload, so treat the 2.48 and 1.70 as my own gzip sums. `.open-next/worker.js` on disk is only 2 KB, and the code behind it is in `server-functions/default/handler.mjs`, 6.3 MB.
+
+## What was the same
+
+- **`<head>`.** For the home page, `/blog` and one post I extracted every `title`, `meta` and `link` tag from both previews. They match, except for the order of the directives in the `googlebot` tag, one `next-size-adjust` tag that only the Next.js server writes, and the share image URL's hash, which differs because the images differ.
+- **Redirects and headers.** A dozen paths from `next.config.ts` (the old project path, the retired post, `/blogs/foo`, `/hire/kochi/x`, `/whatsapp`, `/rss`) returned the same status and the same `Location` on both. `X-Content-Type-Options` and the `llms.txt` cache header matched too.
+- **Sitemap, JSON-LD, robots, feed, `llms.txt`.** The sitemap and the feed came back at the same size to the byte, and both checks passed.
+- **Client JavaScript.** About the same: 314 KB against 295 KB for the home page.
+
+## What differed
+
+- **Fonts.** vinext serves DM Sans from its own `_vinext_fonts` folder and writes nine `@font-face` rules into a `<style>` tag on the home page. Its compatibility report says local fonts get their `@font-face` at runtime and that adjusted fallback metrics are ignored. It also preloaded the Malayalam face on the English home page, although my font config says not to.
+- **Revalidation.** Fixed at build time on vinext with the adapter I chose. Other adapters exist, and I did not try them.
+- **Silent failures.** The 14 broken posts did not fail the build. Anything that watches only the exit code would have shipped them.
+- **Release status.** The Cloudflare plugin and `cf` are release candidates, and the vinext README says it is under active development and that OpenNext is the safer choice if you need something mature. My run gave no reason to argue with that.
+
+## What I did not test
+
+I did not deploy, so cold starts, request latency and cost are unmeasured. I looked at status codes, headers and tags, not at hydration in a browser, and I did not run `vite dev`. The site has no middleware, so that path is untested too.
+
+## What I would do differently
+
+I would put the cache in `open-next.config.ts` before the first preview. `migrate` leaves it commented out, and a preview without it returned 500 on the prerendered pages I tried, with nothing in the log to say why.
+
+I would search the log of any vinext build for the word `Error`, since the exit code stayed 0 with 14 pages failed. I would also treat the 98% from `vinext check` as a scan of imports and config. The two problems that were not install steps, an MDX provider and a file read at startup, were runtime behaviour that a scan like that cannot see.
+
+I would time the builds in CI, on a machine with nothing else running. A spread of 20 to 48 seconds for the same command means my ranges above show the load, not the tools.
+
+For this site I would pick OpenNext today. It ran my code unchanged once it had a cache. vinext produced a smaller Worker, about two thirds of the gzip size, but it needed edits in my source, and its share images lost the portrait. When the Cloudflare plugin leaves release candidate, I would run this again, starting from the fixes above.
+
+<PostFooter slug={slug} />
