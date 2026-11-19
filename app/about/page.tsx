@@ -61,7 +61,10 @@ const AboutPage = () => (
         <ExperienceList />
       </div>
     </section>
-    <CtaBlock message="Hi Nevil, I read your about page and wanted to get in touch." />
+    <CtaBlock
+      quote
+      message="Hi Nevil, I read your about page and wanted to get in touch."
+    />
     <Footer />
   </>
 );

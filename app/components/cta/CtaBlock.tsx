@@ -4,6 +4,7 @@ import { Squircle } from "@/components/ui/squircle";
 import WhatsAppButton from "./WhatsAppButton";
 import GoogleRating from "@/components/common/GoogleRating";
 import { Button } from "@/components/ui/button";
+import { quoteReview } from "@/data/reviews";
 import { EnvelopeSimple, Phone } from "@/components/common/icons";
 import {
   EMAIL,
@@ -28,6 +29,7 @@ const CtaBlock = ({
   heading = "Have a project or a role in mind?",
   message,
   bare = false,
+  quote = false,
   className = "",
 }: {
   heading?: string;
@@ -40,6 +42,8 @@ const CtaBlock = ({
    * override lost every time.
    */
   bare?: boolean;
+  /** Adds one short review under the rating, for pages that ask for a decision. */
+  quote?: boolean;
   className?: string;
 }) => {
   const rows = [
@@ -107,6 +111,16 @@ const CtaBlock = ({
           {/* The last reassurance before the decision, under the button
               rather than above it so the ask stays the first thing read. */}
           <GoogleRating href={GOOGLE_MAPS_URL} />
+          {quote && quoteReview && (
+            <figure className="flex max-w-md flex-col gap-1">
+              <blockquote className="text-base leading-relaxed text-foreground">
+                &ldquo;{quoteReview.text.trim().replace(/\s*\n+\s*/g, " ")}&rdquo;
+              </blockquote>
+              <figcaption className="text-base text-muted-foreground">
+                {quoteReview.author}, Google review
+              </figcaption>
+            </figure>
+          )}
         </div>
 
         {/* The other ways to reach me, then the hand off to a phone. */}

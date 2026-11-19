@@ -177,7 +177,10 @@ const HirePage = async () => {
         faqs={homeFaqs}
         heading={`Questions people ask ${AUTHOR.split(" ")[0]}`}
       />
-      <CtaBlock message="Hi Nevil, I found your hire page. I would like to talk about a project." />
+      <CtaBlock
+        quote
+        message="Hi Nevil, I found your hire page. I would like to talk about a project."
+      />
       <Footer />
     </>
   );
