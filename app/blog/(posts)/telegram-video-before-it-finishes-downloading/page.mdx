@@ -67,11 +67,7 @@ The important constraint is that TDLib holds one contiguous stretch of the file 
     aria-labelledby="window-diagram"
     className="block h-auto w-full text-foreground"
   >
-    <title id="window-diagram">
-      TDLib keeps one downloaded window inside the file. The player reads from
-      its position to the end of that window, and everything outside the window
-      is either freed or not downloaded yet.
-    </title>
+    <title id="window-diagram">{"TDLib keeps one downloaded window inside the file. The player reads from its position to the end of that window, and everything outside the window is either freed or not downloaded yet."}</title>
 
     <text x="20" y="84" fill="var(--muted-foreground)" className={svgText}>byte 0</text>
     <text x="540" y="84" textAnchor="end" fill="var(--muted-foreground)" className={svgText}>end of file</text>
@@ -143,11 +139,7 @@ The cause was the fast path. `TdDataSource` cached the window so that small read
     aria-labelledby="hole-diagram"
     className="block h-auto w-full text-foreground"
   >
-    <title id="hole-diagram">
-      After seeking forward and back, the player position sits in the part of
-      the file TDLib has freed, while the cached far end still reports that
-      span as readable.
-    </title>
+    <title id="hole-diagram">{"After seeking forward and back, the player position sits in the part of the file TDLib has freed, while the cached far end still reports that span as readable."}</title>
 
     {/* Guides only in the gap between the two bars, so they line the rows up
         without drawing a second edge across a box. */}
