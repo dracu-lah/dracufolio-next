@@ -32,11 +32,11 @@ export const homeFaqs: Faq[] = [
   },
   {
     q: "Do you build mobile apps?",
-    a: "Yes. React Native when the app should ship to both stores from one codebase, Kotlin with Jetpack Compose when it needs to be properly native. TMPlayer, my Telegram video player for Android TV, is the Kotlin one, and it is on this site.",
+    a: "Yes. React Native when the app should ship to both stores (Play Store and App Store) from one codebase, Kotlin with Jetpack Compose (Android's own toolkit) when it needs to be properly native. TMPlayer, my Telegram video player for Android TV, is the Kotlin one, and it is on this site.",
   },
   {
     q: "Can you do SEO?",
-    a: "Yes, the technical half of it, which is the half most sites get wrong. Server rendered pages, correct titles and descriptions, structured data, a real sitemap, fast loading on a phone, and a Google Business Profile set up properly. This site is the demo.",
+    a: "Yes, the technical half of it, which is the half most sites get wrong. Server rendered pages (the text is already in the page when it loads, so Google can read it), correct titles and descriptions, structured data (labels that tell search engines what a page is), a real sitemap, fast loading on a phone, and a Google Business Profile set up properly. This site is the demo.",
   },
   {
     q: "Do you work with clients outside Kerala?",

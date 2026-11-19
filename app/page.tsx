@@ -47,8 +47,10 @@ const Home = () => (
       <PortfolioSection />
       <ReviewsSection />
       <LatestPosts />
-      <ServicesSection />
+      {/* The employment story comes before the services grid: a hiring
+          person scrolling here should reach it before the client pitch. */}
       <SkillsSection />
+      <ServicesSection />
       <TestimonialsSection />
       <FaqSection faqs={homeFaqs} heading="Questions" />
       <LocationsSection compact />
