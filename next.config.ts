@@ -83,6 +83,12 @@ const nextConfig: NextConfig = {
         destination: RESUME,
         statusCode: 301,
       },
+      // The resume was renamed when it stopped being a frontend-only one.
+      {
+        source: "/appwrite/resume/Nevil-3-Years-Frontend-Resume.pdf",
+        destination: RESUME,
+        statusCode: 308,
+      },
 
       // Short links that fit on a business card, in a bio field, or spoken out
       // loud on a phone call. These are the ones that get typed by hand.

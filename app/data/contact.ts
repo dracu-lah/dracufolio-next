@@ -62,7 +62,7 @@ export const GOOGLE_MAPS_URL = `https://www.google.com/maps?cid=${GOOGLE_MAPS_CI
  */
 export const GOOGLE_REVIEW_URL = GOOGLE_MAPS_URL;
 
-export const RESUME_PATH = "/appwrite/resume/Nevil-3-Years-Frontend-Resume.pdf";
+export const RESUME_PATH = "/appwrite/resume/Nevil-Krishna-Full-Stack-Developer-Resume.pdf";
 export const PORTRAIT_PATH = "/nevil-krishna-k.jpg";
 
 export const LANGUAGES = ["Malayalam", "English", "Hindi", "Tamil"];
