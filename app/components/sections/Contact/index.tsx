@@ -30,7 +30,7 @@ import {
 /**
  * WhatsApp first, then the phone, then everything else. That order is the
  * whole point: a shop owner in Thrissur will message on WhatsApp and will not
- * fill in a form, and a recruiter will use email. Both are one tap away.
+ * fill in a form, and someone who prefers writing will use email. Both are one tap away.
  */
 const ROWS = [
   {
@@ -102,8 +102,8 @@ const ContactSection = ({ asPage = false }: { asPage?: boolean }) => {
           </Reveal>
           <Reveal delay={0.12}>
             <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-              Open to full time roles, freelance projects and remote contracts.
-              WhatsApp is fastest.
+              Freelance projects and remote work are welcome. WhatsApp is
+              fastest.
             </p>
           </Reveal>
           <Reveal delay={0.2} className="w-full">

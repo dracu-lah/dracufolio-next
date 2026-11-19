@@ -1,14 +1,11 @@
 import Link from "next/link";
 import HeroImage from "./components/HeroImage";
 import Reveal from "@/components/common/Reveal";
-import InlineLogo from "@/components/common/InlineLogo";
 import Spotlight from "@/components/motion/Spotlight";
 import { Button } from "@/components/ui/button";
-import { BriefcaseIcon, SquaresFour } from "@/components/common/icons";
-import GoogleRating from "@/components/common/GoogleRating";
-import { googleRating, hasReviews } from "@/data/reviews";
+import { BriefcaseIcon, DownloadIcon, SquaresFour } from "@/components/common/icons";
 import { RESUME_PATH } from "@/data/contact";
-import { tmplayerProof } from "@/data/experience";
+import { tmplayerProof, yearsInReact } from "@/data/experience";
 
 /**
  * Two text elements and two buttons, and it has to fit the first screen at
@@ -87,24 +84,19 @@ const HeroSection = () => (
               person you talk to.
             </span>{" "}
             TMPlayer, my open source Android TV app, has {tmplayerProof.stars}{" "}
-            GitHub stars and {tmplayerProof.downloads} downloads. Three years in
-            React and Next.js, now at{" "}
-            <span className="text-foreground">
-              <InlineLogo src="/logos/lascade.png">Lascade</InlineLogo>
-            </span>{" "}
-            in Thrissur. Open to full time roles and freelance work, and I reply
-            the same day.
+            GitHub stars and {tmplayerProof.downloads} downloads. {yearsInReact}{" "}
+            years in React and Next.js, based in Thrissur. Freelance projects and
+            remote work, and I reply within a day.
           </p>
         </Reveal>
 
         {/*
           Two doors, not the WhatsApp button that the header and the docked bar
-          are already carrying: somebody with a project or a role goes to
-          /hire, somebody judging the work goes to /projects. The resume is
-          deliberately not a third button here: it is a text link beside them,
-          so a recruiter who wants the PDF does not have to open the menu.
-          WhatsApp stays the one accent-filled button in view, so neither of
-          these is solid.
+          are already carrying: somebody with a project goes to /hire,
+          somebody judging the work goes to /projects. The resume is a third,
+          quieter button (outline, no accent) so the PDF is visible on a phone
+          without opening the menu. WhatsApp stays the one accent-filled button
+          in view, so none of these is solid.
         */}
         <Reveal delay={0.12} className="w-full">
           <div className="flex w-full max-w-xl flex-wrap items-center gap-3 md:gap-4">
@@ -123,22 +115,17 @@ const HeroSection = () => (
                 Projects
               </Link>
             </Button>
-            <a
-              href={RESUME_PATH}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-base font-medium text-foreground underline underline-offset-4 transition-colors duration-200 hover:text-accent"
-            >
-              Resume
-            </a>
+            <Button asChild variant="outline">
+              <a
+                href={RESUME_PATH}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <DownloadIcon className="size-5" />
+                Resume
+              </a>
+            </Button>
           </div>
-        </Reveal>
-
-        {/* Proof under the two doors. It points down the page to the reviews
-            themselves rather than off to Google, so the visitor who checks
-            is still one scroll from the WhatsApp button. */}
-        <Reveal delay={0.16}>
-          <GoogleRating href={hasReviews ? "#reviews" : googleRating.url} />
         </Reveal>
       </div>
 
