@@ -132,7 +132,7 @@ const TmplayerInPublic = () => (
             </ul>
             <Link
               href="/blog"
-              className="text-base text-foreground underline underline-offset-4 transition-colors duration-200 hover:text-accent"
+              className="inline-block py-3 text-base text-foreground underline underline-offset-4 transition-colors duration-200 hover:text-accent"
             >
               All {publishedPosts.length} posts
             </Link>
