@@ -3,16 +3,15 @@ import Footer from "@/components/common/Footer";
 import BackLink from "@/components/common/BackLink";
 import JsonLd from "@/components/common/JsonLd";
 import CtaBlock from "@/components/cta/CtaBlock";
-import HiringTeams from "@/components/sections/HiringTeams";
+import HowIWork from "@/components/sections/HowIWork";
 import ExperienceList from "@/components/sections/Skills/components/ExperienceList";
 import Reveal from "@/components/common/Reveal";
 import { pageGraph } from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo";
 import { CONTENT_DATES } from "@/data/updated";
-import { roleWords } from "@/data/keywords";
 
 const description =
-  "Full stack developer in Thrissur: React, Next.js and TypeScript at Lascade, Kotlin on Android. Open to full time roles in Kochi, Bangalore or remote.";
+  "Full stack developer in Thrissur: React, Next.js and TypeScript on the web, Kotlin on Android. Work history, projects and how I work.";
 
 export const metadata = pageMetadata({
   title: "About: full stack developer in Thrissur",
@@ -22,7 +21,7 @@ export const metadata = pageMetadata({
   keywords: [
     "Nevil Krishna K",
     "about Nevil Krishna",
-    ...roleWords.slice(0, 12),
+    "full stack developer Thrissur",
   ],
   image: "/nevil-krishna-k.jpg",
 });
@@ -47,7 +46,7 @@ const AboutPage = () => (
       <BackLink />
     </main>
     <AboutSection asPage />
-    <HiringTeams />
+    <HowIWork />
     <section
       id="work-history"
       className="mx-auto max-w-7xl scroll-mt-24 px-6 py-8 md:px-10 md:py-12 lg:px-14"
@@ -62,7 +61,7 @@ const AboutPage = () => (
       </div>
     </section>
     <CtaBlock
-      quote
+      rating={false}
       message="Hi Nevil, I read your about page and wanted to get in touch."
     />
     <Footer />
